@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styles from "./chatbot.module.css";
 
 type Message = {
-    role: 'user' | 'assistant';
+    role: 'system' | 'user' | 'assistant';
     content: string;
 };
 
