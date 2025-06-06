@@ -1,7 +1,13 @@
 import { OpenAI } from 'openai';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import formidable from 'formidable';
-import fs from 'fs';
+import type { File } from 'formidable';
+
+type Message = {
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+  imageUrl?: string;
+};
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -13,11 +19,11 @@ export const config = {
   },
 };
 
-async function parseFormData(req: NextApiRequest): Promise<{ messages: any[], image?: any }> {
+async function parseFormData(req: NextApiRequest): Promise<{ messages: { role: string; content: string; imageUrl?: string }[]; image?: File }> {
   return new Promise((resolve, reject) => {
-    const form = formidable({});
-    let messages: any[] = [];
-    let image: any = null;
+    const form = formidable({ multiples: false });
+    let messages: { role: string; content: string; imageUrl?: string }[] = [];
+    let image: File | undefined;
 
     form.parse(req, (err, fields, files) => {
       if (err) {
@@ -27,11 +33,11 @@ async function parseFormData(req: NextApiRequest): Promise<{ messages: any[], im
 
       try {
         if (fields.messages) {
-          messages = JSON.parse(fields.messages[0]);
+          messages = JSON.parse(fields.messages[0] as string);
         }
 
         if (files.image) {
-          image = files.image[0];
+          image = Array.isArray(files.image) ? files.image[0] : files.image;
         }
 
         resolve({ messages, image });
