@@ -1,79 +1,158 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import styles from "./chatbot.module.css";
 
 type Message = {
-    role: 'user' | 'assistant';
-    content: string;
+  role: 'system' | 'user' | 'assistant';
+  content: string;
+  imageUrl?: string;
 };
 
 export default function Chatbot() {
-    const [messages, setMessages] = useState<Message[]>([]);
-    const [input, setInput] = useState('');
-    const [loading, setLoading] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-    const sendMessage = async () => {
-        if (!input.trim()) return; //return if no text input
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setImagePreview(event.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
-        const newMessages: Message[] = [...messages, { role: 'user', content: input }];
-        setMessages(newMessages);
-        setInput('');
-        setLoading(true);
+  const triggerFileInput = () => {
+    fileInputRef.current?.click();
+  };
 
-        try {
-            const res = await fetch('/api/chat', { //get response from chat
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ messages: newMessages }),
-            });
+  const removePreview = () => {
+    setImagePreview(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
 
-            const data = await res.json();
+  const sendMessage = async () => {
+    if (!input.trim() && !imagePreview) return;
 
-            if (data.response) { //set chat's response message
-                const botMessage: Message = {
-                  role: 'assistant',
-                  content: data.response.content,
-                };
-                setMessages([...newMessages, botMessage]);
-              } else {
-                setMessages([...newMessages, { role: 'assistant', content: 'Error: No response' }]);
-              }
-        } catch (err) {
-            console.error(err);
-            setMessages([...newMessages, { role: 'assistant', content: 'Error: Failed to fetch'}]);
-        } finally {
-            setLoading(false);
-        }
+    const newMessage: Message = { 
+      role: 'user', 
+      content: input,
+      ...(imagePreview && { imageUrl: imagePreview })
     };
-    
-    return (
-        <div className={styles.chatContainer}>
-            <div className={styles.chatBox}>
-                {messages.map((msg, idx) => (
-                    <div key={idx} className={`mb-2 ${msg.role === 'user' ? 'text-right' : 'text-left'}`}>
-                        <span className={styles.bubble}>{msg.content}</span>
-                  </div>
-                ))}
-                {loading && <p>Mandy is thinking...</p>}
-            </div>
 
-            <div className={styles.inputArea}>
-                <input
-                    className={styles.inputBox}
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-                    placeholder="Type a message..."
+    const newMessages: Message[] = [...messages, newMessage];
+    setMessages(newMessages);
+    setInput('');
+    setImagePreview(null);
+    setLoading(true);
+
+    try {
+      const formData = new FormData();
+      formData.append('messages', JSON.stringify(newMessages));
+      
+      if (fileInputRef.current?.files?.[0]) {
+        formData.append('image', fileInputRef.current.files[0]);
+      }
+
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+
+      const data = await res.json();
+      
+      if (!data.response?.content) {
+        throw new Error('Invalid response from server');
+      }
+
+      setMessages([...newMessages, {
+        role: 'assistant',
+        content: data.response.content
+      }]);
+    } catch (err) {
+      console.error('Error:', err);
+      setMessages([...newMessages, { 
+        role: 'assistant', 
+        content: 'Error: Failed to get response' 
+      }]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className={styles.chatContainer}>
+      <div className={styles.chatBox}>
+        {messages.map((msg, idx) => (
+          <div key={idx} className={`${styles.message} ${msg.role === 'user' ? styles.user : styles.assistant}`}>
+            <div className={styles.mediaContainer}>
+              {msg.imageUrl && (
+                <img 
+                  src={msg.imageUrl} 
+                  alt="User uploaded" 
+                  className={styles.imageBubble}
                 />
-                <button
-                    className={styles.sendButton}
-                    onClick={sendMessage}
-                    disabled={loading}
-                >
-                    Send
-                </button>
+              )}
+              {msg.content && (
+                <span className={styles.bubble}>{msg.content}</span>
+              )}
             </div>
+          </div>
+        ))}
+        {loading && <div className={styles.message}><span className={styles.bubble}>Mandy is thinking...</span></div>}
+      </div>
+
+      {imagePreview && (
+        <div className={styles.previewContainer}>
+          <img src={imagePreview} alt="Preview" className={styles.imagePreview} />
+          <button className={styles.removePreview} onClick={removePreview}>
+            Remove
+          </button>
         </div>
-    );
+      )}
+
+      <div className={styles.inputArea}>
+        <input
+          type="file"
+          ref={fileInputRef}
+          className={styles.fileInput}
+          accept="image/*"
+          onChange={handleImageUpload}
+        />
+        <button
+          className={styles.uploadButton}
+          onClick={triggerFileInput}
+          disabled={loading}
+        >
+          📷
+        </button>
+        
+        <input
+          className={styles.inputBox}
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+          placeholder="Type a message..."
+          disabled={loading}
+        />
+        
+        <button
+          className={styles.sendButton}
+          onClick={sendMessage}
+          disabled={loading || (!input.trim() && !imagePreview)}
+        >
+          Send
+        </button>
+      </div>
+    </div>
+  );
 }
