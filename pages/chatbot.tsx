@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import styles from "./chatbot.module.css";
+import ReactMarkdown from 'react-markdown';
 
 type Message = {
   role: 'system' | 'user' | 'assistant';
@@ -103,7 +104,9 @@ export default function Chatbot() {
                 />
               )}
               {msg.content && (
-                <span className={styles.bubble}>{msg.content}</span>
+                <div className={styles.bubble}>
+                    <ReactMarkdown>{msg.content}</ReactMarkdown>
+                    </div>
               )}
             </div>
           </div>
