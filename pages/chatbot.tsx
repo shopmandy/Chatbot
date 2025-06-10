@@ -37,12 +37,13 @@ export default function Chatbot() {
     }
   };
 
-  const sendMessage = async () => {
-    if (!input.trim() && !imagePreview) return;
+  const sendMessage = async (customInput?: string) => {
+    const userInput = customInput ?? input;
+    if (!userInput.trim() && !imagePreview) return;
 
     const newMessage: Message = { 
       role: 'user', 
-      content: input,
+      content: userInput,
       ...(imagePreview && { imageUrl: imagePreview })
     };
 
@@ -90,71 +91,97 @@ export default function Chatbot() {
     }
   };
 
-  return (
-    <div className={styles.chatContainer}>
-      <div className={styles.chatBox}>
-        {messages.map((msg, idx) => (
-          <div key={idx} className={`${styles.message} ${msg.role === 'user' ? styles.user : styles.assistant}`}>
-            <div className={styles.mediaContainer}>
-              {msg.imageUrl && (
-                <img 
-                  src={msg.imageUrl} 
-                  alt="User uploaded" 
-                  className={styles.imageBubble}
-                />
-              )}
-              {msg.content && (
-                <div className={styles.bubble}>
-                    <ReactMarkdown>{msg.content}</ReactMarkdown>
-                    </div>
-              )}
-            </div>
-          </div>
-        ))}
-        {loading && <div className={styles.message}><span className={styles.bubble}>Mandy is thinking...</span></div>}
-      </div>
+  // Common questions for chatbot presets
+  const commonQuestions = [
+    "How do I paint a room?",
+    "What's a quick DIY decor project for my bedroom?",
+    "How to hang wallpaper",
+    "How do I fix a hole in drywall?"
+  ];
 
-      {imagePreview && (
-        <div className={styles.previewContainer}>
-          <img src={imagePreview} alt="Preview" className={styles.imagePreview} />
-          <button className={styles.removePreview} onClick={removePreview}>
-            Remove
+  return (
+    <div className="toolbot-page">
+      <div className="toolbot-heading">
+        <h1 className={styles.header}>ASK HANDY MANDY</h1>
+        <p className={styles.subheader}>Our Mandy Toolbot can tackle any DIY, decor, or life Qs you throw its way.</p>
+      </div>
+      <div className={styles.chatContainer}>
+        <div className={styles.chatBox}>
+          {messages.map((msg, idx) => (
+            <div key={idx} className={`${styles.message} ${msg.role === 'user' ? styles.user : styles.assistant}`}>
+              <div className={styles.mediaContainer}>
+                {msg.imageUrl && (
+                  <img 
+                    src={msg.imageUrl} 
+                    alt="User uploaded" 
+                    className={styles.imageBubble}
+                  />
+                )}
+                {msg.content && (
+                  <div className={styles.bubble}>
+                      <ReactMarkdown>{msg.content}</ReactMarkdown>
+                      </div>
+                )}
+              </div>
+            </div>
+          ))}
+          {loading && <div className={styles.message}><span className={styles.bubble}>Mandy is thinking...</span></div>}
+        </div>
+
+        {imagePreview && (
+          <div className={styles.previewContainer}>
+            <img src={imagePreview} alt="Preview" className={styles.imagePreview} />
+            <button className={styles.removePreview} onClick={removePreview}>
+              Remove
+            </button>
+          </div>
+        )}
+
+        <div className={styles.inputArea}>
+          <input
+            type="file"
+            ref={fileInputRef}
+            className={styles.fileInput}
+            accept="image/*"
+            onChange={handleImageUpload}
+          />
+          <button
+            className={styles.uploadButton}
+            onClick={triggerFileInput}
+            disabled={loading}
+          >
+            📷
+          </button>
+          
+          <input
+            className={styles.inputBox}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+            placeholder="Type a message..."
+            disabled={loading}
+          />
+          
+          <button
+            className={styles.sendButton}
+            onClick={() => sendMessage()}
+            disabled={loading || (!input.trim() && !imagePreview)}
+          >
+            Send
           </button>
         </div>
-      )}
-
-      <div className={styles.inputArea}>
-        <input
-          type="file"
-          ref={fileInputRef}
-          className={styles.fileInput}
-          accept="image/*"
-          onChange={handleImageUpload}
-        />
-        <button
-          className={styles.uploadButton}
-          onClick={triggerFileInput}
-          disabled={loading}
-        >
-          📷
-        </button>
-        
-        <input
-          className={styles.inputBox}
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-          placeholder="Type a message..."
-          disabled={loading}
-        />
-        
-        <button
-          className={styles.sendButton}
-          onClick={sendMessage}
-          disabled={loading || (!input.trim() && !imagePreview)}
-        >
-          Send
-        </button>
+      </div>
+      <p>Try out some common DIY questions:</p>
+      <div className={styles.questionButtonContainer}>
+        {commonQuestions.map((question, idx) => (
+          <button
+            key={idx}
+            onClick={() => sendMessage(question)}
+            className={styles.questionButton}
+          >
+            {question}
+          </button>
+        ))}
       </div>
     </div>
   );

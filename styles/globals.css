@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #ffe0f2;
   --foreground: #171717;
 }
 
@@ -21,12 +21,12 @@
 
 body {
   background: var(--background);
-  color: #FF69B4;
+  color: #f91b8f;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .nav-link {
-  color: #fd44a1;
+  color: #f91b8f;
   text-decoration: none;
   margin-right: 1rem;
   transition: color 0.2s ease;

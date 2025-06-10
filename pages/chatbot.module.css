@@ -1,7 +1,7 @@
 .chatContainer {
   max-width: 600px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 1.5rem;
 }
 
 .chatBox {
@@ -10,6 +10,7 @@
   padding: 1rem;
   overflow-y: auto;
   background: #f9f9f9;
+  border-radius: 4px;
 }
 
 .message {
@@ -32,7 +33,7 @@
 }
 
 .user .bubble {
-  background: #ff00aa;
+  background: #f91b8f;
   color: white;
 }
 
@@ -49,7 +50,8 @@
 
 .sendButton {
   padding: 0.5rem 1rem;
-  background: #ff00aa;
+  background: #f91b8f;
+  border-radius: 4px;
   color: white;
   border: none;
   cursor: pointer;
@@ -105,4 +107,40 @@
   border-radius: 4px;
   padding: 0.25rem 0.5rem;
   cursor: pointer;
+}
+
+.header {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  padding: 0.5rem 0.5rem;
+}
+
+.subheader {
+  text-align: center;
+  font-size: 1rem;
+  font-weight:600;
+  margin: 0;
+  padding: 0.5rem 0.5rem;
+}
+
+.questionButtonContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 1rem;
+}
+
+.questionButton {
+  text-align: center;
+  padding: 0.5rem 1rem;
+  background: #f91b8f;
+  color: white;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
 }
