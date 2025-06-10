@@ -171,7 +171,7 @@ export default function Chatbot() {
           </button>
         </div>
       </div>
-      <p>Try out some common DIY questions:</p>
+      <p style={{ textAlign: 'center', fontWeight: '800' }}> 🔨 Try out some common DIY questions:</p>
       <div className={styles.questionButtonContainer}>
         {commonQuestions.map((question, idx) => (
           <button
@@ -183,6 +183,26 @@ export default function Chatbot() {
           </button>
         ))}
       </div>
+      {/* TODO make universal footer */}
+      <footer style={{
+        textAlign: 'center',
+        marginTop: '2rem',
+        padding: '1rem',
+        backgroundColor: '#ffe0f2',
+        color: '#ff0080',
+        fontWeight: 'bold',
+        borderTop: '2px solid #ff0080',
+      }}>
+        💖 Follow us on Instagram:{" "}
+        <a
+          href="https://www.instagram.com/shopmandytools"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: '#ff0080', textDecoration: 'underline' }}
+        >
+          @shopmandytools
+        </a>
+      </footer>
     </div>
   );
 }

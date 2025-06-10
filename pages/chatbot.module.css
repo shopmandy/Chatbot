@@ -1,16 +1,18 @@
 .chatContainer {
   max-width: 600px;
-  margin: 0 auto;
-  padding: 1.5rem;
+  margin: 1rem auto;
+  padding: 1rem;
+  border: 2px solid #f91b8f;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 4px 4px 0px #f91b8f;
 }
 
 .chatBox {
   height: 400px;
-  border: 1px solid #ccc;
   padding: 1rem;
   overflow-y: auto;
-  background: #f9f9f9;
-  border-radius: 4px;
+  background: white;
 }
 
 .message {
@@ -29,7 +31,7 @@
   display: inline-block;
   padding: 0.5rem 1rem;
   border-radius: 12px;
-  background: #e0e0e0;
+  background: #ffe0f2;
 }
 
 .user .bubble {
@@ -41,20 +43,32 @@
   display: flex;
   gap: 0.5rem;
   margin-top: 1rem;
+  padding: 0.2rem;
 }
 
 .inputBox {
   flex: 1;
   padding: 0.5rem;
+  background-color: #ffe0f2;
+  border: 2px solid #f91b8f;
+  border-radius: 20px;
+  outline: none;
 }
 
+.inputBox:hover {
+  box-shadow: 2px 2px 0px #f91b8f;
+}
 .sendButton {
   padding: 0.5rem 1rem;
-  background: #f91b8f;
-  border-radius: 4px;
-  color: white;
-  border: none;
+  background: #ffe0f2;
+  border-radius: 20px;
+  color: #f91b8f;
+  border: 2px solid #f91b8f;
   cursor: pointer;
+}
+
+.sendButton:hover {
+  box-shadow: 2px 2px 0px #f91b8f;
 }
 
 .fileInput {
@@ -63,11 +77,15 @@
 
 .uploadButton {
   padding: 0.5rem 1rem;
-  background: #ff8800;
+  background: #ffe0f2;
   color: white;
-  border: none;
+  border: 2px solid #f91b8f;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 20px;
+}
+
+.uploadButton:hover {
+  box-shadow: 2px 2px 0px #f91b8f;
 }
 
 .imagePreview {
@@ -114,7 +132,7 @@
   font-size: 2.5rem;
   font-weight: 700;
   margin: 0;
-  padding: 0.5rem 0.5rem;
+  padding: 0.5rem;
 }
 
 .subheader {
@@ -140,7 +158,13 @@
   background: #f91b8f;
   color: white;
   border-radius: 12px;
-  border: none;
+  border: 2px solid #f91b8f;
   cursor: pointer;
   margin-right: 10px;
+}
+
+.questionButton:hover {
+  background-color: #ffef34;
+  border: 2px solid #f91b8f;
+  color: #f91b8f;
 }
