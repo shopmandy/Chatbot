@@ -1,32 +1,48 @@
 import "@/styles/globals.css";
 import Link from 'next/link';
 import type { AppProps } from "next/app";
+import { useState } from 'react';
 
 export default function App({ Component, pageProps }: AppProps) {
+  const [menuOpen, setMenuOpen] = useState(false); //menu for mobile nav bar
+
+  const closeMenu = () => setMenuOpen(false);
+
   return (
     <>
     <header className="header">
-      <nav className="header-nav">
-        <Link className="nav-link" href="/" style={{ marginRight: '1rem' }}>HOME</Link>
-        <Link className="nav-link" href="/about" style={{ marginRight: '1rem' }}>ABOUT</Link>
-        <Link className="nav-link" href="/chatbot" style={{ marginRight: '1rem' }}>CHATBOT</Link>
-        <a 
-          className="nav-link" 
-          href="https://shopmandy.com/" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          style={{ marginRight: '1rem' }}
+      <div className="header-left">
+        <button
+          className="mobile-menu"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle navigation"
         >
-          SHOP
-        </a>
-      </nav>
+          {menuOpen ? '×' : '☰'}
+        </button>
+        <nav className={`header-nav ${menuOpen ? 'open' : ''}`}>
+          <Link className="nav-link" href="/" style={{ marginRight: '1rem' }} onClick={closeMenu}>HOME</Link>
+          <Link className="nav-link" href="/about" style={{ marginRight: '1rem' }} onClick={closeMenu}>ABOUT</Link>
+          <Link className="nav-link" href="/chatbot" style={{ marginRight: '1rem' }} onClick={closeMenu}>CHATBOT</Link>
+          <a 
+            className="nav-link" 
+            href="https://shopmandy.com/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ marginRight: '1rem' }}
+            onClick={closeMenu}
+          >
+            SHOP
+          </a>
+        </nav>
+      </div>
       <div className="header-logo">
         <img
           src="/logo.png"
-          alt="Figma Image"
+          alt="Logo"
           style={{ height: '60px'}}
         />
       </div>
+      <div className="right-spacer" />
     </header>
       <main style={{ padding: '1rem' }}>
         <Component {...pageProps} />
