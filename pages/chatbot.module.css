@@ -168,3 +168,9 @@
   border: 2px solid #f91b8f;
   color: #f91b8f;
 }
+
+@media (max-width: 768px) {
+  .inputBox {
+    font-size: 12px;
+  }
+}

@@ -7,9 +7,10 @@ body {
 }
 
 .nav-link {
-  display: inline-block;
-  margin-right: 1rem;
-  padding: 0.5rem 0.5rem;
+  white-space: nowrap;
+  flex-shrink: 1;
+  min-width: fit-content;
+  padding: 0.5rem 1rem;
   background-color: #ffe0f2;
   color: #f91b8f;
   border: 2px solid #f91b8f;
@@ -27,20 +28,37 @@ body {
 
 }
 
-.header {
-  height: 80px;                     
+.header {                    
   display: flex;
   justify-content: space-between;
   align-items: center;       
-  padding: 1rem 0;                 
+  padding: 1rem 2rem;                 
   background-color: #ffe0f2;  
   border-radius: 12px;  
+  position: sticky;
+  z-index: 1000;
+  top: 0;
+}
+
+.header-left {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 0;
+}
+.right-spacer {
+  flex: 1;
 }
 
 .header-nav {
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
-  padding: 1rem 2rem;
+  justify-content: flex-start;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .header-logo {
@@ -48,3 +66,67 @@ body {
   left: 50%;
   transform: translateX(-50%);
 }
+
+.mobile-menu {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  margin-right: 1rem;
+  z-index: 1001;
+  transition: background-color 0.2s ease;
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+    padding: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  .header-logo {
+    position: static;
+    transform: none;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .header-nav {
+    position: absolute;
+    top: 100%;
+    left:0;
+    width: 100%;
+    background-color: #f91b8f;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease-out;
+    border-radius: 12px;
+    padding: 0;
+  }
+
+  .header-nav.open {
+    display: flex;
+    padding: 1rem 0;
+    max-height: 500px;
+    transition: max-height 0.4s ease-in;
+  }
+
+  .mobile-menu {
+    display: block;
+  }
+
+  .header-logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
