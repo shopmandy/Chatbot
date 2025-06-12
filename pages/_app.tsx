@@ -36,15 +36,17 @@ export default function App({ Component, pageProps }: AppProps) {
         </nav>
       </div>
       <div className="header-logo">
-        <img
-          src="/logo.png"
-          alt="Logo"
-          style={{ height: '60px'}}
-        />
+        <a href="/">
+          <img
+            src="/logo.png"
+            alt="Logo"
+            style={{ height: '60px'}}
+          />
+        </a>
       </div>
       <div className="right-spacer" />
     </header>
-      <main style={{ padding: '1rem' }}>
+      <main style={{ marginTop: '', padding: '1rem' }}>
         <Component {...pageProps} />
       </main>
     </>

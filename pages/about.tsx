@@ -1,6 +1,6 @@
 export default function About() {
     return (
-      <div style={{ fontFamily: 'Arial, sans-serif', backgroundColor: '#fde6f3', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ fontFamily: 'Arial, sans-serif', backgroundColor: '#ffe0f2', minHeight: '100vh', display: 'flex', flexDirection: 'column'}}>
         <div style={{
           flex: 1,
           maxWidth: '800px',

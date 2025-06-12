@@ -38,6 +38,7 @@ body {
   position: sticky;
   z-index: 1000;
   top: 0;
+  width: 100%;
 }
 
 .header-left {
@@ -78,7 +79,7 @@ body {
   transition: background-color 0.2s ease;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1180px) {
   .header {
     flex-direction: row;
     align-items: stretch;
@@ -97,6 +98,7 @@ body {
   }
 
   .header-nav {
+    display: flex;
     position: absolute;
     top: 100%;
     left:0;
@@ -106,16 +108,19 @@ body {
     align-items: center;
     overflow: hidden;
     max-height: 0;
-    transition: max-height 0.3s ease-out;
+    opacity: 0;
+    pointer-events: none;
+    transition: none;
     border-radius: 12px;
     padding: 0;
   }
 
   .header-nav.open {
-    display: flex;
-    padding: 1rem 0;
     max-height: 500px;
-    transition: max-height 0.4s ease-in;
+    pointer-events: auto;
+    padding: 1rem 0;
+    transition: max-height 0.4s ease opacity 0.4s ease;
+    opacity: 1;
   }
 
   .mobile-menu {
