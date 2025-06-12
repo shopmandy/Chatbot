@@ -129,10 +129,13 @@
 
 .header {
   text-align: center;
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   font-weight: 700;
   margin: 0;
   padding: 0.5rem;
+  color: #FFDCAE;
+  font-style: italic;
+  -webkit-text-stroke: 1px #f91b8f;
 }
 
 .subheader {
@@ -150,6 +153,7 @@
   align-items: center;
   gap: 12px;
   margin-top: 1rem;
+  padding-bottom: 20px;
 }
 
 .questionButton {
@@ -164,7 +168,7 @@
 }
 
 .questionButton:hover {
-  background-color: #ffef34;
+  background-color: #FFDCAE;
   border: 2px solid #f91b8f;
   color: #f91b8f;
 }

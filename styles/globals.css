@@ -13,7 +13,7 @@ body {
   padding: 0.5rem 1rem;
   background-color: #ffe0f2;
   color: #f91b8f;
-  border: 2px solid #f91b8f;
+  border: none;
   border-radius: 12px;
   text-decoration: none;
   font-size: 1rem;
@@ -22,7 +22,7 @@ body {
 }
 
 .nav-link:hover {
-  background-color: #ffef34;
+  background-color: #ffdcae;
   color: #f91b8f;
   box-shadow: 2px 2px 0px #f91b8f;
 
@@ -33,8 +33,9 @@ body {
   justify-content: space-between;
   align-items: center;       
   padding: 1rem 2rem;                 
-  background-color: #ffe0f2;  
-  border-radius: 12px;  
+  background-color: #f91b8f;  
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
   position: sticky;
   z-index: 1000;
   top: 0;
@@ -73,6 +74,7 @@ body {
   background: none;
   border: none;
   font-size: 2rem;
+  color: #ffdcae;
   cursor: pointer;
   margin-right: 1rem;
   z-index: 1001;

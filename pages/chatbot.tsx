@@ -100,7 +100,11 @@ export default function Chatbot() {
   ];
 
   return (
-    <div className="toolbot-page">
+    <div className="toolbot-page" style=
+      {{ background: 'url("/chatbot-background.png") no-repeat center/cover',
+        border: '4px solid #0078d7',
+        borderRadius: '12px',
+      }}>
       <div className="toolbot-heading">
         <h1 className={styles.header}>ASK HANDY MANDY</h1>
         <p className={styles.subheader}>Our Mandy Toolbot can tackle any DIY, decor, or life Qs you throw its way.</p>
@@ -171,7 +175,13 @@ export default function Chatbot() {
           </button>
         </div>
       </div>
-      <p style={{ textAlign: 'center', fontWeight: '800' }}> 🔨 Try out some common DIY questions:</p>
+      <p style={{ 
+        textAlign: 'center', 
+        fontWeight: '800', 
+        color: '#FFDCAE', 
+        fontSize: '1.8rem', 
+        WebkitTextStroke: '1px #f91b8f', 
+        fontStyle: 'italic'}}> 🔨 TRY OUT SOME COMMON Qs:</p>
       <div className={styles.questionButtonContainer}>
         {commonQuestions.map((question, idx) => (
           <button
@@ -183,26 +193,6 @@ export default function Chatbot() {
           </button>
         ))}
       </div>
-      {/* TODO make universal footer */}
-      <footer style={{
-        textAlign: 'center',
-        marginTop: '2rem',
-        padding: '1rem',
-        backgroundColor: '#ffe0f2',
-        color: '#ff0080',
-        fontWeight: 'bold',
-        borderTop: '2px solid #ff0080',
-      }}>
-        💖 Follow us on Instagram:{" "}
-        <a
-          href="https://www.instagram.com/shopmandytools"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ color: '#ff0080', textDecoration: 'underline' }}
-        >
-          @shopmandytools
-        </a>
-      </footer>
     </div>
   );
 }

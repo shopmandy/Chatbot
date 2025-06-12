@@ -46,9 +46,28 @@ export default function App({ Component, pageProps }: AppProps) {
       </div>
       <div className="right-spacer" />
     </header>
-      <main style={{ marginTop: '', padding: '1rem' }}>
-        <Component {...pageProps} />
-      </main>
+    <main style={{ marginTop: '', padding: '1rem' }}>
+      <Component {...pageProps} />
+    </main>
+    <footer style={{
+        textAlign: 'center',
+        marginTop: '2rem',
+        padding: '1rem',
+        backgroundColor: '#ffe0f2',
+        color: '#ff0080',
+        fontWeight: 'bold',
+        borderTop: '2px solid #ff0080',
+      }}>
+        💖 Follow us on Instagram:{" "}
+        <a
+          href="https://www.instagram.com/shopmandytools"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: '#ff0080', textDecoration: 'underline' }}
+        >
+          @shopmandytools
+        </a>
+      </footer>
     </>
   );
 }
