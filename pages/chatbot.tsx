@@ -1,6 +1,7 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import styles from "./chatbot.module.css";
 import ReactMarkdown from 'react-markdown';
+import Head from 'next/head'
 
 type Message = {
   role: 'system' | 'user' | 'assistant';
@@ -91,6 +92,9 @@ export default function Chatbot() {
     }
   };
 
+  //TODO add customizer here
+
+
   // Common questions for chatbot presets
   const commonQuestions = [
     "How do I paint a room?",
@@ -100,99 +104,106 @@ export default function Chatbot() {
   ];
 
   return (
-    <div className="toolbot-page" style=
-      {{ background: 'url("/chatbot-background.png") no-repeat center/cover',
-        border: '4px solid #0078d7',
-        borderRadius: '12px',
-      }}>
-      <div className="toolbot-heading">
-        <h1 className={styles.header}>ASK HANDY MANDY</h1>
-        <p className={styles.subheader}>Our Mandy Toolbot can tackle any DIY, decor, or life Qs you throw its way.</p>
-      </div>
-      <div className={styles.chatContainer}>
-        <div className={styles.chatBox}>
-          {messages.map((msg, idx) => (
-            <div key={idx} className={`${styles.message} ${msg.role === 'user' ? styles.user : styles.assistant}`}>
-              <div className={styles.mediaContainer}>
-                {msg.imageUrl && (
-                  <img 
-                    src={msg.imageUrl} 
-                    alt="User uploaded" 
-                    className={styles.imageBubble}
-                  />
-                )}
-                {msg.content && (
-                  <div className={styles.bubble}>
-                      <ReactMarkdown>{msg.content}</ReactMarkdown>
-                      </div>
-                )}
-              </div>
-            </div>
-          ))}
-          {loading && <div className={styles.message}><span className={styles.bubble}>Mandy is thinking...</span></div>}
+    <>
+      <Head>
+        <link href="https://fonts.googleapis.com/css2?family=Tiny5&display=swap" rel="stylesheet"></link>
+      </Head>
+      <div className="toolbot-page" style=
+        {{ background: 'url("/chatbot-background.png") no-repeat center/cover',
+          border: '4px solid #0078d7',
+          borderRadius: '12px',
+        }}>
+        <div className="toolbot-heading">
+          <h1 className={styles.header}>ASK HANDY MANDY</h1>
+          <p className={styles.subheader}>Our Mandy Toolbot can tackle any DIY, decor, or life Qs you throw its way.</p>
         </div>
+        <div className={styles.chatContainer}>
+          <div className={styles.chatBox}>
+            {messages.map((msg, idx) => (
+              <div key={idx} className={`${styles.message} ${msg.role === 'user' ? styles.user : styles.assistant}`}>
+                <div className={styles.mediaContainer}>
+                  {msg.imageUrl && (
+                    <img 
+                      src={msg.imageUrl} 
+                      alt="User uploaded" 
+                      className={styles.imageBubble}
+                    />
+                  )}
+                  {msg.content && (
+                    <div className={styles.bubble}>
+                        <ReactMarkdown>{msg.content}</ReactMarkdown>
+                        </div>
+                  )}
+                </div>
+              </div>
+            ))}
+            {loading && <div className={styles.message}><span className={styles.bubble}>Mandy is thinking...</span></div>}
+          </div>
 
-        {imagePreview && (
-          <div className={styles.previewContainer}>
-            <img src={imagePreview} alt="Preview" className={styles.imagePreview} />
-            <button className={styles.removePreview} onClick={removePreview}>
-              Remove
+          {imagePreview && (
+            <div className={styles.previewContainer}>
+              <img src={imagePreview} alt="Preview" className={styles.imagePreview} />
+              <button className={styles.removePreview} onClick={removePreview}>
+                Remove
+              </button>
+            </div>
+          )}
+
+          <div className={styles.inputArea}>
+            <input
+              type="file"
+              ref={fileInputRef}
+              className={styles.fileInput}
+              accept="image/*"
+              onChange={handleImageUpload}
+            />
+            <button
+              className={styles.uploadButton}
+              onClick={triggerFileInput}
+              disabled={loading}
+            >
+              📷
+            </button>
+            
+            <input
+              className={styles.inputBox}
+              value={input}
+              style={{ fontFamily:'Tiny5, sans-serif'}}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+              placeholder="Ask about DIY home projects..."
+              disabled={loading}
+            />
+            
+            <button
+              className={styles.sendButton}
+              style={{ fontFamily:'Tiny5, sans-serif'}}
+              onClick={() => sendMessage()}
+              disabled={loading || (!input.trim() && !imagePreview)}
+            >
+              Send
             </button>
           </div>
-        )}
-
-        <div className={styles.inputArea}>
-          <input
-            type="file"
-            ref={fileInputRef}
-            className={styles.fileInput}
-            accept="image/*"
-            onChange={handleImageUpload}
-          />
-          <button
-            className={styles.uploadButton}
-            onClick={triggerFileInput}
-            disabled={loading}
-          >
-            📷
-          </button>
-          
-          <input
-            className={styles.inputBox}
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-            placeholder="Ask about DIY home projects..."
-            disabled={loading}
-          />
-          
-          <button
-            className={styles.sendButton}
-            onClick={() => sendMessage()}
-            disabled={loading || (!input.trim() && !imagePreview)}
-          >
-            Send
-          </button>
+        </div>
+        <p style={{ 
+          textAlign: 'center', 
+          fontWeight: '800', 
+          color: '#FFDCAE', 
+          fontSize: '1.8rem', 
+          WebkitTextStroke: '1px #f91b8f', 
+          fontStyle: 'italic'}}> 🔨 TRY OUT SOME COMMON Qs:</p>
+        <div className={styles.questionButtonContainer}>
+          {commonQuestions.map((question, idx) => (
+            <button
+              key={idx}
+              onClick={() => sendMessage(question)}
+              className={styles.questionButton}
+            >
+              {question}
+            </button>
+          ))}
         </div>
       </div>
-      <p style={{ 
-        textAlign: 'center', 
-        fontWeight: '800', 
-        color: '#FFDCAE', 
-        fontSize: '1.8rem', 
-        WebkitTextStroke: '1px #f91b8f', 
-        fontStyle: 'italic'}}> 🔨 TRY OUT SOME COMMON Qs:</p>
-      <div className={styles.questionButtonContainer}>
-        {commonQuestions.map((question, idx) => (
-          <button
-            key={idx}
-            onClick={() => sendMessage(question)}
-            className={styles.questionButton}
-          >
-            {question}
-          </button>
-        ))}
-      </div>
-    </div>
+    </>
   );
 }

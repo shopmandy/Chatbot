@@ -6,6 +6,7 @@
   background-color: white;
   border-radius: 12px;
   box-shadow: 4px 4px 0px #f91b8f;
+  position: relative;
 }
 
 .chatBox {
