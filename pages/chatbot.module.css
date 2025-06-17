@@ -2,10 +2,10 @@
   max-width: 600px;
   margin: 1rem auto;
   padding: 1rem;
-  border: 2px solid #f91b8f;
+  border: 2px solid var(--chat-border);
   background-color: white;
   border-radius: 12px;
-  box-shadow: 4px 4px 0px #f91b8f;
+  box-shadow: 4px 4px 0px var(--chat-border);
   position: relative;
 }
 
@@ -32,12 +32,13 @@
   display: inline-block;
   padding: 0.5rem 1rem;
   border-radius: 12px;
-  background: #ffe0f2;
+  background: var(--chat-bubble);
+  color: var(--chat-text);
 }
 
 .user .bubble {
-  background: #f91b8f;
-  color: white;
+  background: var(--user-bubble);
+  color: var(--chat-text-user);
 }
 
 .inputArea {
@@ -50,26 +51,27 @@
 .inputBox {
   flex: 1;
   padding: 0.5rem;
-  background-color: #ffe0f2;
-  border: 2px solid #f91b8f;
+  background-color: var(--button-bg);
+  border: 2px solid var(--button-border);
+  color: var(--button-text);
   border-radius: 20px;
   outline: none;
 }
 
 .inputBox:hover {
-  box-shadow: 2px 2px 0px #f91b8f;
+  box-shadow: 2px 2px 0px var(--button-border);
 }
 .sendButton {
   padding: 0.5rem 1rem;
-  background: #ffe0f2;
   border-radius: 20px;
-  color: #f91b8f;
-  border: 2px solid #f91b8f;
+  background-color: var(--button-bg);
+  border: 2px solid var(--button-border);
+  color: var(--button-text);
   cursor: pointer;
 }
 
 .sendButton:hover {
-  box-shadow: 2px 2px 0px #f91b8f;
+  box-shadow: 2px 2px 0px var(--button-border);
 }
 
 .fileInput {
@@ -78,15 +80,15 @@
 
 .uploadButton {
   padding: 0.5rem 1rem;
-  background: #ffe0f2;
-  color: white;
-  border: 2px solid #f91b8f;
   cursor: pointer;
   border-radius: 20px;
+  background-color: var(--button-bg);
+  border: 2px solid var(--button-border);
+  color: var(--button-text);
 }
 
 .uploadButton:hover {
-  box-shadow: 2px 2px 0px #f91b8f;
+  box-shadow: 2px 2px 0px var(--button-border);
 }
 
 .imagePreview {
@@ -120,7 +122,7 @@
 }
 
 .removePreview {
-  background: #ff4444;
+  background: #f91b8f;
   color: white;
   border: none;
   border-radius: 4px;
@@ -172,6 +174,20 @@
   background-color: #FFDCAE;
   border: 2px solid #f91b8f;
   color: #f91b8f;
+}
+
+.customizeButton {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  background-color: var(--button-bg);
+  border: 2px solid var(--button-border);
+  color: var(--button-text);
+}
+
+.customizeButton:hover {
+  box-shadow: 2px 2px 0px var(--button-border);
 }
 
 @media (max-width: 768px) {
