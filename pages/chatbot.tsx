@@ -2,6 +2,8 @@ import { useState, useRef, useEffect } from 'react';
 import styles from "./chatbot.module.css";
 import ReactMarkdown from 'react-markdown';
 import Head from 'next/head'
+import CustomizePanel from './components/CustomizePanel';
+
 
 type Message = {
   role: 'system' | 'user' | 'assistant';
@@ -93,6 +95,30 @@ export default function Chatbot() {
   };
 
   //TODO add customizer here
+  const [showSettings, setShowSettings] = useState(false);
+
+  //default colors
+  useEffect(() => {
+    const savedTheme = JSON.parse(localStorage.getItem('chatTheme') || '{}') as Record<string, string>;
+    const defaultTheme = {
+      '--button-bg': '#ffe0f2',
+      '--button-text': '#f91b8f',
+      '--button-border': '#f91b8f',
+      '--chat-border': '#f91b8f',
+      '--user-bubble': '#f91b8f',
+      '--chat-bubble': '#ffe0f2',
+      '--chat-bg': 'white',
+      '--chat-text': '#f91b8f',
+      '--chat-text-user': 'white'
+    };
+  
+    const themeToApply = Object.keys(savedTheme).length ? savedTheme : defaultTheme;
+  
+    for (const [key, value] of Object.entries(themeToApply)) {
+      document.documentElement.style.setProperty(key, value);
+    }
+  }, []);
+  
 
 
   // Common questions for chatbot presets
@@ -118,6 +144,17 @@ export default function Chatbot() {
           <p className={styles.subheader}>Our Mandy Toolbot can tackle any DIY, decor, or life Qs you throw its way.</p>
         </div>
         <div className={styles.chatContainer}>
+          <button
+            className={styles.customizeButton}
+            onClick={() => setShowSettings(true)}
+            style={{
+              fontFamily: 'Tiny5, sans-serif'
+            }}
+          >
+            Customize⚙️
+          </button>
+          {showSettings && <CustomizePanel onClose={() => setShowSettings(false)} />}
+        
           <div className={styles.chatBox}>
             {messages.map((msg, idx) => (
               <div key={idx} className={`${styles.message} ${msg.role === 'user' ? styles.user : styles.assistant}`}>
@@ -191,7 +228,7 @@ export default function Chatbot() {
           color: '#FFDCAE', 
           fontSize: '1.8rem', 
           WebkitTextStroke: '1px #f91b8f', 
-          fontStyle: 'italic'}}> 🔨 TRY OUT SOME COMMON Qs:</p>
+          fontStyle: 'italic'}}> TRY OUT SOME COMMON Qs:</p>
         <div className={styles.questionButtonContainer}>
           {commonQuestions.map((question, idx) => (
             <button
