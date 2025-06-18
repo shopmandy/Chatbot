@@ -23,6 +23,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <Link className="nav-link" href="/" style={{ marginRight: '1rem' }} onClick={closeMenu}>HOME</Link>
           <Link className="nav-link" href="/about" style={{ marginRight: '1rem' }} onClick={closeMenu}>ABOUT</Link>
           <Link className="nav-link" href="/chatbot" style={{ marginRight: '1rem' }} onClick={closeMenu}>CHATBOT</Link>
+          <Link className="nav-link" href="/room" style={{ marginRight: '1rem' }} onClick={closeMenu}>ROOM</Link>
           <a 
             className="nav-link" 
             href="https://shopmandy.com/" 
