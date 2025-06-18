@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState } from 'react';
 
 const themes = {
     mandy: {
@@ -66,41 +65,68 @@ const applyTheme = (theme: Record<string, string>) => {
 
 
     return (
-      <div className="customize-panel">
-        <h3
-            style={{
-                color: '#f91b8f',
-                marginBottom: 10
-            }}>Choose a Theme!</h3>
-        <div className="theme-options">
-          {Object.entries(themes).map(([name, theme]) => (
-            <button
-              key={name}
-              className="theme-button"
-              style={{
-                background: theme['--button-bg'],
-                color: theme['--chat-text'],
-                marginRight: 8,
-                padding: '6px 12px',
-                borderRadius: 12,
-                border: '2px solid #f91b8f',
-                cursor: 'pointer',
-              }}
-              onClick={() => applyTheme(theme)}
-            >
-              {name}
-            </button>
-          ))}
-        </div>
-        <button onClick={onClose} style={{ 
-            marginTop: 12,
-            cursor: 'pointer',
-            background: '#ffe0f2',
-            borderRadius: '12px',
+      <div className="customize-panel"
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        overflow: 'hidden'
+      }}>
+        <div
+          style={{
+            background: 'white',
+            position: 'relative',
+            padding: '1.5rem',
             border: '2px solid #f91b8f',
+            borderRadius: '12px',
+            width: '90%',
+            maxWidth: '400px',
+            boxShadow: '0 10px 25px rgba(0, 0, 0, 0.2'
+          }}>
+          <h3
+              style={{
+                  color: '#f91b8f',
+                  marginBottom: 8
+              }}>Choose a Theme!</h3>
+          <button onClick={onClose} style={{ 
+            position: 'absolute',
+            top: '10px',
+            right: '10px',
+            cursor: 'pointer',
             padding: '4px 8px',
             }}
-            >Close</button>
+            >✕</button>
+          <div className="theme-options"
+            style={{
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}>
+            {Object.entries(themes).map(([name, theme]) => (
+              <button
+                key={name}
+                className="theme-button"
+                style={{
+                  background: theme['--button-bg'],
+                  color: theme['--chat-text'],
+                  margin: 8,
+                  padding: '6px 12px',
+                  borderRadius: 12,
+                  border: '2px solid #f91b8f',
+                  cursor: 'pointer',
+                }}
+                onClick={() => applyTheme(theme)}
+              >
+                {name}
+              </button>
+            ))}
+          </div>
+        </div>
+        
       </div>
     );
   };

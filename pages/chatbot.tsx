@@ -119,8 +119,6 @@ export default function Chatbot() {
     }
   }, []);
   
-
-
   // Common questions for chatbot presets
   const commonQuestions = [
     "How do I paint a room?",
