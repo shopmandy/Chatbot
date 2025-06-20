@@ -18,7 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const closeMenu = () => setMenuOpen(false);
 
   return (
-    <ClerkProvider {...pageProps}>
+     <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
     <>
     <header className="header">
       <div className="header-left">
