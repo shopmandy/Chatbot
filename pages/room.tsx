@@ -33,6 +33,7 @@ export default function Room() {
     })
 
     const uploadJson = await uploadRes.json();
+    console.log('Backend response:', uploadJson);
     if (!uploadJson.success || !uploadJson.data || !uploadJson.data.url) {
       setLoading(false);
       alert('Image upload failed. Please check your API key and try again.');
@@ -53,7 +54,7 @@ export default function Room() {
     setAfterImage(data.outputUrl)
     setLoading(false)
   }
-
+  console.log('afterImage:', afterImage);
   return (
     <div style={{ fontFamily: 'Arial, sans-serif', backgroundColor: '#ffe0f2', padding: '1rem', textAlign: 'center' }}>
       {/* Title */}
