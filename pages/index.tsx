@@ -1,8 +1,18 @@
 import Image from "next/image";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/nextjs";
+
 
 export default function Home() {
   return (
+    
     <div
+    
       style={{
         backgroundColor: "#ffe0f2",
         fontFamily: "'Helvetica Neue', Arial, sans-serif",

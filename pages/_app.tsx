@@ -1,7 +1,16 @@
 import "@/styles/globals.css";
 import Link from 'next/link';
 import type { AppProps } from "next/app";
+import { ClerkProvider } from "@clerk/nextjs";
 import { useState } from 'react';
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/nextjs";
+
 
 export default function App({ Component, pageProps }: AppProps) {
   const [menuOpen, setMenuOpen] = useState(false); //menu for mobile nav bar
@@ -9,6 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const closeMenu = () => setMenuOpen(false);
 
   return (
+    <ClerkProvider {...pageProps}>
     <>
     <header className="header">
       <div className="header-left">
@@ -46,6 +56,24 @@ export default function App({ Component, pageProps }: AppProps) {
         </a>
       </div>
       <div className="right-spacer" />
+            <div className="header-auth" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+    <SignedOut>
+      <SignInButton mode="modal">
+        <a className="nav-link" style={{ cursor: 'pointer' }}>
+          SIGN IN
+        </a>
+      </SignInButton>
+      <SignUpButton mode="modal">
+        <a className="nav-link" style={{ cursor: 'pointer' }}>
+          SIGN UP
+        </a>
+      </SignUpButton>
+    </SignedOut>
+
+    <SignedIn>
+      <UserButton />
+    </SignedIn>
+  </div>
     </header>
     <main style={{ marginTop: '', padding: '1rem' }}>
       <Component {...pageProps} />
@@ -70,5 +98,6 @@ export default function App({ Component, pageProps }: AppProps) {
         </a>
       </footer>
     </>
+    </ClerkProvider>
   );
 }
