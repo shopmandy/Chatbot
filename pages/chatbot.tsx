@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useRef, useEffect } from 'react';
 import styles from "./chatbot.module.css";
 import ReactMarkdown from 'react-markdown';
@@ -130,13 +131,17 @@ export default function Chatbot() {
   return (
     <>
       <Head>
-        <link href="https://fonts.googleapis.com/css2?family=Tiny5&display=swap" rel="stylesheet"></link>
+        <link href="https://fonts.googleapis.com/css2?family=Tiny5&family=VT323&display=swap" rel="stylesheet" />
       </Head>
-      <div className="toolbot-page" style=
-        {{ background: 'url("/chatbot-background.png") no-repeat center/cover',
-          border: '4px solid #0078d7',
-          borderRadius: '12px',
-        }}>
+      <div className="toolbot-page" style={{
+        background: 'linear-gradient(135deg, #e0eaff 0%, #f8e1ff 100%)',
+        border: '4px solid #b6b6ff',
+        borderRadius: '18px',
+        boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37), 0 0 0 4px #b6b6ff, 0 0 16px #00ffe7',
+        fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+        minHeight: '100vh',
+        paddingBottom: '2rem',
+      }}>
         <div className="toolbot-heading">
           <h1 className={styles.header}>ASK HANDY MANDY</h1>
           <p className={styles.subheader}>Our Mandy Toolbot can tackle any DIY, decor, or life Qs you throw its way.</p>
@@ -146,33 +151,51 @@ export default function Chatbot() {
             className={styles.customizeButton}
             onClick={() => setShowSettings(true)}
             style={{
-              fontFamily: 'Tiny5, sans-serif'
+              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+              fontSize: '1.4rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
             }}
           >
-            Customize⚙️
+            Customize <span role="img" aria-label="wrench">🔧</span>
           </button>
           {showSettings && <CustomizePanel onClose={() => setShowSettings(false)} />}
         
-          <div className={styles.chatBox}>
-            {messages.map((msg, idx) => (
-              <div key={idx} className={`${styles.message} ${msg.role === 'user' ? styles.user : styles.assistant}`}>
-                <div className={styles.mediaContainer}>
-                  {msg.imageUrl && (
-                    <img 
-                      src={msg.imageUrl} 
-                      alt="User uploaded" 
-                      className={styles.imageBubble}
-                    />
-                  )}
-                  {msg.content && (
-                    <div className={styles.bubble}>
-                        <ReactMarkdown>{msg.content}</ReactMarkdown>
-                        </div>
-                  )}
+          <div className={styles.chatBox} style={{display: 'flex', flexDirection: 'column'}}>
+            {messages.map((msg, idx) => {
+              // If this is a user message and the next message is assistant, group them
+              if (msg.role === 'user' && messages[idx + 1]?.role === 'assistant') {
+                return (
+                  <div key={idx} className={styles.chatMessageGroup} style={{display: 'flex', flexDirection: 'column', gap: '0.2rem'}}>
+                    <div className={styles.questionBubble} style={{alignSelf: 'flex-end', textAlign: 'right'}}>
+                      <h2 style={{margin:0, fontWeight:900, fontSize:'1.3rem'}}>{msg.content}</h2>
+                    </div>
+                    <div className={styles.bubble} style={{alignSelf: 'flex-start', textAlign: 'left'}}>
+                      <ReactMarkdown>{messages[idx + 1].content}</ReactMarkdown>
+                    </div>
+                  </div>
+                );
+              }
+              // If this is an assistant message that was not paired, skip (already rendered)
+              if (msg.role === 'assistant' && idx > 0 && messages[idx - 1]?.role === 'user') {
+                return null;
+              }
+              // Otherwise, render as normal (for system or unpaired messages)
+              if (msg.role === 'user') {
+                return (
+                  <div key={idx} className={styles.questionBubble} style={{alignSelf: 'flex-end', textAlign: 'right'}}>
+                    <ReactMarkdown>{msg.content}</ReactMarkdown>
+                  </div>
+                );
+              }
+              return (
+                <div key={idx} className={styles.bubble} style={{alignSelf: 'flex-start', textAlign: 'left'}}>
+                  <ReactMarkdown>{msg.content}</ReactMarkdown>
                 </div>
-              </div>
-            ))}
-            {loading && <div className={styles.message}><span className={styles.bubble}>Mandy is thinking...</span></div>}
+              );
+            })}
+            {loading && <div className={styles.bubble}><span>Mandy is thinking...</span></div>}
           </div>
 
           {imagePreview && (
@@ -220,13 +243,7 @@ export default function Chatbot() {
             </button>
           </div>
         </div>
-        <p style={{ 
-          textAlign: 'center', 
-          fontWeight: '800', 
-          color: '#FFDCAE', 
-          fontSize: '1.8rem', 
-          WebkitTextStroke: '1px #f91b8f', 
-          fontStyle: 'italic'}}> TRY OUT SOME COMMON Qs:</p>
+        <p className={styles.commonQsHeader}>TRY OUT SOME COMMON Qs:</p>
         <div className={styles.questionButtonContainer}>
           {commonQuestions.map((question, idx) => (
             <button
