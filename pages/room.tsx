@@ -1,7 +1,38 @@
 import { useState } from 'react'
+import Select from 'react-select';
+
+const roomOptions = [
+  { value: 'Bedroom', label: 'Bedroom' },
+  { value: 'Living Room', label: 'Living Room' },
+  { value: 'Kitchen', label: 'Kitchen' },
+  { value: 'Bathroom', label: 'Bathroom' },
+  { value: 'Dining Room', label: 'Dining Room' },
+  { value: 'Office', label: 'Office' },
+  { value: 'Guest Room', label: 'Guest Room' },
+  { value: 'Game Room', label: 'Game Room' },
+  { value: 'Home Theater', label: 'Home Theater' },
+  { value: 'Sunroom', label: 'Sunroom' },
+  { value: 'Basement', label: 'Basement' },
+  { value: 'Attic', label: 'Attic' },
+  { value: 'Garage', label: 'Garage' },
+  { value: 'Walk-in Closet', label: 'Walk-in Closet' },
+  { value: 'Patio', label: 'Patio' },
+  { value: 'Porch', label: 'Porch' },
+  { value: 'Studio', label: 'Studio' },
+  { value: 'Workshop', label: 'Workshop' },
+  { value: 'Gym', label: 'Gym' },
+  { value: 'Nursery', label: 'Nursery' },
+  { value: 'Library', label: 'Library' },
+  { value: 'Entryway', label: 'Entryway' },
+  { value: 'Hallway', label: 'Hallway' },
+  { value: 'Laundry Room', label: 'Laundry Room' },
+  { value: 'Balcony', label: 'Balcony' },
+  { value: 'Other', label: 'Other' },
+];
 
 export default function Room() {
   const [prompt, setPrompt] = useState('')
+  const [roomType, setRoomType] = useState('Bedroom') // default room type
   const [image, setImage] = useState<File | null>(null)
   const [beforePreview, setBeforePreview] = useState<string | null>(null)
   const [afterImage, setAfterImage] = useState<string | null>(null)
@@ -41,12 +72,13 @@ export default function Room() {
     }
 
     const imageUrl = uploadJson.data.url
+    const fullPrompt = `${roomType.toLowerCase()} ${prompt}`
 
     // Step 2: Send to your backend API
     const response = await fetch('/api/room-makeover', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ imageUrl, prompt }),
+      body: JSON.stringify({ imageUrl, prompt: fullPrompt }),
     })
 
     const data = await response.json()
@@ -95,6 +127,53 @@ export default function Room() {
           Tell Mandy about your dream room ✨
         </p>
 
+        <div style={{ margin: '1rem 0', width: 300 }}>
+          <label
+            htmlFor="roomType"
+            style={{
+              marginRight: 8,
+              fontFamily: 'monospace',
+              fontWeight: 'bold',
+              color: '#ff0099',
+              fontSize: '1.2rem',
+              display: 'block',
+              marginBottom: 4,
+              textAlign: 'left'
+            }}
+          >
+            Room type:
+          </label>
+          <Select
+            inputId="roomType"
+            options={roomOptions}
+            value={roomOptions.find(opt => opt.value === roomType)}
+            onChange={opt => setRoomType(opt?.value || '')}
+            styles={{
+              control: (base) => ({
+                ...base,
+                fontFamily: 'monospace',
+                fontWeight: 'bold',
+                color: '#ff0099',
+                fontSize: '1.2rem',
+                border: '2px solid #ff0099',
+                background: '#fff0fa',
+                outlineColor: '#ff0099',
+                cursor: 'pointer',
+                borderRadius: 12,
+              }),
+              option: (base, state) => ({
+                ...base,
+                color: '#ff0099',
+                background: state.isFocused ? '#ffe0f2' : '#fff0fa',
+                fontFamily: 'monospace',
+                fontWeight: 'bold',
+                fontSize: '1.2rem',
+              }),
+            }}
+            isSearchable
+          />
+        </div>
+           
         <input
           type="text"
           placeholder="e.g. pastel pink and floral, cozy cottage vibes..."
@@ -111,41 +190,48 @@ export default function Room() {
           }}
         />
 
-        <label htmlFor="fileUpload" style={{
-          backgroundColor: '#ff0099',
-          color: 'white',
-          padding: '0.75rem 1.25rem',
-          borderRadius: '20px',
-          fontWeight: 'bold',
-          cursor: 'pointer',
-          display: 'inline-block'
+        <div style={{
+          display: 'flex',
+          flexDirection: 'row',
+          gap: '1rem',
+          alignItems: 'center',
+          marginTop: '1rem'
         }}>
-          Upload Photos
-        </label>
-        <input
-          type="file"
-          id="fileUpload"
-          accept="image/*"
-          onChange={handleUpload}
-          style={{ display: 'none' }}
-        />
-
-        <button
-          onClick={handleGenerate}
-          disabled={loading}
-          style={{
-            marginTop: '1rem',
-            backgroundColor: '#e6f0ff',
-            border: '2px solid #0078d7',
-            padding: '0.5rem 1rem',
+          <label htmlFor="fileUpload" style={{
+            backgroundColor: '#ff0099',
+            color: 'white',
+            padding: '0.75rem 1.25rem',
             borderRadius: '12px',
             fontWeight: 'bold',
             cursor: 'pointer',
-            opacity: loading ? 0.6 : 1,
-          }}
-        >
-          {loading ? 'Transforming...' : 'Transform Room ✨'}
-        </button>
+            display: 'inline-block'
+          }}>
+            Upload Photos
+          </label>
+          <input
+            type="file"
+            id="fileUpload"
+            accept="image/*"
+            onChange={handleUpload}
+            style={{ display: 'none' }}
+          />
+
+          <button
+            onClick={handleGenerate}
+            disabled={loading}
+            style={{
+              backgroundColor: '#e6f0ff',
+              border: '2px solid #0078d7',
+              padding: '0.5rem 1rem',
+              borderRadius: '12px',
+              fontWeight: 'bold',
+              cursor: 'pointer',
+              opacity: loading ? 0.6 : 1,
+            }}
+          >
+            {loading ? 'Transforming...' : 'Transform Room ✨'}
+          </button>
+        </div>
       </div>
 
       {/* Your shop & gallery content stays the same */}
