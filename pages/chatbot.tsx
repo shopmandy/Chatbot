@@ -17,7 +17,7 @@ export default function Chatbot() {
   const [loading, setLoading] = useState(false);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
+  const [trendingTopics, setTrendingTopics] = useState<string[] | null>(null);
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -94,7 +94,6 @@ export default function Chatbot() {
     }
   };
 
-  //TODO add customizer here
   const [showSettings, setShowSettings] = useState(false);
 
   //default colors
@@ -119,6 +118,16 @@ export default function Chatbot() {
     }
   }, []);
   
+  useEffect(() => {
+    fetch('/api/trending-topics').then((res) => res.json()).then((data) => {
+      if (Array.isArray(data.topics)) {
+        setTrendingTopics(data.topics);
+      }
+    })
+    .catch((err) => {
+      console.error("Failed to fetch trending topics.");
+    });
+  }, []);
   // Common questions for chatbot presets
   const commonQuestions = [
     "How do I paint a room?",
@@ -126,6 +135,8 @@ export default function Chatbot() {
     "How to hang wallpaper",
     "How do I fix a hole in drywall?"
   ];
+  const questionsToShow = trendingTopics === null ? [] : trendingTopics.length > 0 ? trendingTopics : commonQuestions;
+
 
   return (
     <>
@@ -226,18 +237,19 @@ export default function Chatbot() {
           color: '#FFDCAE', 
           fontSize: '1.8rem', 
           WebkitTextStroke: '1px #f91b8f', 
-          fontStyle: 'italic'}}> TRY OUT SOME COMMON Qs:</p>
-        <div className={styles.questionButtonContainer}>
-          {commonQuestions.map((question, idx) => (
-            <button
-              key={idx}
-              onClick={() => sendMessage(question)}
+          fontStyle: 'italic'}}> TRY OUT SOME TRENDING Qs:</p>
+        {trendingTopics === null ? (<p style={{
+          textAlign: 'center'
+        }}>Loading topics...</p>) : (
+          <div className={styles.questionButtonContainer}>
+            {questionsToShow.map((question, idx) => (
+              <button key = {idx} onClick={() => sendMessage(question)}
               className={styles.questionButton}
-            >
-              {question}
-            </button>
-          ))}
-        </div>
+              >
+                {question}
+              </button>
+            ))} </div>
+        )}
       </div>
     </>
   );
