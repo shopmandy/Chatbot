@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { fetchRedditTitles } from "../lib/reddit";
-import { cleanTitle, deduplicateTitles } from "../lib/cleaner";
-import { summarizeTopics } from "../lib/summarizer";
+import { fetchRedditTitles } from "@/lib/reddit";
+import { cleanTitle, deduplicateTitles } from '@/lib/cleaner';
+import { summarizeTopics } from "@/lib/summarizer";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {

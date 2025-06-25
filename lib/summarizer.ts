@@ -1,5 +1,4 @@
 /* GPT summarization */
-
 import OpenAI from "openai";
 
 
