@@ -5,7 +5,6 @@ import ReactMarkdown from 'react-markdown';
 import Head from 'next/head'
 import CustomizePanel from './components/CustomizePanel';
 
-
 type Message = {
   role: 'system' | 'user' | 'assistant';
   content: string;
@@ -17,7 +16,9 @@ export default function Chatbot() {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [showHero, setShowHero] = useState(true);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const chatBoxRef = useRef<HTMLDivElement>(null);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -44,6 +45,11 @@ export default function Chatbot() {
   const sendMessage = async (customInput?: string) => {
     const userInput = customInput ?? input;
     if (!userInput.trim() && !imagePreview) return;
+
+    // Hide hero section when user starts chatting
+    if (showHero) {
+      setShowHero(false);
+    }
 
     const newMessage: Message = { 
       role: 'user', 
@@ -95,7 +101,13 @@ export default function Chatbot() {
     }
   };
 
-  //TODO add customizer here
+  // Auto-scroll to bottom when new messages arrive
+  useEffect(() => {
+    if (chatBoxRef.current) {
+      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+    }
+  }, [messages]);
+
   const [showSettings, setShowSettings] = useState(false);
 
   //default colors
@@ -133,128 +145,171 @@ export default function Chatbot() {
       <Head>
         <link href="https://fonts.googleapis.com/css2?family=Tiny5&family=VT323&display=swap" rel="stylesheet" />
       </Head>
-      <div className="toolbot-page" style={{
-        background: 'linear-gradient(135deg, #e0eaff 0%, #f8e1ff 100%)',
-        border: '4px solid #b6b6ff',
-        borderRadius: '18px',
-        boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37), 0 0 0 4px #b6b6ff, 0 0 16px #00ffe7',
-        fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
-        minHeight: '100vh',
-        paddingBottom: '2rem',
-      }}>
-        <div className="toolbot-heading">
-          <h1 className={styles.header}>ASK HANDY MANDY</h1>
-          <p className={styles.subheader}>Our Mandy Toolbot can tackle any DIY, decor, or life Qs you throw its way.</p>
-        </div>
-        <div className={styles.chatContainer}>
-          <button
-            className={styles.customizeButton}
-            onClick={() => setShowSettings(true)}
-            style={{
-              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
-              fontSize: '1.4rem',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-            }}
-          >
-            Customize <span role="img" aria-label="wrench">🔧</span>
-          </button>
-          {showSettings && <CustomizePanel onClose={() => setShowSettings(false)} />}
-        
-          <div className={styles.chatBox} style={{display: 'flex', flexDirection: 'column'}}>
-            {messages.map((msg, idx) => {
-              // If this is a user message and the next message is assistant, group them
-              if (msg.role === 'user' && messages[idx + 1]?.role === 'assistant') {
-                return (
-                  <div key={idx} className={styles.chatMessageGroup} style={{display: 'flex', flexDirection: 'column', gap: '0.2rem'}}>
-                    <div className={styles.questionBubble} style={{alignSelf: 'flex-end', textAlign: 'right'}}>
-                      <h2 style={{margin:0, fontWeight:900, fontSize:'1.3rem'}}>{msg.content}</h2>
-                    </div>
-                    <div className={styles.bubble} style={{alignSelf: 'flex-start', textAlign: 'left'}}>
-                      <ReactMarkdown>{messages[idx + 1].content}</ReactMarkdown>
-                    </div>
-                  </div>
-                );
-              }
-              // If this is an assistant message that was not paired, skip (already rendered)
-              if (msg.role === 'assistant' && idx > 0 && messages[idx - 1]?.role === 'user') {
-                return null;
-              }
-              // Otherwise, render as normal (for system or unpaired messages)
-              if (msg.role === 'user') {
-                return (
-                  <div key={idx} className={styles.questionBubble} style={{alignSelf: 'flex-end', textAlign: 'right'}}>
-                    <ReactMarkdown>{msg.content}</ReactMarkdown>
-                  </div>
-                );
-              }
-              return (
-                <div key={idx} className={styles.bubble} style={{alignSelf: 'flex-start', textAlign: 'left'}}>
-                  <ReactMarkdown>{msg.content}</ReactMarkdown>
-                </div>
-              );
-            })}
-            {loading && <div className={styles.bubble}><span>Mandy is thinking...</span></div>}
-          </div>
-
-          {imagePreview && (
-            <div className={styles.previewContainer}>
-              <img src={imagePreview} alt="Preview" className={styles.imagePreview} />
-              <button className={styles.removePreview} onClick={removePreview}>
-                Remove
+      <div className={styles.pageContainer}>
+        {/* Header */}
+        <header className={styles.header}>
+          <div className={styles.headerContent}>
+            <div className={styles.logo}>
+              <span className={styles.logoIcon}>🔧</span>
+              <h1 className={styles.logoText}>Handy Mandy</h1>
+            </div>
+            <div className={styles.headerActions}>
+              <button
+                className={styles.customizeButton}
+                onClick={() => setShowSettings(true)}
+              >
+                Customize <span role="img" aria-label="wrench">⚙️</span>
               </button>
             </div>
-          )}
-
-          <div className={styles.inputArea}>
-            <input
-              type="file"
-              ref={fileInputRef}
-              className={styles.fileInput}
-              accept="image/*"
-              onChange={handleImageUpload}
-            />
-            <button
-              className={styles.uploadButton}
-              onClick={triggerFileInput}
-              disabled={loading}
-            >
-              📷
-            </button>
-            
-            <input
-              className={styles.inputBox}
-              value={input}
-              style={{ fontFamily:'Tiny5, sans-serif'}}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-              placeholder="Ask about DIY home projects..."
-              disabled={loading}
-            />
-            
-            <button
-              className={styles.sendButton}
-              style={{ fontFamily:'Tiny5, sans-serif'}}
-              onClick={() => sendMessage()}
-              disabled={loading || (!input.trim() && !imagePreview)}
-            >
-              Send
-            </button>
           </div>
-        </div>
-        <p className={styles.commonQsHeader}>TRY OUT SOME COMMON Qs:</p>
-        <div className={styles.questionButtonContainer}>
-          {commonQuestions.map((question, idx) => (
-            <button
-              key={idx}
-              onClick={() => sendMessage(question)}
-              className={styles.questionButton}
-            >
-              {question}
-            </button>
-          ))}
-        </div>
+        </header>
+
+        {/* Main Content */}
+        <main className={styles.mainContent}>
+          <div className={styles.chatContainer}>
+            {/* Hero Section */}
+            {showHero && (
+              <div className={styles.heroSection}>
+                <div className={styles.heroContent}>
+                  <h2 className={styles.heroTitle}>Your DIY Assistant</h2>
+                  <p className={styles.heroSubtitle}>
+                    Get instant help with home projects, decor ideas, and DIY tips. 
+                    Just ask Mandy anything!
+                  </p>
+                  <div className={styles.heroFeatures}>
+                    <div className={styles.feature}>
+                      <span className={styles.featureIcon}>🎨</span>
+                      <span>Decor & Design</span>
+                    </div>
+                    <div className={styles.feature}>
+                      <span className={styles.featureIcon}>🔨</span>
+                      <span>DIY Projects</span>
+                    </div>
+                    <div className={styles.feature}>
+                      <span className={styles.featureIcon}>🏠</span>
+                      <span>Home Improvement</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Chat Interface */}
+            <div className={styles.chatInterface}>
+              <div className={styles.chatBox} ref={chatBoxRef}>
+                {messages.map((msg, idx) => {
+                  // If this is a user message and the next message is assistant, group them
+                  if (msg.role === 'user' && messages[idx + 1]?.role === 'assistant') {
+                    return (
+                      <div key={idx} className={styles.chatMessageGroup}>
+                        <div className={styles.questionBubble}>
+                          <h2>{msg.content}</h2>
+                        </div>
+                        <div className={styles.bubble}>
+                          <ReactMarkdown>{messages[idx + 1].content}</ReactMarkdown>
+                        </div>
+                      </div>
+                    );
+                  }
+                  // If this is an assistant message that was not paired, skip (already rendered)
+                  if (msg.role === 'assistant' && idx > 0 && messages[idx - 1]?.role === 'user') {
+                    return null;
+                  }
+                  // Otherwise, render as normal (for system or unpaired messages)
+                  if (msg.role === 'user') {
+                    return (
+                      <div key={idx} className={styles.questionBubble}>
+                        <ReactMarkdown>{msg.content}</ReactMarkdown>
+                      </div>
+                    );
+                  }
+                  return (
+                    <div key={idx} className={styles.bubble}>
+                      <ReactMarkdown>{msg.content}</ReactMarkdown>
+                    </div>
+                  );
+                })}
+                {loading && (
+                  <div className={styles.loadingBubble}>
+                    <div className={styles.typingIndicator}>
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </div>
+                    <span>Mandy is thinking...</span>
+                  </div>
+                )}
+              </div>
+
+              {/* Image Preview */}
+              {imagePreview && (
+                <div className={styles.previewContainer}>
+                  <img src={imagePreview} alt="Preview" className={styles.imagePreview} />
+                  <button className={styles.removePreview} onClick={removePreview}>
+                    Remove
+                  </button>
+                </div>
+              )}
+
+              {/* Input Area */}
+              <div className={styles.inputArea}>
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  className={styles.fileInput}
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                />
+                <button
+                  className={styles.uploadButton}
+                  onClick={triggerFileInput}
+                  disabled={loading}
+                  title="Upload image"
+                >
+                  📷
+                </button>
+                
+                <input
+                  className={styles.inputBox}
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+                  placeholder="Ask about DIY home projects..."
+                  disabled={loading}
+                />
+                
+                <button
+                  className={styles.sendButton}
+                  onClick={() => sendMessage()}
+                  disabled={loading || (!input.trim() && !imagePreview)}
+                >
+                  Send
+                </button>
+              </div>
+            </div>
+
+            {/* Quick Start Questions */}
+            {showHero && (
+              <div className={styles.quickStartSection}>
+                <h3 className={styles.quickStartTitle}>Try these popular questions:</h3>
+                <div className={styles.questionButtonContainer}>
+                  {commonQuestions.map((question, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => sendMessage(question)}
+                      className={styles.questionButton}
+                    >
+                      {question}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </main>
+
+        {/* Settings Panel */}
+        {showSettings && <CustomizePanel onClose={() => setShowSettings(false)} />}
       </div>
     </>
   );
