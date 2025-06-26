@@ -51,10 +51,13 @@ const themes = {
 };
 
 const applyTheme = (theme: Record<string, string>) => {
+    console.log('Applying theme:', theme);
     for (const [key, value] of Object.entries(theme)) {
       document.documentElement.style.setProperty(key, value);
+      console.log(`Set ${key} = ${value}`);
     }
     localStorage.setItem('chatTheme', JSON.stringify(theme));
+    console.log('Theme saved to localStorage');
   };
   
   interface CustomizePanelProps {

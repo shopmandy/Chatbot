@@ -115,13 +115,13 @@ export default function Chatbot() {
   useEffect(() => {
     const savedTheme = JSON.parse(localStorage.getItem('chatTheme') || '{}') as Record<string, string>;
     const defaultTheme = {
-      '--button-bg': '#ffe0f2',
+      '--button-bg': 'linear-gradient(90deg, #ffe0f2 0%, #ffd6f7 100%)',
       '--button-text': '#f91b8f',
-      '--button-border': '#f91b8f',
+      '--button-border': '#ff69b4',
       '--chat-border': '#f91b8f',
       '--user-bubble': '#f91b8f',
       '--chat-bubble': '#ffe0f2',
-      '--chat-bg': 'white',
+      '--chat-bg': 'linear-gradient(135deg, #ffe0f2 0%, #e0eaff 100%)',
       '--chat-text': '#f91b8f',
       '--chat-text-user': 'white'
     };
