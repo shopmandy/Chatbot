@@ -4,7 +4,7 @@ export async function fetchRedditTitles(): Promise<string[]> {
     try {
         const response = await fetch('https://www.reddit.com/r/HomeDecorating/top.json?t=week&limit=10', {
             headers: {
-                'User-Agent': 'Mozilla/5.0 (compatible; MandyBot/1.0; +https://shopmandy.com)',
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
             },
         });
         console.log('Reddit status:', response.status);
