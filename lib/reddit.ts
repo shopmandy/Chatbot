@@ -4,9 +4,11 @@ export async function fetchRedditTitles(): Promise<string[]> {
     try {
         const response = await fetch('https://www.reddit.com/r/HomeDecorating/top.json?t=week&limit=10', {
             headers: {
-                'User-Agent': 'MandyGPT/1.0 (https://chatbot-one-dun.vercel.app/chatbot)',
+                'User-Agent': 'Mozilla/5.0 (compatible; MandyBot/1.0; +https://shopmandy.com)',
             },
         });
+        console.log('Reddit status:', response.status);
+        console.log('Reddit headers:', JSON.stringify(response.headers));
         if (!response.ok) {
             const errorText = await response.text();
             console.error('Reddit fetch failed:', response.status, errorText.slice(0, 200));
