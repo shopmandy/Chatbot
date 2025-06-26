@@ -24,7 +24,7 @@
 .header {
   background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(10px);
-  border-bottom: 2px solid #ff69b4;
+  border-bottom: 2px solid var(--button-border, #ff69b4);
   box-shadow: 0 2px 20px rgba(255, 105, 180, 0.15);
   position: sticky;
   top: 0;
@@ -48,13 +48,13 @@
 
 .logoIcon {
   font-size: 2rem;
-  filter: drop-shadow(0 0 8px #ff69b4);
+  filter: drop-shadow(0 0 8px var(--button-border, #ff69b4));
 }
 
 .logoText {
   font-size: 2.2rem;
   font-weight: 900;
-  color: #ff69b4;
+  color: var(--button-text, #ff69b4);
   text-shadow: 0 0 12px #ffb6e6, 0 0 2px #fff;
   letter-spacing: 2px;
   margin: 0;
@@ -77,7 +77,7 @@
 /* Chat Container */
 .chatContainer {
   background: rgba(255, 255, 255, 0.95);
-  border: 3px solid #ff69b4;
+  border: 3px solid var(--chat-border, #ff69b4);
   border-radius: 24px;
   box-shadow: 
     0 8px 32px rgba(255, 105, 180, 0.2),
@@ -94,7 +94,7 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #ff69b4, #b6b6ff, #00ffe7, #ff69b4);
+  background: linear-gradient(90deg, var(--button-border, #ff69b4), #b6b6ff, #00ffe7, var(--button-border, #ff69b4));
   background-size: 200% 100%;
   animation: shimmer 3s ease-in-out infinite;
 }
@@ -115,7 +115,7 @@
 .heroTitle {
   font-size: 3.5rem;
   font-weight: 900;
-  color: #ff69b4;
+  color: var(--button-text, #ff69b4);
   text-shadow: 0 0 20px #ffb6e6, 0 0 4px #fff;
   letter-spacing: 3px;
   margin: 0 0 1rem 0;
@@ -124,7 +124,7 @@
 
 .heroSubtitle {
   font-size: 1.8rem;
-  color: #b8005c;
+  color: var(--chat-text, #b8005c);
   margin: 0 0 2rem 0;
   line-height: 1.4;
   max-width: 600px;
@@ -147,7 +147,7 @@
   gap: 0.5rem;
   padding: 1rem 1.5rem;
   background: rgba(255, 255, 255, 0.8);
-  border: 2px solid #ff69b4;
+  border: 2px solid var(--button-border, #ff69b4);
   border-radius: 16px;
   box-shadow: 0 4px 16px rgba(255, 105, 180, 0.15);
   transition: all 0.3s ease;
@@ -160,13 +160,13 @@
 
 .featureIcon {
   font-size: 2rem;
-  filter: drop-shadow(0 0 4px #ff69b4);
+  filter: drop-shadow(0 0 4px var(--button-border, #ff69b4));
 }
 
 .feature span:last-child {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #b8005c;
+  color: var(--chat-text, #b8005c);
 }
 
 /* Chat Interface */
@@ -178,7 +178,7 @@
   height: 500px;
   padding: 1.5rem;
   overflow-y: auto;
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--chat-bg, rgba(255, 255, 255, 0.9));
   border-radius: 16px;
   border: 2px solid rgba(255, 105, 180, 0.3);
   box-shadow: inset 0 2px 8px rgba(255, 182, 230, 0.2);
@@ -196,12 +196,12 @@
 }
 
 .chatBox::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #ff69b4, #b6b6ff);
+  background: linear-gradient(180deg, var(--button-border, #ff69b4), #b6b6ff);
   border-radius: 4px;
 }
 
 .chatBox::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #ff1493, #8a2be2);
+  background: linear-gradient(180deg, var(--button-border, #ff1493), #8a2be2);
 }
 
 /* Message Styling */
@@ -217,9 +217,9 @@
   max-width: 80%;
   padding: 1.2rem 1.5rem;
   border-radius: 20px 20px 20px 8px;
-  background: linear-gradient(135deg, #fff0fa 0%, #ffe0f2 100%);
-  color: #2e2e54;
-  border: 2px solid #ff69b4;
+  background: var(--chat-bubble, #ffe0f2);
+  color: var(--chat-text, #f91b8f);
+  border: 2px solid var(--chat-border, #ff69b4);
   font-size: 1.3rem;
   text-shadow: 0 0 1px #fff;
   box-shadow: 0 4px 16px rgba(255, 105, 180, 0.15);
@@ -228,13 +228,13 @@
 }
 
 .questionBubble {
-  background: linear-gradient(135deg, #fff0fa 0%, #ffe0f2 100%);
-  color: #b8005c;
+  background: var(--user-bubble, #f91b8f);
+  color: var(--chat-text-user, white);
   font-size: 1.4rem;
   font-weight: 700;
   padding: 1.2rem 1.8rem;
   border-radius: 20px 20px 8px 20px;
-  border: 2px solid #ff69b4;
+  border: 2px solid var(--button-border, #ff69b4);
   box-shadow: 0 4px 16px rgba(255, 105, 180, 0.15);
   align-self: flex-end;
   text-align: right;
@@ -246,7 +246,7 @@
   font-weight: 700;
   margin: 0;
   line-height: 1.3;
-  color: #b8005c;
+  color: var(--chat-text-user, white);
 }
 
 /* Loading Animation */
@@ -255,8 +255,9 @@
   align-items: center;
   gap: 1rem;
   padding: 1rem 1.5rem;
-  background: linear-gradient(135deg, #fff0fa 0%, #ffe0f2 100%);
-  border: 2px solid #ff69b4;
+  background: var(--chat-bubble, #ffe0f2);
+  color: var(--chat-text, #f91b8f);
+  border: 2px solid var(--button-border, #ff69b4);
   border-radius: 20px;
   box-shadow: 0 4px 16px rgba(255, 105, 180, 0.15);
   align-self: flex-start;
@@ -271,7 +272,7 @@
 .typingIndicator span {
   width: 8px;
   height: 8px;
-  background: #ff69b4;
+  background: var(--button-border, #ff69b4);
   border-radius: 50%;
   animation: typing 1.4s infinite ease-in-out;
 }
@@ -295,7 +296,7 @@
   display: flex;
   gap: 0.8rem;
   padding: 1.5rem;
-  background: linear-gradient(135deg, #fff0fa 0%, #f0f8ff 100%);
+  background: var(--chat-bg, linear-gradient(135deg, #fff0fa 0%, #f0f8ff 100%));
   border-radius: 20px;
   border: 2px solid rgba(255, 105, 180, 0.3);
   box-shadow: 0 4px 16px rgba(255, 105, 180, 0.1);
@@ -305,8 +306,8 @@
   flex: 1;
   padding: 1rem 1.5rem;
   background: rgba(255, 255, 255, 0.95);
-  border: 2px solid #ff69b4;
-  color: #2e2e54;
+  border: 2px solid var(--button-border, #ff69b4);
+  color: var(--chat-text, #f91b8f);
   border-radius: 16px;
   outline: none;
   font-size: 1.3rem;
@@ -316,15 +317,15 @@
 
 .inputBox:hover, .inputBox:focus {
   box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.2), 0 2px 8px rgba(255, 105, 180, 0.15);
-  border-color: #ff1493;
+  border-color: var(--button-border, #ff1493);
 }
 
 .sendButton, .uploadButton {
   padding: 1rem 1.5rem;
   border-radius: 16px;
-  background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
-  border: 2px solid #ff69b4;
-  color: #fff;
+  background: var(--button-bg, linear-gradient(135deg, #ff69b4 0%, #ff1493 100%));
+  border: 2px solid var(--button-border, #ff69b4);
+  color: var(--button-text, white);
   font-size: 1.2rem;
   font-weight: 600;
   cursor: pointer;
@@ -335,7 +336,7 @@
 }
 
 .sendButton:hover, .uploadButton:hover {
-  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+  background: var(--button-bg, linear-gradient(135deg, #ff1493 0%, #ff69b4 100%));
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(255, 105, 180, 0.3);
 }
@@ -349,9 +350,9 @@
 .customizeButton {
   padding: 0.8rem 1.5rem;
   border-radius: 12px;
-  background: linear-gradient(135deg, #ffe0f2 0%, #f0f8ff 100%);
-  border: 2px solid #ff69b4;
-  color: #ff69b4;
+  background: var(--button-bg, linear-gradient(135deg, #ff69b4 0%, #ff1493 100%));
+  border: 2px solid var(--button-border, #ff69b4);
+  color: var(--button-text, white);
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
@@ -360,8 +361,8 @@
 }
 
 .customizeButton:hover {
-  background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
-  color: #fff;
+  background: var(--button-bg, linear-gradient(135deg, #ff1493 0%, #ff69b4 100%));
+  color: var(--button-text, white);
   transform: translateY(-1px);
   box-shadow: 0 4px 16px rgba(255, 105, 180, 0.25);
 }
@@ -375,7 +376,7 @@
 
 .quickStartTitle {
   font-size: 1.8rem;
-  color: #ff69b4;
+  color: var(--button-text, #ff69b4);
   text-align: center;
   margin: 0 0 1.5rem 0;
   font-weight: 700;
@@ -391,9 +392,9 @@
 
 .questionButton {
   padding: 0.8rem 1.5rem;
-  background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
-  color: #fff;
-  border: 2px solid #ff69b4;
+  background: var(--button-bg, linear-gradient(135deg, #ff69b4 0%, #ff1493 100%));
+  color: var(--button-text, white);
+  border: 2px solid var(--button-border, #ff69b4);
   border-radius: 16px;
   cursor: pointer;
   font-size: 1.2rem;
@@ -405,7 +406,7 @@
 }
 
 .questionButton:hover {
-  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+  background: var(--button-bg, linear-gradient(135deg, #ff1493 0%, #ff69b4 100%));
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(255, 105, 180, 0.3);
 }
@@ -419,7 +420,7 @@
   max-width: 200px;
   max-height: 200px;
   border-radius: 12px;
-  border: 2px solid #ff69b4;
+  border: 2px solid var(--button-border, #ff69b4);
   box-shadow: 0 4px 16px rgba(255, 105, 180, 0.2);
 }
 
@@ -431,12 +432,12 @@
   padding: 1rem;
   background: rgba(255, 255, 255, 0.9);
   border-radius: 12px;
-  border: 2px solid rgba(255, 105, 180, 0.3);
+  border: 2px solid var(--button-border, #ff69b4);
 }
 
 .removePreview {
-  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
-  color: #fff;
+  background: var(--button-bg, linear-gradient(135deg, #ff1493 0%, #ff69b4 100%));
+  color: var(--button-text, white);
   border: none;
   border-radius: 8px;
   padding: 0.5rem 1rem;
@@ -514,7 +515,7 @@
   margin: 1em 0 0.5em 0;
   font-size: 1.15em;
   font-weight: bold;
-  color: #ff69b4;
+  color: var(--button-text, #ff69b4);
   text-shadow: 0 0 4px #fff;
 }
 
