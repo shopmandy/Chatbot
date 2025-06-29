@@ -21,6 +21,7 @@ export default function App({ Component, pageProps }: AppProps) {
      <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
     <>
     <header className="header">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@900&display=swap" rel="stylesheet"/>
       <div className="header-left">
         <button
           className="mobile-menu"
@@ -30,10 +31,9 @@ export default function App({ Component, pageProps }: AppProps) {
           {menuOpen ? '×' : '☰'}
         </button>
         <nav className={`header-nav ${menuOpen ? 'open' : ''}`}>
-          <Link className="nav-link" href="/" style={{ marginRight: '1rem' }} onClick={closeMenu}>HOME</Link>
-          <Link className="nav-link" href="/about" style={{ marginRight: '1rem' }} onClick={closeMenu}>ABOUT</Link>
-          <Link className="nav-link" href="/chatbot" style={{ marginRight: '1rem' }} onClick={closeMenu}>CHATBOT</Link>
-          <Link className="nav-link" href="/room" style={{ marginRight: '1rem' }} onClick={closeMenu}>ROOM</Link>
+          <Link className="nav-link" href="/about" style={{ marginRight: '1rem' }} onClick={closeMenu}><span>ABOUT</span></Link>
+          <Link className="nav-link" href="/chatbot" style={{ marginRight: '1rem' }} onClick={closeMenu}><span>CHATBOT</span></Link>
+          <Link className="nav-link" href="/room" style={{ marginRight: '1rem' }} onClick={closeMenu}><span>ROOM</span></Link>
           <a 
             className="nav-link" 
             href="https://shopmandy.com/" 
@@ -42,7 +42,9 @@ export default function App({ Component, pageProps }: AppProps) {
             style={{ marginRight: '1rem' }}
             onClick={closeMenu}
           >
+            <span>
             SHOP
+            </span>
           </a>
         </nav>
       </div>
@@ -60,12 +62,16 @@ export default function App({ Component, pageProps }: AppProps) {
     <SignedOut>
       <SignInButton mode="modal">
         <a className="nav-link" style={{ cursor: 'pointer' }}>
+          <span>
           SIGN IN
+          </span>
         </a>
       </SignInButton>
       <SignUpButton mode="modal">
         <a className="nav-link" style={{ cursor: 'pointer' }}>
+          <span>
           SIGN UP
+          </span>
         </a>
       </SignUpButton>
     </SignedOut>
