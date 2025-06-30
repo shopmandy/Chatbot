@@ -23,7 +23,6 @@ export default function Room() {
 
     setLoading(true)
 
-    // Step 1: Upload image to imgbb or similar (TEMPORARY)
     const formData = new FormData()
     formData.append('image', image)
 
@@ -32,17 +31,15 @@ export default function Room() {
       body: formData,
     })
 
-    const uploadJson = await uploadRes.json();
-    console.log('Backend response:', uploadJson);
-    if (!uploadJson.success || !uploadJson.data || !uploadJson.data.url) {
-      setLoading(false);
-      alert('Image upload failed. Please check your API key and try again.');
-      return;
+    const uploadJson = await uploadRes.json()
+    if (!uploadJson.success || !uploadJson.data?.url) {
+      setLoading(false)
+      alert('Image upload failed. Please check your API key and try again.')
+      return
     }
 
     const imageUrl = uploadJson.data.url
 
-    // Step 2: Send to your backend API
     const response = await fetch('/api/room-makeover', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -50,11 +47,10 @@ export default function Room() {
     })
 
     const data = await response.json()
-    console.log('Backend response:', data);
     setAfterImage(data.outputUrl)
     setLoading(false)
   }
-  console.log('afterImage:', afterImage);
+
   return (
     <div style={{ fontFamily: 'Arial, sans-serif', backgroundColor: '#ffe0f2', padding: '1rem', textAlign: 'center' }}>
       {/* Title */}
@@ -65,25 +61,17 @@ export default function Room() {
         Tell Mandy what you want your dream room to look like and she will redecorate it for you.
       </p>
 
-      {/* Before and After Section */}
+      {/* Before and After */}
       <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '2rem' }}>
         <div>
-          {beforePreview ? (
-            <img src={beforePreview} alt="Before" style={{ width: '200px', borderRadius: '8px' }} />
-          ) : (
-            <img src="/before-room.png" alt="Before" style={{ width: '200px', borderRadius: '8px' }} />
-          )}
+          <img src={beforePreview || '/before-room.png'} alt="Before" style={{ width: '200px', borderRadius: '8px' }} />
         </div>
         <div>
-          {afterImage ? (
-            <img src={afterImage} alt="After" style={{ width: '200px', borderRadius: '8px' }} />
-          ) : (
-            <img src="/after-room.png" alt="After" style={{ width: '200px', borderRadius: '8px' }} />
-          )}
+          <img src={afterImage || '/after-room.png'} alt="After" style={{ width: '200px', borderRadius: '8px' }} />
         </div>
       </div>
 
-      {/* Chatbot-style Input Section */}
+      {/* Chatbot Input */}
       <div style={{
         marginTop: '2rem',
         display: 'flex',
@@ -117,8 +105,7 @@ export default function Room() {
           padding: '0.75rem 1.25rem',
           borderRadius: '20px',
           fontWeight: 'bold',
-          cursor: 'pointer',
-          display: 'inline-block'
+          cursor: 'pointer'
         }}>
           Upload Photos
         </label>
@@ -148,8 +135,46 @@ export default function Room() {
         </button>
       </div>
 
-      {/* Your shop & gallery content stays the same */}
-      {/* SHOP THE LOOK, MOODBOARD BUTTON, GLOW UP GALLERY... */}
+      {/* Shop the Look */}
+      <h2 style={{ fontFamily: 'monospace', color: '#ff0099', marginTop: '2rem' }}>SHOP THE LOOK</h2>
+      <p style={{ maxWidth: '600px', margin: '0 auto' }}>
+        Don’t just dream about your perfect room – make it reality! Mandy helps you find matching products on Amazon to bring your vision to life.
+      </p>
+      <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '1rem', marginTop: '1rem' }}>
+        <div>
+          <img src="/flowers.png" style={{ width: '100px', borderRadius: '8px' }} />
+          <p>Maya Quilt $99</p>
+        </div>
+        <div>
+          <img src="/quilt1.png" style={{ width: '100px', borderRadius: '8px' }} />
+          <p>Maya Quilt $89</p>
+        </div>
+        <div>
+          <img src="/flowers.png" style={{ width: '100px', borderRadius: '8px' }} />
+          <p>Shopbop</p>
+        </div>
+        <div>
+          <img src="/quilt1.png" style={{ width: '100px', borderRadius: '8px' }} />
+          <p>Urban Outfitters</p>
+        </div>
+      </div>
+
+      {/* Moodboard Button */}
+      <div style={{ marginTop: '1.5rem' }}>
+        <button style={{
+          padding: '0.5rem 1rem',
+          backgroundColor: '#e6f0ff',
+          border: '2px solid #0078d7',
+          borderRadius: '12px',
+          fontWeight: 'bold',
+          cursor: 'pointer'
+        }}>
+          make me a moodboard
+        </button>
+      </div>
+
+      {/* Glow Up Gallery */}
+      <h2 style={{ fontFamily: 'monospace', color: '#ff0099', marginTop: '2.5rem' }}>GLOW UP GALLERY</h2>
     </div>
   )
 }

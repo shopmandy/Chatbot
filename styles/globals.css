@@ -49,6 +49,14 @@ body {
     0 0 16px #b8005c,
     0 0 24px #b8005c;
   filter: none;
+  background: linear-gradient(120deg, #e09ecf 0%, #ff69b4 50%, #b8005c 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 2px;
+  line-height: 1.2; 
+
 }
 .nav-link::after{
   display: none;
