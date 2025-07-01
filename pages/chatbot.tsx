@@ -4,6 +4,7 @@ import styles from "./chatbot.module.css";
 import ReactMarkdown from 'react-markdown';
 import Head from 'next/head'
 import CustomizePanel from './components/CustomizePanel';
+import { redis } from '@/lib/redis';
 
 type Message = {
   role: 'system' | 'user' | 'assistant';
@@ -134,7 +135,7 @@ export default function Chatbot() {
   }, []);
   
   useEffect(() => {
-    fetch('/api/trending-topics').then((res) => res.json()).then((data) => {
+    fetch('/api/get-trending-topics').then((res) => res.json()).then((data) => {
       if (Array.isArray(data.topics)) {
         setTrendingTopics(data.topics);
       }
