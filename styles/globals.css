@@ -50,6 +50,8 @@ body {
   z-index: 2;
   font-family: 'Poppins', 'Montserrat', Arial, sans-serif;
   font-weight: 300 !important;
+  letter-spacing: 0.5px;
+  text-shadow: none;
 }
 
 .nav-link::after {
@@ -103,6 +105,9 @@ body {
   justify-content: flex-start;
   max-width: 100%;
   overflow: hidden;
+}
+.header-nav .nav-link:last-child {
+  margin-right: 1.5rem; /* adjust as needed */
 }
 
 .header-logo {
