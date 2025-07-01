@@ -15,7 +15,10 @@ export async function summarizeTopics(cleanedTitles: string[]): Promise<string[]
     Only output the topics as a list.
     Do not include quotation marks around the topics or questions. 
       `;
-      
+    
+    if (cleanedTitles.length == 0) {
+        return [];
+    }
     const completion = await openai.chat.completions.create({
         model: 'gpt-4o',
         messages: [{ role: 'user', 'content': prompt }],

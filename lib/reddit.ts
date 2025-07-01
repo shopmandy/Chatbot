@@ -1,10 +1,13 @@
 /* Reddit Fetcher */
+import { getRedditAccessToken } from "./redditAuth";
 
 export async function fetchRedditTitles(): Promise<string[]> {
+    const token = await getRedditAccessToken();
     try {
-        const response = await fetch('https://www.reddit.com/r/HomeDecorating/top.json?t=week&limit=10', {
+        const response = await fetch('https://oauth.reddit.com/r/HomeDecorating/top.json?t=week&limit=10', {
             headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
+                Authorization: `Bearer ${token}`,
+                'User-Agent': 'Mandy/1.0 by Medical-Cobbler5546',
             },
         });
         console.log('Reddit status:', response.status);
