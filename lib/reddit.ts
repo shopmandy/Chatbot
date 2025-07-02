@@ -3,11 +3,12 @@ import { getRedditAccessToken } from "./redditAuth";
 
 export async function fetchRedditTitles(): Promise<string[]> {
     const token = await getRedditAccessToken();
+    console.log("Fetched Reddit access token:", token?.slice(0, 10));
     try {
         const response = await fetch('https://oauth.reddit.com/r/HomeDecorating/top.json?t=week&limit=10', {
             headers: {
                 Authorization: `Bearer ${token}`,
-                'User-Agent': 'Mandy/1.0 by Medical-Cobbler5546',
+                'User-Agent': 'Mandy/1.0 by u/Medical-Cobbler5546',
             },
         });
         console.log('Reddit status:', response.status);

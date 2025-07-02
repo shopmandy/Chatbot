@@ -136,8 +136,8 @@ export default function Chatbot() {
   
   useEffect(() => {
     fetch('/api/get-trending-topics').then((res) => res.json()).then((data) => {
-      if (Array.isArray(data.topics)) {
-        setTrendingTopics(data.topics);
+      if (Array.isArray(data.questions)) {
+        setTrendingTopics(data.questions);
       }
     })
     .catch((err) => {
