@@ -11,7 +11,7 @@ export async function getRedditAccessToken(): Promise<string> {
     headers: {
     Authorization: `Basic ${auth}`,
     'Content-Type': 'application/x-www-form-urlencoded',
-    'User-Agent': 'Mandy/1.0 by Medical-Cobbler5546',
+    'User-Agent': 'Mandy/1.0 by u/Medical-Cobbler5546',
     },
     body: 'grant_type=client_credentials',
     });
