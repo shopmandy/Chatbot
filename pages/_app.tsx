@@ -31,15 +31,15 @@ export default function App({ Component, pageProps }: AppProps) {
           {menuOpen ? '×' : '☰'}
         </button>
         <nav className={`header-nav ${menuOpen ? 'open' : ''}`}>
-          <Link className="nav-link" href="/about" style={{ marginRight: '1rem' }} onClick={closeMenu}><span>ABOUT</span></Link>
-          <Link className="nav-link" href="/chatbot" style={{ marginRight: '1rem' }} onClick={closeMenu}><span>CHATBOT</span></Link>
-          <Link className="nav-link" href="/room" style={{ marginRight: '1rem' }} onClick={closeMenu}><span>ROOM</span></Link>
+          <Link className="nav-link" href="/" onClick={closeMenu}>HOME</Link>
+          <Link className="nav-link" href="/about" onClick={closeMenu}><span>ABOUT</span></Link>
+          <Link className="nav-link" href="/chatbot" onClick={closeMenu}><span>CHATBOT</span></Link>
+          <Link className="nav-link" href="/room" onClick={closeMenu}><span>ROOM</span></Link>
           <a 
             className="nav-link" 
             href="https://shopmandy.com/" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ marginRight: '1rem' }}
             onClick={closeMenu}
           >
             <span>
