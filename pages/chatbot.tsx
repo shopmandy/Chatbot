@@ -4,6 +4,7 @@ import styles from "./chatbot.module.css";
 import ReactMarkdown from 'react-markdown';
 import Head from 'next/head'
 import CustomizePanel from './components/CustomizePanel';
+import ChatDropdown from './components/chatDropdown';
 import { redis } from '@/lib/redis';
 
 type Message = {
@@ -21,6 +22,8 @@ export default function Chatbot() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [trendingTopics, setTrendingTopics] = useState<string[] | null>(null);
   const chatBoxRef = useRef<HTMLDivElement>(null);
+  const [showChats, setShowChats] = useState(false);
+
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -174,10 +177,16 @@ export default function Chatbot() {
               >
                 Customize <span role="img" aria-label="wrench">⚙️</span>
               </button>
+              <button
+              className={styles.customizeButton}
+              onClick={() => setShowChats(true)}
+              >
+  Chats <span role="img" aria-label="chat bubble">💬</span>
+</button>
             </div>
           </div>
         </header>
-
+        {showChats && <ChatDropdown onClose={() => setShowChats(false)} />}
         {/* Main Content */}
         <main className={styles.mainContent}>
           <div className={styles.chatContainer}>
