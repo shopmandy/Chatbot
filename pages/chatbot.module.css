@@ -540,3 +540,66 @@
 .pageContainer, .bubble, .questionBubble, .inputBox, .sendButton, .uploadButton, .customizeButton, .logoText, .heroTitle, .heroSubtitle, .quickStartTitle {
   font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace !important;
 }
+/* chatbot.module.css */
+
+.chatButton {
+  background-color: #ff0080;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font-weight: bold;
+  margin-left: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.chatButton:hover {
+  background-color: #e60073;
+}
+
+.chatDropdown {
+  position: absolute;
+  right: 0;
+  margin-top: 0.5rem;
+  width: 250px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.chatDropdownHeader {
+  margin-bottom: 0.5rem;
+  color: #ff0080;
+  font-weight: bold;
+}
+
+.chatList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.chatListItem button {
+  background: none;
+  border: none;
+  padding: 0.25rem 0;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.chatListItem button:hover {
+  background-color: #ffe0f2;
+  border-radius: 0.25rem;
+}
+
+.chatTimestamp {
+  font-size: 0.8rem;
+  color: #999;
+}

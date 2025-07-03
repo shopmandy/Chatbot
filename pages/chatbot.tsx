@@ -4,7 +4,9 @@ import styles from "./chatbot.module.css";
 import ReactMarkdown from 'react-markdown';
 import Head from 'next/head'
 import CustomizePanel from './components/CustomizePanel';
+import ChatDropdown from './components/chatDropdown';
 import { redis } from '@/lib/redis';
+import { SignedIn} from "@clerk/nextjs";
 
 type Message = {
   role: 'system' | 'user' | 'assistant';
@@ -21,6 +23,8 @@ export default function Chatbot() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [trendingTopics, setTrendingTopics] = useState<string[] | null>(null);
   const chatBoxRef = useRef<HTMLDivElement>(null);
+  const [showChats, setShowChats] = useState(false);
+
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -154,6 +158,44 @@ export default function Chatbot() {
   const questionsToShow = trendingTopics === null ? [] : trendingTopics.length > 0 ? trendingTopics : commonQuestions;
 
 
+const handleSaveChat = async () => {
+  try {
+    const res = await fetch('/api/save-chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        messages: messages, // Your actual message array
+        title: 'New Chat',
+      }),
+    });
+
+    const contentType = res.headers.get('content-type');
+
+    // ✅ DEBUG if it fails
+    if (!res.ok) {
+      const text = await res.text(); // this might be an HTML error page
+      console.error('❌ Save failed — status:', res.status);
+      console.error('❌ Response:', text);
+      throw new Error('Save failed');
+    }
+
+    if (!contentType?.includes('application/json')) {
+      const text = await res.text();
+      console.error('❌ Unexpected response type:', contentType);
+      console.error('❌ Response body:', text);
+      throw new Error('Invalid response format');
+    }
+
+    const data = await res.json();
+    alert('✅ Chat saved!');
+  } catch (err) {
+    console.error('❌ Final error:', err);
+    alert('❌ Something went wrong.');
+  }
+};
+
   return (
     <>
       <Head>
@@ -174,10 +216,21 @@ export default function Chatbot() {
               >
                 Customize <span role="img" aria-label="wrench">⚙️</span>
               </button>
+              <button
+              className={styles.customizeButton}
+              onClick={() => setShowChats(true)}
+              >
+  Chats <span role="img" aria-label="chat bubble">💬</span>
+</button>
+<SignedIn>
+  <button className={styles.customizeButton} onClick={handleSaveChat}>
+    Save Chat 💾
+  </button>
+</SignedIn>
             </div>
           </div>
         </header>
-
+        {showChats && <ChatDropdown onClose={() => setShowChats(false)} />}
         {/* Main Content */}
         <main className={styles.mainContent}>
           <div className={styles.chatContainer}>
