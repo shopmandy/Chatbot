@@ -1,18 +1,88 @@
 import styles from './about.module.css';
 import { useEffect, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import Head from 'next/head';
 
 export default function About() {
   const [showInstagram, setShowInstagram] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const { scrollY } = useScroll();
   // Parallax for each block (adjust the ranges for more/less movement)
   const yMission = useTransform(scrollY, [0, 400], [0, 60]);
   const yValues = useTransform(scrollY, [0, 400], [0, 0]);
   const yFounder = useTransform(scrollY, [0, 400], [0, 140]);
   const yInstagram = useTransform(scrollY, [0, 400], [0, 180]);
+  const yCarousel = useTransform(scrollY, [0, 400], [0, 220]);
   const yHero = useTransform(scrollY, [0, 200], [0, -120]);
   const opacityHero = useTransform(scrollY, [0, 200], [1, 0]);
   const opacityValues = useTransform(scrollY, [200, 350, 600], [0, 1, 0]);
+
+  // Sample images for the carousel - replace with your actual images
+  const carouselImages = [
+    {
+      src: '/box-crop.png',
+      alt: 'Mandy Toolbox'
+    },
+    {
+      src: '/carousel-image-2.png',
+      alt: 'Mandy Bronco'
+    },
+    {
+      src: '/clouds 2.png',
+      alt: 'Clouds'
+    },
+    {
+      src: '/hero-cb-edit.png',
+      alt: 'Mandy Hero'
+    },
+    {
+      src: '/wrench.png',
+      alt: 'Mandy Wrench'
+    }
+    ,
+    {
+      src: '/denim-4517843_1280.jpg',
+      alt: 'Denim'
+    },
+    {
+      src: '/carousel-image.png',
+      alt: 'Behind the Scenes'
+    },
+    {
+      src: '/mandy-collage.png',
+      alt: 'Mandy Collage'
+    }
+  ];
+
+  // Create a continuous loop of images for smooth scrolling
+  const continuousImages = [...carouselImages, ...carouselImages, ...carouselImages];
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % carouselImages.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + carouselImages.length) % carouselImages.length);
+  };
+
+  const goToImage = (index: number) => {
+    setCurrentImageIndex(index);
+  };
+
+  // Continuous smooth scrolling effect with seamless reset
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => {
+        let next = prev + 0.0045;
+        // If we've scrolled through the first set and into the second, reset to the start
+        if (next >= carouselImages.length * 2) {
+          return next - carouselImages.length;
+        }
+        return next;
+      });
+    }, 60);
+    return () => clearInterval(interval);
+  }, [carouselImages.length]);
 
   useEffect(() => {
     setShowInstagram(true);
@@ -28,6 +98,9 @@ export default function About() {
 
   return (
     <div className={styles.fullBleedCloud}>
+      <Head>
+        <link href="https://fonts.googleapis.com/css2?family=Tiny5&family=VT323&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+      </Head>
       {/* Hero Section */}
       <section className={styles.heroSection}>
         <div className={styles.heroContentWrapper}>
@@ -136,25 +209,37 @@ export default function About() {
             />
           </div>
         </motion.section>
-        <motion.section className={styles.instagramSection} style={{ y: yInstagram }}>
-          <h3>Follow Us on Instagram</h3>
-          <div className={styles.instagramEmbed}>
-            {showInstagram && (
-              <>
-                <blockquote
-                  className="instagram-media"
-                  data-instgrm-captioned
-                  data-instgrm-permalink="https://www.instagram.com/reel/DGD2an1pRJ3/?utm_source=ig_embed&amp;utm_campaign=loading"
-                  data-instgrm-version="14"
-                ></blockquote>
-                <blockquote
-                  className="instagram-media"
-                  data-instgrm-captioned
-                  data-instgrm-permalink="https://www.instagram.com/p/DBh4GZ4PEly/?utm_source=ig_embed&amp;utm_campaign=loading"
-                  data-instgrm-version="14"
-                ></blockquote>
-              </>
-            )}
+
+        {/* Photo Carousel Section */}
+        <motion.section className={styles.carouselSection} style={{ y: yCarousel }}>
+          <div className={styles.carouselHeader}>
+            <span className={styles.carouselHeaderText}>Build along with us!</span>
+            <a
+              href="https://instagram.com/shopmandytools"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.carouselHeaderLink}
+            >
+              @shopmandytools
+            </a>
+          </div>
+          <div className={styles.carouselContainer}>
+            <div className={styles.carouselWrapper}>
+              <div 
+                className={styles.carouselTrack}
+                style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
+              >
+                {continuousImages.map((image, index) => (
+                  <div key={index} className={styles.carouselSlide}>
+                    <img 
+                      src={image.src} 
+                      alt={image.alt} 
+                      className={styles.carouselImage}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </motion.section>
       </main>
