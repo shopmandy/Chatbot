@@ -1,4 +1,6 @@
 import React from 'react';
+import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
+
 
 interface ChatDropdownProps {
   onClose: () => void;
@@ -21,12 +23,17 @@ const ChatDropdown: React.FC<ChatDropdownProps> = ({ onClose }) => {
         minWidth: '200px',
       }}
     >
-      <p style={{ fontWeight: 'bold', color: 'var(--chat-text)' }}>Previous Chats</p>
+    <SignedOut>
+         <p style={{ fontWeight: 'bold', color: 'var(--chat-text)' }}>Sign In to See Save Chats</p>
+    </SignedOut>
+    <SignedIn>
+        <p style={{ fontWeight: 'bold', color: 'var(--chat-text)' }}>Previous Chats</p>
       <ul style={{ listStyle: 'none', padding: 0 }}>
         <li style={{ padding: '0.5rem 0', cursor: 'pointer' }}>Living Room Shelf</li>
         <li style={{ padding: '0.5rem 0', cursor: 'pointer' }}>Wallpaper Tips</li>
         <li style={{ padding: '0.5rem 0', cursor: 'pointer' }}>Paint Matching</li>
       </ul>
+    </SignedIn>
     </div>
   );
 };
