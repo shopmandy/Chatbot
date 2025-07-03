@@ -30,30 +30,77 @@ export default function About() {
     <div className={styles.fullBleedCloud}>
       {/* Hero Section */}
       <section className={styles.heroSection}>
-        {/* Floating PNGs */}
-        <motion.img src="/mandy-tools-doodle.png" className={styles.floatingImg1} alt="Mandy Tools Doodle" animate={{ y: [0, -20, 0]}} transition={{duration: 3, repeat: Infinity, repeatType: 'reverse'}} />
-        <motion.img src="/star-doodle-1.png" className={styles.floatingImg2} alt="Star Doodle 1" animate={{ x: [0, -20, 0]}} transition={{duration: 3, repeat: Infinity, repeatType: 'reverse'}} />
-        <motion.img src="/star-doodle-2.png" className={styles.floatingImg3} alt="Star Doodle 2" animate={{ y: [0, -20, 0]}} transition={{duration: 3, repeat: Infinity, repeatType: 'reverse'}} />
-        <motion.img src="/star.png" className={styles.floatingImg4} alt="star" animate={{ x: [0, -20, 0]}} transition={{duration: 3, repeat: Infinity, repeatType: 'reverse'}} />
-        {/* Hero Content */}
-        <motion.h1
-          style={{ y: yHero, opacity: opacityHero }}
-          className={styles.heroHeading}
-          transition={{ type: 'tween', ease: 'easeOut' }}
-        >
-          AT MANDY, WE BELIEVE THAT EVERY WOMAN CAN DO–IT–HERSELF WITH THE RIGHT TOOLS.
-        </motion.h1>
-        <motion.p className={styles.heroSubheading} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
-          Let's face it. No one wants to decorate alone.
-        </motion.p>
+        <div className={styles.heroContentWrapper}>
+          <h1 className={styles.heroMainHeading}>
+            AT MANDY, WE BELIEVE THAT EVERY WOMAN<br />
+            CAN DO-IT-HERSELF WITH THE RIGHT TOOLS.
+          </h1>
+          <div className={styles.heroVisuals}>
+            {/* Camera with photo */}
+            <div className={styles.cameraFrame}>
+              <img src="/about page inspo 1.png" alt="Camera with woman and Jeep" className={styles.cameraImg} />
+              {/* Top right starburst with circular image - SVG mask */}
+              <div className={styles.starburstSVGWrapper} style={{position: 'absolute', top: '-80px', right: '-110px', width: '200px', height: '200px', zIndex: 5}}>
+                <svg width="200" height="200" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <clipPath id="circleClipTopRight">
+                      <circle cx="250" cy="250" r="160" />
+                    </clipPath>
+                  </defs>
+                  <image
+                    href="/Ellipse 34.png"
+                    width="500"
+                    height="500"
+                    clipPath="url(#circleClipTopRight)"
+                    preserveAspectRatio="xMidYMid slice"
+                  />
+                  <image
+                    href="/Star 7.png"
+                    width="500"
+                    height="500"
+                    style={{mixBlendMode: 'multiply'}}
+                  />
+                </svg>
+              </div>
+              {/* Bottom left starburst with circular image - SVG mask */}
+              <div className={styles.starburstSVGWrapper} style={{position: 'absolute', bottom: '-130px', left: '-110px', width: '200px', height: '200px', zIndex: 5}}>
+                <svg width="200" height="200" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <clipPath id="circleClipBottomLeft">
+                      <circle cx="250" cy="250" r="160" />
+                    </clipPath>
+                  </defs>
+                  <image
+                    href="/Ellipse 33.png"
+                    width="500"
+                    height="500"
+                    clipPath="url(#circleClipBottomLeft)"
+                    preserveAspectRatio="xMidYMid slice"
+                  />
+                  <image
+                    href="/Star 7.png"
+                    width="500"
+                    height="500"
+                    style={{mixBlendMode: 'multiply'}}
+                  />
+                </svg>
+              </div>
+              {/* Torn paper mission statement - move to bottom right of camera */}
+              <div className={styles.tornPaperWrapper + ' ' + styles.tornPaperAbsolute}>
+                <img src="/3 3545895.png" alt="Torn paper" className={styles.tornPaperImg} />
+                <span className={styles.tornPaperText}>
+                  We are dedicated to empowering women to confidently build, repair, and get it done, and we're here to provide the tools to make it happen.
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* About Content Section */}
       <main className={styles.aboutContent}>
-        <motion.h2 className={styles.aboutHeading} style={{ y: yMission }}>
-          We are dedicated to empowering women to confidently build, repair, and get it done, and we're here to provide the tools to make it happen.
-        </motion.h2>
-        <motion.p style={{ y: yMission }}>
+       
+        <motion.p className={styles.aboutHeading} style={{ y: yMission }}>
           Our mission is to break down barriers and stereotypes in the world of DIY by offering thoughtfully designed tools that cater to the needs and preferences of women.
         </motion.p>
         <motion.div style={{ y: yValues, width: '100%'}}>
