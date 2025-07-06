@@ -46,6 +46,23 @@ export default function App({ Component, pageProps }: AppProps) {
             SHOP
             </span>
           </a>
+          <div className="header-auth-mobile">
+            <SignedOut>
+              <SignInButton mode="modal">
+                <a className="nav-link" style={{ cursor: 'pointer' }}>
+                  <span>SIGN IN</span>
+                </a>
+              </SignInButton>
+              <SignUpButton mode="modal">
+                <a className="nav-link" style={{ cursor: 'pointer' }}>
+                  <span>SIGN UP</span>
+                </a>
+              </SignUpButton>
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+          </div>
         </nav>
       </div>
       <div className="header-logo">
@@ -58,28 +75,23 @@ export default function App({ Component, pageProps }: AppProps) {
         </a>
       </div>
       <div className="right-spacer" />
-            <div className="header-auth" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-    <SignedOut>
-      <SignInButton mode="modal">
-        <a className="nav-link" style={{ cursor: 'pointer' }}>
-          <span>
-          SIGN IN
-          </span>
-        </a>
-      </SignInButton>
-      <SignUpButton mode="modal">
-        <a className="nav-link" style={{ cursor: 'pointer' }}>
-          <span>
-          SIGN UP
-          </span>
-        </a>
-      </SignUpButton>
-    </SignedOut>
-
-    <SignedIn>
-      <UserButton />
-    </SignedIn>
-  </div>
+      <div className="header-auth-desktop">
+        <SignedOut>
+          <SignInButton mode="modal">
+            <a className="nav-link" style={{ cursor: 'pointer' }}>
+              <span>SIGN IN</span>
+            </a>
+          </SignInButton>
+          <SignUpButton mode="modal">
+            <a className="nav-link" style={{ cursor: 'pointer' }}>
+              <span>SIGN UP</span>
+            </a>
+          </SignUpButton>
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+      </div>
     </header>
     <main style={{ marginTop: '', padding: '1rem' }}>
       <Component {...pageProps} />
