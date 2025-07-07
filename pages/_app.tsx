@@ -21,7 +21,7 @@ export default function App({ Component, pageProps }: AppProps) {
      <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
     <>
     <header className="header">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Tiny5&family=VT323&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
       <div className="header-left">
         <button
           className="mobile-menu"
