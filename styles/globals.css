@@ -75,7 +75,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;       
-  padding: 1rem 2rem;                 
+  padding: 1rem;                 
   background-color: #f91b8f;  
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
