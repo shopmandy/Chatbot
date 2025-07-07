@@ -59,6 +59,7 @@ export default function About() {
 
   // Start index in the middle
   const [currentImageIndex, setCurrentImageIndex] = useState(baseLength * Math.floor(repeatCount / 2));
+  const [isPaused, setIsPaused] = useState(false);
 
   // Measure slide width for responsive carousel
   useEffect(() => {
@@ -74,6 +75,7 @@ export default function About() {
 
   // Continuous smooth scrolling effect with robust reset
   useEffect(() => {
+    if (isPaused) return;
     const interval = setInterval(() => {
       setCurrentImageIndex(prev => {
         let next = prev + 0.012; // slightly faster for pixel-based
@@ -84,7 +86,7 @@ export default function About() {
       });
     }, 60);
     return () => clearInterval(interval);
-  }, [baseLength, totalImages]);
+  }, [baseLength, totalImages, isPaused]);
 
   useEffect(() => {
     setShowInstagram(true);
@@ -239,6 +241,8 @@ export default function About() {
                   >
                     <a href="https://instagram.com/shopmandytools">
                       <img
+                        onMouseEnter={() => setIsPaused(true)}
+                        onMouseLeave={() => setIsPaused(false)}
                         src={image.src}
                         alt={image.alt}
                         className={styles.carouselImage}
