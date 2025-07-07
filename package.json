@@ -9,11 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.23.2",
+    "@supabase/supabase-js": "^2.50.2",
+    "@upstash/redis": "^1.35.0",
     "formidable": "^3.5.4",
+    "framer-motion": "^12.19.2",
     "next": "15.3.3",
     "openai": "^5.0.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-intersection-observer": "^9.16.0",
     "react-markdown": "^10.1.0",
     "react-select": "^5.10.1",
     "replicate": "^1.0.1"

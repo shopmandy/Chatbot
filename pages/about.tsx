@@ -1,259 +1,248 @@
+import styles from './about.module.css';
+import { useEffect, useState } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import Head from 'next/head';
+
 export default function About() {
-    return (
-      <div style={{ fontFamily: 'Arial, sans-serif', backgroundColor: '#ffe0f2', minHeight: '100vh', display: 'flex', flexDirection: 'column'}}>
-        <div style={{
-          flex: 1,
-          maxWidth: '800px',
-          margin: '0 auto',
-          background: 'url("/clouds-bg.jpg") no-repeat center/cover',
-          border: '4px solid #0078d7',
-          borderRadius: '12px',
-          padding: '2rem',
-          backgroundColor: '#ffffffaa'
-        }}>
-          {/* Original Content */}
-          <h1 style={{ color: '#ff0080', fontSize: '2rem', fontWeight: 'bold' }}>
-            AT MANDY, WE BELIEVE THAT EVERY WOMAN CAN DO–IT–HERSELF WITH THE RIGHT TOOLS.
+  const [showInstagram, setShowInstagram] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const { scrollY } = useScroll();
+  // Parallax for each block (adjust the ranges for more/less movement)
+  const yMission = useTransform(scrollY, [0, 400], [0, 60]);
+  const yValues = useTransform(scrollY, [0, 400], [0, 0]);
+  const yFounder = useTransform(scrollY, [0, 400], [0, 140]);
+  const yInstagram = useTransform(scrollY, [0, 400], [0, 180]);
+  const yCarousel = useTransform(scrollY, [0, 400], [0, 220]);
+  const yHero = useTransform(scrollY, [0, 200], [0, -120]);
+  const opacityHero = useTransform(scrollY, [0, 200], [1, 0]);
+  const opacityValues = useTransform(scrollY, [200, 350, 600], [0, 1, 0]);
+
+  // Sample images for the carousel - replace with your actual images
+  const carouselImages = [
+    {
+      src: '/box-crop.png',
+      alt: 'Mandy Toolbox'
+    },
+    {
+      src: '/carousel-image-2.png',
+      alt: 'Mandy Bronco'
+    },
+    {
+      src: '/clouds 2.png',
+      alt: 'Clouds'
+    },
+    {
+      src: '/hero-cb-edit.png',
+      alt: 'Mandy Hero'
+    },
+    {
+      src: '/wrench.png',
+      alt: 'Mandy Wrench'
+    }
+    ,
+    {
+      src: '/denim-4517843_1280.jpg',
+      alt: 'Denim'
+    },
+    {
+      src: '/carousel-image.png',
+      alt: 'Behind the Scenes'
+    },
+    {
+      src: '/mandy-collage.png',
+      alt: 'Mandy Collage'
+    }
+  ];
+
+  // Create a continuous loop of images for smooth scrolling
+  const continuousImages = [...carouselImages, ...carouselImages, ...carouselImages];
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % carouselImages.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + carouselImages.length) % carouselImages.length);
+  };
+
+  const goToImage = (index: number) => {
+    setCurrentImageIndex(index);
+  };
+
+  // Continuous smooth scrolling effect with seamless reset
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => {
+        let next = prev + 0.0045;
+        // If we've scrolled through the first set and into the second, reset to the start
+        if (next >= carouselImages.length * 2) {
+          return next - carouselImages.length;
+        }
+        return next;
+      });
+    }, 60);
+    return () => clearInterval(interval);
+  }, [carouselImages.length]);
+
+  useEffect(() => {
+    setShowInstagram(true);
+    if (typeof window !== 'undefined' && (window as any).instgrm === undefined) {
+      const script = document.createElement('script');
+      script.src = '//www.instagram.com/embed.js';
+      script.async = true;
+      document.body.appendChild(script);
+    } else if (typeof window !== 'undefined' && (window as any).instgrm) {
+      (window as any).instgrm.Embeds.process();
+    }
+  }, []);
+
+  return (
+    <div className={styles.fullBleedCloud}>
+      <Head>
+        <link href="https://fonts.googleapis.com/css2?family=Tiny5&family=VT323&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+      </Head>
+      {/* Hero Section */}
+      <section className={styles.heroSection}>
+        <div className={styles.heroContentWrapper}>
+          <h1 className={styles.heroMainHeading}>
+            AT MANDY, WE BELIEVE THAT EVERY WOMAN<br />
+            CAN DO-IT-HERSELF WITH THE RIGHT TOOLS.
           </h1>
-  
-          <p style={{ color: '#ff0080', fontWeight: 'bold', marginTop: '1rem' }}>
-            We are dedicated to empowering women to confidently build, repair, and get it done, and we're here to provide the tools to make it happen.
-          </p>
-  
-          <p style={{ marginTop: '1rem' }}>
-            Our mission is to break down barriers and stereotypes in the world of DIY by offering thoughtfully designed tools that cater to the needs and preferences of women.
-          </p>
-  
-          <p style={{ marginTop: '1rem', fontWeight: 'bold' }}>We are committed to:</p>
-          <ul style={{ listStyle: 'none', paddingLeft: 0, color: '#ff0080', fontWeight: 'bold' }}>
-            <li>❤️ Quality and Innovation</li>
-            <li>❤️ Education and Support</li>
-            <li>❤️ Inclusivity</li>
-            <li>❤️ Sustainability</li>
-            <li>❤️ Community Building</li>
-          </ul>
-  
-          <p style={{ marginTop: '1rem' }}>
-            Mandy is not just a brand; it's a movement. We are here to redefine what it means to be handy and to ensure that every woman has the tools and knowledge to turn her desires into reality.
-          </p>
-  
-          {/* Female Founded Section */}
-          <div style={{ marginTop: '2rem', borderTop: '2px solid #ff0080', paddingTop: '1.5rem' }}>
-            <h2 style={{ color: '#ff0080', fontSize: '1.8rem', fontWeight: 'bold' }}>
-              FEMALE FOUNDED
-            </h2>
-            
-            <div style={{ marginTop: '1rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <div style={{ flex: 1 }}>
-                <p>
-                  Caroline is a dynamic entrepreneur with a rich background in sustainability, law, and emerging technologies. Caroline has cultivated a unique blend of expertise that is intricately woven into the fabric of Mandy.
-                </p>
-                <p style={{ marginTop: '1rem' }}>
-                  Passionate about breaking down barriers in traditionally male-dominated spaces, Caroline has channeled her love for DIY and commitment to empowerment into creating Mandy. Her vision is to revolutionize the DIY space by providing women with tools that are not only functional but also beautifully designed, ensuring that every tool reflects the strength and elegance of its user.
-                </p>
+          <div className={styles.heroVisuals}>
+            {/* Camera with photo */}
+            <div className={styles.cameraFrame}>
+              <img src="/about page inspo 1.png" alt="Camera with woman and Jeep" className={styles.cameraImg} />
+              {/* Top right starburst with circular image - SVG mask */}
+              <div className={styles.starburstSVGWrapper} style={{position: 'absolute', top: '-80px', right: '-110px', width: '200px', height: '200px', zIndex: 5}}>
+                <svg width="200" height="200" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <clipPath id="circleClipTopRight">
+                      <circle cx="250" cy="250" r="160" />
+                    </clipPath>
+                  </defs>
+                  <image
+                    href="/Ellipse 34.png"
+                    width="500"
+                    height="500"
+                    clipPath="url(#circleClipTopRight)"
+                    preserveAspectRatio="xMidYMid slice"
+                  />
+                  <image
+                    href="/Star 7.png"
+                    width="500"
+                    height="500"
+                    style={{mixBlendMode: 'multiply'}}
+                  />
+                </svg>
               </div>
-              <img 
-                src="/founder.png" 
-                alt="Caroline, founder of Mandy Tools" 
-                style={{ 
-                  width: '150px', 
-                  height: '150px', 
-                  borderRadius: '50%', 
-                  border: '3px solid #ff0080',
-                  objectFit: 'cover'
-                }}
-              />
+              {/* Bottom left starburst with circular image - SVG mask */}
+              <div className={styles.starburstSVGWrapper} style={{position: 'absolute', bottom: '-130px', left: '-110px', width: '200px', height: '200px', zIndex: 5}}>
+                <svg width="200" height="200" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <clipPath id="circleClipBottomLeft">
+                      <circle cx="250" cy="250" r="160" />
+                    </clipPath>
+                  </defs>
+                  <image
+                    href="/Ellipse 33.png"
+                    width="500"
+                    height="500"
+                    clipPath="url(#circleClipBottomLeft)"
+                    preserveAspectRatio="xMidYMid slice"
+                  />
+                  <image
+                    href="/Star 7.png"
+                    width="500"
+                    height="500"
+                    style={{mixBlendMode: 'multiply'}}
+                  />
+                </svg>
+              </div>
+              {/* Torn paper mission statement - move to bottom right of camera */}
+              <div className={styles.tornPaperWrapper + ' ' + styles.tornPaperAbsolute}>
+                <img src="/3 3545895.png" alt="Torn paper" className={styles.tornPaperImg} />
+                <span className={styles.tornPaperText}>
+                  We are dedicated to empowering women to confidently build, repair, and get it done, and we're here to provide the tools to make it happen.
+                </span>
+              </div>
             </div>
-          </div>
-  
-          {/* Instagram Embed Section */}
-          <div style={{ marginTop: '2rem', borderTop: '2px solid #ff0080', paddingTop: '1.5rem' }}>
-            <h3 style={{ color: '#ff0080', textAlign: 'center', fontSize: '1.5rem', fontWeight: 'bold' }}>
-              Follow Us on Instagram
-            </h3>
-            
-            {/* Instagram Post 1 */}
-            <div style={{ margin: '1rem auto', maxWidth: '540px' }}>
-              <blockquote 
-                className="instagram-media" 
-                data-instgrm-captioned 
-                data-instgrm-permalink="https://www.instagram.com/reel/DGD2an1pRJ3/?utm_source=ig_embed&amp;utm_campaign=loading" 
-                data-instgrm-version="14" 
-                style={{
-                  background: '#FFF', 
-                  border: '0', 
-                  borderRadius: '3px', 
-                  boxShadow: '0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15)', 
-                  margin: '1px', 
-                  maxWidth: '540px', 
-                  minWidth: '326px', 
-                  padding: '0', 
-                  width: '99.375%',
-                }}
-              >
-                <div style={{ padding: '16px' }}>
-                  <a 
-                    href="https://www.instagram.com/reel/DGD2an1pRJ3/?utm_source=ig_embed&amp;utm_campaign=loading" 
-                    style={{
-                      background: '#FFFFFF', 
-                      lineHeight: '0', 
-                      padding: '0 0', 
-                      textAlign: 'center', 
-                      textDecoration: 'none', 
-                      width: '100%'
-                    }} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                  >
-                    {/* Instagram post content */}
-                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                      <div style={{ backgroundColor: '#F4F4F4', borderRadius: '50%', flexGrow: 0, height: '40px', marginRight: '14px', width: '40px' }}></div>
-                      <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, justifyContent: 'center' }}>
-                        <div style={{ backgroundColor: '#F4F4F4', borderRadius: '4px', flexGrow: 0, height: '14px', marginBottom: '6px', width: '100px' }}></div>
-                        <div style={{ backgroundColor: '#F4F4F4', borderRadius: '4px', flexGrow: 0, height: '14px', width: '60px' }}></div>
-                      </div>
-                    </div>
-                    <div style={{ padding: '19% 0' }}></div>
-                    <div style={{ display: 'block', height: '50px', margin: '0 auto 12px', width: '50px' }}>
-                      <svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlnsXlink="https://www.w3.org/1999/xlink">
-                        {/* SVG paths */}
-                      </svg>
-                    </div>
-                    <div style={{ paddingTop: '8px' }}>
-                      <div style={{ color: '#3897f0', fontFamily: 'Arial,sans-serif', fontSize: '14px', fontStyle: 'normal', fontWeight: '550', lineHeight: '18px' }}>
-                        View this post on Instagram
-                      </div>
-                    </div>
-                    <div style={{ padding: '12.5% 0' }}></div>
-                    {/* More Instagram post content */}
-                  </a>
-                  <p style={{
-                    color: '#c9c8cd',
-                    fontFamily: 'Arial,sans-serif',
-                    fontSize: '14px',
-                    lineHeight: '17px',
-                    marginBottom: '0',
-                    marginTop: '8px',
-                    overflow: 'hidden',
-                    padding: '8px 0 7px',
-                    textAlign: 'center',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap'
-                  }}>
-                    <a 
-                      href="https://www.instagram.com/reel/DGD2an1pRJ3/?utm_source=ig_embed&amp;utm_campaign=loading" 
-                      style={{
-                        color: '#c9c8cd',
-                        fontFamily: 'Arial,sans-serif',
-                        fontSize: '14px',
-                        fontStyle: 'normal',
-                        fontWeight: 'normal',
-                        lineHeight: '17px',
-                        textDecoration: 'none'
-                      }} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                    >
-                      A post shared by Shop Mandy Tools | DIY tools for women (@shopmandytools)
-                    </a>
-                  </p>
-                </div>
-              </blockquote>
-            </div>
-  
-            {/* Instagram Post 2 */}
-            <div style={{ margin: '1rem auto', maxWidth: '540px' }}>
-              <blockquote 
-                className="instagram-media" 
-                data-instgrm-captioned 
-                data-instgrm-permalink="https://www.instagram.com/p/DBh4GZ4PEly/?utm_source=ig_embed&amp;utm_campaign=loading" 
-                data-instgrm-version="14" 
-                style={{
-                  background: '#FFF', 
-                  border: '0', 
-                  borderRadius: '3px', 
-                  boxShadow: '0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15)', 
-                  margin: '1px', 
-                  maxWidth: '540px', 
-                  minWidth: '326px', 
-                  padding: '0', 
-                  width: '99.375%',
-                }}
-              >
-                <div style={{ padding: '16px' }}>
-                  <a 
-                    href="https://www.instagram.com/p/DBh4GZ4PEly/?utm_source=ig_embed&amp;utm_campaign=loading" 
-                    style={{
-                      background: '#FFFFFF', 
-                      lineHeight: '0', 
-                      padding: '0 0', 
-                      textAlign: 'center', 
-                      textDecoration: 'none', 
-                      width: '100%'
-                    }} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                  >
-                    {/* Instagram post content */}
-                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                      <div style={{ backgroundColor: '#F4F4F4', borderRadius: '50%', flexGrow: 0, height: '40px', marginRight: '14px', width: '40px' }}></div>
-                      <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, justifyContent: 'center' }}>
-                        <div style={{ backgroundColor: '#F4F4F4', borderRadius: '4px', flexGrow: 0, height: '14px', marginBottom: '6px', width: '100px' }}></div>
-                        <div style={{ backgroundColor: '#F4F4F4', borderRadius: '4px', flexGrow: 0, height: '14px', width: '60px' }}></div>
-                      </div>
-                    </div>
-                    <div style={{ padding: '19% 0' }}></div>
-                    <div style={{ display: 'block', height: '50px', margin: '0 auto 12px', width: '50px' }}>
-                      <svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlnsXlink="https://www.w3.org/1999/xlink">
-                        {/* SVG paths */}
-                      </svg>
-                    </div>
-                    <div style={{ paddingTop: '8px' }}>
-                      <div style={{ color: '#3897f0', fontFamily: 'Arial,sans-serif', fontSize: '14px', fontStyle: 'normal', fontWeight: '550', lineHeight: '18px' }}>
-                        View this post on Instagram
-                      </div>
-                    </div>
-                    <div style={{ padding: '12.5% 0' }}></div>
-                    {/* More Instagram post content */}
-                  </a>
-                  <p style={{
-                    color: '#c9c8cd',
-                    fontFamily: 'Arial,sans-serif',
-                    fontSize: '14px',
-                    lineHeight: '17px',
-                    marginBottom: '0',
-                    marginTop: '8px',
-                    overflow: 'hidden',
-                    padding: '8px 0 7px',
-                    textAlign: 'center',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap'
-                  }}>
-                    <a 
-                      href="https://www.instagram.com/p/DBh4GZ4PEly/?utm_source=ig_embed&amp;utm_campaign=loading" 
-                      style={{
-                        color: '#c9c8cd',
-                        fontFamily: 'Arial,sans-serif',
-                        fontSize: '14px',
-                        fontStyle: 'normal',
-                        fontWeight: 'normal',
-                        lineHeight: '17px',
-                        textDecoration: 'none'
-                      }} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                    >
-                      A post shared by Shop Mandy Tools | DIY tools for women (@shopmandytools)
-                    </a>
-                  </p>
-                </div>
-              </blockquote>
-            </div>
-            
-            {/* Instagram Script */}
-            <script async src="//www.instagram.com/embed.js"></script>
           </div>
         </div>
-      </div>
-    );
-  }
+      </section>
+
+      {/* About Content Section */}
+      <main className={styles.aboutContent}>
+       
+        <motion.p className={styles.aboutHeading} style={{ y: yMission }}>
+          Our mission is to break down barriers and stereotypes in the world of DIY by offering thoughtfully designed tools that cater to the needs and preferences of women.
+        </motion.p>
+        <motion.div style={{ y: yValues, width: '100%'}}>
+          <p className={styles.boldPink}>
+            We are committed to:
+          </p>
+          <ul className={styles.valuesList}>
+            <li>🛠️ Quality and Innovation</li>
+            <li>📚 Education and Support</li>
+            <li>💖 Inclusivity</li>
+            <li>🌿 Sustainability</li>
+            <li>👯‍♀️ Community Building</li>
+          </ul>
+        </motion.div>
+        <motion.p style={{ y: yFounder }}>
+          Mandy is not just a brand; it's a movement. We are here to redefine what it means to be handy and to ensure that every woman has the tools and knowledge to turn her desires into reality.
+        </motion.p>
+        <motion.section className={styles.founderSection} style={{ y: yFounder }}>
+          <h3>FEMALE FOUNDED</h3>
+          <div className={styles.founderContent}>
+            <div>
+              <p>
+                Caroline is a dynamic entrepreneur with a rich background in sustainability, law, and emerging technologies. Caroline has cultivated a unique blend of expertise that is intricately woven into the fabric of Mandy.
+              </p>
+              <p>
+                Passionate about breaking down barriers in traditionally male-dominated spaces, Caroline has channeled her love for DIY and commitment to empowerment into creating Mandy. Her vision is to revolutionize the DIY space by providing women with tools that are not only functional but also beautifully designed, ensuring that every tool reflects the strength and elegance of its user.
+              </p>
+            </div>
+            <img 
+              src="/founder.png" 
+              alt="Caroline, founder of Mandy Tools" 
+              className={styles.founderImg}
+            />
+          </div>
+        </motion.section>
+
+        {/* Photo Carousel Section */}
+        <motion.section className={styles.carouselSection} style={{ y: yCarousel }}>
+          <div className={styles.carouselHeader}>
+            <span className={styles.carouselHeaderText}>Build along with us!</span>
+            <a
+              href="https://instagram.com/shopmandytools"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.carouselHeaderLink}
+            >
+              @shopmandytools
+            </a>
+          </div>
+          <div className={styles.carouselContainer}>
+            <div className={styles.carouselWrapper}>
+              <div 
+                className={styles.carouselTrack}
+                style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
+              >
+                {continuousImages.map((image, index) => (
+                  <div key={index} className={styles.carouselSlide}>
+                    <img 
+                      src={image.src} 
+                      alt={image.alt} 
+                      className={styles.carouselImage}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.section>
+      </main>
+    </div>
+  );
+}

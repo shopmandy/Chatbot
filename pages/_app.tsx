@@ -1,7 +1,16 @@
 import "@/styles/globals.css";
 import Link from 'next/link';
 import type { AppProps } from "next/app";
+import { ClerkProvider } from "@clerk/nextjs";
 import { useState } from 'react';
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/nextjs";
+
 
 export default function App({ Component, pageProps }: AppProps) {
   const [menuOpen, setMenuOpen] = useState(false); //menu for mobile nav bar
@@ -9,8 +18,10 @@ export default function App({ Component, pageProps }: AppProps) {
   const closeMenu = () => setMenuOpen(false);
 
   return (
+     <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
     <>
     <header className="header">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@900&display=swap" rel="stylesheet"/>
       <div className="header-left">
         <button
           className="mobile-menu"
@@ -20,20 +31,38 @@ export default function App({ Component, pageProps }: AppProps) {
           {menuOpen ? '×' : '☰'}
         </button>
         <nav className={`header-nav ${menuOpen ? 'open' : ''}`}>
-          <Link className="nav-link" href="/" style={{ marginRight: '1rem' }} onClick={closeMenu}>HOME</Link>
-          <Link className="nav-link" href="/about" style={{ marginRight: '1rem' }} onClick={closeMenu}>ABOUT</Link>
-          <Link className="nav-link" href="/chatbot" style={{ marginRight: '1rem' }} onClick={closeMenu}>CHATBOT</Link>
-          <Link className="nav-link" href="/room" style={{ marginRight: '1rem' }} onClick={closeMenu}>ROOM</Link>
+          <Link className="nav-link" href="/" onClick={closeMenu}>HOME</Link>
+          <Link className="nav-link" href="/about" onClick={closeMenu}><span>ABOUT</span></Link>
+          <Link className="nav-link" href="/chatbot" onClick={closeMenu}><span>CHATBOT</span></Link>
+          <Link className="nav-link" href="/room" onClick={closeMenu}><span>ROOM</span></Link>
           <a 
             className="nav-link" 
             href="https://shopmandy.com/" 
             target="_blank" 
             rel="noopener noreferrer"
-            style={{ marginRight: '1rem' }}
             onClick={closeMenu}
           >
+            <span>
             SHOP
+            </span>
           </a>
+          <div className="header-auth-mobile">
+            <SignedOut>
+              <SignInButton mode="modal">
+                <a className="nav-link" style={{ cursor: 'pointer' }}>
+                  <span>SIGN IN</span>
+                </a>
+              </SignInButton>
+              <SignUpButton mode="modal">
+                <a className="nav-link" style={{ cursor: 'pointer' }}>
+                  <span>SIGN UP</span>
+                </a>
+              </SignUpButton>
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+          </div>
         </nav>
       </div>
       <div className="header-logo">
@@ -46,6 +75,23 @@ export default function App({ Component, pageProps }: AppProps) {
         </a>
       </div>
       <div className="right-spacer" />
+      <div className="header-auth-desktop">
+        <SignedOut>
+          <SignInButton mode="modal">
+            <a className="nav-link" style={{ cursor: 'pointer' }}>
+              <span>SIGN IN</span>
+            </a>
+          </SignInButton>
+          <SignUpButton mode="modal">
+            <a className="nav-link" style={{ cursor: 'pointer' }}>
+              <span>SIGN UP</span>
+            </a>
+          </SignUpButton>
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+      </div>
     </header>
     <main style={{ marginTop: '', padding: '1rem' }}>
       <Component {...pageProps} />
@@ -70,5 +116,6 @@ export default function App({ Component, pageProps }: AppProps) {
         </a>
       </footer>
     </>
+    </ClerkProvider>
   );
 }
