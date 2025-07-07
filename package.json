@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@clerk/nextjs": "^6.23.2",
+    "@clerk/nextjs": "^6.23.3",
     "@supabase/supabase-js": "^2.50.2",
     "@upstash/redis": "^1.35.0",
     "formidable": "^3.5.4",

@@ -1,0 +1,123 @@
+.pageContainer {
+  font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace !important;
+  background-color: #ffe0f2;
+  padding: 1rem;
+  text-align: center;
+  font-size: 1.3rem; /* Slightly larger base font */
+}
+
+.title {
+  color: #ff0099;
+  font-size: 2.6rem; /* Larger title */
+  margin-top: 1.5rem;
+  font-family: inherit;
+}
+
+.subtitle {
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 1.25rem; /* Larger subtitle */
+  font-family: inherit;
+}
+
+.section {
+  margin-top: 2rem;
+}
+
+.label {
+  margin-right: 8px;
+  font-weight: bold;
+  color: #ff0099;
+  font-size: 1.3rem; /* Larger label */
+  font-family: inherit;
+}
+
+.shopTheLookTitle,
+.glowUpTitle {
+  color: #ff0099;
+  margin-top: 2rem;
+  font-size: 2rem; /* Larger section titles */
+  font-family: inherit;
+}
+
+.inputRow {
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+  margin-bottom: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.promptInput {
+  width: 100%;
+  padding: 0.75rem 3rem 0.75rem 1rem;
+  border-radius: 12px;
+  border: 2px solid #ff0099;
+  outline-color: #ff0099;
+  font-size: 1.15rem;
+  box-sizing: border-box;
+  background: #fff;
+  color: #222;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.promptInput:focus {
+  border-color: #ff0099;
+  background: #fff0fa;
+}
+
+.arrowButton {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #ff0099;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+  font-size: 30px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 0;
+}
+
+.uploadLabel {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  background: #fff0fa;           /* Match the select background */
+  color: #ff0099;                /* Pink text */
+  border: 2px solid #ff0099;     /* Pink border */
+  border-radius: 12px;
+  padding: 0 1.25rem;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  transition: border 0.2s, background 0.2s, color 0.2s;
+  text-align: center;
+  height: 48px;                  /* Match the select height */
+  line-height: 48px;             /* Vertically center text */
+}
+.moodboardButton {
+  /* Remove position, right, top, transform! */
+  background-color: #ff0099;
+  border: none;
+  border-radius: 12px;
+  padding: 0.75rem 1.25rem;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1.15rem;
+  margin: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: background 0.2s;
+}
