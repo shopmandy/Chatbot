@@ -198,9 +198,7 @@ const handleSaveChat = async () => {
 
   return (
     <>
-      <Head>
-        <link href="https://fonts.googleapis.com/css2?family=Tiny5&family=VT323&display=swap" rel="stylesheet" />
-      </Head>
+      
       <div className={styles.pageContainer}>
         {/* Header */}
         <header className={styles.header}>

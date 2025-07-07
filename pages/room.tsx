@@ -134,9 +134,7 @@ export default function Room() {
 
   return (
     <>
-      <Head>
-        <link href="https://fonts.googleapis.com/css2?family=Tiny5&family=VT323&display=swap" rel="stylesheet" />
-      </Head>
+      
       <div className={styles.pageContainer}>
         <h1 className={styles.title}>TRANSFORM YOUR SPACE</h1>
         <p className={styles.subtitle}>
