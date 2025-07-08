@@ -1,9 +1,3 @@
-.cloudBackground {
-  min-height: 100vh;
-  background: url('/pexels-pixabay-53594.jpg') center/cover no-repeat;
-  display: flex;
-  flex-direction: column;
-}
 
 .navbar {
   display: flex;
@@ -196,8 +190,9 @@
   min-height: 100vh;
   width: 100vw;
   background: url('/pexels-pixabay-531756.jpg') center/cover no-repeat;
-  position: relative;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .heroSection {
@@ -440,6 +435,7 @@
   max-width: 600px;
   z-index: 3;
   font-family: 'Poppins', 'Montserrat', Arial, sans-serif;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.18), 0 1px 2px rgba(0,0,0,0.12);
 }
 
 @media (min-width: 700px) {
@@ -724,3 +720,31 @@
     font-size: 0.98rem;
   }
 }
+
+.frostedGlass {
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-radius: 0;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.08);
+  padding: 0;
+  margin: 0;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; /* Full viewport width */
+  min-height: 100vh;
+  flex:1;
+  padding-bottom: 7rem;
+
+}
+.frostedGlass > *:first-child {
+    margin-top: 0;
+  }
+
+.frostedGlass > *:last-child {
+    margin-bottom: 0;
+  }
