@@ -214,8 +214,8 @@ export default function About() {
               />
             </div>
           </motion.section>
-        {/* Photo Carousel Section */}
-        <motion.section className={styles.carouselSection} style={{ y: yCarousel }}>
+         {/* Photo Carousel Section */}
+         <motion.section className={styles.carouselSection} style={{ y: yCarousel }}>
           <div className={styles.carouselHeader}>
             <span className={styles.carouselHeaderText}>Build along with us!</span>
             <a
@@ -252,7 +252,8 @@ export default function About() {
                 ))}
               </div>
             </div>
-          </motion.section>
+          </div>
+        </motion.section>
         </main>
       </div>
     </div>
