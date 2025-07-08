@@ -118,7 +118,10 @@ export default function About() {
               <div className={styles.cameraFrame}>
                 <img src="/about page inspo 1.png" alt="Camera with woman and Jeep" className={styles.cameraImg} />
                 {/* Top right starburst with circular image - SVG mask */}
-                <div className={styles.starburstSVGWrapper} style={{position: 'absolute', top: '-80px', right: '-110px', width: '200px', height: '200px', zIndex: 5}}>
+                <motion.div
+                  className={styles.starburstSVGWrapper}
+                  style={{position: 'absolute', top: '-80px', right: '-110px', width: '200px', height: '200px', zIndex: 5}}
+                >
                   <svg width="200" height="200" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
                     <defs>
                       <clipPath id="circleClipTopRight">
@@ -132,16 +135,22 @@ export default function About() {
                       clipPath="url(#circleClipTopRight)"
                       preserveAspectRatio="xMidYMid slice"
                     />
-                    <image
+                    <motion.image
                       href="/Star 7.png"
                       width="500"
                       height="500"
                       style={{mixBlendMode: 'multiply'}}
+                      animate={{ rotate: 360 }}
+                      transform="rotate(0 250 250)"
+                      transition={{ repeat: Infinity, duration: 16, ease: "linear" }}
                     />
                   </svg>
-                </div>
+                </motion.div>
                 {/* Bottom left starburst with circular image - SVG mask */}
-                <div className={styles.starburstSVGWrapper} style={{position: 'absolute', bottom: '-130px', left: '-110px', width: '200px', height: '200px', zIndex: 5}}>
+                <motion.div
+                  className={styles.starburstSVGWrapper}
+                  style={{position: 'absolute', bottom: '-130px', left: '-110px', width: '200px', height: '200px', zIndex: 5}}
+                >
                   <svg width="200" height="200" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
                     <defs>
                       <clipPath id="circleClipBottomLeft">
@@ -155,14 +164,17 @@ export default function About() {
                       clipPath="url(#circleClipBottomLeft)"
                       preserveAspectRatio="xMidYMid slice"
                     />
-                    <image
+                    <motion.image
                       href="/Star 7.png"
                       width="500"
                       height="500"
                       style={{mixBlendMode: 'multiply'}}
+                      animate={{ rotate: 360 }}
+                      transform="rotate(0 250 250)"
+                      transition={{ repeat: Infinity, duration: 16, ease: "linear" }}
                     />
                   </svg>
-                </div>
+                </motion.div>
                 {/* Torn paper mission statement - move to bottom right of camera */}
                 <div className={styles.tornPaperWrapper + ' ' + styles.tornPaperAbsolute}>
                   <img src="/3 3545895.png" alt="Torn paper" className={styles.tornPaperImg} />
