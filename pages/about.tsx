@@ -1,11 +1,12 @@
 import styles from './about.module.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Head from 'next/head';
 
 export default function About() {
   const [showInstagram, setShowInstagram] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [slideWidth, setSlideWidth] = useState(300); // default width
+  const slideRef = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll();
   // Parallax for each block (adjust the ranges for more/less movement)
   const yMission = useTransform(scrollY, [0, 400], [0, 60]);
@@ -26,10 +27,6 @@ export default function About() {
     {
       src: '/carousel-image-2.png',
       alt: 'Mandy Bronco'
-    },
-    {
-      src: '/clouds 2.png',
-      alt: 'Clouds'
     },
     {
       src: '/hero-cb-edit.png',
@@ -54,35 +51,42 @@ export default function About() {
     }
   ];
 
-  // Create a continuous loop of images for smooth scrolling
-  const continuousImages = [...carouselImages, ...carouselImages, ...carouselImages];
+  // Repeat images many times for robust infinite scroll
+  const repeatCount = 10;
+  const continuousImages = Array(repeatCount).fill(carouselImages).flat();
+  const totalImages = continuousImages.length;
+  const baseLength = carouselImages.length;
 
-  const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % carouselImages.length);
-  };
+  // Start index in the middle
+  const [currentImageIndex, setCurrentImageIndex] = useState(baseLength * Math.floor(repeatCount / 2));
+  const [isPaused, setIsPaused] = useState(false);
 
-  const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + carouselImages.length) % carouselImages.length);
-  };
-
-  const goToImage = (index: number) => {
-    setCurrentImageIndex(index);
-  };
-
-  // Continuous smooth scrolling effect with seamless reset
+  // Measure slide width for responsive carousel
   useEffect(() => {
+    function updateWidth() {
+      if (slideRef.current) {
+        setSlideWidth(slideRef.current.offsetWidth);
+      }
+    }
+    updateWidth();
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
+  }, []);
+
+  // Continuous smooth scrolling effect with robust reset
+  useEffect(() => {
+    if (isPaused) return;
     const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => {
-        let next = prev + 0.0045;
-        // If we've scrolled through the first set and into the second, reset to the start
-        if (next >= carouselImages.length * 2) {
-          return next - carouselImages.length;
+      setCurrentImageIndex(prev => {
+        let next = prev + 0.012; // slightly faster for pixel-based
+        if (next > totalImages - baseLength * 2) {
+          return baseLength * Math.floor(repeatCount / 2);
         }
         return next;
       });
     }, 60);
     return () => clearInterval(interval);
-  }, [carouselImages.length]);
+  }, [baseLength, totalImages, isPaused]);
 
   useEffect(() => {
     setShowInstagram(true);
@@ -210,36 +214,42 @@ export default function About() {
               />
             </div>
           </motion.section>
-
-          {/* Photo Carousel Section */}
-          <motion.section className={styles.carouselSection} style={{ y: yCarousel }}>
-            <div className={styles.carouselHeader}>
-              <span className={styles.carouselHeaderText}>Build along with us!</span>
-              <a
-                href="https://instagram.com/shopmandytools"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.carouselHeaderLink}
+        {/* Photo Carousel Section */}
+        <motion.section className={styles.carouselSection} style={{ y: yCarousel }}>
+          <div className={styles.carouselHeader}>
+            <span className={styles.carouselHeaderText}>Build along with us!</span>
+            <a
+              href="https://instagram.com/shopmandytools"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.carouselHeaderLink}
+            >
+              @shopmandytools
+            </a>
+          </div>
+          <div className={styles.carouselContainer}>
+            <div className={styles.carouselWrapper}>
+              <div
+                className={styles.carouselTrack}
+                style={{ transform: `translateX(-${currentImageIndex * slideWidth}px)` }}
               >
-                @shopmandytools
-              </a>
-            </div>
-            <div className={styles.carouselContainer}>
-              <div className={styles.carouselWrapper}>
-                <div 
-                  className={styles.carouselTrack}
-                  style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
-                >
-                  {continuousImages.map((image, index) => (
-                    <div key={index} className={styles.carouselSlide}>
-                      <img 
-                        src={image.src} 
-                        alt={image.alt} 
+                {continuousImages.map((image, index) => (
+                  <div
+                    key={index}
+                    className={styles.carouselSlide}
+                    ref={index === 0 ? slideRef : undefined}
+                  >
+                    <a href="https://instagram.com/shopmandytools">
+                      <img
+                        onMouseEnter={() => setIsPaused(true)}
+                        onMouseLeave={() => setIsPaused(false)}
+                        src={image.src}
+                        alt={image.alt}
                         className={styles.carouselImage}
                       />
-                    </div>
-                  ))}
-                </div>
+                    </a>
+                  </div>
+                ))}
               </div>
             </div>
           </motion.section>
