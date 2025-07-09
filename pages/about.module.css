@@ -111,6 +111,7 @@
 }
 
 .mainContent p {
+ font-family: 'Poppins', 'Montserrat', Arial, sans-serif;
   font-size: 1.18rem;
   color: #222;
   margin-bottom: 1.5rem;
@@ -128,6 +129,7 @@
 }
 
 .founderSection h2 {
+  font-family: 'Poppins', 'Montserrat', Arial, sans-serif;
   color: #ff0080;
   font-size: 1.6rem;
   font-weight: bold;
@@ -293,7 +295,10 @@
   text-align: center;
   margin-bottom: 2rem;
   text-shadow: 0 2px 8px rgba(0,0,0,0.18);
-  margin-top: 15rem;
+  margin-top: 0rem;
+}
+.spaceBetweenTornPaperAndAboutCard{
+    margin-top: 20rem;
 }
 
 .valuesList {
@@ -329,7 +334,6 @@
 
 .aboutContent p {
   font-size: 1.18rem;
-  color: #fff;
   margin-bottom: 1.5rem;
   background: none;
   padding: 0;
@@ -337,6 +341,7 @@
   display: inline-block;
   line-height: 1.7;
   text-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  color: #fff;
 }
 
 .founderSection {
@@ -748,3 +753,16 @@
 .frostedGlass > *:last-child {
     margin-bottom: 0;
   }
+
+.aboutCard {
+  background: linear-gradient(135deg, #fff7ae 0%, #ff69b4 100%);
+  border-radius: 2rem;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.18);
+  color: #fff;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto 6rem auto;
+  padding-bottom: 8rem;
+  font-family: 'Poppins', 'Montserrat', Arial, sans-serif;
+}
