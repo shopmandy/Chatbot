@@ -40,7 +40,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     } else {
       return res.status(500).json({ error: prediction.error || 'Prediction failed' })
     }
-
   } catch (err) {
     console.error('Error calling Replicate:', err)
     return res.status(500).json({ error: 'Server error' })

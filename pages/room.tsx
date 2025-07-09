@@ -77,7 +77,7 @@ export default function Room() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: '1rem'
+        gap: '1rem',
       }}>
         <p style={{ fontFamily: 'monospace', fontWeight: 'bold', color: '#ff0099', fontSize: '1.2rem' }}>
           Tell Mandy about your dream room ✨
@@ -105,7 +105,7 @@ export default function Room() {
           padding: '0.75rem 1.25rem',
           borderRadius: '20px',
           fontWeight: 'bold',
-          cursor: 'pointer'
+          cursor: 'pointer',
         }}>
           Upload Photos
         </label>
@@ -167,7 +167,7 @@ export default function Room() {
           border: '2px solid #0078d7',
           borderRadius: '12px',
           fontWeight: 'bold',
-          cursor: 'pointer'
+          cursor: 'pointer',
         }}>
           make me a moodboard
         </button>

@@ -1,7 +1,7 @@
-import { OpenAI } from 'openai';
-import type { NextApiRequest, NextApiResponse } from 'next';
-import formidable from 'formidable';
-import type { File } from 'formidable';
+import type { File } from 'formidable'
+import formidable from 'formidable'
+import type { NextApiRequest, NextApiResponse } from 'next'
+import { OpenAI } from 'openai'
 
 type Message = {
   role: 'user' | 'assistant' | 'system';
@@ -11,54 +11,54 @@ type Message = {
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
-});
+})
 
 export const config = {
   api: {
     bodyParser: false,
   },
-};
+}
 
 async function parseFormData(req: NextApiRequest): Promise<{ messages: Message[]; image?: File }> {
   return new Promise((resolve, reject) => {
-    const form = formidable({ multiples: false });
-    let messages: Message[] = [];
-    let image: File | undefined;
+    const form = formidable({ multiples: false })
+    let messages: Message[] = []
+    let image: File | undefined
 
     form.parse(req, (err, fields, files) => {
       if (err) {
-        reject(err);
-        return;
+        reject(err)
+        return
       }
 
       try {
         if (fields.messages) {
-          messages = JSON.parse(fields.messages[0] as string);
+          messages = JSON.parse(fields.messages[0] as string)
         }
 
         if (files.image) {
-          image = Array.isArray(files.image) ? files.image[0] : files.image;
+          image = Array.isArray(files.image) ? files.image[0] : files.image
         }
 
-        resolve({ messages, image });
+        resolve({ messages, image })
       } catch (e) {
-        reject(e);
+        reject(e)
       }
-    });
-  });
+    })
+  })
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+    return res.status(405).json({ error: 'Method not allowed' })
   }
 
   try {
     // Parse multipart form data (messages + optional image)
-    const { messages, image } = await parseFormData(req);
+    const { messages, image } = await parseFormData(req)
 
     if (!messages || messages.length === 0) {
-      return res.status(400).json({ error: 'No messages provided' });
+      return res.status(400).json({ error: 'No messages provided' })
     }
 
     // System prompt with branding & personality (merged from feature/chatbot)
@@ -75,19 +75,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         'If an image is provided, first visually analyze it and explain what you see in simple terms.' +
         'Always mention safety tips for any risky task.' +
         'If user input is ambiguous, ask clarifying questions before giving advice.' +
-        'Prioritize affordable, beginner-friendly solutions unless the user asks for professional-level advice.'+
-        'IMPORTANT: Use markdown headings, bullet points, and numbered lists to break up your response. Add extra line breaks between steps and sections. Separate each step or section clearly. Avoid large blocks of text.'
-    };
+        'Prioritize affordable, beginner-friendly solutions unless the user asks for professional-level advice.' +
+        'IMPORTANT: Use markdown headings, bullet points, and numbered lists to break up your response. Add extra line breaks between steps and sections. Separate each step or section clearly. Avoid large blocks of text.',
+    }
 
     // Prepare messages for OpenAI API
-    const allMessages: any[] = [systemPrompt];
+    const allMessages: any[] = [systemPrompt]
 
     for (const msg of messages) {
       if (msg.role === 'user' && msg.imageUrl) {
-        const contentArray: any[] = [];
+        const contentArray: any[] = []
 
         if (msg.content) {
-          contentArray.push({ type: 'text', text: msg.content });
+          contentArray.push({ type: 'text', text: msg.content })
         }
 
         contentArray.push({
@@ -96,17 +96,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             url: msg.imageUrl,
             detail: 'auto',
           },
-        });
+        })
 
         allMessages.push({
           role: 'user',
           content: contentArray,
-        });
+        })
       } else {
         allMessages.push({
           role: msg.role,
           content: msg.content,
-        });
+        })
       }
     }
 
@@ -116,21 +116,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       messages: allMessages,
       max_tokens: 1000,
       temperature: 0.7,
-    });
+    })
 
     return res.status(200).json({
       response: chatResponse.choices[0].message,
-    });
+    })
   } catch (error: any) {
     console.error('API Error:', {
       message: error.message,
       code: error.code,
       status: error.status,
       response: error.response?.data,
-    });
+    })
     return res.status(500).json({
       error: 'Failed to process request',
       details: error.message,
-    });
+    })
   }
 }
