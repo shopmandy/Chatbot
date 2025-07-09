@@ -1,11 +1,12 @@
 import styles from './about.module.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Head from 'next/head';
 
 export default function About() {
   const [showInstagram, setShowInstagram] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [slideWidth, setSlideWidth] = useState(300); // default width
+  const slideRef = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll();
   // Parallax for each block (adjust the ranges for more/less movement)
   const yMission = useTransform(scrollY, [0, 400], [0, 60]);
@@ -26,10 +27,6 @@ export default function About() {
     {
       src: '/carousel-image-2.png',
       alt: 'Mandy Bronco'
-    },
-    {
-      src: '/clouds 2.png',
-      alt: 'Clouds'
     },
     {
       src: '/hero-cb-edit.png',
@@ -54,35 +51,42 @@ export default function About() {
     }
   ];
 
-  // Create a continuous loop of images for smooth scrolling
-  const continuousImages = [...carouselImages, ...carouselImages, ...carouselImages];
+  // Repeat images many times for robust infinite scroll
+  const repeatCount = 10;
+  const continuousImages = Array(repeatCount).fill(carouselImages).flat();
+  const totalImages = continuousImages.length;
+  const baseLength = carouselImages.length;
 
-  const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % carouselImages.length);
-  };
+  // Start index in the middle
+  const [currentImageIndex, setCurrentImageIndex] = useState(baseLength * Math.floor(repeatCount / 2));
+  const [isPaused, setIsPaused] = useState(false);
 
-  const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + carouselImages.length) % carouselImages.length);
-  };
-
-  const goToImage = (index: number) => {
-    setCurrentImageIndex(index);
-  };
-
-  // Continuous smooth scrolling effect with seamless reset
+  // Measure slide width for responsive carousel
   useEffect(() => {
+    function updateWidth() {
+      if (slideRef.current) {
+        setSlideWidth(slideRef.current.offsetWidth);
+      }
+    }
+    updateWidth();
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
+  }, []);
+
+  // Continuous smooth scrolling effect with robust reset
+  useEffect(() => {
+    if (isPaused) return;
     const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => {
-        let next = prev + 0.0045;
-        // If we've scrolled through the first set and into the second, reset to the start
-        if (next >= carouselImages.length * 2) {
-          return next - carouselImages.length;
+      setCurrentImageIndex(prev => {
+        let next = prev + 0.012; // slightly faster for pixel-based
+        if (next > totalImages - baseLength * 2) {
+          return baseLength * Math.floor(repeatCount / 2);
         }
         return next;
       });
     }, 60);
     return () => clearInterval(interval);
-  }, [carouselImages.length]);
+  }, [baseLength, totalImages, isPaused]);
 
   useEffect(() => {
     setShowInstagram(true);
@@ -98,120 +102,132 @@ export default function About() {
 
   return (
     <div className={styles.fullBleedCloud}>
-      <Head>
-        <link href="https://fonts.googleapis.com/css2?family=Tiny5&family=VT323&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
-      </Head>
-      {/* Hero Section */}
-      <section className={styles.heroSection}>
-        <div className={styles.heroContentWrapper}>
-          <h1 className={styles.heroMainHeading}>
-            AT MANDY, WE BELIEVE THAT EVERY WOMAN<br />
-            CAN DO-IT-HERSELF WITH THE RIGHT TOOLS.
-          </h1>
-          <div className={styles.heroVisuals}>
-            {/* Camera with photo */}
-            <div className={styles.cameraFrame}>
-              <img src="/about page inspo 1.png" alt="Camera with woman and Jeep" className={styles.cameraImg} />
-              {/* Top right starburst with circular image - SVG mask */}
-              <div className={styles.starburstSVGWrapper} style={{position: 'absolute', top: '-80px', right: '-110px', width: '200px', height: '200px', zIndex: 5}}>
-                <svg width="200" height="200" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <clipPath id="circleClipTopRight">
-                      <circle cx="250" cy="250" r="160" />
-                    </clipPath>
-                  </defs>
-                  <image
-                    href="/Ellipse 34.png"
-                    width="500"
-                    height="500"
-                    clipPath="url(#circleClipTopRight)"
-                    preserveAspectRatio="xMidYMid slice"
-                  />
-                  <image
-                    href="/Star 7.png"
-                    width="500"
-                    height="500"
-                    style={{mixBlendMode: 'multiply'}}
-                  />
-                </svg>
-              </div>
-              {/* Bottom left starburst with circular image - SVG mask */}
-              <div className={styles.starburstSVGWrapper} style={{position: 'absolute', bottom: '-130px', left: '-110px', width: '200px', height: '200px', zIndex: 5}}>
-                <svg width="200" height="200" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <clipPath id="circleClipBottomLeft">
-                      <circle cx="250" cy="250" r="160" />
-                    </clipPath>
-                  </defs>
-                  <image
-                    href="/Ellipse 33.png"
-                    width="500"
-                    height="500"
-                    clipPath="url(#circleClipBottomLeft)"
-                    preserveAspectRatio="xMidYMid slice"
-                  />
-                  <image
-                    href="/Star 7.png"
-                    width="500"
-                    height="500"
-                    style={{mixBlendMode: 'multiply'}}
-                  />
-                </svg>
-              </div>
-              {/* Torn paper mission statement - move to bottom right of camera */}
-              <div className={styles.tornPaperWrapper + ' ' + styles.tornPaperAbsolute}>
-                <img src="/3 3545895.png" alt="Torn paper" className={styles.tornPaperImg} />
-                <span className={styles.tornPaperText}>
-                  We are dedicated to empowering women to confidently build, repair, and get it done, and we're here to provide the tools to make it happen.
-                </span>
+      <div className={styles.frostedGlass}>
+        <Head>
+          <link href="https://fonts.googleapis.com/css2?family=Tiny5&family=VT323&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+        </Head>
+        {/* Hero Section */}
+        <section className={styles.heroSection}>
+          <div className={styles.heroContentWrapper}>
+            <h1 className={styles.heroMainHeading}>
+              AT MANDY, WE BELIEVE THAT EVERY WOMAN<br />
+              CAN DO-IT-HERSELF WITH THE RIGHT TOOLS.
+            </h1>
+            <div className={styles.heroVisuals}>
+              {/* Camera with photo */}
+              <div className={styles.cameraFrame}>
+                <img src="/about page inspo 1.png" alt="Camera with woman and Jeep" className={styles.cameraImg} />
+                {/* Top right starburst with circular image - SVG mask */}
+                <motion.div
+                  className={styles.starburstSVGWrapper}
+                  style={{position: 'absolute', top: '-80px', right: '-110px', width: '200px', height: '200px', zIndex: 5}}
+                >
+                  <svg width="200" height="200" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <clipPath id="circleClipTopRight">
+                        <circle cx="250" cy="250" r="160" />
+                      </clipPath>
+                    </defs>
+                    <image
+                      href="/Ellipse 34.png"
+                      width="500"
+                      height="500"
+                      clipPath="url(#circleClipTopRight)"
+                      preserveAspectRatio="xMidYMid slice"
+                    />
+                    <motion.image
+                      href="/Star 7.png"
+                      width="500"
+                      height="500"
+                      style={{mixBlendMode: 'multiply'}}
+                      animate={{ rotate: 360 }}
+                      transform="rotate(0 250 250)"
+                      transition={{ repeat: Infinity, duration: 16, ease: "linear" }}
+                    />
+                  </svg>
+                </motion.div>
+                {/* Bottom left starburst with circular image - SVG mask */}
+                <motion.div
+                  className={styles.starburstSVGWrapper}
+                  style={{position: 'absolute', bottom: '-130px', left: '-110px', width: '200px', height: '200px', zIndex: 5}}
+                >
+                  <svg width="200" height="200" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <clipPath id="circleClipBottomLeft">
+                        <circle cx="250" cy="250" r="160" />
+                      </clipPath>
+                    </defs>
+                    <image
+                      href="/Ellipse 33.png"
+                      width="500"
+                      height="500"
+                      clipPath="url(#circleClipBottomLeft)"
+                      preserveAspectRatio="xMidYMid slice"
+                    />
+                    <motion.image
+                      href="/Star 7.png"
+                      width="500"
+                      height="500"
+                      style={{mixBlendMode: 'multiply'}}
+                      animate={{ rotate: 360 }}
+                      transform="rotate(0 250 250)"
+                      transition={{ repeat: Infinity, duration: 16, ease: "linear" }}
+                    />
+                  </svg>
+                </motion.div>
+                {/* Torn paper mission statement - move to bottom right of camera */}
+                <div className={styles.tornPaperWrapper + ' ' + styles.tornPaperAbsolute}>
+                  <img src="/3 3545895.png" alt="Torn paper" className={styles.tornPaperImg} />
+                  <span className={styles.tornPaperText}>
+                    We are dedicated to empowering women to confidently build, repair, and get it done, and we're here to provide the tools to make it happen.
+                  </span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* About Content Section */}
-      <main className={styles.aboutContent}>
-       
-        <motion.p className={styles.aboutHeading} style={{ y: yMission }}>
-          Our mission is to break down barriers and stereotypes in the world of DIY by offering thoughtfully designed tools that cater to the needs and preferences of women.
-        </motion.p>
-        <motion.div style={{ y: yValues, width: '100%'}}>
-          <p className={styles.boldPink}>
-            We are committed to:
-          </p>
-          <ul className={styles.valuesList}>
-            <li>🛠️ Quality and Innovation</li>
-            <li>📚 Education and Support</li>
-            <li>💖 Inclusivity</li>
-            <li>🌿 Sustainability</li>
-            <li>👯‍♀️ Community Building</li>
-          </ul>
-        </motion.div>
-        <motion.p style={{ y: yFounder }}>
-          Mandy is not just a brand; it's a movement. We are here to redefine what it means to be handy and to ensure that every woman has the tools and knowledge to turn her desires into reality.
-        </motion.p>
-        <motion.section className={styles.founderSection} style={{ y: yFounder }}>
-          <h3>FEMALE FOUNDED</h3>
-          <div className={styles.founderContent}>
-            <div>
-              <p>
-                Caroline is a dynamic entrepreneur with a rich background in sustainability, law, and emerging technologies. Caroline has cultivated a unique blend of expertise that is intricately woven into the fabric of Mandy.
-              </p>
-              <p>
-                Passionate about breaking down barriers in traditionally male-dominated spaces, Caroline has channeled her love for DIY and commitment to empowerment into creating Mandy. Her vision is to revolutionize the DIY space by providing women with tools that are not only functional but also beautifully designed, ensuring that every tool reflects the strength and elegance of its user.
-              </p>
+        {/* About Content Section */}
+        <main className={styles.aboutContent}>
+         
+          <motion.p className={styles.aboutHeading} style={{ y: yMission }}>
+            Our mission is to break down barriers and stereotypes in the world of DIY by offering thoughtfully designed tools that cater to the needs and preferences of women.
+          </motion.p>
+          <motion.div style={{ y: yValues, width: '100%'}}>
+            <p className={styles.boldPink}>
+              We are committed to:
+            </p>
+            <ul className={styles.valuesList}>
+              <li>🛠️ Quality and Innovation</li>
+              <li>📚 Education and Support</li>
+              <li>💖 Inclusivity</li>
+              <li>🌿 Sustainability</li>
+              <li>👯‍♀️ Community Building</li>
+            </ul>
+          </motion.div>
+          <motion.p style={{ y: yFounder }}>
+            Mandy is not just a brand; it's a movement. We are here to redefine what it means to be handy and to ensure that every woman has the tools and knowledge to turn her desires into reality.
+          </motion.p>
+          <motion.section className={styles.founderSection} style={{ y: yFounder }}>
+            <h3>FEMALE FOUNDED</h3>
+            <div className={styles.founderContent}>
+              <div>
+                <p>
+                  Caroline is a dynamic entrepreneur with a rich background in sustainability, law, and emerging technologies. Caroline has cultivated a unique blend of expertise that is intricately woven into the fabric of Mandy.
+                </p>
+                <p>
+                  Passionate about breaking down barriers in traditionally male-dominated spaces, Caroline has channeled her love for DIY and commitment to empowerment into creating Mandy. Her vision is to revolutionize the DIY space by providing women with tools that are not only functional but also beautifully designed, ensuring that every tool reflects the strength and elegance of its user.
+                </p>
+              </div>
+              <img 
+                src="/founder.png" 
+                alt="Caroline, founder of Mandy Tools" 
+                className={styles.founderImg}
+              />
             </div>
-            <img 
-              src="/founder.png" 
-              alt="Caroline, founder of Mandy Tools" 
-              className={styles.founderImg}
-            />
-          </div>
-        </motion.section>
-
-        {/* Photo Carousel Section */}
-        <motion.section className={styles.carouselSection} style={{ y: yCarousel }}>
+          </motion.section>
+         {/* Photo Carousel Section */}
+         <motion.section className={styles.carouselSection} style={{ y: yCarousel }}>
           <div className={styles.carouselHeader}>
             <span className={styles.carouselHeaderText}>Build along with us!</span>
             <a
@@ -225,24 +241,33 @@ export default function About() {
           </div>
           <div className={styles.carouselContainer}>
             <div className={styles.carouselWrapper}>
-              <div 
+              <div
                 className={styles.carouselTrack}
-                style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
+                style={{ transform: `translateX(-${currentImageIndex * slideWidth}px)` }}
               >
                 {continuousImages.map((image, index) => (
-                  <div key={index} className={styles.carouselSlide}>
-                    <img 
-                      src={image.src} 
-                      alt={image.alt} 
-                      className={styles.carouselImage}
-                    />
+                  <div
+                    key={index}
+                    className={styles.carouselSlide}
+                    ref={index === 0 ? slideRef : undefined}
+                  >
+                    <a href="https://instagram.com/shopmandytools">
+                      <img
+                        onMouseEnter={() => setIsPaused(true)}
+                        onMouseLeave={() => setIsPaused(false)}
+                        src={image.src}
+                        alt={image.alt}
+                        className={styles.carouselImage}
+                      />
+                    </a>
                   </div>
                 ))}
               </div>
             </div>
           </div>
         </motion.section>
-      </main>
+        </main>
+      </div>
     </div>
   );
 }

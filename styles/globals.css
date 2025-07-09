@@ -5,6 +5,17 @@ body {
   background: #ffe0f2;
   color: #f91b8f;
   font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
 }
 
 .nav-link {
@@ -75,7 +86,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;       
-  padding: 1rem 2rem;                 
+  padding: 1rem;                 
   background-color: #f91b8f;  
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
@@ -140,12 +151,18 @@ body {
   }
 
   .header-logo {
-    position: static;
-    transform: none;
-    text-align: center;
-    margin-bottom: 0.5rem;
-    margin-top: 0.5rem;
-    z-index: 10;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    margin-top: 2.5rem !important;
+    margin-bottom: 1rem !important;
+    z-index: 10 !important;
+    position: static !important;
+    left: unset !important;
+    top: unset !important;
+    transform: none !important;
+    text-align: center !important;
   }
 
   .header-nav {
@@ -181,6 +198,14 @@ body {
 
   .header-auth-desktop {
     display: none !important;
+    position: absolute !important;
+    left: -9999px !important;
+    top: auto !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
   }
   .header-auth-mobile {
     display: flex !important;
