@@ -189,83 +189,84 @@ export default function About() {
 
         {/* About Content Section */}
         <main className={styles.aboutContent}>
-         
-          <motion.p className={styles.aboutHeading} style={{ y: yMission }}>
-            Our mission is to break down barriers and stereotypes in the world of DIY by offering thoughtfully designed tools that cater to the needs and preferences of women.
-          </motion.p>
-          <motion.div style={{ y: yValues, width: '100%'}}>
-            <p className={styles.boldPink}>
-              We are committed to:
-            </p>
-            <ul className={styles.valuesList}>
-              <li>🛠️ Quality and Innovation</li>
-              <li>📚 Education and Support</li>
-              <li>💖 Inclusivity</li>
-              <li>🌿 Sustainability</li>
-              <li>👯‍♀️ Community Building</li>
-            </ul>
-          </motion.div>
-          <motion.p style={{ y: yFounder }}>
-            Mandy is not just a brand; it's a movement. We are here to redefine what it means to be handy and to ensure that every woman has the tools and knowledge to turn her desires into reality.
-          </motion.p>
-          <motion.section className={styles.founderSection} style={{ y: yFounder }}>
-            <h3>FEMALE FOUNDED</h3>
-            <div className={styles.founderContent}>
-              <div>
-                <p>
-                  Caroline is a dynamic entrepreneur with a rich background in sustainability, law, and emerging technologies. Caroline has cultivated a unique blend of expertise that is intricately woven into the fabric of Mandy.
-                </p>
-                <p>
-                  Passionate about breaking down barriers in traditionally male-dominated spaces, Caroline has channeled her love for DIY and commitment to empowerment into creating Mandy. Her vision is to revolutionize the DIY space by providing women with tools that are not only functional but also beautifully designed, ensuring that every tool reflects the strength and elegance of its user.
-                </p>
+          <div className={styles.spaceBetweenTornPaperAndAboutCard}></div>
+          <div className={styles.aboutCard}>
+            <motion.p className={styles.aboutHeading} style={{ y: yMission }}>
+              Our mission is to break down barriers and stereotypes in the world of DIY by offering thoughtfully designed tools that cater to the needs and preferences of women.
+            </motion.p>
+            <motion.div style={{ y: yValues, width: '100%'}}>
+              <p className={styles.boldPink}>
+                We are committed to:
+              </p>
+              <ul className={styles.valuesList}>
+                <li>🛠️ Quality and Innovation</li>
+                <li>📚 Education and Support</li>
+                <li>💖 Inclusivity</li>
+                <li>🌿 Sustainability</li>
+                <li>👯‍♀️ Community Building</li>
+              </ul>
+            </motion.div>
+            <motion.p style={{ y: yFounder }}>
+              Mandy is not just a brand; it's a movement. We are here to redefine what it means to be handy and to ensure that every woman has the tools and knowledge to turn her desires into reality.
+            </motion.p>
+            <motion.section className={styles.founderSection} style={{ y: yFounder }}>
+              <h3>FEMALE FOUNDED</h3>
+              <div className={styles.founderContent}>
+                <div>
+                  <p>
+                    Caroline is a dynamic entrepreneur with a rich background in sustainability, law, and emerging technologies. Caroline has cultivated a unique blend of expertise that is intricately woven into the fabric of Mandy.
+                  </p>
+                  <p>
+                    Passionate about breaking down barriers in traditionally male-dominated spaces, Caroline has channeled her love for DIY and commitment to empowerment into creating Mandy. Her vision is to revolutionize the DIY space by providing women with tools that are not only functional but also beautifully designed, ensuring that every tool reflects the strength and elegance of its user.
+                  </p>
+                </div>
+                <img 
+                  src="/founder.png" 
+                  alt="Caroline, founder of Mandy Tools" 
+                  className={styles.founderImg}
+                />
               </div>
-              <img 
-                src="/founder.png" 
-                alt="Caroline, founder of Mandy Tools" 
-                className={styles.founderImg}
-              />
+            </motion.section>
+          </div>
+          <motion.section className={styles.carouselSection} style={{ y: yCarousel }}>
+            <div className={styles.carouselHeader}>
+              <span className={styles.carouselHeaderText}>Build along with us!</span>
+              <a
+                href="https://instagram.com/shopmandytools"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.carouselHeaderLink}
+              >
+                @shopmandytools
+              </a>
+            </div>
+            <div className={styles.carouselContainer}>
+              <div className={styles.carouselWrapper}>
+                <div
+                  className={styles.carouselTrack}
+                  style={{ transform: `translateX(-${currentImageIndex * slideWidth}px)` }}
+                >
+                  {continuousImages.map((image, index) => (
+                    <div
+                      key={index}
+                      className={styles.carouselSlide}
+                      ref={index === 0 ? slideRef : undefined}
+                    >
+                      <a href="https://instagram.com/shopmandytools">
+                        <img
+                          onMouseEnter={() => setIsPaused(true)}
+                          onMouseLeave={() => setIsPaused(false)}
+                          src={image.src}
+                          alt={image.alt}
+                          className={styles.carouselImage}
+                        />
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </motion.section>
-         {/* Photo Carousel Section */}
-         <motion.section className={styles.carouselSection} style={{ y: yCarousel }}>
-          <div className={styles.carouselHeader}>
-            <span className={styles.carouselHeaderText}>Build along with us!</span>
-            <a
-              href="https://instagram.com/shopmandytools"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.carouselHeaderLink}
-            >
-              @shopmandytools
-            </a>
-          </div>
-          <div className={styles.carouselContainer}>
-            <div className={styles.carouselWrapper}>
-              <div
-                className={styles.carouselTrack}
-                style={{ transform: `translateX(-${currentImageIndex * slideWidth}px)` }}
-              >
-                {continuousImages.map((image, index) => (
-                  <div
-                    key={index}
-                    className={styles.carouselSlide}
-                    ref={index === 0 ? slideRef : undefined}
-                  >
-                    <a href="https://instagram.com/shopmandytools">
-                      <img
-                        onMouseEnter={() => setIsPaused(true)}
-                        onMouseLeave={() => setIsPaused(false)}
-                        src={image.src}
-                        alt={image.alt}
-                        className={styles.carouselImage}
-                      />
-                    </a>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </motion.section>
         </main>
       </div>
     </div>
