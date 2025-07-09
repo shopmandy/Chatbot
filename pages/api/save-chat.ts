@@ -5,32 +5,30 @@ import { supabase } from '@/lib/supabase';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const { userId } = getAuth(req);
+
     if (!userId) {
-      console.log('Unauthorized: no userId found');
-      return res.status(401).json({ error: 'Unauthorized user' });
+      return res.status(401).json({ error: 'Unauthorized' });
     }
 
     const { messages } = req.body;
 
-    if (!messages) {
-      console.log('Bad Request: no messages in request body');
-      return res.status(400).json({ error: 'No messages provided' });
+    if (!messages || !Array.isArray(messages)) {
+      return res.status(400).json({ error: 'Invalid messages' });
     }
-
-    console.log('Attempting to save chat:', { userId, messages });
 
     const { error } = await supabase
       .from('chat_history')
       .insert([{ user_id: userId, messages }]);
 
     if (error) {
-  console.error('Supabase insert error:', JSON.stringify(error, null, 2));
-  return res.status(500).json({ error: error.message || 'Insert failed' });
-}
+    console.error('Supabase insert error:', JSON.stringify(error, null, 2));
+    return res.status(500).json({ error: error.message || 'Failed to save chat' });
+    }
 
     return res.status(200).json({ success: true });
   } catch (err) {
-    console.error('Unexpected error in API handler:', err);
-    return res.status(500).json({ error: 'Internal Server Error' });
+    console.error('Unexpected error:', err);
+    return res.status(500).json({ error: 'Internal server error' });
   }
 }
+

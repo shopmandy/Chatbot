@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { redis } from '@/lib/redis';
 
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
         const topics = await redis.get<string[]>('trending_questions');

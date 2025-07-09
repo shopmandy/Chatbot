@@ -158,43 +158,38 @@ export default function Chatbot() {
   const questionsToShow = trendingTopics === null ? [] : trendingTopics.length > 0 ? trendingTopics : commonQuestions;
 
 
-const handleSaveChat = async () => {
-  try {
-    const res = await fetch('/api/save-chat', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        messages: messages, // Your actual message array
-        title: 'New Chat',
-      }),
-    });
+  const handleSaveChat = async () => {
+    try {
+      const res = await fetch('/api/save-chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ messages }),
+      });
 
-    const contentType = res.headers.get('content-type');
-
-    // ✅ DEBUG if it fails
-    if (!res.ok) {
-      const text = await res.text(); // this might be an HTML error page
-      console.error('❌ Save failed — status:', res.status);
-      console.error('❌ Response:', text);
-      throw new Error('Save failed');
-    }
-
-    if (!contentType?.includes('application/json')) {
       const text = await res.text();
-      console.error('❌ Unexpected response type:', contentType);
-      console.error('❌ Response body:', text);
-      throw new Error('Invalid response format');
-    }
+      const contentType = res.headers.get('content-type');
 
-    const data = await res.json();
-    alert('✅ Chat saved!');
-  } catch (err) {
-    console.error('❌ Final error:', err);
-    alert('❌ Something went wrong.');
-  }
-};
+      if (!res.ok) {
+        console.error('❌ Save failed — status:', res.status);
+        console.error('❌ Response:', text);
+        throw new Error('Save failed');
+      }
+
+      if (!contentType?.includes('application/json')) {
+        console.error('❌ Unexpected content type:', contentType);
+        console.error('❌ Raw response:', text);
+        throw new Error('Save failed — not JSON');
+      }
+
+      const data = JSON.parse(text);
+      alert('✅ Chat saved successfully!');
+    } catch (err) {
+      console.error('Save error:', err);
+      alert('❌ Failed to save chat.');
+    }
+  };
 
   return (
     <>
