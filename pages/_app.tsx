@@ -93,7 +93,7 @@ export default function App({ Component, pageProps }: AppProps) {
         </SignedIn>
       </div>
     </header>
-    <main style={{ marginTop: '', padding: '1rem' }}>
+    <main >
       <Component {...pageProps} />
     </main>
     <footer style={{

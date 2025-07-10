@@ -15,7 +15,12 @@ type Message = {
 };
 
 export default function Chatbot() {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      role: 'assistant',
+      content: "Hey there! I'm Mandy, your DIY companion! Whether you need help with home projects, want decor inspiration, or need step-by-step guidance, I'm here to help! What are you working on today? 🔨💕"
+    }
+  ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -229,6 +234,24 @@ export default function Chatbot() {
         {/* Main Content */}
         <main className={styles.mainContent}>
           <div className={styles.chatContainer}>
+            {/* Window Title Bar - Always visible */}
+            <div className={styles.windowTitleBar}>
+              <div className={styles.windowTitle}>
+                CHAT WITH MANDY
+              </div>
+              <div className={styles.windowControls}>
+                <button className={styles.windowButton} title="Minimize">
+                  <span className={styles.windowButtonIcon}>─</span>
+                </button>
+                <button className={styles.windowButton} title="Maximize">
+                  <span className={styles.windowButtonIcon}>□</span>
+                </button>
+                <button className={styles.windowButton} title="Close">
+                  <span className={styles.windowButtonIcon}>×</span>
+                </button>
+              </div>
+            </div>
+
             {/* Hero Section */}
             {showHero && (
               <div className={styles.heroSection}>
@@ -268,6 +291,10 @@ export default function Chatbot() {
                           <h2>{msg.content}</h2>
                         </div>
                         <div className={styles.bubble}>
+                          <div className={styles.messageHeader}>
+                            <span className={styles.mandyIcon}>M</span>
+                            <span className={styles.messageLabel}>Mandy</span>
+                          </div>
                           <ReactMarkdown>{messages[idx + 1].content}</ReactMarkdown>
                         </div>
                       </div>
@@ -287,18 +314,25 @@ export default function Chatbot() {
                   }
                   return (
                     <div key={idx} className={styles.bubble}>
+                      <div className={styles.messageHeader}>
+                        <span className={styles.mandyIcon}>M</span>
+                        <span className={styles.messageLabel}>Mandy</span>
+                      </div>
                       <ReactMarkdown>{msg.content}</ReactMarkdown>
                     </div>
                   );
                 })}
                 {loading && (
                   <div className={styles.loadingBubble}>
+                    <div className={styles.messageHeader}>
+                      <span className={styles.mandyIcon}>M</span>
+                      <span className={styles.messageLabel}>Mandy</span>
+                    </div>
                     <div className={styles.typingIndicator}>
                       <span></span>
                       <span></span>
                       <span></span>
                     </div>
-                    <span>Mandy is thinking...</span>
                   </div>
                 )}
               </div>
