@@ -217,6 +217,66 @@ html {
   font-family: 'Press Start 2P', VT323, Poppins, Montserrat, Arial, sans-serif !important;
 }
 
+/* Home page button styling */
+.home-button {
+  background: #fff6fa !important;
+  color: #f91b8f !important;
+  transition: box-shadow 0.2s, transform 0.2s, background 0.2s, color 0.2s !important;
+}
+
+.home-button:hover {
+  background: #f0f3fb !important;
+  color: #f91b8f !important;
+  box-shadow: 0 6px 16px rgba(184, 111, 166, 0.25), 0 1px 8px #fff6fa, inset 0 2px 8px #fff6fa !important;
+  transform: translateY(-2px) scale(1.03) !important;
+}
+
+.window-controls {
+  display: flex;
+  gap: 6px;
+}
+
+.window-buttons {
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--button-border, #ff69b4);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace;
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--button-text, #ff69b4);
+  box-shadow: 0 2px 8px rgba(255, 105, 180, 0.2);
+}
+
+.window-buttons:hover {
+  background: #ffd6ea;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 105, 180, 0.3);
+}
+
+.window-button-icon {
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-text {
+  font-size: 1.2rem;
+  color: #f91b8f;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  font-weight: 500;
+  line-height: 1.5;
+  font-family: 'Poppins', 'VT323', 'Tiny5', 'Courier New', 'Courier', 'monospace';
+}
+
 /* Hide old header styles for sidebar layout */
 .header, .header-left, .header-logo, .header-nav, .header-auth-desktop, .header-auth-mobile, .mobile-menu, .right-spacer {
   display: none !important;

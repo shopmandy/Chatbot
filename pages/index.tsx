@@ -1,4 +1,6 @@
 import Image from "next/image";
+import { useState } from "react";
+import { MessageCircle, Sparkles, ShoppingBag, LogIn } from 'lucide-react';
 import {
   SignedIn,
   SignedOut,
@@ -7,12 +9,34 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 
-
 export default function Home() {
+  const [isMinimized, setIsMinimized] = useState(false);
+  const [isAboutMinimized, setIsAboutMinimized] = useState(false);
+  
+  const handleButtonClick = (url: string) => {
+    if (url.startsWith('http')) {
+      window.open(url, '_blank');
+    } else {
+      window.location.href = url;
+    }
+  };
+
+  const handleMinimize = () => {
+    setIsMinimized(!isMinimized);
+  };
+
+  const handleAboutMinimize = () => {
+    setIsAboutMinimized(!isAboutMinimized);
+  };
+
+  const navItems = [
+    { id: 'chatbot', label: 'DIY Chatbot', icon: MessageCircle, path: '/chatbot' },
+    { id: 'room', label: 'Room Generator', icon: Sparkles, path: '/room' },
+    { id: 'shop', label: 'Shop Toolkits', icon: ShoppingBag, path: 'https://shopmandy.com/', external: true },
+  ];
+
   return (
-    
     <div
-    
       style={{
         backgroundColor: "#ffe0f2",
         fontFamily: "'Helvetica Neue', Arial, sans-serif",
@@ -20,137 +44,318 @@ export default function Home() {
         minHeight: "100vh",
       }}
     >
+      {/* Windows-style Section */}
       <div style={{ maxWidth: "960px", margin: "0 auto", padding: "2rem" }}>
-        <h1
-          style={{
-            fontSize: "3rem",
-            fontWeight: "800",
-            color: "#ff003c",
-            marginBottom: "0.5rem",
-          }}
-        >
-          YOUR DIY BFF
-        </h1>
-
         <div
           style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
+            background: "linear-gradient(135deg, rgba(255, 224, 242, 0.8) 0%, rgba(224, 234, 255, 0.8) 100%)",
+            border: "2px solid #f91b8f",
+            borderRadius: "16px",
+            boxShadow: "0 8px 32px rgba(255, 105, 180, 0.3)",
+            backdropFilter: "blur(10px)",
+            overflow: "hidden",
+            marginBottom: "2rem",
           }}
         >
-          <p style={{ fontSize: "1.1rem", color: "#333", flex: 1 }}>
-            Whether you're hanging a shelf or redecorating your space, Mandy’s
-            got the tools and tips to help you do it yourself.
-          </p>
-          <div style={{ marginLeft: "1rem", marginTop: "0.5rem" }}>
-            <Image src="/star.png" alt="sparkle star" width={40} height={40} />
-          </div>
-        </div>
-
-        {/* 3-column layout */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            gap: "1rem",
-            marginTop: "2rem",
-            flexWrap: "wrap",
-          }}
-        >
-          {/* Column 1 */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-            <Image
-              src="/redecorate.png"
-              alt="Redecorate"
-              width={280}
-              height={280}
-              style={{ borderRadius: "12px" }}
-            />
-            <Image
-              src="/flowers2.png"
-              alt="Flowers 2"
-              width={280}
-              height={280}
-              style={{ borderRadius: "12px" }}
-            />
-          </div>
-
-          {/* Column 2 - Center */}
+          {/* Window Title Bar */}
           <div
             style={{
               display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
+              justifyContent: "space-between",
+              alignItems: "center",
+              background: "linear-gradient(135deg, rgba(255, 200, 230, 0.95) 0%, #c8d2f0 100%)",
+              borderBottom: "2px solid #f91b8f",
+              padding: "12px 20px",
+              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+              fontSize: "16px",
+              fontWeight: "600",
+              color: "#ff69b4",
+              boxShadow: "0 2px 12px rgba(255, 105, 180, 0.15)",
             }}
           >
-            <Image
-              src="/ask-mandy.png"
-              alt="Ask Mandy"
-              width={280}
-              height={550}
-              style={{ borderRadius: "12px" }}
-            />
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                fontWeight: "700",
+                letterSpacing: "1px",
+                textShadow: "0 0 8px rgba(255, 182, 230, 0.5)",
+              }}
+            >
+              <span style={{ fontSize: "18px", color: "#f91b8f"}}></span>
+              YOUR DIY BFF
+            </div>
+                         <div className="window-controls">
+                 <button 
+                   className="window-buttons" 
+                   title="Minimize"
+                   onClick={handleMinimize}
+                 >
+                   <span className="window-button-icon">─</span>
+                 </button>
+                 <button className="window-buttons" title="Maximize">
+                   <span className="window-button-icon">□</span>
+                 </button>
+                 <button className="window-buttons" title="Close">
+                   <span className="window-button-icon">×</span>
+                 </button>
+               </div>
           </div>
 
-          {/* Column 3 */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-            <Image
-              src="/flowers1.png"
-              alt="Flowers 1"
-              width={280}
-              height={280}
-              style={{ borderRadius: "12px" }}
-            />
-            <Image
-              src="/denim.png"
-              alt="Denim texture"
-              width={280}
-              height={280}
-              style={{ borderRadius: "12px" }}
-            />
+          {/* Section Content */}
+          <div 
+            style={{ 
+              padding: "2rem", 
+              textAlign: "center",
+              display: isMinimized ? "none" : "block",
+              transition: "all 0.3s ease"
+            }}
+          >
+            <h1
+              style={{
+                fontSize: "2.8rem",
+                color: "#f91b8f",
+                marginBottom: "2rem",
+                fontWeight: "600",
+                lineHeight: "1.5",
+                fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+              }}
+            >
+              WELCOME TO MANDY'S WORKSHOP
+            </h1>
+            <p style={{
+              fontSize: "1.6rem",
+              color: "#f91b8f",
+              marginBottom: "2rem",
+              fontWeight: "600",
+              lineHeight: "1.5",
+              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+            }}>
+              Get instant help with home projects, decor ideas,
+              and DIY tips. Just ask Mandy anything!
+            </p>
+
+            {/* Buttons */}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                gap: "3rem",
+                flexWrap: "wrap",
+              }}
+            >
+              {navItems.map((item) => {
+                const Icon = item.icon;
+                const subheadings = {
+                  chatbot: "Chat with Mandy",
+                  room: "AI-powered design",
+                  shop: "Get equipped"
+                };
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => handleButtonClick(item.path)}
+                    className="nav-link home-button"
+                    style={{
+                      width: "160px",
+                      textAlign: "center",
+                      fontSize: "0.8rem",
+                      fontFamily: "'Press Start 2P', VT323, Poppins, Montserrat, Arial, sans-serif",
+                      fontWeight: "700",
+                      letterSpacing: "1px",
+                      borderRadius: "24px",
+                      border: "none",
+                      padding: "0.4rem 0.8rem",
+                      cursor: "pointer",
+                      margin: "0",
+                      height: "auto",
+                      minHeight: "auto",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: "0.5rem",
+                    }}
+                  >
+                    <Icon style={{ width: 24, height: 24 }} />
+                    <span>{item.label}</span>
+                    <span style={{ 
+                      fontSize: "0.8rem", 
+                      fontWeight: "600", 
+                      letterSpacing: "0.5px",
+                      opacity: 0.8,
+                      lineHeight: 1.2,
+                      padding: "0.5rem",
+                      fontFamily: "Poppins, Montserrat, Arial, sans-serif"
+                    }}>
+                      {subheadings[item.id as keyof typeof subheadings]}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Hero Message */}
+      {/* Second Window - About Mandy */}
+      <div style={{ maxWidth: "1080px", margin: "0 auto", padding: "2rem" }}>
         <div
           style={{
-            marginTop: "3rem",
-            padding: "2rem",
-            backgroundImage: "url('/clouds.png')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            borderRadius: "12px",
-            color: "#ff0099",
-            fontWeight: "bold",
-            fontSize: "2rem",
-            textAlign: "center",
-            lineHeight: 1.3,
+            background: "linear-gradient(135deg, rgba(255, 224, 242, 0.8) 0%, #ffdcae 100%)",
+            border: "2px solid #f91b8f",
+            borderRadius: "16px",
+            boxShadow: "0 8px 32px rgba(255, 105, 180, 0.3)",
+            backdropFilter: "blur(10px)",
+            overflow: "hidden",
+            marginBottom: "2rem",
           }}
         >
-          MANDY IS ALL ABOUT THE GIRLS DOING IT FOR THEMSELVES.
-        </div>
+          {/* Window Title Bar */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              background: "linear-gradient(135deg, rgba(255, 200, 230, 0.95) 0%, #ffdcae 100%)",
+              borderBottom: "2px solid #f91b8f",
+              padding: "12px 20px",
+              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+              fontSize: "16px",
+              fontWeight: "600",
+              color: "#ff69b4",
+              boxShadow: "0 2px 12px rgba(255, 105, 180, 0.15)",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                fontWeight: "700",
+                letterSpacing: "1px",
+                color: "f91b8f",
+                textShadow: "0 0 8px rgba(255, 182, 230, 0.5)",
+              }}
+            >
+              <span style={{ fontSize: "18px", color: "#f91b8f"}}></span>
+              ABOUT MANDY
+            </div>
+                         <div className="window-controls">
+                 <button 
+                   className="window-buttons" 
+                   title="Minimize"
+                   onClick={handleAboutMinimize}
+                 >
+                   <span className="window-button-icon">─</span>
+                 </button>
+                <button className="window-buttons" title="Maximize">
+                  <span className="window-button-icon">□</span>
+                </button>
+                <button className="window-buttons" title="Close">
+                  <span className="window-button-icon">×</span>
+                </button>
+              </div>
+          </div>
 
-        {/* Tagline */}
-        <p
-          style={{
-            fontSize: "1.25rem",
-            textAlign: "center",
-            marginTop: "2rem",
-            color: "#444",
-            fontWeight: "600",
-            lineHeight: 1.5,
-          }}
-        >
-          🚧🔨 to break down
-          <br />
-          <span style={{ fontStyle: "italic", color: "#999" }}>
-            barriers and stereotypes
-          </span>
-          <br />
-          in the world of DIY 🪛👜
-        </p>
+          {/* Section Content */}
+          <div 
+            style={{ 
+              padding: "2rem", 
+              textAlign: "left",
+              display: isAboutMinimized ? "none" : "block",
+              transition: "all 0.3s ease"
+            }}
+          >
+            <h1
+              style={{
+                fontSize: "3.2rem",
+                color: "#f91b8f",
+                marginBottom: "2rem",
+                fontWeight: "600",
+                letterSpacing: "2px",
+                lineHeight: "1.5",
+                fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+              }}
+            >
+              AT MANDY, WE BELIEVE THAT EVERY WOMAN CAN DO-IT-HERSELF WITH THE RIGHT TOOLS.
+            </h1>
+            <p className="about-text">
+              We are dedicated to empowering women to confidently build, repair, and get it done, and we're here to provide the tools to make it happen.
+            </p>
+            <p className="about-text">
+            Our mission is to break down barriers and stereotypes in the world of DIY by offering thoughtfully designed tools that cater to the needs and preferences of women.
+            </p>
+                         <div style={{
+               display: "flex",
+               alignItems: "flex-start",
+               gap: "3rem",
+               marginBottom: "2rem"
+             }}>
+               <div style={{ flex: 1 }}>
+                 <h2
+                 style={{
+                   fontSize: "2.6rem",
+                   color: "#f91b8f",
+                   marginBottom: "1rem",
+                   fontWeight: "600",
+                   letterSpacing: "2px",
+                   lineHeight: "1.5",
+                   fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+                 }}>
+                   WE ARE COMMITTED TO:
+                 </h2>
+                 <ul style={{
+                   listStyle: "none",
+                   padding: 0,
+                   margin: 0,
+                   fontSize: "1.2rem",
+                   color: "#f91b8f",
+                   fontWeight: "500",
+                   lineHeight: "1",
+                   fontFamily: "'Poppins', 'VT323', 'Tiny5', 'Courier New', 'Courier', 'monospace'",
+                 }}>
+                   <li style={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}>
+                     <span style={{ marginRight: "1rem", fontSize: "1.4rem" }}>♥︎</span>
+                     Quality and Innovation
+                   </li>
+                   <li style={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}>
+                     <span style={{ marginRight: "1rem", fontSize: "1.4rem" }}>♥︎</span>
+                     Education and Support
+                   </li>
+                   <li style={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}>
+                     <span style={{ marginRight: "1rem", fontSize: "1.4rem" }}>♥︎</span>
+                     Inclusivity
+                   </li>
+                   <li style={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}>
+                     <span style={{ marginRight: "1rem", fontSize: "1.4rem" }}>♥︎</span>
+                     Sustainability
+                   </li>
+                   <li style={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}>
+                     <span style={{ marginRight: "1rem", fontSize: "1.4rem" }}>♥</span>
+                     Community Building
+                   </li>
+                 </ul>
+               </div>
+               <div style={{ flex: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
+                 <Image 
+                   src="/box-crop.png" 
+                   alt="Mandy's tools and equipment" 
+                   width={200} 
+                   height={200}
+                   style={{ 
+                     borderRadius: "12px",
+                     boxShadow: "0 8px 24px rgba(255, 105, 180, 0.2)"
+                   }}
+                 />
+               </div>
+             </div>
+             <p className="about-text">
+             Mandy is not just a brand; it's a movement. We are here to redefine what it means to be handy and to ensure that every woman has the tools and knowledge to turn her desires into reality.
+             </p>
+           </div>
+        </div>
       </div>
     </div>
   );
