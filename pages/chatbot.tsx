@@ -165,36 +165,39 @@ export default function Chatbot() {
 
   const handleSaveChat = async () => {
     try {
-      const res = await fetch('/api/save-chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ messages }),
-      });
+    const res = await fetch('/api/save-chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ messages }),
+    });
 
-      const text = await res.text();
-      const contentType = res.headers.get('content-type');
+    const text = await res.text();
+    const contentType = res.headers.get('content-type');
 
-      if (!res.ok) {
-        console.error('❌ Save failed — status:', res.status);
-        console.error('❌ Response:', text);
-        throw new Error('Save failed');
-      }
+    console.error('Status:', res.status);
+    console.error('Response body:', text);
 
-      if (!contentType?.includes('application/json')) {
-        console.error('❌ Unexpected content type:', contentType);
-        console.error('❌ Raw response:', text);
-        throw new Error('Save failed — not JSON');
-      }
-
-      const data = JSON.parse(text);
-      alert('✅ Chat saved successfully!');
-    } catch (err) {
-      console.error('Save error:', err);
-      alert('❌ Failed to save chat.');
+    if (!res.ok) {
+      console.error('❌ Save failed — status:', res.status);
+      console.error('❌ Response:', text);
+      throw new Error(`Save failed with status ${res.status}`);
     }
-  };
+
+    if (!contentType?.includes('application/json')) {
+      console.error('❌ Unexpected content type:', contentType);
+      console.error('❌ Raw response:', text);
+      throw new Error('Save failed — not JSON');
+    }
+
+    const data = JSON.parse(text);
+    alert('✅ Chat saved successfully!');
+  } catch (err) {
+    console.error('Save error:', err);
+    alert('❌ Failed to save chat.');
+  }
+};
 
   return (
     <>
@@ -223,7 +226,7 @@ export default function Chatbot() {
   Chats <span role="img" aria-label="chat bubble">💬</span>
 </button>
 <SignedIn>
-  <button className={styles.customizeButton} onClick={handleSaveChat}>
+    <button className={styles.customizeButton} onClick={handleSaveChat}>
     Save Chat 💾
   </button>
 </SignedIn>
