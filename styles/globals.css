@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Poppins:wght@200;300;400;500;600;700;900&display=swap');
 
 body {
   background: #ffe0f2;
@@ -30,7 +30,7 @@ html {
   border-radius: 999px;
   text-decoration: none;
   font-size: 1rem;
-  font-family: 'Poppins', 'Montserrat', Arial, sans-serif;
+  font-family: 'VT323', 'Poppins', 'Montserrat', Arial, sans-serif;
   font-weight: 300 !important;
   color: #181818;
   letter-spacing: 0.5px;
@@ -56,14 +56,15 @@ html {
   filter: blur(0.5px);
 }
 
-.nav-link span, .nav-link {
+/* Remove or update this block to prevent font override for sidebar nav-link */
+/* .nav-link span, .nav-link {
   position: relative;
   z-index: 2;
   font-family: 'Poppins', 'Montserrat', Arial, sans-serif;
   font-weight: 300 !important;
   letter-spacing: 0.5px;
   text-shadow: none;
-}
+} */
 
 .nav-link::after {
   content: '';
@@ -137,6 +138,109 @@ html {
   margin-right: 1rem;
   z-index: 1001;
   transition: background-color 0.2s ease;
+}
+
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 280px;
+  background: #fff;
+  border-right: 2px solid #f91b8f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 1000;
+  box-shadow: 2px 0 16px 0 rgba(249, 27, 143, 0.07);
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.sidebar-auth {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding-bottom: 2rem;
+}
+
+.main-content {
+  margin-left: 280px; /* same as sidebar width */
+  width: 100%;
+  padding: 2rem 1rem 1rem 1rem;
+  min-height: 100vh;
+  background: #ffe0f2;
+}
+
+/* Optional: Adjust nav-link for sidebar look */
+.sidebar .nav-link {
+  width: 220px;
+  margin: 0 0 1.2rem 0;
+  text-align: center;
+  font-size: 0.8rem;
+  font-family: 'Press Start 2P', VT323, Poppins, Montserrat, Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: 2px;
+  border-radius: 24px;
+  box-shadow: 0 4px 16px 0 rgba(120, 40, 120, 0.10), 0 1.5px 0 #fff6fa inset, 0 2px 8px #fff6fa inset, 0 2px 0 0 #fff6fa;
+  background: #fff6fa;
+  color: #f91b8f;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.sidebar .nav-link:hover {
+  box-shadow: 0 6px 16px rgba(184, 111, 166, 0.18), 0 1px 8px #fff6fa, inset 0 2px 8px #fff6fa;
+  transform: translateY(-2px) scale(1.03);
+  background: #ffe0f2;
+  color: #ff0080;
+}
+
+.sidebar .nav-link,
+.sidebar .nav-link.active,
+.sidebar .nav-link span {
+  font-family: 'Press Start 2P', VT323, Poppins, Montserrat, Arial, sans-serif !important;
+}
+
+/* Hide old header styles for sidebar layout */
+.header, .header-left, .header-logo, .header-nav, .header-auth-desktop, .header-auth-mobile, .mobile-menu, .right-spacer {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
+}
+
+@media (max-width: 900px) {
+  .sidebar {
+    width: 80px;
+    padding-top: 1rem;
+  }
+  .main-content {
+    margin-left: 80px;
+    padding: 1rem 0.5rem 0.5rem 0.5rem;
+  }
+  .sidebar .nav-link {
+    width: 60px;
+    font-size: 0.9rem;
+    padding: 0.6rem 0.2rem;
+  }
 }
 
 @media (max-width: 768px) {
