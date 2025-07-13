@@ -212,25 +212,7 @@ export default function Chatbot() {
               <span className={styles.logoIcon}>🔧</span>
               <h1 className={styles.logoText}>Handy Mandy</h1>
             </div>
-            <div className={styles.headerActions}>
-              <button
-                className={styles.customizeButton}
-                onClick={() => setShowSettings(true)}
-              >
-                Customize <span role="img" aria-label="wrench">⚙️</span>
-              </button>
-              <button
-              className={styles.customizeButton}
-              onClick={() => setShowChats(true)}
-              >
-  Chats <span role="img" aria-label="chat bubble">💬</span>
-</button>
-<SignedIn>
-    <button className={styles.customizeButton} onClick={handleSaveChat}>
-    Save Chat 💾
-  </button>
-</SignedIn>
-            </div>
+            {/* Removed headerActions with Customize and Chats buttons */}
           </div>
         </header>
         {showChats && <ChatDropdown onClose={() => setShowChats(false)} />}
@@ -241,6 +223,20 @@ export default function Chatbot() {
             <div className={styles.windowTitleBar}>
               <div className={styles.windowTitle}>
                 CHAT WITH MANDY
+              </div>
+              <div className={styles.windowActions}>
+                <button
+                  className={styles.customizeButton}
+                  onClick={() => setShowSettings(true)}
+                >
+                  Customize <span role="img" aria-label="wrench">⚙️</span>
+                </button>
+                <button
+                  className={styles.customizeButton}
+                  onClick={() => setShowChats(true)}
+                >
+                  Chats <span role="img" aria-label="chat bubble">💬</span>
+                </button>
               </div>
               <div className={styles.windowControls}>
                 <button className={styles.windowButton} title="Minimize">

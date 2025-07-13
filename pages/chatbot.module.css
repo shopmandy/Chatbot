@@ -721,3 +721,84 @@
   font-size: 0.8rem;
   color: #999;
 }
+
+.windowTitleBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(255, 200, 230, 0.95) 0%, rgba(200, 210, 240, 0.95) 100%);
+  border-bottom: 2px solid var(--button-border, #ff69b4);
+  padding: 12px 20px;
+  font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--button-text, #ff69b4);
+  box-shadow: 0 2px 12px rgba(255, 105, 180, 0.15);
+  border-radius: 16px 16px 0 0;
+  backdrop-filter: blur(10px);
+}
+
+.windowTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 0 0 8px rgba(255, 182, 230, 0.5);
+}
+
+.windowIcon {
+  font-size: 18px;
+  filter: drop-shadow(0 0 6px var(--button-border, #ff69b4));
+}
+
+.windowControls {
+  display: flex;
+  gap: 6px;
+}
+
+.windowButton {
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--button-border, #ff69b4);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace;
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--button-text, #ff69b4);
+  box-shadow: 0 2px 8px rgba(255, 105, 180, 0.2);
+}
+
+.windowButton:hover {
+  background: var(--button-bg, linear-gradient(90deg, #ffe0f2 0%, #ffd6f7 100%));
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 105, 180, 0.3);
+}
+
+.windowButton:last-child:hover {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff4444 100%);
+  border-color: #ff4444;
+  color: white;
+  box-shadow: 0 4px 12px rgba(255, 68, 68, 0.4);
+}
+
+.windowButtonIcon {
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.windowActions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 1.2rem; /* Add spacing before window controls */
+}
