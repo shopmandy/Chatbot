@@ -99,16 +99,15 @@ export default function App({ Component, pageProps }: AppProps) {
             <SignedIn>
               <UserButton />
             </SignedIn>
-          </div>
-
-          {/* Decorative Section */}
-          <div style={{ marginTop: '2rem', textAlign: 'center' }}>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginBottom: 12 }}>
-              <div style={{ width: 12, height: 12, background: '#f91b8f', borderRadius: '50%', animation: 'pulse 1.5s infinite' }} />
-              <div style={{ width: 12, height: 12, background: '#fbc6e7', borderRadius: '50%', animation: 'pulse 1.5s infinite 0.15s' }} />
-              <div style={{ width: 12, height: 12, background: '#f91b8f', borderRadius: '50%', animation: 'pulse 1.5s infinite 0.3s' }} />
+            {/* Animated dots and EST. 2024 section */}
+            <div className="mt-6 text-center">
+              <div className="flex justify-center gap-2 mb-4">
+                <div className="w-3 h-3 rounded-full animate-pulse" style={{ background: 'hsl(320, 100%, 50%)' }} />
+                <div className="w-3 h-3 rounded-full animate-pulse delay-150" style={{ background: 'hsl(320, 100%, 85%)' }} />
+                <div className="w-3 h-3 rounded-full animate-pulse delay-300" style={{ background: 'hsl(320, 100%, 50%)' }} />
+              </div>
+              <p className="text-xs font-semibold" style={{ color: 'hsl(320, 100%, 50%)', opacity: 0.5 }}>EST. 2024</p>
             </div>
-            <p style={{ fontSize: '0.7rem', color: '#f91b8f', opacity: 0.5, fontWeight: 600 }}>EST. 2024</p>
           </div>
         </aside>
         <div className="main-content">
@@ -122,7 +121,7 @@ export default function App({ Component, pageProps }: AppProps) {
             fontWeight: 'bold',
             borderTop: '2px solid #ff0080',
           }}>
-            💖 Follow us on Instagram:{" "}
+            💖 Follow us on Instagram:{' '}
             <a
               href="https://www.instagram.com/shopmandytools"
               target="_blank"
