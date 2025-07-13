@@ -287,6 +287,10 @@ html {
   left: -9999px !important;
 }
 
+button:hover, .nav-link:hover, .home-button:hover {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><text y="24" font-size="24" font-family="Arial" fill="hotpink">❤</text></svg>') 16 16, pointer;
+}
+
 @media (max-width: 900px) {
   .sidebar {
     width: 80px;
