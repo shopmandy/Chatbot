@@ -208,10 +208,15 @@ export default function Chatbot() {
         {/* Header */}
         <header className={styles.header}>
           <div className={styles.headerContent}>
-            <div className={styles.logo}>
-              <span className={styles.logoIcon}>🔧</span>
-              <h1 className={styles.logoText}>Handy Mandy</h1>
-            </div>
+           {/* Hero Section */}
+                <div className={styles.heroContent}>
+                  <h2 className={styles.heroTitle}>Handy Mandy's DIY Chatbot</h2>
+                  <p className={styles.heroSubtitle}>
+                    Your 24/7 DIY Assistant 🤖✨ Get instant help with home projects, decor ideas, and DIY tips. Just ask Mandy anything!
+                  </p>
+                </div>
+            
+           
             {/* Removed headerActions with Customize and Chats buttons */}
           </div>
         </header>
@@ -251,18 +256,6 @@ export default function Chatbot() {
               </div>
             </div>
 
-            {/* Hero Section */}
-            {showHero && (
-              <div className={styles.heroSection}>
-                <div className={styles.heroContent}>
-                  <h2 className={styles.heroTitle}>Your DIY Assistant</h2>
-                  <p className={styles.heroSubtitle}>
-                    Get instant help with home projects, decor ideas, and DIY tips. 
-                    Just ask Mandy anything!
-                  </p>
-                </div>
-              </div>
-            )}
 
             {/* Chat Interface */}
             <div className={styles.chatInterface}>

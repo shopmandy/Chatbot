@@ -22,11 +22,10 @@
 
 /* Header */
 .header {
-  background: rgba(255, 255, 255, 0.9);
+  background: transparent;
   backdrop-filter: blur(10px);
   border-bottom: 2px solid var(--button-border, #ff69b4);
   box-shadow: 0 2px 20px rgba(255, 105, 180, 0.15);
-  position: sticky;
   top: 0;
   z-index: 100;
 }
@@ -36,7 +35,7 @@
   margin: 0 auto;
   padding: 1rem 2rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 
@@ -63,6 +62,11 @@
 .headerActions {
   display: flex;
   gap: 1rem;
+}
+
+.heroContent {
+  text-align: center;
+  width: 100%;
 }
 
 /* Main Content */
