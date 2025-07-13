@@ -260,20 +260,6 @@ export default function Chatbot() {
                     Get instant help with home projects, decor ideas, and DIY tips. 
                     Just ask Mandy anything!
                   </p>
-                  <div className={styles.heroFeatures}>
-                    <div className={styles.feature}>
-                      <span className={styles.featureIcon}>🎨</span>
-                      <span>Decor & Design</span>
-                    </div>
-                    <div className={styles.feature}>
-                      <span className={styles.featureIcon}>🔨</span>
-                      <span>DIY Projects</span>
-                    </div>
-                    <div className={styles.feature}>
-                      <span className={styles.featureIcon}>🏠</span>
-                      <span>Home Improvement</span>
-                    </div>
-                  </div>
                 </div>
               </div>
             )}
@@ -395,6 +381,7 @@ export default function Chatbot() {
                 </button>
               </div>
             </div>
+            
           </div>
         </main>
 
