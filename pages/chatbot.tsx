@@ -334,6 +334,19 @@ export default function Chatbot() {
                     </div>
                   </div>
                 )}
+                {showHero && (
+                      <div>
+                        <h3 className={styles.quickStartTitle}>Try these popular questions:</h3>
+                        <div className={styles.questionButtonContainer}>
+                          {questionsToShow.map((question, idx) => (
+                            <button key={idx} onClick={() => sendMessage(question)}
+                              className={styles.questionButton}>
+                              {question}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
               </div>
 
               {/* Image Preview */}
@@ -382,20 +395,6 @@ export default function Chatbot() {
                 </button>
               </div>
             </div>
-
-            {/* Quick Start Questions */}
-            {showHero && (
-              <div className={styles.quickStartSection}>
-                <h3 className={styles.quickStartTitle}>Try these popular questions:</h3>
-                <div className={styles.questionButtonContainer}>
-                  {questionsToShow.map((question, idx) => (
-                    <button key = {idx} onClick={() => sendMessage(question)}
-                    className={styles.questionButton}>
-                    {question}
-                  </button>
-                 ))} </div>
-              </div>
-            )}
           </div>
         </main>
 
