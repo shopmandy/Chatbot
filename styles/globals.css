@@ -291,6 +291,37 @@ button:hover, .nav-link:hover, .home-button:hover {
   cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><text y="24" font-size="24" font-family="Arial" fill="hotpink">❤</text></svg>') 16 16, pointer;
 }
 
+@keyframes sidebar-dot-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.7; }
+}
+
+.sidebar-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 4px;
+  animation: sidebar-dot-pulse 1.5s infinite;
+}
+
+.sidebar-dot.pink { background: #f91b8f; }
+.sidebar-dot.light { background: #fbc6e7; }
+
+.nav-link-label-typing {
+  font-family: inherit;
+  font-weight: 700;
+  min-height: 20px;
+  border-right: 2px solid #f91b8f;
+  white-space: pre;
+  animation: blink-cursor 1s steps(1) infinite;
+}
+
+@keyframes blink-cursor {
+  0%, 100% { border-color: #f91b8f; }
+  50% { border-color: transparent; }
+}
+
 @media (max-width: 900px) {
   .sidebar {
     width: 80px;
