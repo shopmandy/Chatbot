@@ -8,7 +8,6 @@ import {
   SignedIn,
   SignedOut,
   SignInButton,
-  SignUpButton,
   UserButton,
 } from "@clerk/nextjs";
 import { useState, useEffect } from 'react';
@@ -113,11 +112,6 @@ export default function App({ Component, pageProps }: AppProps) {
                   <span>SIGN IN</span>
                 </a>
               </SignInButton>
-              <SignUpButton mode="modal">
-                <a className="nav-link" style={{ cursor: 'pointer', fontWeight: 700 }}>
-                  <span>SIGN UP</span>
-                </a>
-              </SignUpButton>
             </SignedOut>
             <SignedIn>
               <UserButton />
