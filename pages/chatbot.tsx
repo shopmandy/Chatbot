@@ -164,38 +164,25 @@ export default function Chatbot() {
 
 
   const handleSaveChat = async () => {
-    try {
-    const res = await fetch('/api/save-chat', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ messages }),
-    });
+  const title = prompt("Enter a title for this chat:");
 
-    const text = await res.text();
-    const contentType = res.headers.get('content-type');
+  if (!title) return;
 
-    console.error('Status:', res.status);
-    console.error('Response body:', text);
+  const response = await fetch('/api/save-chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      messages, // you should have this available
+      title,
+    }),
+  });
 
-    if (!res.ok) {
-      console.error('❌ Save failed — status:', res.status);
-      console.error('❌ Response:', text);
-      throw new Error(`Save failed with status ${res.status}`);
-    }
-
-    if (!contentType?.includes('application/json')) {
-      console.error('❌ Unexpected content type:', contentType);
-      console.error('❌ Raw response:', text);
-      throw new Error('Save failed — not JSON');
-    }
-
-    const data = JSON.parse(text);
-    alert('✅ Chat saved successfully!');
-  } catch (err) {
-    console.error('Save error:', err);
-    alert('❌ Failed to save chat.');
+  if (response.ok) {
+    alert("Chat saved!");
+    // Optionally: refresh chat list
+  } else {
+    const { error } = await response.json();
+    alert(`Error saving chat: ${error}`);
   }
 };
 
@@ -241,6 +228,12 @@ export default function Chatbot() {
                   onClick={() => setShowChats(true)}
                 >
                   Chats <span role="img" aria-label="chat bubble">💬</span>
+                </button>
+                <button
+                  className={styles.customizeButton}
+                  onClick={handleSaveChat}
+                >
+                  Save Chat <span role="img" aria-label="floppy disk">💾</span>
                 </button>
               </div>
               <div className={styles.windowControls}>

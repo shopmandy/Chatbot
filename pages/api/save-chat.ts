@@ -2,6 +2,10 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { getAuth } from '@clerk/nextjs/server';
 import { supabase } from '@/lib/supabase';
 
+interface SaveChatRequestBody {
+  messages: any[]; // You can refine this further if needed
+  title: string;
+}
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // Only allow POST requests
@@ -17,19 +21,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(401).json({ error: 'Unauthorized' });
     }
 
-    const { messages } = req.body;
+    // 🟢 Cast req.body to the interface
+    const { messages, title } = req.body as SaveChatRequestBody;
 
     console.log("user id:", userId);
     console.log('messages:', messages);
-    console.log('🧪 messages JSON:', JSON.stringify(messages, null, 2)); 
+    console.log('title:', title);
 
     if (!messages || !Array.isArray(messages)) {
       return res.status(400).json({ error: 'Invalid messages' });
     }
 
+    if (!title || typeof title !== 'string') {
+      return res.status(400).json({ error: 'Missing or invalid title' });
+    }
+
     const { error } = await supabase
       .from('chat_history')
-      .insert([{ user_id: userId, messages }]);
+      .insert([{ user_id: userId, messages, title }]);
 
     if (error) {
       console.error('Supabase insert error:', error);
