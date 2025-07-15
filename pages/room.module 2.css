@@ -22,7 +22,7 @@
 
 /* Header */
 .header {
-  background:#ffe0f2;
+  background: #ffe0f2;
   backdrop-filter: blur(10px);
   border-bottom: 2px solid var(--button-border, #ff69b4);
   box-shadow: 0 2px 20px rgba(255, 105, 180, 0.15);
