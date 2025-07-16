@@ -56,7 +56,7 @@ export default function Room() {
   }
 
   const handleGenerate = async () => {
-    if (!image || !prompt) {
+    if (!image || !vision) {
       alert('Please upload an image and enter a prompt')
       return
     }
@@ -73,17 +73,17 @@ export default function Room() {
       alert('Image upload failed. Please check your API key and try again.')
       return
     }
-    const imageUrl = uploadJson.data.url
+    const imageUrl = uploadJson.data.display_url || uploadJson.data.url
     const response = await fetch('/api/room-makeover', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ imageUrl, prompt }),
+      body: JSON.stringify({ imageUrl, prompt: vision }),
     })
     const data = await response.json()
     setAfterImage(data.outputUrl)
     setLoading(false)
     setShowMain(true);
-    setGallery(g => [{ before: beforePreview || '/before-room.png', after: data.outputUrl, label: prompt || 'My Glow Up!' }, ...g]);
+    setGallery(g => [{ before: beforePreview || '/before-room.png', after: data.outputUrl, label: vision || 'My Glow Up!' }, ...g]);
   }
 
   const handleSuggestionClick = (text: string) => {
@@ -99,6 +99,39 @@ export default function Room() {
     });
   };
 
+  const handleDownload = async () => {
+    if (!afterImage) {
+      alert('No image to download yet! Generate a room first.');
+      return;
+    }
+
+    try {
+      // Fetch the image as a blob
+      const response = await fetch(afterImage);
+      const blob = await response.blob();
+      
+      // Create a download link
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      
+      // Set filename with timestamp
+      const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
+      link.download = `transformed-room-${timestamp}.png`;
+      
+      // Trigger download
+      document.body.appendChild(link);
+      link.click();
+      
+      // Cleanup
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Download failed:', error);
+      alert('Download failed. Please try again.');
+    }
+  };
+
   return (
     <>
       <Head>
@@ -106,11 +139,8 @@ export default function Room() {
       </Head>
       <div style={{
         width: '100%',
-        background: '#ffe0f2',
         padding: '2.2rem 0 0.7rem 0',
         textAlign: 'center',
-        borderBottom: '2px solid #ff69b4',
-        boxShadow: '0 2px 16px #ffb6e644',
         zIndex: 200,
         position: 'relative',
       }}>
@@ -138,111 +168,12 @@ export default function Room() {
           Upload your space, describe your dream, and watch the magic happen.
         </div>
       </div>
-      <div className={styles.pageContainer}>
-        {/* Hero Section */}
-        <section className={styles.y2kHero}>
-          <h1 className={styles.y2kHeroTitle}>Dream It. See It. Glow Up Your Room.</h1>
-          <p className={styles.y2kHeroSubtitle}>
-            Upload your space, describe your dream, and watch the magic happen.<br />
-            <span style={{ fontSize: '1.1rem', color: '#b8005c' }}>Y2K AI Makeover for your real-life room ✨</span>
-          </p>
-          <button className={styles.y2kHeroStartBtn} onClick={() => setShowMain(true)}>
-            Start Your Glow Up
-          </button>
-          {/* Animated floating icons */}
-          {floatingIcons.map((icon, i) => (
-            <span
-              key={i}
-              className={styles.y2kIconFloat}
-              style={{ ...icon.style, animationDuration: icon.style.animationDuration }}
-            >
-              {icon.icon}
-            </span>
-          ))}
-        </section>
-
-        {/* Main Makeover Card */}
-        {showMain && (
-          <div className={styles.y2kMainCard}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
-              {/* Before Polaroid */}
-              <div className={styles.polaroid}>
-                <img src={beforePreview || '/before-room.png'} alt="Before" />
-                <span className={styles.polaroidLabel}>Before</span>
-                <span className={styles.polaroidSticker}>📸</span>
-              </div>
-              {/* Magic Wand Progress */}
-              <div className={styles.magicWand}>
-                <span className={styles.magicWandIcon}>🪄</span>
-                <div className={styles.magicWandBar}></div>
-              </div>
-              {/* After Polaroid */}
-              <div className={styles.polaroid}>
-                <img src={afterImage || '/after-room.png'} alt="After" />
-                <span className={styles.polaroidLabel}>After</span>
-                <span className={styles.polaroidSticker}>✨</span>
-              </div>
-            </div>
-            {/* Input Area */}
-            <div className={styles.inputSection}>
-              <input
-                type="text"
-                placeholder="Describe your dream room..."
-                value={prompt}
-                onChange={e => setPrompt(e.target.value)}
-                className={styles.promptInput}
-                style={{ marginBottom: 12 }}
-              />
-              <label htmlFor="fileUpload" className={styles.uploadButton}>
-                📷 Upload Photos
-              </label>
-              <input
-                type="file"
-                id="fileUpload"
-                accept="image/*"
-                onChange={handleUpload}
-                className={styles.fileInput}
-              />
-              <button
-                onClick={handleGenerate}
-                disabled={loading}
-                className={styles.transformButton}
-              >
-                {loading ? 'Transforming... ✨' : 'Transform Room ✨'}
-              </button>
-              {/* Loading Animation */}
-              {loading && (
-                <div className={styles.loadingContainer}>
-                  <div className={styles.typingIndicator}>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </div>
-                  <span>Mandy is working her magic...</span>
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-
+      <div>
         {/* Floating Moodboard Button */}
         <button className={styles.fabMoodboard} title="Make me a moodboard!">
           <span role="img" aria-label="palette">🎨</span>
         </button>
 
-        {/* Glow Up Gallery Wall */}
-        <section className={styles.gallerySection}>
-          <h3 className={styles.galleryTitle}>Glow Up Gallery</h3>
-          <div className={styles.galleryWall}>
-            {gallery.map((g, i) => (
-              <div className={styles.polaroid + ' ' + styles.galleryPolaroid} key={i}>
-                <img src={g.after} alt={g.label} />
-                <span className={styles.polaroidLabel}>{g.label}</span>
-                <span className={styles.polaroidSticker}>🌟</span>
-              </div>
-            ))}
-          </div>
-        </section>
         <div style={{
           display: 'flex',
           justifyContent: 'center',
@@ -339,8 +270,7 @@ export default function Room() {
                 }}>
                   Drop your room photo here
                 </span>
-                <button
-                  style={{
+                <label htmlFor="fileUpload" style={{
                     marginTop: '0.8rem',
                     marginBottom: '1rem',
                     padding: '0.45rem 1.2rem',
@@ -357,10 +287,15 @@ export default function Room() {
                     transition: 'background 0.2s, box-shadow 0.2s',
                   }}
                   onMouseEnter={() => setChooseFileHover(true)}
-                  onMouseLeave={() => setChooseFileHover(false)}
-                >
-                  Choose File
-                </button>
+                  onMouseLeave={() => setChooseFileHover(false)}>
+                  Choose photo
+                </label>
+                <input
+                  type="file"
+                  id="fileUpload"
+                  accept="image/*"
+                  onChange={handleUpload}
+                />
               </div>
               <div style={{
                   fontFamily: 'Roboto Mono, monospace',
@@ -408,13 +343,12 @@ export default function Room() {
                 }}>
                   Describe Your Vision
               </div>
-              <textarea
+              <input
                 value={vision}
                 onChange={e => setVision(e.target.value)}
                 onFocus={() => setVisionFocus(true)}
                 onBlur={() => setVisionFocus(false)}
                 placeholder="Tell us what changes you'd like to make to your room..."
-                rows={3}
                 style={{
                   width: '100%',
                   padding: '1.1rem 1.2rem',
@@ -500,6 +434,8 @@ export default function Room() {
                 }}
                 onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.07)'}
                 onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                onClick={handleGenerate}
+                disabled={loading}
               >
                 <span style={{
                   position: 'absolute',
@@ -511,7 +447,7 @@ export default function Room() {
                 }}>
                   <Sparkles style={{ color: '#fff6fa', width: 26, height: 26, }} />
                 </span>
-                Generate my room!
+                {loading ? 'Transforming... ✨' : 'Generate my room!'}
               </button>
             </div>
           </div>
@@ -531,7 +467,8 @@ export default function Room() {
             display: 'flex',
             flexDirection: 'column',
             minHeight: '700px',
-            height: '100%',
+            height: 'auto',
+            alignSelf: 'stretch',
           }}>
             {/* Window Title Bar */}
             <div style={{
@@ -564,70 +501,203 @@ export default function Room() {
               </div>
             </div>
             {/* Window Content */}
-            <div style={{ padding: '2rem', minHeight: '300px' }}>
-              <div style={{
-                background: '#ffe0f2',
-                borderRadius: '12px',
-                padding: '7.2rem 1.2rem 7.2rem 1.2rem',
-                marginBottom: '1.5rem',
-                textAlign: 'center',
-                alignItems: 'center',
-                boxShadow: '0 2px 12px #ffd6f7',
-              }}>
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
-                  <Home style={{
-                    width: '3rem',
-                    height: '3rem',
-                    color: '#f91b84',
-                    marginBottom: '0.5rem',
-                    filter: 'drop-shadow(0 2px 8px #ffe0f2)',
-                  }} />
-                </div>
+            <div style={{ padding: '2rem', minHeight: '300px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+              {!afterImage ? (
                 <div style={{
-                  fontFamily: 'Roboto Mono, monospace',
-                  fontSize: '1.3rem',
-                  color: '#f91b8f',
-                  fontWeight: 700,
-                  letterSpacing: '1px',
-                  marginBottom: '0.9rem',
-                  textShadow: '0 0 4px #fff0f8',
+                  background: '#ffe0f2',
+                  borderRadius: '12px',
+                  padding: '7.2rem 1.2rem 7.2rem 1.2rem',
+                  marginBottom: '1.5rem',
+                  textAlign: 'center',
+                  alignItems: 'center',
+                  boxShadow: '0 2px 12px #ffd6f7',
                 }}>
-                  Ready to generate
-                </div>
-                <div style={{
-                  fontFamily: 'Roboto Mono, monospace',
-                  fontSize: '0.8rem',
-                  color: '#f91b84',
-                  fontWeight: 600,
-                  opacity: 0.9,
-                  letterSpacing: '0.5px',
-                }}>
-                  Upload a photo and describe your dream, then hit generate
-                </div>
-              </div>
-              <div style={{ width: '100%', marginTop: '2.5rem', display: 'flex', justifyContent: 'center' }}>
-                <button
-                  style={{
-                    width: '100%',
-                    maxWidth: '100%',
-                    padding: '1.2rem 0',
-                    background: '#f91b8f',
-                    color: '#fff',
+                  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+                    <Home style={{
+                      width: '3rem',
+                      height: '3rem',
+                      color: '#f91b84',
+                      marginBottom: '0.5rem',
+                      filter: 'drop-shadow(0 2px 8px #ffe0f2)',
+                    }} />
+                  </div>
+                  <div style={{
                     fontFamily: 'Roboto Mono, monospace',
-                    fontSize: '1.2rem',
-                    fontWeight: 800,
-                    border: 'none',
-                    borderRadius: '12px',
-                    boxShadow: '0 4px 24px #ffd6f7',
-                    cursor: 'pointer',
-                    letterSpacing: '0.9px',
+                    fontSize: '1.3rem',
+                    color: '#f91b8f',
+                    fontWeight: 700,
+                    letterSpacing: '1px',
+                    marginBottom: '0.9rem',
+                    textShadow: '0 0 4px #fff0f8',
+                  }}>
+                    Ready to generate
+                  </div>
+                  <div style={{
+                    fontFamily: 'Roboto Mono, monospace',
+                    fontSize: '0.8rem',
+                    color: '#f91b84',
+                    fontWeight: 600,
+                    opacity: 0.9,
+                    letterSpacing: '0.5px',
+                  }}>
+                    Upload a photo and describe your dream, then hit generate
+                  </div>
+                </div>
+              ) : (
+                <div style={{
+                  background: '#ffe0f2',
+                  borderRadius: '12px',
+                  padding: '1.5rem',
+                  marginBottom: '1.5rem',
+                  textAlign: 'center',
+                  boxShadow: '0 2px 12px #ffd6f7',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                  <div style={{
                     position: 'relative',
+                    width: '100%',
+                    maxWidth: '300px',
+                    height: '300px',
+                    borderRadius: '12px',
                     overflow: 'hidden',
-                    transition: 'transform 0.18s cubic-bezier(.4,2,.6,1)',
-                   }}
-                  onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.07)'}
-                  onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-                >
+                    border: '3px solid #f91b8f',
+                    boxShadow: '0 4px 16px #ffd6f7',
+                    marginBottom: '1rem',
+                  }}>
+                    {/* Before Image (Background) */}
+                    <img 
+                      src={beforePreview || '/before-room.png'} 
+                      alt="Before" 
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                      }}
+                    />
+                    {/* After Image (Overlay) */}
+                    <img 
+                      src={afterImage} 
+                      alt="After" 
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        clipPath: 'polygon(50% 0, 100% 0, 100% 100%, 50% 100%)',
+                        transition: 'clip-path 0.3s ease',
+                      }}
+                      id="afterImage"
+                    />
+                    {/* Slider Handle */}
+                    <div style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: '50%',
+                      width: '4px',
+                      height: '100%',
+                      background: '#f91b8f',
+                      cursor: 'ew-resize',
+                      transform: 'translateX(-50%)',
+                      zIndex: 10,
+                      boxShadow: '0 0 8px rgba(249, 27, 143, 0.5)',
+                    }} 
+                    id="sliderHandle"
+                    onMouseDown={(e) => {
+                      const handle = e.currentTarget;
+                      const afterImg = document.getElementById('afterImage') as HTMLElement;
+                      const container = handle.parentElement;
+                      
+                                             const handleMouseMove = (e: MouseEvent) => {
+                         if (!container) return;
+                         const rect = container.getBoundingClientRect();
+                         const x = Math.max(0, Math.min(100, ((e.clientX - rect.left) / rect.width) * 100));
+                         handle.style.left = x + '%';
+                         afterImg.style.clipPath = `polygon(${x}% 0, 100% 0, 100% 100%, ${x}% 100%)`;
+                       };
+                      
+                      const handleMouseUp = () => {
+                        document.removeEventListener('mousemove', handleMouseMove);
+                        document.removeEventListener('mouseup', handleMouseUp);
+                      };
+                      
+                      document.addEventListener('mousemove', handleMouseMove);
+                      document.addEventListener('mouseup', handleMouseUp);
+                    }}
+                    />
+                    {/* Labels */}
+                    <div style={{
+                      position: 'absolute',
+                      top: '10px',
+                      left: '10px',
+                      background: 'rgba(249, 27, 143, 0.9)',
+                      color: 'white',
+                      padding: '4px 8px',
+                      borderRadius: '6px',
+                      fontSize: '0.8rem',
+                      fontWeight: 600,
+                      fontFamily: 'Roboto Mono, monospace',
+                    }}>
+                      BEFORE
+                    </div>
+                    <div style={{
+                      position: 'absolute',
+                      top: '10px',
+                      right: '10px',
+                      background: 'rgba(249, 27, 143, 0.9)',
+                      color: 'white',
+                      padding: '4px 8px',
+                      borderRadius: '6px',
+                      fontSize: '0.8rem',
+                      fontWeight: 600,
+                      fontFamily: 'Roboto Mono, monospace',
+                    }}>
+                      AFTER
+                    </div>
+                  </div>
+                  <div style={{
+                    fontFamily: 'Roboto Mono, monospace',
+                    fontSize: '0.9rem',
+                    color: '#f91b84',
+                    fontWeight: 600,
+                    opacity: 0.9,
+                    letterSpacing: '0.5px',
+                  }}>
+                    Drag the slider to see the transformation
+                  </div>
+                </div>
+              )}
+              <div style={{ width: '100%', marginTop: '2.5rem', display: 'flex', justifyContent: 'center' }}>
+                                  <button
+                    style={{
+                      width: '100%',
+                      maxWidth: '100%',
+                      padding: '1.2rem 0',
+                      background: '#f91b8f',
+                      color: '#fff',
+                      fontFamily: 'Roboto Mono, monospace',
+                      fontSize: '1.2rem',
+                      fontWeight: 800,
+                      border: 'none',
+                      borderRadius: '12px',
+                      boxShadow: '0 4px 24px #ffd6f7',
+                      cursor: 'pointer',
+                      letterSpacing: '0.9px',
+                      position: 'relative',
+                      overflow: 'hidden',
+                      transition: 'transform 0.18s cubic-bezier(.4,2,.6,1)',
+                     }}
+                    onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.07)'}
+                    onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                    onClick={handleDownload}
+                  >
                   <span style={{
                     position: 'absolute',
                     top: 10,
@@ -644,6 +714,19 @@ export default function Room() {
             </div>
           </div>
         </div>
+        {/* Glow Up Gallery Wall */}
+        <section className={styles.gallerySection}>
+          <h3 className={styles.galleryTitle}>GLOW UP GALLERY</h3>
+          <div className={styles.galleryWall}>
+            {gallery.map((g, i) => (
+              <div className={styles.polaroid + ' ' + styles.galleryPolaroid} key={i}>
+                <img src={g.after} alt={g.label} />
+
+                <span className={styles.polaroidSticker}>🌟</span>
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
     </>
   )

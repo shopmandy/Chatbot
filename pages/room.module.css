@@ -1,7 +1,6 @@
 /* Page Container */
 .pageContainer {
   min-height: 100vh;
-  background: #ffe0f2;
   font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace;
   position: relative;
 }
@@ -22,9 +21,6 @@
 
 /* Header */
 .header {
-  background:#ffe0f2;
-  backdrop-filter: blur(10px);
-  border-bottom: 2px solid var(--button-border, #ff69b4);
   box-shadow: 0 2px 20px rgba(255, 105, 180, 0.15);
   position: sticky;
   top: 0;
@@ -448,12 +444,13 @@
 }
 
 .galleryTitle {
-  font-size: 2rem;
-  color: var(--button-text, #ff69b4);
+  font-size: 3.4rem;
+  color: var(--button-text, #f91b84);
   margin: 0 0 2rem 0;
   font-weight: 700;
   text-shadow: 0 0 8px #ffb6e6;
   letter-spacing: 2px;
+  font-family: 'Tiny5', 'Courier New', Courier, monospace;
 }
 
 /* File Input */
