@@ -66,11 +66,6 @@ export default function App({ Component, pageProps }: AppProps) {
               const isActive = activeTab === item.id;
               const isHovered = hoveredTab === item.id;
               const Icon = item.icon;
-              const buttonClass = [
-                'nav-link',
-                isActive ? 'active' : '',
-                isHovered && !isActive ? 'hovered' : '',
-              ].join(' ');
               if (item.external) {
                 return (
                   <a
@@ -78,13 +73,40 @@ export default function App({ Component, pageProps }: AppProps) {
                     href={item.path}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={buttonClass}
                     onMouseEnter={() => setHoveredTab(item.id)}
                     onMouseLeave={() => setHoveredTab(null)}
-                    style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 80 }}
+                    className={`
+                      relative px-6 py-4 rounded-3xl border-2 font-bold text-sm
+                      transition-all duration-300 min-h-[80px] max-w-[220px] w-full mx-auto
+                      ${isActive 
+                        ? 'bg-gradient-to-br from-pink-400 via-pink-500 to-pink-600 text-white border-pink-300 transform scale-105' 
+                        : 'bg-gradient-to-br from-white via-pink-50 to-pink-100 text-pink-600 border-pink-200 hover:from-pink-100 hover:via-pink-150 hover:to-pink-200'
+                      }
+                      ${isHovered && !isActive ? 'transform scale-102' : ''}
+                    `}
+                    style={{
+                      boxShadow: isActive 
+                        ? `\n                      0 8px 16px rgba(236, 72, 153, 0.3),\n                      0 4px 8px rgba(236, 72, 153, 0.2),\n                      inset 0 1px 0 rgba(255, 255, 255, 0.3),\n                      inset 0 -1px 0 rgba(0, 0, 0, 0.1)\n                    `
+                        : `\n                      0 6px 12px rgba(236, 72, 153, 0.15),\n                      0 2px 4px rgba(236, 72, 153, 0.1),\n                      inset 0 1px 0 rgba(255, 255, 255, 0.8),\n                      inset 0 -1px 0 rgba(236, 72, 153, 0.1)\n                    `
+                    }}
                   >
-                    <Icon style={{ width: 32, height: 32 }} />
-                    <span style={{ fontWeight: 700 }}>{item.label}</span>
+                    {/* Highlight overlay for 3D effect */}
+                    <div className={`
+                      absolute top-2 left-2 right-2 h-4 rounded-t-2xl
+                      ${isActive 
+                        ? 'bg-gradient-to-r from-white/20 to-white/10' 
+                        : 'bg-gradient-to-r from-white/60 to-white/30'
+                      }
+                    `} />
+                    {/* Tab Content */}
+                    <div className="flex flex-col items-center gap-3 relative z-10">
+                      <Icon className={`w-8 h-8 ${isActive ? 'text-white drop-shadow-sm' : 'text-pink-600'}`} />
+                      <span className={`text-sm leading-tight text-center font-bold ${isActive ? 'text-white drop-shadow-sm' : 'text-pink-600'}`}>{item.label}</span>
+                    </div>
+                    {/* Inner glow for active state */}
+                    {isActive && (
+                      <div className="absolute inset-3 rounded-2xl bg-white/5 animate-pulse pointer-events-none" />
+                    )}
                   </a>
                 );
               }
@@ -92,13 +114,40 @@ export default function App({ Component, pageProps }: AppProps) {
                 <Link
                   key={item.id}
                   href={item.path}
-                  className={buttonClass}
                   onMouseEnter={() => setHoveredTab(item.id)}
                   onMouseLeave={() => setHoveredTab(null)}
-                  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 80 }}
+                  className={`
+                    relative px-6 py-4 rounded-3xl border-2 font-bold text-sm
+                    transition-all duration-300 min-h-[80px] max-w-[220px] w-full mx-auto
+                    ${isActive 
+                      ? 'bg-gradient-to-br from-pink-400 via-pink-500 to-pink-600 text-white border-pink-300 transform scale-105' 
+                      : 'bg-gradient-to-br from-white via-pink-50 to-pink-100 text-pink-600 border-pink-200 hover:from-pink-100 hover:via-pink-150 hover:to-pink-200'
+                    }
+                    ${isHovered && !isActive ? 'transform scale-102' : ''}
+                  `}
+                  style={{
+                    boxShadow: isActive 
+                      ? `\n                    0 8px 16px rgba(236, 72, 153, 0.3),\n                    0 4px 8px rgba(236, 72, 153, 0.2),\n                    inset 0 1px 0 rgba(255, 255, 255, 0.3),\n                    inset 0 -1px 0 rgba(0, 0, 0, 0.1)\n                  `
+                      : `\n                    0 6px 12px rgba(236, 72, 153, 0.15),\n                    0 2px 4px rgba(236, 72, 153, 0.1),\n                    inset 0 1px 0 rgba(255, 255, 255, 0.8),\n                    inset 0 -1px 0 rgba(236, 72, 153, 0.1)\n                  `
+                  }}
                 >
-                  <Icon style={{ width: 32, height: 32 }} />
-                  <span style={{ fontWeight: 700 }}>{item.label}</span>
+                  {/* Highlight overlay for 3D effect */}
+                  <div className={`
+                    absolute top-2 left-2 right-2 h-4 rounded-t-2xl
+                    ${isActive 
+                      ? 'bg-gradient-to-r from-white/20 to-white/10' 
+                      : 'bg-gradient-to-r from-white/60 to-white/30'
+                    }
+                  `} />
+                  {/* Tab Content */}
+                  <div className="flex flex-col items-center gap-3 relative z-10">
+                    <Icon className={`w-8 h-8 ${isActive ? 'text-white drop-shadow-sm' : 'text-pink-600'}`} />
+                    <span className={`text-sm leading-tight text-center font-bold ${isActive ? 'text-white drop-shadow-sm' : 'text-pink-600'}`}>{item.label}</span>
+                  </div>
+                  {/* Inner glow for active state */}
+                  {isActive && (
+                    <div className="absolute inset-3 rounded-2xl bg-white/5 animate-pulse pointer-events-none" />
+                  )}
                 </Link>
               );
             })}
