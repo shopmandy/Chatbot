@@ -24,7 +24,6 @@
 .header {
   background: transparent;
   backdrop-filter: blur(10px);
-  border-bottom: 2px solid var(--button-border, #ff69b4);
   box-shadow: 0 2px 20px rgba(255, 105, 180, 0.15);
   top: 0;
   z-index: 100;
