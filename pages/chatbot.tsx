@@ -307,12 +307,12 @@ export default function Chatbot() {
                   </div>
                 )}
                 {showHero && (
-                      <div>
-                        <h3 className={styles.quickStartTitle}>Try these popular questions:</h3>
-                        <div className={styles.questionButtonContainer}>
+                      <div className="border-t-4 border-primary/30 pt-4">
+                        <h3 className="text-center text-pink-600 font-bold text-xl mb-4">Try these popular questions:</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
                           {questionsToShow.map((question, idx) => (
                             <button key={idx} onClick={() => sendMessage(question)}
-                              className={styles.questionButton}>
+                            className="text-lg p-4 border-2 border-pink-400 rounded-2xl text-pink-600 hover:bg-pink-50 transition-colors text-left">
                               {question}
                             </button>
                           ))}
