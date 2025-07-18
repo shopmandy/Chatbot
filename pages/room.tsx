@@ -1,15 +1,392 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import styles from "./room.module.css";
 import Head from 'next/head'
-import { Upload, Download, Sparkles, Home } from "lucide-react"
+import { Upload, Download, Sparkles, Home, Hammer, ToyBrick } from "lucide-react"
 
-const floatingIcons = [
-  { icon: '✨', style: { top: '18%', left: '8%', fontSize: '2.2rem', animationDuration: '7s' } },
-  { icon: '💖', style: { top: '12%', right: '10%', fontSize: '2.5rem', animationDuration: '9s' } },
-  { icon: '🌸', style: { bottom: '14%', left: '12%', fontSize: '2rem', animationDuration: '8s' } },
-  { icon: '⭐', style: { bottom: '10%', right: '14%', fontSize: '2.3rem', animationDuration: '10s' } },
-  { icon: '🦋', style: { top: '40%', left: '50%', fontSize: '1.8rem', animationDuration: '11s' } },
-];
+
+
+// --- Simple Dino Game Minigame Modal ---
+function DinoGameModal({ show, onClose }: { show: boolean, onClose: () => void }) {
+  // Don't show on mobile devices (screen width < 768px)
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+  
+  // Listen for Escape key to exit
+  useEffect(() => {
+    if (!show) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [show, onClose]);
+  
+  // Don't render anything on mobile
+  if (isMobile) return null;
+  const GAME_WIDTH = 400;
+  const GAME_HEIGHT = 180;
+  const GROUND_Y = 140;
+  const PLAYER_SIZE = 33;
+  const OBSTACLE_WIDTH = 24;
+  const OBSTACLE_HEIGHT = 24;
+  const JUMP_HEIGHT = 68;
+  const JUMP_DURATION = 650; // ms
+  const OBSTACLE_SPEED = 3.0; // px per frame
+  const OBSTACLE_INTERVAL = 1200; // ms
+
+  // Refs for mutable game state
+  const playerYRef = useRef(GROUND_Y);
+  const isJumpingRef = useRef(false);
+  const obstaclesRef = useRef<{x: number}[]>([]);
+  const gameOverRef = useRef(false);
+  const scoreRef = useRef(0);
+  const lastObs = useRef(Date.now());
+  const rafRef = useRef<number | null>(null);
+
+  // State for re-render
+  const [playerY, setPlayerY] = useState(GROUND_Y);
+  const [obstacles, setObstacles] = useState<{x: number}[]>([]);
+  const [gameOver, setGameOver] = useState(false);
+  const [score, setScore] = useState(0);
+  const [highScore, setHighScore] = useState(0);
+  const highScoreRef = useRef(0);
+  const [, forceRerender] = useState(0);
+  useEffect(() => {
+    highScoreRef.current = highScore;
+  }, [highScore]);
+
+  // Handle jump
+  const jump = () => {
+    if (isJumpingRef.current || gameOverRef.current) return;
+    isJumpingRef.current = true;
+    const start = Date.now();
+    function animateJump() {
+      const elapsed = Date.now() - start;
+      if (elapsed < JUMP_DURATION / 2) {
+        playerYRef.current = GROUND_Y - (JUMP_HEIGHT * (elapsed / (JUMP_DURATION / 2)));
+        setPlayerY(playerYRef.current);
+        requestAnimationFrame(animateJump);
+      } else if (elapsed < JUMP_DURATION) {
+        playerYRef.current = GROUND_Y - (JUMP_HEIGHT * (1 - (elapsed - JUMP_DURATION / 2) / (JUMP_DURATION / 2)));
+        setPlayerY(playerYRef.current);
+        requestAnimationFrame(animateJump);
+      } else {
+        playerYRef.current = GROUND_Y;
+        setPlayerY(playerYRef.current);
+        isJumpingRef.current = false;
+      }
+    }
+    animateJump();
+  };
+
+  // Handle keyboard and tap
+  useEffect(() => {
+    if (!show) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.code === 'Space') {
+        e.preventDefault();
+        jump();
+        if (gameOverRef.current) restart();
+      }
+    };
+    const onTap = () => {
+      jump();
+      if (gameOverRef.current) restart();
+    };
+    window.addEventListener('keydown', onKey);
+    window.addEventListener('touchstart', onTap);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      window.removeEventListener('touchstart', onTap);
+    };
+    // eslint-disable-next-line
+  }, [show]);
+
+  // Game loop
+  useEffect(() => {
+    if (!show) return;
+    // Reset all refs and state
+    playerYRef.current = GROUND_Y;
+    isJumpingRef.current = false;
+    obstaclesRef.current = [];
+    gameOverRef.current = false;
+    scoreRef.current = 0;
+    lastObs.current = Date.now();
+    setPlayerY(GROUND_Y);
+    setObstacles([]);
+    setGameOver(false);
+    setScore(0);
+    let running = true;
+    function loop() {
+      if (!running) return;
+      // Move obstacles
+      obstaclesRef.current = obstaclesRef.current.map(o => ({ x: o.x - OBSTACLE_SPEED }));
+      // Remove off-screen
+      obstaclesRef.current = obstaclesRef.current.filter(o => o.x + OBSTACLE_WIDTH > 0);
+      // Add new obstacle
+      const now = Date.now();
+      if (now - lastObs.current > OBSTACLE_INTERVAL) {
+        obstaclesRef.current.push({ x: GAME_WIDTH });
+        lastObs.current = now;
+      }
+      // Collision detection
+      for (const o of obstaclesRef.current) {
+        // Check if player and obstacle overlap horizontally
+        const playerLeft = 40;
+        const playerRight = playerLeft + PLAYER_SIZE;
+        const obstacleLeft = o.x;
+        const obstacleRight = o.x + OBSTACLE_WIDTH;
+        
+        // Check if player and obstacle overlap vertically
+        const playerTop = playerYRef.current;
+        const playerBottom = playerYRef.current + PLAYER_SIZE;
+        const obstacleTop = GROUND_Y + PLAYER_SIZE - OBSTACLE_HEIGHT;
+        const obstacleBottom = GROUND_Y + PLAYER_SIZE;
+        
+        // Check for collision (rectangles overlap)
+        if (
+          playerRight > obstacleLeft &&
+          playerLeft < obstacleRight &&
+          playerBottom > obstacleTop &&
+          playerTop < obstacleBottom
+        ) {
+          if (scoreRef.current > highScoreRef.current) {
+            setHighScore(scoreRef.current);
+            forceRerender(x => x + 1);
+          }
+          gameOverRef.current = true;
+          setGameOver(true);
+          running = false;
+          break;
+        }
+      }
+      // Score
+      if (!gameOverRef.current) {
+        scoreRef.current += 1;
+        setScore(scoreRef.current);
+        setPlayerY(playerYRef.current);
+        setObstacles([...obstaclesRef.current]);
+        rafRef.current = requestAnimationFrame(loop);
+      } else {
+        // Update high score when game over
+        if (scoreRef.current > highScoreRef.current) {
+          setHighScore(scoreRef.current);
+          forceRerender(x => x + 1);
+        }
+      }
+    }
+    rafRef.current = requestAnimationFrame(loop);
+    return () => {
+      running = false;
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+    // eslint-disable-next-line
+  }, [show]);
+
+  const restart = () => {
+    gameOverRef.current = false;
+    scoreRef.current = 0;
+    obstaclesRef.current = [];
+    playerYRef.current = GROUND_Y;
+    isJumpingRef.current = false;
+    setGameOver(false);
+    setScore(0);
+    setObstacles([]);
+    setPlayerY(GROUND_Y);
+    lastObs.current = Date.now();
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(function loop() {
+      // Move obstacles
+      obstaclesRef.current = obstaclesRef.current.map(o => ({ x: o.x - OBSTACLE_SPEED }));
+      obstaclesRef.current = obstaclesRef.current.filter(o => o.x + OBSTACLE_WIDTH > 0);
+      // Add new obstacle
+      const now = Date.now();
+      if (now - lastObs.current > OBSTACLE_INTERVAL) {
+        obstaclesRef.current.push({ x: GAME_WIDTH });
+        lastObs.current = now;
+      }
+      // Collision detection
+      for (const o of obstaclesRef.current) {
+        // Check if player and obstacle overlap horizontally
+        const playerLeft = 40;
+        const playerRight = playerLeft + PLAYER_SIZE;
+        const obstacleLeft = o.x;
+        const obstacleRight = o.x + OBSTACLE_WIDTH;
+        
+        // Check if player and obstacle overlap vertically
+        const playerTop = playerYRef.current;
+        const playerBottom = playerYRef.current + PLAYER_SIZE;
+        const obstacleTop = GROUND_Y + PLAYER_SIZE - OBSTACLE_HEIGHT;
+        const obstacleBottom = GROUND_Y + PLAYER_SIZE;
+        
+        // Check for collision (rectangles overlap)
+        if (
+          playerRight > obstacleLeft &&
+          playerLeft < obstacleRight &&
+          playerBottom > obstacleTop &&
+          playerTop < obstacleBottom
+        ) {
+          if (scoreRef.current > highScoreRef.current) {
+            setHighScore(scoreRef.current);
+            forceRerender(x => x + 1);
+          }
+          gameOverRef.current = true;
+          setGameOver(true);
+          return;
+        }
+      }
+      // Score
+      if (!gameOverRef.current) {
+        scoreRef.current += 1;
+        setScore(scoreRef.current);
+        setPlayerY(playerYRef.current);
+        setObstacles([...obstaclesRef.current]);
+        rafRef.current = requestAnimationFrame(loop);
+      } else {
+        // Update high score when game over
+        if (scoreRef.current > highScoreRef.current) {
+          setHighScore(scoreRef.current);
+          forceRerender(x => x + 1);
+        }
+      }
+    });
+  };
+
+  if (!show) return null;
+
+  return (
+    <div style={{
+      position: 'fixed',
+      top: 0, left: 0, right: 0, bottom: 0,
+      background: 'rgba(255, 224, 242, 0.92)',
+      zIndex: 9999,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'column',
+      fontFamily: 'Tiny5, VT323, Courier New, monospace',
+    }}>
+      <div style={{
+        fontSize: '2.2rem',
+        color: '#f91b8f',
+        fontWeight: 900,
+        marginBottom: '1.2rem',
+        textShadow: '0 0 12px #ffb6e6, 0 0 2px #fff',
+        letterSpacing: '2px',
+        textAlign: 'center',
+      }}>
+        Jump the Blocks!
+      </div>
+      <div style={{
+        position: 'relative',
+        width: GAME_WIDTH, height: GAME_HEIGHT,
+        background: 'rgba(255,255,255,0.7)',
+        borderRadius: 24,
+        border: '2.5px solid #f91b8f',
+        boxShadow: '0 4px 32px #ffb6e6',
+        overflow: 'hidden',
+      }}>
+        {/* Ground */}
+        <div style={{
+          position: 'absolute',
+          left: 0, right: 0,
+          top: GROUND_Y + PLAYER_SIZE,
+          height: 8,
+          background: 'linear-gradient(90deg, #ff69b4 0%, #b6b6ff 100%)',
+        }} />
+        {/* Player */}
+        <div style={{
+          position: 'absolute',
+          left: 40,
+          top: playerY,
+          width: PLAYER_SIZE,
+          height: PLAYER_SIZE,
+          background: '#ff69b4',
+          borderRadius: 8,
+          boxShadow: '0 2px 8px #ffd6f7',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '1.5rem',
+          color: '#fff',
+          fontWeight: 900,
+          textShadow: '0 0 8px #fff0f8',
+        }}>
+          <Hammer style={{ width: 20, height: 20, color: '#fff' }} />
+        </div>
+        {/* Obstacles */}
+        {obstacles.map((o, i) => (
+          <div key={i} style={{
+            position: 'absolute',
+            left: o.x,
+            top: GROUND_Y + PLAYER_SIZE - OBSTACLE_HEIGHT,
+            width: OBSTACLE_WIDTH,
+            height: OBSTACLE_HEIGHT,
+            background: '#5baefc',
+            borderRadius: 6,
+            boxShadow: '0 2px 8px #b6eaff',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '1.2rem',
+            color: '#fff',
+            fontWeight: 700,
+          }}>
+            <ToyBrick style={{ width: 16, height: 16, color: '#fff' }} />
+          </div>
+        ))}
+        {/* Game Over Overlay */}
+        {gameOver && (
+          <div style={{
+            position: 'absolute',
+            top: 0, left: 0, right: 0, bottom: 0,
+            background: 'rgba(255,255,255,0.85)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            zIndex: 2,
+          }}>
+            <div style={{ fontSize: '2rem', color: '#f91b8f', fontWeight: 900, marginBottom: 12 }}>Game Over!</div>
+            <div style={{ fontSize: '1.1rem', color: '#b8005c', marginBottom: 18 }}>Press Space or Tap to Restart</div>
+          </div>
+        )}
+      </div>
+      <div style={{
+        marginTop: '1.2rem',
+        color: '#b8005c',
+        fontSize: '1.1rem',
+        fontWeight: 600,
+        textShadow: '0 0 4px #fff0f8',
+      }}>
+        Score: {score}
+      </div>
+      <div style={{
+        marginTop: '0.6rem',
+        color: '#b8005c',
+        fontSize: '1.1rem',
+        fontWeight: 600,
+        textShadow: '0 0 4px #fff0f8',
+      }}>
+        High Score: {highScore}
+      </div>
+      <div style={{ fontSize: '1rem', color: '#888', marginTop: 4 }}>Press Space or Tap to Jump</div>
+      <div style={{ fontSize: '1rem', color: '#888', marginTop: 4 }}>Press Esc to exit</div>
+    </div>
+  );
+}
 
 export default function Room() {
   const [prompt, setPrompt] = useState('')
@@ -19,13 +396,15 @@ export default function Room() {
   const [loading, setLoading] = useState(false)
   const [showMain, setShowMain] = useState(false);
   const [gallery, setGallery] = useState([
-    { before: '/before-room.png', after: '/after-room.png', label: 'My Glow Up!' },
+    { before: '/before-room-3.png', after: '/after-room-3.png', label: 'My Glow Up!', roomType: 'Dorm' },
     // Add more demo images if desired
   ]);
   const [chooseFileHover, setChooseFileHover] = useState(false);
   const [vision, setVision] = useState('');
   const [visionFocus, setVisionFocus] = useState(false);
   const [hoveredBubble, setHoveredBubble] = useState<number | null>(null);
+  const [roomType, setRoomType] = useState('Living Room');
+  const [showMinigame, setShowMinigame] = useState(false);
 
   // Apply default theme colors
   useEffect(() => {
@@ -60,6 +439,7 @@ export default function Room() {
       alert('Please upload an image and enter a prompt')
       return
     }
+    setShowMinigame(true);
     setLoading(true)
     const formData = new FormData()
     formData.append('image', image)
@@ -83,7 +463,7 @@ export default function Room() {
     setAfterImage(data.outputUrl)
     setLoading(false)
     setShowMain(true);
-    setGallery(g => [{ before: beforePreview || '/before-room.png', after: data.outputUrl, label: vision || 'My Glow Up!' }, ...g]);
+    setGallery(g => [{ before: beforePreview || '/before-room.png', after: data.outputUrl, label: vision || 'My Glow Up!', roomType }, ...g]);
   }
 
   const handleSuggestionClick = (text: string) => {
@@ -137,6 +517,7 @@ export default function Room() {
       <Head>
         <link href="https://fonts.googleapis.com/css2?family=Tiny5&family=VT323&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet" />
       </Head>
+      {loading && showMinigame && <DinoGameModal show={loading} onClose={() => setShowMinigame(false)} />}
       <div style={{
         width: '100%',
         padding: '2.2rem 0 0.7rem 0',
@@ -325,6 +706,8 @@ export default function Room() {
                       type="radio"
                       name="roomType"
                       value={room}
+                      checked={roomType === room}
+                      onChange={() => setRoomType(room)}
                       style={{ accentColor: '#f91b84', border: '2px solid #f91b84', width: 18, height: 18, margin: 0 }}
                     />
                     <span>{room}</span>
@@ -717,12 +1100,65 @@ export default function Room() {
         {/* Glow Up Gallery Wall */}
         <section className={styles.gallerySection}>
           <h3 className={styles.galleryTitle}>GLOW UP GALLERY</h3>
+          <div style={{
+                    fontFamily: 'Roboto Mono, monospace',
+                    fontSize: '1.2rem',
+                    color: '#f91b84',
+                    fontWeight: 600,
+                    opacity: 0.9,
+                    letterSpacing: '0.5px',
+                  }}>
+            See the magic happen - real room transformations
+          </div>
           <div className={styles.galleryWall}>
             {gallery.map((g, i) => (
-              <div className={styles.polaroid + ' ' + styles.galleryPolaroid} key={i}>
-                <img src={g.after} alt={g.label} />
-
-                <span className={styles.polaroidSticker}>🌟</span>
+              <div className={styles.polaroid + ' ' + styles.galleryPolaroid} key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 180, maxWidth: 200, padding: '1.2rem 1.2rem 2.2rem 1.2rem', position: 'relative', border: '2.5px solid #f91b8f', borderRadius: 18, background: '#fff' }}>
+                {/* Title */}
+                <div style={{
+                  fontFamily: 'Tiny5',
+                  fontSize: '1.1rem',
+                  fontWeight: 700,
+                  color: '#f91b8f',
+                  marginBottom: '0.5rem',
+                  letterSpacing: '1px',
+                  textShadow: '0 0 4px #fff0f8',
+                  textAlign: 'center',
+                  textTransform: 'uppercase',
+                }}>{(g.roomType || 'Room')} Makeover</div>
+                {/* Before label */}
+                <div style={{
+                  fontSize: '0.95rem',
+                  color: '#ff69b4',
+                  fontWeight: 700,
+                  letterSpacing: '1px',
+                  marginBottom: 2,
+                  fontFamily: 'Roboto Mono, monospace',
+                }}>Before</div>
+                {/* Before image */}
+                <img src={g.before} alt="Before" style={{ width: 140, height: 140, objectFit: 'cover', borderRadius: 12, border: '2px solid #ff69b4', marginBottom: 12, boxShadow: '0 2px 8px #ffd6f7' }} />
+                {/* Animated arrow */}
+                <div style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '0.3rem 0' }}>
+                  <span style={{
+                    display: 'inline-block',
+                    fontSize: '2rem',
+                    animation: 'arrowBounce 1s infinite',
+                  }}>
+                    ↓
+                  </span>
+                  <style>{`@keyframes arrowBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }`}</style>
+                </div>
+                {/* After label */}
+                <div style={{
+                  fontSize: '0.95rem',
+                  color: '#5baefc',
+                  fontWeight: 700,
+                  letterSpacing: '1px',
+                  marginTop: 6,
+                  marginBottom: 2,
+                  fontFamily: 'Roboto Mono, monospace',
+                }}>After</div>
+                {/* After image */}
+                <img src={g.after} alt="After" style={{ width: 140, height: 140, objectFit: 'cover', borderRadius: 12, border: '2px solid #ff69b4', marginTop: 12, boxShadow: '0 2px 8px #ffd6f7' }} />
               </div>
             ))}
           </div>
