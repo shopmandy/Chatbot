@@ -446,8 +446,8 @@
 .galleryTitle {
   font-size: 3.4rem;
   color: var(--button-text, #f91b84);
-  margin: 0 0 2rem 0;
-  font-weight: 700;
+  margin: 0 0 0.4rem 0;
+  font-weight: 800;
   text-shadow: 0 0 8px #ffb6e6;
   letter-spacing: 2px;
   font-family: 'Tiny5', 'Courier New', Courier, monospace;
@@ -650,7 +650,6 @@
 .polaroid {
   background: linear-gradient(135deg, #fff0f8 60%, #b6b6ff 100%);
   border-radius: 18px;
-  box-shadow: 0 8px 32px #ff69b4aa, 0 2px 8px #b6b6ff55;
   padding: 1.2rem 1.2rem 2.2rem 1.2rem;
   margin: 0 1.5rem;
   display: flex;
@@ -666,7 +665,6 @@
   border-radius: 12px;
   object-fit: cover;
   border: 3px solid #ff69b4;
-  box-shadow: 0 4px 16px #b6b6ff55;
 }
 .polaroidLabel {
   position: absolute;
@@ -761,7 +759,6 @@
 }
 .galleryPolaroid {
   transform: rotate(-3deg);
-  box-shadow: 0 8px 32px #ff69b4aa, 0 2px 8px #b6b6ff55;
   margin-bottom: 1.5rem;
 }
 .galleryPolaroid:nth-child(even) {
