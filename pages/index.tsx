@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useState } from "react";
-import { MessageCircle, Sparkles, ShoppingBag, LogIn } from 'lucide-react';
+import { MessageCircle, Sparkles, ShoppingBag, LogIn, Heart } from 'lucide-react';
 import {
   SignedIn,
   SignedOut,
@@ -280,69 +280,59 @@ export default function Home() {
             >
               AT MANDY, WE BELIEVE THAT EVERY WOMAN CAN DO-IT-HERSELF WITH THE RIGHT TOOLS.
             </h1>
-            <p className="about-text">
-              We are dedicated to empowering women to confidently build, repair, and get it done, and we're here to provide the tools to make it happen.
-            </p>
-            <p className="about-text">
-            Our mission is to break down barriers and stereotypes in the world of DIY by offering thoughtfully designed tools that cater to the needs and preferences of women.
-            </p>
                          <div style={{
                display: "flex",
                alignItems: "flex-start",
                gap: "3rem",
                marginBottom: "2rem"
              }}>
-               <div style={{ flex: 1 }}>
-                 <h2
-                 style={{
-                   fontSize: "2.6rem",
-                   color: "#f91b8f",
-                   marginBottom: "1rem",
-                   fontWeight: "600",
-                   letterSpacing: "2px",
-                   lineHeight: "1.5",
-                   fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
-                 }}>
-                   WE ARE COMMITTED TO:
-                 </h2>
-                 <ul style={{
-                   listStyle: "none",
-                   padding: 0,
-                   margin: 0,
-                   fontSize: "1.2rem",
-                   color: "#f91b8f",
-                   fontWeight: "500",
-                   lineHeight: "1",
-                   fontFamily: "'Poppins', 'VT323', 'Tiny5', 'Courier New', 'Courier', 'monospace'",
-                 }}>
-                   <li style={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}>
-                     <span style={{ marginRight: "1rem", fontSize: "1.4rem" }}>♥︎</span>
-                     Quality and Innovation
-                   </li>
-                   <li style={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}>
-                     <span style={{ marginRight: "1rem", fontSize: "1.4rem" }}>♥︎</span>
-                     Education and Support
-                   </li>
-                   <li style={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}>
-                     <span style={{ marginRight: "1rem", fontSize: "1.4rem" }}>♥︎</span>
-                     Inclusivity
-                   </li>
-                   <li style={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}>
-                     <span style={{ marginRight: "1rem", fontSize: "1.4rem" }}>♥︎</span>
-                     Sustainability
-                   </li>
-                   <li style={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}>
-                     <span style={{ marginRight: "1rem", fontSize: "1.4rem" }}>♥</span>
-                     Community Building
-                   </li>
-                 </ul>
+               <div className="mt-6" style={{ flex: "0 0 50%", marginTop: "5rem" }}>
+                 <p className="font-semibold text-xl mb-4">
+                   We are dedicated to empowering women to confidently build, repair, and 
+                   get it done, and we're here to provide the tools to make it happen.
+                 </p>
+                 
+                 <p className="font-semibold text-xl mb-6">
+                   Our mission is to break down barriers and stereotypes in the world of DIY 
+                   by offering thoughtfully designed tools that cater to the needs and 
+                   preferences of women.
+                 </p>
+               <h3 className="font-bold text-3xl mb-4">We are committed to:</h3>
+                 <ul className="space-y-2 text-xl">
+                    <li className="flex items-center gap-2">
+                      <Heart className="w-5 h-5 text-primary fill-current" />
+                      <span className="font-semibold">Quality and Innovation</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Heart className="w-5 h-5 text-primary fill-current" />
+                      <span className="font-semibold">Education and Support</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Heart className="w-5 h-5 text-primary fill-current" />
+                      <span className="font-semibold">Inclusivity</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Heart className="w-5 h-5 text-primary fill-current" />
+                      <span className="font-semibold">Sustainability</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Heart className="w-5 h-5 text-primary fill-current" />
+                      <span className="font-semibold">Community Building</span>
+                    </li>
+                  </ul>
+                  
+                  <p className="font-semibold mt-6 text-xl">
+                    Mandy is not just a brand; it's a movement. We are here to redefine what it 
+                    means to be handy and to ensure that every woman has the tools and 
+                    knowledge to turn her desires into reality.
+                  </p>
                </div>
-               <div style={{ flex: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
+               <div style={{ flex: 1, display: "flex", justifyContent: "center", alignItems: "flex-start", marginTop: "5rem" }}>
                  <Image 
                    src="/box-crop.png" 
                    alt="Mandy's tools and equipment" 
-                   width={200} 
-                   height={200}
+                   width={400} 
+                   height={400}
                    style={{ 
                      borderRadius: "12px",
                      boxShadow: "0 8px 24px rgba(255, 105, 180, 0.2)"
@@ -350,9 +340,6 @@ export default function Home() {
                  />
                </div>
              </div>
-             <p className="about-text">
-             Mandy is not just a brand; it's a movement. We are here to redefine what it means to be handy and to ensure that every woman has the tools and knowledge to turn her desires into reality.
-             </p>
            </div>
         </div>
       </div>
