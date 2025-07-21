@@ -28,7 +28,7 @@ export default function Chatbot() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [trendingTopics, setTrendingTopics] = useState<string[] | null>(null);
   const chatBoxRef = useRef<HTMLDivElement>(null);
-  const [showChats, setShowChats] = useState(false);
+  const [showChats, setShowChats] = useState<false | 'default' | 'save'>(false);
   const [showSignInPopup, setShowSignInPopup] = useState(true);
   const { isSignedIn } = useUser();
 
@@ -167,7 +167,7 @@ export default function Chatbot() {
 
   const handleSaveChat = async () => {
     if (!isSignedIn) {
-      setShowChats(true); // open the sign in popup
+      setShowChats('save'); // open the sign in popup with save mode
       return;
     }
     const title = prompt("Enter a title for this chat:");
@@ -210,7 +210,7 @@ export default function Chatbot() {
             {/* Removed headerActions with Customize and Chats buttons */}
           </div>
         </header>
-        {showChats && <ChatDropdown onClose={() => setShowChats(false)} />}
+        {showChats && <ChatDropdown onClose={() => setShowChats(false)} mode={showChats === 'save' ? 'save' : 'default'} />}
         {/* Main Content */}
         <main className={styles.mainContent}>
           <div className={styles.chatContainer}>
@@ -228,7 +228,7 @@ export default function Chatbot() {
                 </button>
                 <button
                   className={styles.customizeButton}
-                  onClick={() => setShowChats(true)}
+                  onClick={() => setShowChats('default')}
                 >
                   Chats <span role="img" aria-label="chat bubble">💬</span>
                 </button>

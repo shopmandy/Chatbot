@@ -8,9 +8,10 @@ type ChatSummary = {
 
 type ChatDropdownProps = {
   onClose: () => void;
+  mode?: 'default' | 'save';
 };
 
-const ChatDropdown: React.FC<ChatDropdownProps> = ({ onClose }) => {
+const ChatDropdown: React.FC<ChatDropdownProps> = ({ onClose, mode = 'default' }) => {
   const [chats, setChats] = useState<ChatSummary[]>([]);
 
   useEffect(() => {
@@ -47,7 +48,7 @@ const ChatDropdown: React.FC<ChatDropdownProps> = ({ onClose }) => {
       <SignedOut>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5em', position: 'relative' }}>
           <span style={{ fontWeight: 'bold', color: 'var(--chat-text)', fontSize: '1em', whiteSpace: 'nowrap' }}>
-            Sign In to See Saved Chats
+            {mode === 'save' ? 'Sign In to Save Chat' : 'Sign In to See Saved Chats'}
           </span>
           <button
             onClick={onClose}
