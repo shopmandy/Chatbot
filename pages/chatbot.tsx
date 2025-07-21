@@ -210,7 +210,20 @@ export default function Chatbot() {
             {/* Removed headerActions with Customize and Chats buttons */}
           </div>
         </header>
-        {showChats && <ChatDropdown onClose={() => setShowChats(false)} mode={showChats === 'save' ? 'save' : 'default'} />}
+        {showChats && (
+          <ChatDropdown
+            onClose={() => setShowChats(false)}
+            mode={showChats === 'save' ? 'save' : 'default'}
+            onChatSelect={async (chatId) => {
+              const res = await fetch(`/api/load-chat?chatId=${chatId}`);
+              if (res.ok) {
+                const data = await res.json();
+                setMessages(data.messages || []);
+                setShowHero(false);
+              }
+            }}
+          />
+        )}
         {/* Main Content */}
         <main className={styles.mainContent}>
           <div className={styles.chatContainer}>

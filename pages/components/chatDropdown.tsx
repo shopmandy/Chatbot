@@ -9,9 +9,10 @@ type ChatSummary = {
 type ChatDropdownProps = {
   onClose: () => void;
   mode?: 'default' | 'save';
+  onChatSelect?: (chatId: string) => void;
 };
 
-const ChatDropdown: React.FC<ChatDropdownProps> = ({ onClose, mode = 'default' }) => {
+const ChatDropdown: React.FC<ChatDropdownProps> = ({ onClose, mode = 'default', onChatSelect }) => {
   const [chats, setChats] = useState<ChatSummary[]>([]);
 
   useEffect(() => {
@@ -74,7 +75,14 @@ const ChatDropdown: React.FC<ChatDropdownProps> = ({ onClose, mode = 'default' }
         <p style={{ fontWeight: 'bold', color: 'var(--chat-text)' }}>Previous Chats</p>
         <ul style={{ listStyle: 'none', padding: 0 }}>
           {chats.map((chat) => (
-            <li key={chat.id} style={{ padding: '0.5rem 0', cursor: 'pointer' }}>
+            <li
+              key={chat.id}
+              style={{ padding: '0.5rem 0', cursor: 'pointer' }}
+              onClick={() => {
+                if (onChatSelect) onChatSelect(chat.id);
+                onClose();
+              }}
+            >
               {chat.title}
             </li>
           ))}
