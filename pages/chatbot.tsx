@@ -6,7 +6,7 @@ import Head from 'next/head'
 import CustomizePanel from './components/CustomizePanel';
 import ChatDropdown from './components/chatDropdown';
 import { redis } from '@/lib/redis';
-import { SignedIn} from "@clerk/nextjs";
+import { SignedIn, SignedOut, useUser } from "@clerk/nextjs";
 
 type Message = {
   role: 'system' | 'user' | 'assistant';
@@ -29,6 +29,8 @@ export default function Chatbot() {
   const [trendingTopics, setTrendingTopics] = useState<string[] | null>(null);
   const chatBoxRef = useRef<HTMLDivElement>(null);
   const [showChats, setShowChats] = useState(false);
+  const [showSignInPopup, setShowSignInPopup] = useState(true);
+  const { isSignedIn } = useUser();
 
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -164,27 +166,28 @@ export default function Chatbot() {
 
 
   const handleSaveChat = async () => {
-  const title = prompt("Enter a title for this chat:");
-
-  if (!title) return;
-
-  const response = await fetch('/api/save-chat', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      messages, // you should have this available
-      title,
-    }),
-  });
-
-  if (response.ok) {
-    alert("Chat saved!");
-    // Optionally: refresh chat list
-  } else {
-    const { error } = await response.json();
-    alert(`Error saving chat: ${error}`);
-  }
-};
+    if (!isSignedIn) {
+      setShowChats(true); // open the sign in popup
+      return;
+    }
+    const title = prompt("Enter a title for this chat:");
+    if (!title) return;
+    const response = await fetch('/api/save-chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messages,
+        title,
+      }),
+    });
+    if (response.ok) {
+      alert("Chat saved!");
+      // Optionally: refresh chat list
+    } else {
+      const { error } = await response.json();
+      alert(`Error saving chat: ${error}`);
+    }
+  };
 
   return (
     <>
