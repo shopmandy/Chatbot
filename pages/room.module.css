@@ -1,7 +1,7 @@
 /* Page Container */
 .pageContainer {
   min-height: 100vh;
-  font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace;
+  font-family: 'Press Start 2P', 'VT323', 'Tiny5', 'Courier New', Courier, monospace;
   position: relative;
 }
 
@@ -450,7 +450,7 @@
   font-weight: 800;
   text-shadow: 0 0 8px #ffb6e6;
   letter-spacing: 2px;
-  font-family: 'Tiny5', 'Courier New', Courier, monospace;
+  font-family: 'Press Start 2P', 'Tiny5', 'Courier New', Courier, monospace;
 }
 
 /* File Input */
