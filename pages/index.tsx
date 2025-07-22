@@ -343,6 +343,125 @@ export default function Home() {
            </div>
         </div>
       </div>
+      {/* Third Window - Founder */}
+      <div style={{ maxWidth: "1080px", margin: "0 auto", padding: "2rem" }}>
+        <div
+          style={{
+            background: "linear-gradient(135deg, rgba(97, 179, 242, 0.8) 0%,rgb(175, 219, 244) 100%)",
+            border: "2px solid #f91b8f",
+            borderRadius: "16px",
+            boxShadow: "0 8px 32px rgba(255, 105, 180, 0.3)",
+            backdropFilter: "blur(10px)",
+            overflow: "hidden",
+            marginBottom: "2rem",
+          }}
+        >
+          {/* Window Title Bar */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              background: "linear-gradient(135deg, rgba(97, 179, 242, 0.8) 0%, rgb(175, 219, 244) 100%)",
+              borderBottom: "2px solid #f91b8f",
+              padding: "12px 20px",
+              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+              fontSize: "16px",
+              fontWeight: "600",
+              color: "#ff69b4",
+              boxShadow: "0 2px 12px rgba(255, 105, 180, 0.15)",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                fontWeight: "700",
+                letterSpacing: "1px",
+                color: "f91b8f",
+                textShadow: "0 0 8px rgba(255, 182, 230, 0.5)",
+              }}
+            >
+              <span style={{ fontSize: "18px", color: "#f91b8f"}}></span>
+              WHO IS MANDY?
+            </div>
+                         <div className="window-controls">
+                 <button 
+                   className="window-buttons" 
+                   title="Minimize"
+                   onClick={handleAboutMinimize}
+                 >
+                   <span className="window-button-icon">─</span>
+                 </button>
+                <button className="window-buttons" title="Maximize">
+                  <span className="window-button-icon">□</span>
+                </button>
+                <button className="window-buttons" title="Close">
+                  <span className="window-button-icon">×</span>
+                </button>
+              </div>
+          </div>
+
+          {/* Section Content */}
+          <div 
+            style={{ 
+              padding: "2rem", 
+              textAlign: "left",
+              display: isAboutMinimized ? "none" : "block",
+              transition: "all 0.3s ease"
+            }}
+            
+          >
+            <h1
+              style={{
+                fontSize: "3.2rem",
+                color: "#f91b8f",
+                marginBottom: "2rem",
+                fontWeight: "600",
+                letterSpacing: "2px",
+                lineHeight: "1.5",
+                fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+              }}
+            >
+              FEMALE FOUNDED
+            </h1>
+            <div style={{
+               display: "flex",
+               alignItems: "flex-start",
+               gap: "3rem",
+               marginBottom: "2rem"
+             }}>
+               <div className="mt-6" style={{ flex: "0 0 50%"}}>
+            <p className="font-semibold mt-6 text-xl">
+              Mandy was founded by Caroline Blanck, an entrepreneur with a background in sustainability, law, and emerging tech. Her goal? Make DIY feel like it belongs to everyone—especially women.
+            </p>
+            <p className="font-semibold mt-6 text-xl">
+              Today, Mandy is powered by an all-women and BIPOC-led team blending design, technology, and self-reliance. We're reimagining tools to be functional, intuitive, and beautiful—built for how we live now.
+            </p>
+            <p className="font-semibold mt-6 text-xl">
+              DIY isn't just a skill—it's a mindset. Our tools are made to spark confidence, creativity, and control.
+            </p>
+            <p className="font-semibold mt-6 text-xl">
+              Let's build something better.
+            </p>
+            </div>
+            <div style={{ flex: 1, display: "flex", justifyContent: "center", alignItems: "flex-start"}}>
+                 <Image 
+                   src="/founder.png" 
+                   alt="Mandy's Founder, Caroline Blanck" 
+                   width={400} 
+                   height={400}
+                   style={{ 
+                     borderRadius: "12px",
+                     boxShadow: "0 8px 24px rgba(255, 105, 180, 0.2)"
+                   }}
+                 />
+               </div>
+          </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
