@@ -276,7 +276,7 @@ function DinoGameModal({ show, onClose }: { show: boolean, onClose: () => void }
       alignItems: 'center',
       justifyContent: 'center',
       flexDirection: 'column',
-      fontFamily: 'Tiny5, VT323, Courier New, monospace',
+      fontFamily: "'Press Start 2P', Tiny5, VT323, Courier New, monospace",
     }}>
       <div style={{
         fontSize: '2.2rem',
@@ -405,6 +405,7 @@ export default function Room() {
   const [hoveredBubble, setHoveredBubble] = useState<number | null>(null);
   const [roomType, setRoomType] = useState('Living Room');
   const [showMinigame, setShowMinigame] = useState(false);
+  const [enlargedImage, setEnlargedImage] = useState<null | { src: string; alt: string }>(null);
 
   // Apply default theme colors
   useEffect(() => {
@@ -512,10 +513,20 @@ export default function Room() {
     }
   };
 
+  // Lightbox modal for enlarged image
+  useEffect(() => {
+    if (!enlargedImage) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setEnlargedImage(null);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [enlargedImage]);
+
   return (
     <>
       <Head>
-        <link href="https://fonts.googleapis.com/css2?family=Tiny5&family=VT323&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Tiny5&family=VT323&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet" />
       </Head>
       {loading && showMinigame && <DinoGameModal show={loading} onClose={() => setShowMinigame(false)} />}
       <div style={{
@@ -526,8 +537,8 @@ export default function Room() {
         position: 'relative',
       }}>
         <h1 style={{
-          fontFamily: 'Tiny5, Courier New, Courier, monospace',
-          fontSize: '4.2rem',
+          fontFamily: "'Press Start 2P', Tiny5, Courier New, Courier, monospace",
+          fontSize: '4rem',
           color: '#f91b8f',
           margin: 0,
           letterSpacing: '2px',
@@ -538,11 +549,11 @@ export default function Room() {
         </h1>
         <div style={{
           fontFamily: 'Roboto Mono, monospace',
-          fontSize: '1.2rem',
+          fontSize: '1.3rem',
           color: '#ff69b4',
           marginTop: '0.5rem',
           marginBottom: '0.5rem',
-          fontWeight: 600,
+          fontWeight: 800,
           letterSpacing: '0.5px',
           textShadow: '0 0 4px #fff0f8',
         }}>
@@ -590,7 +601,7 @@ export default function Room() {
               background: '#f91b84',
               borderBottom: '2px solid #f91b8f',
               padding: '12px 20px',
-              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+              fontFamily: "Roboto Mono, monospace",
               fontSize: '16px',
               fontWeight: 600,
               color: '#ffffff',
@@ -861,7 +872,7 @@ export default function Room() {
               background: '#f91b84',
               borderBottom: '2px solid #f91b8f',
               padding: '12px 20px',
-              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+              fontFamily: "Roboto Mono, monospace",
               fontSize: '16px',
               fontWeight: 600,
               color: '#ffffff',
@@ -1099,7 +1110,14 @@ export default function Room() {
         </div>
         {/* Glow Up Gallery Wall */}
         <section className={styles.gallerySection}>
-          <h3 className={styles.galleryTitle}>GLOW UP GALLERY</h3>
+          <div style={{
+            fontSize: '3.4rem',
+            color: '#f91b84',
+            margin: '0 0 0.4rem 0',
+            fontWeight: 800,
+            letterSpacing: '2px',
+            fontFamily: "'Press Start 2P', 'Tiny5', 'Courier New', Courier, monospace",
+          }}>GLOW UP GALLERY</div>
           <div style={{
                     fontFamily: 'Roboto Mono, monospace',
                     fontSize: '1.2rem',
@@ -1112,14 +1130,14 @@ export default function Room() {
           </div>
           <div className={styles.galleryWall}>
             {gallery.map((g, i) => (
-              <div className={styles.polaroid + ' ' + styles.galleryPolaroid} key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 180, maxWidth: 200, padding: '1.2rem 1.2rem 2.2rem 1.2rem', position: 'relative', border: '2.5px solid #f91b8f', borderRadius: 18, background: '#fff' }}>
+              <div className={styles.polaroid} key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 280, maxWidth: 340, padding: '2.2rem 2.2rem 3.2rem 2.2rem', position: 'relative', border: '2.5px solid #f91b8f', borderRadius: 18, background: '#fff' }}>
                 {/* Title */}
                 <div style={{
                   fontFamily: 'Tiny5',
-                  fontSize: '1.1rem',
+                  fontSize: '1.5rem',
                   fontWeight: 700,
                   color: '#f91b8f',
-                  marginBottom: '0.5rem',
+                  marginBottom: '0.7rem',
                   letterSpacing: '1px',
                   textShadow: '0 0 4px #fff0f8',
                   textAlign: 'center',
@@ -1127,43 +1145,76 @@ export default function Room() {
                 }}>{(g.roomType || 'Room')} Makeover</div>
                 {/* Before label */}
                 <div style={{
-                  fontSize: '0.95rem',
+                  fontSize: '1.1rem',
                   color: '#ff69b4',
                   fontWeight: 700,
                   letterSpacing: '1px',
-                  marginBottom: 2,
+                  marginBottom: 4,
                   fontFamily: 'Roboto Mono, monospace',
                 }}>Before</div>
                 {/* Before image */}
-                <img src={g.before} alt="Before" style={{ width: 140, height: 140, objectFit: 'cover', borderRadius: 12, border: '2px solid #ff69b4', marginBottom: 12, boxShadow: '0 2px 8px #ffd6f7' }} />
+                <img src={g.before} alt="Before" style={{ width: 200, height: 200, objectFit: 'cover', borderRadius: 16, border: '2.5px solid #ff69b4', marginBottom: 22, boxShadow: '0 2px 12px #ffd6f7', cursor: 'pointer' }} onClick={() => setEnlargedImage({ src: g.before, alt: 'Before' })} />
                 {/* Animated arrow */}
-                <div style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '0.3rem 0' }}>
+                <div style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '0.5rem 0' }}>
                   <span style={{
                     display: 'inline-block',
-                    fontSize: '2rem',
+                    fontSize: '2.4rem',
                     animation: 'arrowBounce 1s infinite',
                   }}>
                     ↓
                   </span>
-                  <style>{`@keyframes arrowBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }`}</style>
+                  <style>{`@keyframes arrowBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(12px); } }`}</style>
                 </div>
                 {/* After label */}
                 <div style={{
-                  fontSize: '0.95rem',
+                  fontSize: '1.1rem',
                   color: '#5baefc',
                   fontWeight: 700,
                   letterSpacing: '1px',
-                  marginTop: 6,
-                  marginBottom: 2,
+                  marginTop: 10,
+                  marginBottom: 4,
                   fontFamily: 'Roboto Mono, monospace',
                 }}>After</div>
                 {/* After image */}
-                <img src={g.after} alt="After" style={{ width: 140, height: 140, objectFit: 'cover', borderRadius: 12, border: '2px solid #ff69b4', marginTop: 12, boxShadow: '0 2px 8px #ffd6f7' }} />
+                <img src={g.after} alt="After" style={{ width: 200, height: 200, objectFit: 'cover', borderRadius: 16, border: '2.5px solid #ff69b4', marginTop: 22, boxShadow: '0 2px 12px #ffd6f7', cursor: 'pointer' }} onClick={() => setEnlargedImage({ src: g.after, alt: 'After' })} />
               </div>
             ))}
           </div>
         </section>
       </div>
+      {enlargedImage && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0,0,0,0.75)',
+            zIndex: 99999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'zoom-out',
+          }}
+          onClick={() => setEnlargedImage(null)}
+        >
+          <img
+            src={enlargedImage.src}
+            alt={enlargedImage.alt}
+            style={{
+              maxWidth: '90vw',
+              maxHeight: '90vh',
+              borderRadius: 20,
+              boxShadow: '0 8px 40px #000a',
+              background: '#fff',
+              cursor: 'auto',
+              border: '4px solid #fff',
+            }}
+            onClick={e => e.stopPropagation()}
+          />
+        </div>
+      )}
     </>
   )
 }

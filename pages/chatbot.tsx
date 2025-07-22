@@ -192,7 +192,7 @@ export default function Chatbot() {
   return (
     <>
       <Head>
-        <link href="https://fonts.googleapis.com/css2?family=Tiny5&family=VT323&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Tiny5&family=VT323&display=swap" rel="stylesheet" />
       </Head>
       <div className={styles.pageContainer}>
         {/* Header */}
