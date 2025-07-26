@@ -8,12 +8,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(401).json({ error: 'Unauthorized user' });
     }
 
+    const { chatId } = req.query;
+    if (!chatId || typeof chatId !== 'string') {
+        return res.status(400).json({ error: 'Missing or invalid chatId' });
+    }
+
     const { data, error } = await supabase
         .from('chat_history')
         .select('messages')
         .eq('user_id', userId)
-        .order('created_at', {ascending: false })
-        .limit(1)
+        .eq('id', chatId)
         .single();
 
     if (error) {

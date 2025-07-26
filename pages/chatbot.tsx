@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import Head from 'next/head'
 import CustomizePanel from './components/CustomizePanel';
 import ChatDropdown from './components/chatDropdown';
-import { SignedIn} from "@clerk/nextjs";
+import { SignedIn, SignedOut, useUser } from "@clerk/nextjs";
 
 type Message = {
   role: 'system' | 'user' | 'assistant';
@@ -27,7 +27,9 @@ export default function Chatbot() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [trendingTopics, setTrendingTopics] = useState<string[] | null>(null);
   const chatBoxRef = useRef<HTMLDivElement>(null);
-  const [showChats, setShowChats] = useState(false);
+  const [showChats, setShowChats] = useState<false | 'default' | 'save'>(false);
+  const [showSignInPopup, setShowSignInPopup] = useState(true);
+  const { isSignedIn } = useUser();
 
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -163,32 +165,33 @@ export default function Chatbot() {
 
 
   const handleSaveChat = async () => {
-  const title = prompt("Enter a title for this chat:");
-
-  if (!title) return;
-
-  const response = await fetch('/api/save-chat', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      messages, // you should have this available
-      title,
-    }),
-  });
-
-  if (response.ok) {
-    alert("Chat saved!");
-    // Optionally: refresh chat list
-  } else {
-    const { error } = await response.json();
-    alert(`Error saving chat: ${error}`);
-  }
-};
+    if (!isSignedIn) {
+      setShowChats('save'); // open the sign in popup with save mode
+      return;
+    }
+    const title = prompt("Enter a title for this chat:");
+    if (!title) return;
+    const response = await fetch('/api/save-chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messages,
+        title,
+      }),
+    });
+    if (response.ok) {
+      alert("Chat saved!");
+      // Optionally: refresh chat list
+    } else {
+      const { error } = await response.json();
+      alert(`Error saving chat: ${error}`);
+    }
+  };
 
   return (
     <>
       <Head>
-        <link href="https://fonts.googleapis.com/css2?family=Tiny5&family=VT323&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Tiny5&family=VT323&display=swap" rel="stylesheet" />
       </Head>
       <div className={styles.pageContainer}>
         {/* Header */}
@@ -206,7 +209,20 @@ export default function Chatbot() {
             {/* Removed headerActions with Customize and Chats buttons */}
           </div>
         </header>
-        {showChats && <ChatDropdown onClose={() => setShowChats(false)} />}
+        {showChats && (
+          <ChatDropdown
+            onClose={() => setShowChats(false)}
+            mode={showChats === 'save' ? 'save' : 'default'}
+            onChatSelect={async (chatId) => {
+              const res = await fetch(`/api/load-chat?chatId=${chatId}`);
+              if (res.ok) {
+                const data = await res.json();
+                setMessages(data.messages || []);
+                setShowHero(false);
+              }
+            }}
+          />
+        )}
         {/* Main Content */}
         <main className={styles.mainContent}>
           <div className={styles.chatContainer}>
@@ -224,7 +240,7 @@ export default function Chatbot() {
                 </button>
                 <button
                   className={styles.customizeButton}
-                  onClick={() => setShowChats(true)}
+                  onClick={() => setShowChats('default')}
                 >
                   Chats <span role="img" aria-label="chat bubble">💬</span>
                 </button>
@@ -306,12 +322,12 @@ export default function Chatbot() {
                   </div>
                 )}
                 {showHero && (
-                      <div>
-                        <h3 className={styles.quickStartTitle}>Try these popular questions:</h3>
-                        <div className={styles.questionButtonContainer}>
+                      <div className="border-t-4 border-primary/30 pt-4">
+                        <h3 className="text-center text-pink-600 font-bold text-xl mb-4">Try these popular questions:</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
                           {questionsToShow.map((question, idx) => (
                             <button key={idx} onClick={() => sendMessage(question)}
-                              className={styles.questionButton}>
+                            className="text-lg p-4 border-2 border-pink-400 rounded-2xl text-pink-600 hover:bg-pink-50 transition-colors text-left">
                               {question}
                             </button>
                           ))}

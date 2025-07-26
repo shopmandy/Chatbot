@@ -8,9 +8,11 @@ type ChatSummary = {
 
 type ChatDropdownProps = {
   onClose: () => void;
+  mode?: 'default' | 'save';
+  onChatSelect?: (chatId: string) => void;
 };
 
-const ChatDropdown: React.FC<ChatDropdownProps> = ({ onClose }) => {
+const ChatDropdown: React.FC<ChatDropdownProps> = ({ onClose, mode = 'default', onChatSelect }) => {
   const [chats, setChats] = useState<ChatSummary[]>([]);
 
   useEffect(() => {
@@ -29,31 +31,58 @@ const ChatDropdown: React.FC<ChatDropdownProps> = ({ onClose }) => {
     <div 
       onClick={onClose}
       style={{
-    position: 'fixed',
-    top: '70px',
-    right: '20px',
-    background: 'white',
-    border: '2px solid var(--chat-border)',
-    borderRadius: '12px',
-    boxShadow: '0 8px 16px rgba(0,0,0,0.2)',
-    padding: '1rem',
-    zIndex: 1000,
-    minWidth: '200px',
-    maxHeight: '300px',      
-    overflowY: 'auto',       
+        position: 'fixed',
+        top: '160px', // further down
+        right: '80px', // further left
+        background: 'white',
+        border: '2px solid var(--chat-border)',
+        borderRadius: '10px',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.12)',
+        padding: '0.5em 1em 0.5em 1em',
+        zIndex: 1000,
+        minWidth: '180px',
+        maxWidth: '240px',
+        maxHeight: '220px',
+        overflowY: 'auto',
       }}
     >
       <SignedOut>
-        <p style={{ fontWeight: 'bold', color: 'var(--chat-text)' }}>
-          Sign In to See Saved Chats
-        </p>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5em', position: 'relative' }}>
+          <span style={{ fontWeight: 'bold', color: 'var(--chat-text)', fontSize: '1em', whiteSpace: 'nowrap' }}>
+            {mode === 'save' ? 'Sign In to Save Chat' : 'Sign In to See Saved Chats'}
+          </span>
+          <button
+            onClick={onClose}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: 'var(--chat-text)',
+              fontWeight: 'bold',
+              fontSize: '1.1em',
+              cursor: 'pointer',
+              lineHeight: 1,
+              marginLeft: '0.5em',
+              padding: 0,
+            }}
+            aria-label="Close sign in popup"
+          >
+            ×
+          </button>
+        </div>
       </SignedOut>
 
       <SignedIn>
         <p style={{ fontWeight: 'bold', color: 'var(--chat-text)' }}>Previous Chats</p>
         <ul style={{ listStyle: 'none', padding: 0 }}>
           {chats.map((chat) => (
-            <li key={chat.id} style={{ padding: '0.5rem 0', cursor: 'pointer' }}>
+            <li
+              key={chat.id}
+              style={{ padding: '0.5rem 0', cursor: 'pointer' }}
+              onClick={() => {
+                if (onChatSelect) onChatSelect(chat.id);
+                onClose();
+              }}
+            >
               {chat.title}
             </li>
           ))}
