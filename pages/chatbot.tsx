@@ -5,7 +5,6 @@ import ReactMarkdown from 'react-markdown';
 import Head from 'next/head'
 import CustomizePanel from './components/CustomizePanel';
 import ChatDropdown from './components/chatDropdown';
-import { redis } from '@/lib/redis';
 import { SignedIn} from "@clerk/nextjs";
 
 type Message = {
