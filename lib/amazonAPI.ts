@@ -1,91 +1,106 @@
-import ProductAdvertisingAPI from 'paapi5-nodejs-sdk';
+import ProductAdvertisingAPIv1 from 'paapi5-nodejs-sdk';
 
-const defaultClient = ProductAdvertisingAPI.ApiClient.instance;
-defaultClient.accessKey = process.env.AMAZON_ACCESS_KEY_ID!;
-defaultClient.secretKey = process.env.AMAZON_SECRET_ACCESS_KEY!;
-defaultClient.host = 'webservices.amazon.com';
-defaultClient.region = 'us-east-1';
-
-const api = new ProductAdvertisingAPI.DefaultApi();
-
-interface AmazonProduct {
-  ASIN: string;
-  DetailPageURL: string;
-  Images?: {
-    Primary?: {
-      Large?: {
-        URL: string;
-        Height: number;
-        Width: number;
-      };
-    };
-  };
-  ItemInfo?: {
-    Title?: {
-      DisplayValue: string;
-    };
-    ByLineInfo?: {
-      Brand?: {
-        DisplayValue: string;
-      };
-    };
-  };
-  Offers?: {
-    Listings?: Array<{
-      Price?: {
-        DisplayAmount: string;
-      };
-    }>;
-  };
-}
-
-interface AmazonSearchResponse {
-  Items?: AmazonProduct[];
-  TotalResultCount?: number;
-}
-
-export async function searchAmazonProducts(
-  keywords: string, 
-  category: string = 'All'
-): Promise<AmazonSearchResponse> {
-  
-  console.log(`🔍 Single Amazon search for: "${keywords}"`);
-
-  const searchItemsRequest = {
-    PartnerTag: process.env.AMAZON_ASSOCIATE_TAG!,
-    PartnerType: 'Associates',
-    Keywords: keywords, // Just search for the exact query (e.g., "pink and pastel living room")
-    SearchIndex: 'Home', // Use Home category for room decor
-    ItemCount: 10, // Get more results since it's just one search
-    Resources: [
-      'Images.Primary.Large',
-      'ItemInfo.Title',
-      'ItemInfo.ByLineInfo',
-      'Offers.Listings.Price'
-    ]
-  };
-
-  console.log('📋 Single request for:', keywords);
-
+export async function searchAmazonProducts(keywords: string, category: string = 'All') {
   try {
-    const response = await new Promise<any>((resolve, reject) => {
+    // Validate environment variables
+    const accessKey = process.env.AMAZON_ACCESS_KEY_ID;
+    const secretKey = process.env.AMAZON_SECRET_ACCESS_KEY;
+    const partnerTag = process.env.AMAZON_ASSOCIATE_TAG;
+
+    if (!accessKey || !secretKey || !partnerTag) {
+      console.error('Missing Amazon API credentials:', {
+        hasAccessKey: !!accessKey,
+        hasSecretKey: !!secretKey,
+        hasPartnerTag: !!partnerTag
+      });
+      throw new Error('Missing Amazon API credentials');
+    }
+
+    console.log('Initializing Amazon API with credentials...');
+
+    // Initialize the client
+    const defaultClient = ProductAdvertisingAPIv1.ApiClient.instance;
+    
+    // Set the region and credentials (direct assignment method)
+    defaultClient.host = 'webservices.amazon.com';
+    (defaultClient as any).accessKey = accessKey;
+    (defaultClient as any).secretKey = secretKey;
+
+    // Create API instance
+    const api = new ProductAdvertisingAPIv1.DefaultApi();
+
+    console.log('Creating search request with keywords:', keywords, 'category:', category);
+
+    // Create search request using object format (works better with TypeScript)
+    const searchItemsRequest = {
+      PartnerTag: partnerTag,
+      PartnerType: 'Associates',
+      Keywords: keywords,
+      SearchIndex: category === 'All' ? 'All' : category,
+      ItemCount: 10,
+      Resources: [
+        'Images.Primary.Medium',
+        'ItemInfo.Title',
+        'ItemInfo.Features',
+        'Offers.Listings.Price',
+        'ItemInfo.ByLineInfo'
+      ]
+    };
+
+    console.log('Making API request with:', searchItemsRequest);
+
+    // Make the API call using the callback method that works with this SDK
+    const response: any = await new Promise((resolve, reject) => {
       api.searchItems(searchItemsRequest, (error: any, data: any) => {
         if (error) {
-          console.error('❌ Amazon API Error:', error.message);
+          console.log('Error calling PA-API 5.0!');
+          console.log('Printing Full Error Object:\n' + JSON.stringify(error, null, 1));
+          console.log('Status Code: ' + error['status']);
+          if (error['response'] !== undefined && error['response']['text'] !== undefined) {
+            console.log('Error Object: ' + JSON.stringify(error['response']['text'], null, 1));
+          }
           reject(error);
         } else {
-          console.log(`✅ Amazon API Success: Found ${data?.SearchResult?.Items?.length || 0} items for "${keywords}"`);
+          console.log('API called successfully.');
           resolve(data);
         }
       });
     });
+    
+    console.log('Amazon API Response received:', response);
 
-    return {
-      Items: response?.SearchResult?.Items || [],
-      TotalResultCount: response?.SearchResult?.TotalResultCount || 0
-    };
-  } catch (error: any) {
-    console.error('💥 Amazon search failed for:', keywords);
+    // Process the response - return in format expected by the API route
+    if (!response || !response.SearchResult || !response.SearchResult.Items) {
+      console.log('No items found in search result');
+      return { Items: [], TotalResultCount: 0 };
+    }
+
+    // Transform the results to our format
+    const items = response.SearchResult.Items;
+    const products = items.map((item: any) => ({
+      id: item.ASIN,
+      title: item.ItemInfo?.Title?.DisplayValue || 'No title',
+      price: item.Offers?.Listings?.[0]?.Price?.DisplayAmount || 'Price not available',
+      image: item.Images?.Primary?.Medium?.URL || '/placeholder-image.jpg',
+      url: item.DetailPageURL || '#',
+      features: item.ItemInfo?.Features || []
+    }));
+
+    console.log(`Successfully processed ${products.length} products`);
+    return { Items: products, TotalResultCount: response.SearchResult.TotalResultCount || 0 };
+
+  } catch (error) {
+    console.error('Amazon API Error:', error);
+    
+    // Enhanced error logging
+    if (error instanceof Error) {
+      console.error('Error message:', error.message);
+      console.error('Error stack:', error.stack);
+    }
+    
+    // Log the full error object for debugging
+    console.error('Full error object:', JSON.stringify(error, null, 2));
+    
     throw error;
   }
 }

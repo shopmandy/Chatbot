@@ -390,11 +390,11 @@ function DinoGameModal({ show, onClose }: { show: boolean, onClose: () => void }
 
 export default function Room() {
   const [prompt, setPrompt] = useState('')
-  const [roomType, setRoomType] = useState('')
-  const [beforePreview, setBeforePreview] = useState('')
-  const [afterImage, setAfterImage] = useState('')
+  const [image, setImage] = useState<File | null>(null)
+  const [beforePreview, setBeforePreview] = useState<string | null>(null)
+  const [afterImage, setAfterImage] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
-  const [uploadJson, setUploadJson] = useState({ success: false, data: { url: '' } })
+  const [showMain, setShowMain] = useState(false);
   const [gallery, setGallery] = useState([
     { before: '/before-room-3.png', after: '/after-room-3.png', label: 'My Glow Up!', roomType: 'Dorm' },
     // Add more demo images if desired
@@ -410,6 +410,7 @@ export default function Room() {
   const [showCustomInput, setShowCustomInput] = useState(false);
   const [showAfterImage, setShowAfterImage] = useState(false);
   const [showAllGallery, setShowAllGallery] = useState(false);
+  const [amazonProducts, setAmazonProducts] = useState<any[]>([]);
 
   // Apply default theme colors
   useEffect(() => {
@@ -474,20 +475,15 @@ export default function Room() {
     setShowMinigame(true);
     setLoading(true)
     const formData = new FormData()
-    formData.append('image', file)
-    
-    const response = await fetch(`https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API_KEY}`, {
+    formData.append('image', image)
+    const uploadRes = await fetch(`https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API_KEY}`, {
       method: 'POST',
       body: formData,
     })
-    
-    const result = await response.json()
-    setUploadJson(result)
-  }
-
-  const handleGenerate = async () => {
+    const uploadJson = await uploadRes.json()
     if (!uploadJson.success || !uploadJson.data?.url) {
-      alert('Please upload an image first!')
+      setLoading(false)
+      alert('Image upload failed. Please check your API key and try again.')
       return
     }
     const imageUrl = uploadJson.data.display_url || uploadJson.data.url
@@ -501,6 +497,24 @@ export default function Room() {
     setLoading(false)
     setShowMain(true);
     setGallery(g => [{ before: beforePreview || '/before-room.png', after: data.outputUrl, label: vision || 'My Glow Up!', roomType }, ...g]);
+    
+    // Search for Amazon products
+    try {
+      const productResponse = await fetch('/api/amazon-products', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          prompt: vision,
+          roomType: showCustomInput ? customRoomType : roomType
+        }),
+      });
+      const productData = await productResponse.json();
+      if (productData.success && productData.products) {
+        setAmazonProducts(productData.products);
+      }
+    } catch (error) {
+      console.log('Amazon products search failed:', error);
+    }
   }
 
   const handleSuggestionClick = (text: string) => {
@@ -1379,6 +1393,164 @@ export default function Room() {
                   Download
                 </button>
               </div>
+              
+              {/* Find Products Button - Always visible for testing */}
+              <div style={{ width: '100%', marginTop: '1rem', display: 'flex', justifyContent: 'center' }}>
+                <button
+                  style={{
+                    width: '100%',
+                    maxWidth: '100%',
+                    padding: '1.2rem 0',
+                    background: 'linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%)',
+                    color: '#fff',
+                    fontFamily: 'Roboto Mono, monospace',
+                    fontSize: '1.2rem',
+                    fontWeight: 800,
+                    border: 'none',
+                    borderRadius: '12px',
+                    boxShadow: '0 4px 24px rgba(139, 92, 246, 0.3)',
+                    cursor: 'pointer',
+                    letterSpacing: '0.9px',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    transition: 'transform 0.18s cubic-bezier(.4,2,.6,1)',
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.07)'}
+                  onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                  onClick={async () => {
+                    // Get current room type and vision for testing
+                    const currentRoomType = showCustomInput ? customRoomType : roomType;
+                    const currentVision = vision;
+                    
+                    console.log('Sending to Amazon API:', { 
+                      roomType: currentRoomType, 
+                      prompt: currentVision 
+                    });
+                    
+                    // Manually trigger Amazon product search
+                    try {
+                      const productResponse = await fetch('/api/amazon-products', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ 
+                          prompt: currentVision || 'home decor',
+                          roomType: currentRoomType || 'Living Room'
+                        }),
+                      });
+                      const productData = await productResponse.json();
+                      console.log('Amazon API response:', productData);
+                      
+                      if (productData.success && productData.products) {
+                        console.log('First product sample:', productData.products[0]);
+                        setAmazonProducts(productData.products);
+                        alert(`Found ${productData.products.length} products!`);
+                      } else {
+                        console.log('No products found or API error:', productData);
+                        alert('No products found. Check console for details.');
+                      }
+                    } catch (error) {
+                      console.log('Amazon products search failed:', error);
+                      alert('Product search failed. Check console for details.');
+                    }
+                  }}
+                >
+                  <span style={{
+                    position: 'absolute',
+                    top: 10,
+                    left: 16,
+                    zIndex: 2,
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}>
+                    🔍
+                  </span>
+                  Find Products (Test)
+                </button>
+              </div>
+              
+              {/* Amazon Products Section */}
+              {amazonProducts.length > 0 && (
+                <div id="amazon-products-section" style={{ marginTop: '2rem' }}>
+                  <h3 style={{
+                    fontFamily: 'Roboto Mono, monospace',
+                    fontSize: '1.2rem',
+                    color: '#f91b8f',
+                    fontWeight: 600,
+                    marginBottom: '1rem',
+                    letterSpacing: '1px',
+                    textShadow: '0 0 4px #fff0f8',
+                  }}>
+                    Recommended Products
+                  </h3>
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+                    gap: '1rem',
+                    maxHeight: '400px',
+                    overflowY: 'auto',
+                  }}>
+                    {amazonProducts.slice(0, 6).map((product, index) => (
+                      <div key={index} style={{
+                        border: '2px solid #ffd6f7',
+                        borderRadius: '12px',
+                        padding: '1rem',
+                        background: '#fff6fa',
+                        transition: 'transform 0.2s, box-shadow 0.2s',
+                        cursor: 'pointer',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'translateY(-2px)';
+                        e.currentTarget.style.boxShadow = '0 4px 16px #ffd6f7';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'translateY(0)';
+                        e.currentTarget.style.boxShadow = 'none';
+                      }}
+                      onClick={() => window.open(product.url, '_blank')}
+                      >
+                        {product.image && product.image !== '/placeholder-image.jpg' && (
+                          <img 
+                            src={product.image} 
+                            alt={product.title || 'Product'}
+                            style={{
+                              width: '100%',
+                              height: '120px',
+                              objectFit: 'cover',
+                              borderRadius: '8px',
+                              marginBottom: '0.5rem',
+                            }}
+                          />
+                        )}
+                        <div style={{
+                          fontFamily: 'Roboto Mono, monospace',
+                          fontSize: '0.8rem',
+                          color: '#b8005c',
+                          fontWeight: 600,
+                          lineHeight: '1.2',
+                          marginBottom: '0.5rem',
+                          height: '2.4rem',
+                          overflow: 'hidden',
+                          display: '-webkit-box',
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: 'vertical',
+                        }}>
+                          {product.title || 'Amazon Product'}
+                        </div>
+                        {product.price && product.price !== 'Price not available' && (
+                          <div style={{
+                            fontFamily: 'Roboto Mono, monospace',
+                            fontSize: '0.9rem',
+                            color: '#f91b8f',
+                            fontWeight: 700,
+                          }}>
+                            {product.price}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

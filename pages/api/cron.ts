@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { fetchRedditTitles } from "@/lib/reddit";
-import { cleanTitle, deduplicateTitles } from '@/lib/cleaner';
-import { summarizeTopics } from "@/lib/summarizer";
-import { redis } from '@/lib/redis';
+import { fetchRedditTitles } from "../../lib/reddit";
+import { cleanTitle, deduplicateTitles } from '../../lib/cleaner';
+import { summarizeTopics } from "../../lib/summarizer";
+import { redis } from '../../lib/redis';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     //if (req.headers.authorization !== `Bearer ${process.env.CRON_SECRET}`) {
