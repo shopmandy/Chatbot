@@ -1443,7 +1443,7 @@ export default function Room() {
                       if (productData.success && productData.products) {
                         console.log('First product sample:', productData.products[0]);
                         setAmazonProducts(productData.products);
-                        alert(`Found ${productData.products.length} products!`);
+                        // Removed popup alert - products will show in the section below
                       } else {
                         console.log('No products found or API error:', productData);
                         alert('No products found. Check console for details.');
@@ -1464,96 +1464,178 @@ export default function Room() {
                   }}>
                     🔍
                   </span>
-                  Find Products (Test)
+                  Find Products
                 </button>
               </div>
-              
-              {/* Amazon Products Section */}
-              {amazonProducts.length > 0 && (
-                <div id="amazon-products-section" style={{ marginTop: '2rem' }}>
-                  <h3 style={{
-                    fontFamily: 'Roboto Mono, monospace',
-                    fontSize: '1.2rem',
-                    color: '#f91b8f',
-                    fontWeight: 600,
-                    marginBottom: '1rem',
-                    letterSpacing: '1px',
-                    textShadow: '0 0 4px #fff0f8',
-                  }}>
-                    Recommended Products
-                  </h3>
-                  <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
-                    gap: '1rem',
-                    maxHeight: '400px',
-                    overflowY: 'auto',
-                  }}>
-                    {amazonProducts.slice(0, 6).map((product, index) => (
-                      <div key={index} style={{
-                        border: '2px solid #ffd6f7',
-                        borderRadius: '12px',
-                        padding: '1rem',
-                        background: '#fff6fa',
-                        transition: 'transform 0.2s, box-shadow 0.2s',
-                        cursor: 'pointer',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = 'translateY(-2px)';
-                        e.currentTarget.style.boxShadow = '0 4px 16px #ffd6f7';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = 'translateY(0)';
-                        e.currentTarget.style.boxShadow = 'none';
-                      }}
-                      onClick={() => window.open(product.url, '_blank')}
-                      >
-                        {product.image && product.image !== '/placeholder-image.jpg' && (
-                          <img 
-                            src={product.image} 
-                            alt={product.title || 'Product'}
-                            style={{
-                              width: '100%',
-                              height: '120px',
-                              objectFit: 'cover',
-                              borderRadius: '8px',
-                              marginBottom: '0.5rem',
-                            }}
-                          />
-                        )}
-                        <div style={{
-                          fontFamily: 'Roboto Mono, monospace',
-                          fontSize: '0.8rem',
-                          color: '#b8005c',
-                          fontWeight: 600,
-                          lineHeight: '1.2',
-                          marginBottom: '0.5rem',
-                          height: '2.4rem',
-                          overflow: 'hidden',
-                          display: '-webkit-box',
-                          WebkitLineClamp: 2,
-                          WebkitBoxOrient: 'vertical',
-                        }}>
-                          {product.title || 'Amazon Product'}
-                        </div>
-                        {product.price && product.price !== 'Price not available' && (
-                          <div style={{
-                            fontFamily: 'Roboto Mono, monospace',
-                            fontSize: '0.9rem',
-                            color: '#f91b8f',
-                            fontWeight: 700,
-                          }}>
-                            {product.price}
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
             </div>
           </div>
         </div>
+
+        {/* SHOP THE LOOK Section - Separate Section */}
+        {amazonProducts.length > 0 && (
+          <section style={{ 
+            margin: '4rem 0',
+            padding: '0 1rem'
+          }}>
+            <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+              <div className="text-center mb-8">
+                <h2 className="text-3xl md:text-4xl font-black mb-4" style={{
+                  fontFamily: 'Roboto Mono, monospace',
+                  color: '#f91b8f',
+                  textShadow: '0 0 8px #fff0f8',
+                }}>
+                  SHOP THE LOOK 🛍️
+                </h2>
+                <p className="text-lg font-semibold" style={{
+                  fontFamily: 'Roboto Mono, monospace',
+                  color: '#f91b8f',
+                  opacity: 0.8,
+                }}>
+                  Products to complete your dream room design
+                </p>
+              </div>
+
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                gap: '1.5rem',
+              }}>
+                {amazonProducts.slice(0, 8).map((product, index) => (
+                  <div key={index} style={{
+                    background: '#fff',
+                    border: '4px solid #f91b8f',
+                    borderRadius: '16px',
+                    padding: '1.5rem',
+                    transition: 'all 0.3s ease',
+                    cursor: 'pointer',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'scale(1.05)';
+                    e.currentTarget.style.boxShadow = '0 10px 20px rgba(249, 27, 143, 0.3)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'scale(1)';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
+                  onClick={() => window.open(product.url, '_blank')}
+                  >
+                    {product.image && product.image !== '/placeholder-image.jpg' && (
+                      <img 
+                        src={product.image} 
+                        alt={product.title || 'Product'}
+                        style={{
+                          width: '100%',
+                          height: '160px',
+                          objectFit: 'cover',
+                          borderRadius: '12px',
+                          border: '2px solid rgba(249, 27, 143, 0.2)',
+                          marginBottom: '1rem',
+                        }}
+                      />
+                    )}
+                    
+                    <div style={{ marginBottom: '0.5rem' }}>
+                      <h3 style={{
+                        fontFamily: 'Roboto Mono, monospace',
+                        fontSize: '1rem',
+                        color: '#f91b8f',
+                        fontWeight: 700,
+                        lineHeight: '1.3',
+                        marginBottom: '0.5rem',
+                        height: '2.6rem',
+                        overflow: 'hidden',
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical',
+                      }}>
+                        {product.title || 'Amazon Product'}
+                      </h3>
+                      
+                      {product.price && product.price !== 'Price not available' && (
+                        <div style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          marginBottom: '0.75rem',
+                        }}>
+                          <span style={{
+                            fontFamily: 'Roboto Mono, monospace',
+                            fontSize: '1.25rem',
+                            color: '#f91b8f',
+                            fontWeight: 800,
+                          }}>
+                            {product.price}
+                          </span>
+                          <button style={{
+                            background: '#f91b8f',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '8px',
+                            padding: '0.5rem 0.75rem',
+                            fontSize: '0.75rem',
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.25rem',
+                            transition: 'background 0.2s',
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.background = '#e1186d';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.background = '#f91b8f';
+                          }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            window.open(product.url, '_blank');
+                          }}
+                          >
+                            🛒 Buy
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div style={{
+                      marginTop: '0.75rem',
+                      paddingTop: '0.75rem',
+                      borderTop: '2px solid rgba(249, 27, 143, 0.1)',
+                    }}>
+                      <button style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        background: 'none',
+                        border: 'none',
+                        color: 'rgba(249, 27, 143, 0.6)',
+                        fontSize: '0.75rem',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        transition: 'color 0.2s',
+                        fontFamily: 'Roboto Mono, monospace',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.color = '#f91b8f';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.color = 'rgba(249, 27, 143, 0.6)';
+                      }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open(product.url, '_blank');
+                      }}
+                      >
+                        <span style={{ marginRight: '0.25rem' }}>🔗</span>
+                        View Details
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* Glow Up Gallery Wall */}
         <section className={styles.gallerySection}>
           <div style={{
