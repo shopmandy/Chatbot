@@ -487,10 +487,17 @@ export default function Room() {
       return
     }
     const imageUrl = uploadJson.data.display_url || uploadJson.data.url
+    
+    // Create enhanced prompt that includes room type
+    const currentRoomType = showCustomInput ? customRoomType : roomType;
+    const enhancedPrompt = currentRoomType && currentRoomType !== '' 
+      ? `Transform this ${currentRoomType.toLowerCase()} with ${vision}`
+      : vision;
+    
     const response = await fetch('/api/room-makeover', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ imageUrl, prompt: vision }),
+      body: JSON.stringify({ imageUrl, prompt: enhancedPrompt }),
     })
     const data = await response.json()
     setAfterImage(data.outputUrl)
