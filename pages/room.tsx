@@ -7,20 +7,6 @@ import { Upload, Download, Sparkles, Home, Hammer, ToyBrick } from "lucide-react
 
 // --- Simple Dino Game Minigame Modal ---
 function DinoGameModal({ show, onClose }: { show: boolean, onClose: () => void }) {
-  // Don't show on mobile devices (screen width < 768px)
-  const [isMobile, setIsMobile] = useState(false);
-  
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-  
   // Listen for Escape key to exit
   useEffect(() => {
     if (!show) return;
@@ -33,8 +19,6 @@ function DinoGameModal({ show, onClose }: { show: boolean, onClose: () => void }
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [show, onClose]);
   
-  // Don't render anything on mobile
-  if (isMobile) return null;
   const GAME_WIDTH = 400;
   const GAME_HEIGHT = 180;
   const GROUND_Y = 140;
@@ -410,6 +394,19 @@ export default function Room() {
   const [showCustomInput, setShowCustomInput] = useState(false);
   const [showAfterImage, setShowAfterImage] = useState(false);
   const [showAllGallery, setShowAllGallery] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Apply default theme colors
   useEffect(() => {
@@ -567,7 +564,7 @@ export default function Room() {
       <Head>
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Tiny5&family=VT323&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet" />
       </Head>
-      {loading && showMinigame && <DinoGameModal show={loading} onClose={() => setShowMinigame(false)} />}
+      {loading && showMinigame && !isMobile && <DinoGameModal show={loading} onClose={() => setShowMinigame(false)} />}
       <div style={{
         width: '100%',
         padding: '0.1rem 0 0.5rem 0',
@@ -1697,7 +1694,7 @@ export default function Room() {
               <div className={styles.polaroid} key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 280, maxWidth: 340, padding: '2.2rem 2.2rem 3.2rem 2.2rem', position: 'relative', border: '2.5px solid #f91b8f', borderRadius: 18, background: '#fff' }}>
                 {/* Title */}
                 <div style={{
-                  fontFamily: 'Tiny5',
+                  fontFamily: 'VT323',
                   fontSize: '1.5rem',
                   fontWeight: 700,
                   color: '#f91b8f',
@@ -1755,8 +1752,8 @@ export default function Room() {
                 style={{
                   padding: '1rem 2rem',
                   borderRadius: '16px',
-                  background: 'linear-gradient(135deg, #ffdcae 0%, #ffe0f2 100%)',
-                  border: '2px solid #ff69b4',
+                  background: 'linear-gradient(135deg,#ffc9ea 0%, #ffe0f2 100%)',
+                  border: '2px solid #f91b8f',
                   color: '#f91b8f',
                   fontFamily: 'Roboto Mono, monospace',
                   fontSize: '1rem',
