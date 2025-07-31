@@ -769,35 +769,58 @@ useEffect(() => {
               <p>
               Browse our complete collection of curated toolkits and find everything you need to bring your DIY dreams to life. Quality tools, expert picks!
               </p>
-              <button
-                    key={'shop'}
-                    onClick={() => handleButtonClick('https://shopmandy.com/')}
-                    className="nav-link home-button"
-                    style={{
-                      width: "160px",
-                      textAlign: "center",
-                      fontSize: "0.8rem",
-                      fontFamily: "'Press Start 2P', VT323, Poppins, Montserrat, Arial, sans-serif",
-                      fontWeight: "700",
-                      letterSpacing: "1px",
-                      borderRadius: "24px",
-                      border: "none",
-                      padding: "0.4rem 0.8rem",
-                      cursor: "pointer",
-                      margin: "0",
-                      height: "auto",
-                      minHeight: "auto",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      gap: "0.5rem",
-                    }}
-                  >
-                    <Package className="w-4 h-4 mr-2" />
-                    Shop All Toolkits
-                   
-                  </button>
+              <div style={{ position: "relative", display: "inline-block" }}>
+                {/* Shadow layer */}
+                <div style={{
+                  position: "absolute",
+                  top: "4px",
+                  left: "4px",
+                  width: "100%",
+                  height: "100%",
+                  backgroundColor: "#4a1d3d",
+                  borderRadius: "12px",
+                  zIndex: 1
+                }}></div>
+                {/* Main button */}
+                <button
+                  key={'shop'}
+                  onClick={() => handleButtonClick('https://shopmandy.com/')}
+                  style={{
+                    position: "relative",
+                    width: "200px",
+                    textAlign: "center",
+                    fontSize: "1rem",
+                    fontFamily: "'Press Start 2P', VT323, Poppins, Montserrat, Arial, sans-serif",
+                    fontWeight: "700",
+                    letterSpacing: "1px",
+                    borderRadius: "12px",
+                    border: "3px solid #4a1d3d",
+                    padding: "12px 16px",
+                    cursor: "pointer",
+                    margin: "0",
+                    backgroundColor: "#ff0080",
+                    color: "white",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "8px",
+                    zIndex: 2,
+                    transition: "all 0.2s ease"
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "translateY(-2px)";
+                    e.currentTarget.style.boxShadow = "0 6px 20px rgba(255, 0, 128, 0.4)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.boxShadow = "none";
+                  }}
+                >
+                  <Package style={{ width: 25, height: 25, color: "white" }} />
+                  <span>Shop All Toolkits</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
