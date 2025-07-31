@@ -1,7 +1,7 @@
 /* Page Container */
 .pageContainer {
   min-height: 100vh;
-  font-family: 'Press Start 2P', 'VT323', 'Tiny5', 'Courier New', Courier, monospace;
+  font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace;
   position: relative;
 }
 
@@ -62,7 +62,7 @@
 }
 
 .headerTitle {
-  font-size: 4rem;
+  font-size: 4.8rem;
   color: #f91b8f;
   margin: 0;
   letter-spacing: 2px;
@@ -70,10 +70,10 @@
 }
 
 .headerText {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-family: 'Roboto Mono', monospace;
   color: #ff69b4;
-  margin-top: 0.4rem;
+  margin-top: 0.05rem;
   margin-bottom: 1rem;
   font-weight: 900;
   letter-spacing: 0.5px;
@@ -109,7 +109,7 @@
 .subheaderList,
 .subheaderRightImage {
   flex: 1;
-  padding: 2rem;
+  padding: 1.2rem;
   box-sizing: border-box;
 }
 .subheaderList ul {
@@ -131,7 +131,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 0.8rem;
   flex-direction: column;
 }
 
@@ -139,7 +139,7 @@
   max-width: 100%;
   height: auto;
   border-radius: 16px;
-  border: 3px solid var(--button-border, #ff69b4);
+  border: 1.5px solid var(--button-border, #ff69b4);
   margin-bottom: 1rem;
 }
 

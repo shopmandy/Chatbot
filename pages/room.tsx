@@ -7,20 +7,6 @@ import { Upload, Download, Sparkles, Home, Hammer, ToyBrick } from "lucide-react
 
 // --- Simple Dino Game Minigame Modal ---
 function DinoGameModal({ show, onClose }: { show: boolean, onClose: () => void }) {
-  // Don't show on mobile devices (screen width < 768px)
-  const [isMobile, setIsMobile] = useState(false);
-  
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-  
   // Listen for Escape key to exit
   useEffect(() => {
     if (!show) return;
@@ -33,8 +19,6 @@ function DinoGameModal({ show, onClose }: { show: boolean, onClose: () => void }
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [show, onClose]);
   
-  // Don't render anything on mobile
-  if (isMobile) return null;
   const GAME_WIDTH = 400;
   const GAME_HEIGHT = 180;
   const GROUND_Y = 140;
@@ -411,6 +395,19 @@ export default function Room() {
   const [showAfterImage, setShowAfterImage] = useState(false);
   const [showAllGallery, setShowAllGallery] = useState(false);
   const [amazonProducts, setAmazonProducts] = useState<any[]>([]);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Apply default theme colors
   useEffect(() => {
@@ -498,13 +495,13 @@ export default function Room() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ imageUrl, prompt: enhancedPrompt }),
+
     })
     const data = await response.json()
     setAfterImage(data.outputUrl)
     setLoading(false)
     setShowMain(true);
-    setGallery(g => [{ before: beforePreview || '/before-room.png', after: data.outputUrl, label: vision || 'My Glow Up!', roomType }, ...g]);
-    
+    setGallery(g => [{ before: beforePreview || '/before-room.png', after: data.outputUrl, label: vision || 'My Glow Up!', roomType }, ...g]);    
     // Search for Amazon products
     try {
       const productResponse = await fetch('/api/amazon-products', {
@@ -593,16 +590,17 @@ export default function Room() {
       <Head>
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Tiny5&family=VT323&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet" />
       </Head>
-      {loading && showMinigame && <DinoGameModal show={loading} onClose={() => setShowMinigame(false)} />}
+
+      {loading && showMinigame && !isMobile && <DinoGameModal show={loading} onClose={() => setShowMinigame(false)} />}
       <div style={{
         width: '100%',
-        padding: '2.2rem 0 0.7rem 0',
+        padding: '0.1rem 0 0.5rem 0',
         textAlign: 'center',
         zIndex: 200,
         position: 'relative',
       }}>
         <h1 className={styles.headerTitle} style={{
-          fontFamily: "'Press Start 2P', Tiny5, Courier New, Courier, monospace",
+          fontFamily: "VT323, Tiny5, Courier New, Courier, monospace",
         }}>
           ROOM GENERATOR
         </h1>
@@ -610,178 +608,474 @@ export default function Room() {
         >
           Upload your space, describe your dream, and watch the magic happen.
         </div>
-        <h2 className={styles.headerTitle} style={{
-          fontFamily: "'Press Start 2P', Tiny5, Courier New, Courier, monospace",
-          fontSize: "2rem",
-        }}>
-          ✨ SEE THE MAGIC IN ACTION ✨
-        </h2>
-        <div className={styles.headerText} style={{
-          fontSize: "1.2rem"
-        }}>
-          Real transformations, real results - your space could be next!
-        </div>
       </div>
       <div>
+        {/* Feature Bubbles */}
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          gap: '1.5rem',
+          marginBottom: '1rem',
+          flexWrap: 'wrap',
+        }}>
+          <div style={{
+            padding: '1rem 1.5rem',
+            background: '#fff',
+            borderRadius: '16px',
+            border: '3px solid #f91b8f',
+            boxShadow: '0 4px 16px rgba(255, 105, 180, 0.15)',
+            maxWidth: '340px',
+            transition: 'all 0.3s ease',
+            cursor: 'pointer',
+            transform: 'translateY(0) scale(1)',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'translateY(-8px) scale(1.05)';
+            e.currentTarget.style.boxShadow = '0 12px 32px rgba(255, 105, 180, 0.3)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'translateY(0) scale(1)';
+            e.currentTarget.style.boxShadow = '0 4px 16px rgba(255, 105, 180, 0.15)';
+          }}>
+            <div style={{
+              fontFamily: "VT323, Tiny5, Courier, monospace",
+              fontSize: '1.6rem',
+              color: '#f91b8f',
+              fontWeight: 700,
+              marginBottom: '0.5rem',
+              lineHeight: '1.4',
+              textAlign: 'center',
+            }}>
+              🎨 AI-POWERED DESIGN
+            </div>
+            <div style={{
+              fontFamily: 'Roboto Mono, monospace',
+              fontSize: '0.8rem',
+              color: '#b8005c',
+              lineHeight: '1.4',
+              textAlign: 'center',
+            }}>
+              Smart algorithms create personalized room layouts
+            </div>
+          </div>
+          
+          <div style={{
+            padding: '1rem 1.5rem',
+            background: '#fff',
+            borderRadius: '16px',
+            border: '3px solid #f91b8f',
+            boxShadow: '0 4px 16px rgba(255, 105, 180, 0.15)',
+            maxWidth: '340px',
+            transition: 'all 0.3s ease',
+            cursor: 'pointer',
+            transform: 'translateY(0) scale(1)',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'translateY(-8px) scale(1.05)';
+            e.currentTarget.style.boxShadow = '0 12px 32px rgba(255, 105, 180, 0.3)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'translateY(0) scale(1)';
+            e.currentTarget.style.boxShadow = '0 4px 16px rgba(255, 105, 180, 0.15)';
+          }}>
+            <div style={{
+              fontFamily: "VT323, Tiny5, Courier, monospace",
+              fontSize: '1.6rem',
+              color: '#f91b8f',
+              fontWeight: 700,
+              marginBottom: '0.5rem',
+              lineHeight: '1.4',
+              textAlign: 'center',
+            }}>
+              ⚡ INSTANT RESULTS
+            </div>
+            <div style={{
+              fontFamily: 'Roboto Mono, monospace',
+              fontSize: '0.8rem',
+              color: '#b8005c',
+              lineHeight: '1.4',
+              textAlign: 'center',
+            }}>
+              Generate beautiful rooms in seconds
+            </div>
+          </div>
+          
+          <div style={{
+            padding: '1rem 1.5rem',
+            background: '#fff',
+            borderRadius: '16px',
+            border: '3px solid #f91b8f',
+            boxShadow: '0 4px 16px rgba(255, 105, 180, 0.15)',
+            maxWidth: '340px',
+            transition: 'all 0.3s ease',
+            cursor: 'pointer',
+            transform: 'translateY(0) scale(1)',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'translateY(-8px) scale(1.05)';
+            e.currentTarget.style.boxShadow = '0 12px 32px rgba(255, 105, 180, 0.3)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'translateY(0) scale(1)';
+            e.currentTarget.style.boxShadow = '0 4px 16px rgba(255, 105, 180, 0.15)';
+          }}>
+            <div style={{
+              fontFamily: "VT323, Tiny5, Courier, monospace",
+              fontSize: '1.6rem',
+              color: '#f91b8f',
+              fontWeight: 700,
+              marginBottom: '0.5rem',
+              lineHeight: '1.4',
+              textAlign: 'center',
+            }}>
+              💡 SMART SUGGESTIONS
+            </div>
+            <div style={{
+              fontFamily: 'Roboto Mono, monospace',
+              fontSize: '0.8rem',
+              color: '#b8005c',
+              lineHeight: '1.4',
+              textAlign: 'center',
+            }}>
+              Get product recommendations based on your room
+            </div>
+          </div>
+        </div>
+        
         {/* Subheader section */}
         <div style={{
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'stretch',
           gap: '2rem',
-          maxWidth: '1200px',
-          margin: '2.5rem auto',
+
+          maxWidth: '800px',
+          margin: '1.5rem auto',
           flexWrap: 'wrap',
         }}>
-          {/* Left Window */}
-          <section className={styles.subheaderWindow}>
-            <div style={{
-              flex: 1.2,
-              padding: '2rem',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'flex-start',
-            }}>
-              <ul className={styles.subheaderList} style={{
-                fontFamily: "'Roboto Mono', 'Press Start 2P', Tiny5, Courier New, Courier, monospace",
-                listStyle: 'none',
-                padding: 0,
-                margin: 0,
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-evenly',
-                gap: '1.6rem',
-              }}>
-                <li style={{ margin: 0 }}>
-                  <span style={{fontFamily: "'Press Start 2P', Tiny5, Courier, monospace"
-                  }}>🎨 AI-POWERED DESIGN - </span>
-                  Smart algorithms create personalized room layouts</li>
-                <li style={{ margin: 0 }}>
-                  <span style={{fontFamily: "'Press Start 2P', Tiny5, Courier, monospace"}}>⚡ INSTANT RESULTS - </span> 
-                  Generate beautiful rooms in seconds</li>
-                <li style={{ margin: 0 }}>
-                  <span style={{fontFamily: "'Press Start 2P', Tiny5, Courier, monospace"
-                  }}>💡 SMART SUGGESTIONS - </span> 
-                  Get product recommendations based on your room</li>
-              </ul>
-            </div>
-            
-            {/* Dynamic Arrow */}
+          {/* Window */}
+          <section style={{
+            flex: 1,
+            minWidth: '340px',
+            background: '#ffc9ea',
+            border: '2.5px solid #f91b8f',
+            borderRadius: '18px',
+            boxShadow: '0 4px 24px #ffb6e6, 0 8px 32px rgba(182,182,255,0.13)',
+            outlineOffset: '-6px',
+            position: 'relative',
+            transition: 'box-shadow 0.2s',
+            overflow: 'hidden',
+            marginBottom: '0.2rem',
+            display: 'flex',
+            flexDirection: 'column',
+            minHeight: '360px',
+            height: '100%',
+          }}>
+            {/* Window Title Bar */}
             <div style={{
               display: 'flex',
+              justifyContent: 'space-between',
               alignItems: 'center',
-              justifyContent: 'center',
-              padding: '0 1rem',
-              position: 'relative',
+              background: '#f91b84',
+              borderBottom: '2px solid #f91b8f',
+              padding: '8px 20px',
+              fontFamily: "Roboto Mono, monospace",
+              fontSize: '16px',
+              fontWeight: 600,
+              color: '#ffffff',
+              boxShadow: '0 2px 12px rgba(255, 105, 180, 0.15)',
             }}>
               <div style={{
-                fontSize: '3rem',
-                color: '#f91b8f',
-                animation: 'arrowSlide 1s infinite',
-                filter: 'drop-shadow(0 0 8px #ffb6e6)',
-                transform: 'rotate(0deg)',
-              }}>
-                →
-              </div>
-              <style>{`
-                @keyframes arrowSlide { 
-                  0%, 100% { 
-                    transform: translateX(0); 
-                  }
-                  50% { 
-                    transform: translateX(12px); 
-                  }
-                }
-              `}</style>
-            </div>
-            
-            {/* example image */}
-            <div className={styles.subheaderRightImage}>
-              <label style={{fontFamily: "'Roboto Mono', Tiny5, Courier, monospace", marginBottom: '1rem', textAlign: 'center'}}>
-              ✨ Toggle for room transformation magic ✨</label>
-              
-              <div style={{
-                position: 'relative',
                 display: 'flex',
-                justifyContent: 'center',
-                marginBottom: '1rem',
+                alignItems: 'center',
+                gap: '10px',
+                fontWeight: 700,
+                letterSpacing: '1px',
+                textShadow: '0 0 8px rgba(255, 182, 230, 0.5)',
               }}>
-                {/* Image */}
-                <img
-                src={isToggled ? '/after-room-3.png' : '/before-room-3.png'}
-                alt="Before/After"
-                className={styles.rightImage}
-                style={{ margin: 0 }}
-                />
-                
-                {/* Tag bubbles and toggle under the image */}
+                DORM ROOM GLOW UP
+              </div>
+              <div className="window-controls">
+                <button className="window-buttons" title="Minimize"><span className="window-button-icon">─</span></button>
+                <button className="window-buttons" title="Maximize"><span className="window-button-icon">□</span></button>
+                <button className="window-buttons" title="Close"><span className="window-button-icon">×</span></button>
+              </div>
+            </div>
+            {/* Window Content */}
+            <div style={{
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'row',
+              minHeight: '260px',
+              height: '100%',
+            }}>
+              
+              {/* example image */}
+              <div className={styles.subheaderRightImage}>
                 <div style={{
-                  position: 'absolute',
-                  bottom: '-2.2rem',
-                  left: '0',
-                  right: '0',
+                  display: 'flex',
+                  gap: '0.4rem',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                  {/* Before Image */}
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                    gap: '0.3rem',
+                    position: 'relative',
+                  }}>
+                    <img
+                      src="/before-room-3.png"
+                      alt="Before"
+                      className={styles.rightImage}
+                      style={{ 
+                        margin: 0,
+                        width: '400px',
+                        height: '220px',
+                        objectFit: 'cover',
+                      }}
+                    />
+                    {/* Tag bubbles for Before image */}
+                    <div style={{
+                      display: 'flex',
+                      gap: '0.3rem',
+                    }}>
+                      <span style={{
+                        background: '#ffa6d4',
+                        color: '#f91b8f',
+                        fontSize: '0.7rem',
+                        fontWeight: 700,
+                        padding: '0.2rem 0.5rem',
+                        borderRadius: '16px',
+                        fontFamily: 'Roboto Mono, monospace',
+                        letterSpacing: '0.5px',
+                      }}>
+                        COZY
+                      </span>
+                      <span style={{
+                        color: '#f91b8f',
+                        fontSize: '0.7rem',
+                        fontWeight: 700,
+                        padding: '0.2rem 0.5rem',
+                        borderRadius: '16px',
+                        fontFamily: 'Roboto Mono, monospace',
+                        letterSpacing: '0.5px',
+                      }}>
+                        NATURAL
+                      </span>
+                    </div>
+                  </div>
+                  
+                  {/* After Image */}
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-end',
+                    gap: '0.3rem',
+                    position: 'relative',
+                  }}>
+                    <img
+                      src="/after-room-3.png"
+                      alt="After"
+                      className={styles.rightImage}
+                      style={{ 
+                        margin: 0,
+                        width: '400px',
+                        height: '220px',
+                        objectFit: 'cover',
+                      }}
+                    />
+                    {/* 30 SEC indicator for After image */}
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.3rem',
+                    }}>
+                      <span style={{
+                        color: '#f91b8f',
+                        fontSize: '0.7rem',
+                        fontWeight: 700,
+                        padding: '0.3rem 0.4rem',
+                        borderRadius: '16px',
+                        fontFamily: 'Roboto Mono, monospace',
+                        letterSpacing: '0.5px',
+                      }}>
+                        🔥 30 SEC
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Statistics Section */}
+                <div style={{
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
+                  marginTop: '0.8rem',
+                  padding: '0.8rem',
+                  background: '#ffc9ea',
+                  borderRadius: '16px',
+                  border: '2px solid #f91b8f',
+                  boxShadow: '0 4px 16px rgba(249, 27, 143, 0.1)',
+                  width: '100%',
+                  maxWidth: '900px',
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
                 }}>
-                  {/* Tag bubbles on the left */}
-                  <div style={{
-                    display: 'flex',
-                    gap: '0.5rem',
-                    minWidth: '120px', // Reserve space for bubbles
-                  }}>
-                    {isToggled && (
-                      <>
-                        <span style={{
-                          padding: '0.3rem 0.6rem',
-                          background: '#ffe0f2',
-                          color: '#f91b8f',
-                          borderRadius: '16px',
-                          fontSize: '0.6rem',
-                          fontFamily: 'Roboto Mono, monospace',
-                          fontWeight: 600,
-                          border: '1px solid #ff69b4',
-                        }}>
-                          cozy
-                        </span>
-                        <span style={{
-                          padding: '0.3rem 0.6rem',
-                          background: '#e0eaff',
-                          color: '#5baefc',
-                          borderRadius: '16px',
-                          fontSize: '0.6rem',
-                          fontFamily: 'Roboto Mono, monospace',
-                          fontWeight: 600,
-                          border: '1px solid #5baefc',
-                        }}>
-                          peaceful
-                        </span>
-                      </>
-                    )}
-                  </div>
-                  
-                  {/* Toggle on the right */}
                   <div style={{
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    gap: '0.3rem',
+                    textAlign: 'center',
+                    flex: 1,
                   }}>
-                    <label className={styles.switch} style={{
-                      transform: 'scale(0.7)',
+                    <div style={{
+                      fontSize: '1.8rem',
+                      fontWeight: 900,
+                      color: '#f91b8f',
+                      fontFamily: 'Roboto Mono, monospace',
+                      marginBottom: '0.3rem',
                     }}>
-                      <input type="checkbox" checked={isToggled} onChange={handleToggle} />
-                      <span className={styles.slider}></span>
-                    </label>
+                      10,000+
+                    </div>
+                    <div style={{
+                      fontSize: '0.8rem',
+                      color: '#b8005c',
+                      fontFamily: 'Roboto Mono, monospace',
+                      fontWeight: 600,
+                    }}>
+                      Rooms Transformed
+                    </div>
+                  </div>
+                  
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    flex: 1,
+                  }}>
+                    <div style={{
+                      fontSize: '1.8rem',
+                      fontWeight: 900,
+                      color: '#f91b8f',
+                      fontFamily: 'Roboto Mono, monospace',
+                      marginBottom: '0.3rem',
+                    }}>
+                      98%
+                    </div>
+                    <div style={{
+                      fontSize: '0.8rem',
+                      color: '#b8005c',
+                      fontFamily: 'Roboto Mono, monospace',
+                      fontWeight: 600,
+                    }}>
+                      Love Their Results
+                    </div>
+                  </div>
+                  
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    flex: 1,
+                  }}>
+                    <div style={{
+                      fontSize: '1.8rem',
+                      fontWeight: 900,
+                      color: '#f91b8f',
+                      fontFamily: 'Roboto Mono, monospace',
+                      marginBottom: '0.3rem',
+                    }}>
+                      30 SEC
+                    </div>
+                    <div style={{
+                      fontSize: '0.8rem',
+                      color: '#b8005c',
+                      fontFamily: 'Roboto Mono, monospace',
+                      fontWeight: 600,
+                    }}>
+                      Average Generation Time
+                    </div>
                   </div>
                 </div>
+                
+                <style>{`
+                  @keyframes arrowSlide { 
+                    0%, 100% { 
+                      transform: translateX(0); 
+                    }
+                    50% { 
+                      transform: translateX(8px); 
+                    }
+                  }
+                `}</style>
               </div>
             </div>
           </section>
         </div>
 
+        {/* Start Your Transformation Button */}
         <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          marginTop: '0.2rem',
+          marginBottom: '2rem',
+        }}>
+          <button
+            style={{
+              padding: '1.5rem 3rem',
+              background: '#f91b8f',
+              color: '#fff',
+              fontFamily: 'Roboto Mono, monospace',
+              fontSize: '1.3rem',
+              fontWeight: 800,
+              border: 'none',
+              borderRadius: '16px',
+              boxShadow: '0 8px 32px #ffd6f7',
+              cursor: 'pointer',
+              letterSpacing: '1px',
+              transition: 'all 0.3s ease',
+              position: 'relative',
+              overflow: 'hidden',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.transform = 'translateY(-4px) scale(1.05)';
+              e.currentTarget.style.boxShadow = '0 12px 40px #ffd6f7';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.transform = 'translateY(0) scale(1)';
+              e.currentTarget.style.boxShadow = '0 8px 32px #ffd6f7';
+            }}
+            onClick={() => {
+              // Scroll to the two windows section
+              const windowsSection = document.querySelector('#upload-section');
+              if (windowsSection) {
+                windowsSection.scrollIntoView({ 
+                  behavior: 'smooth',
+                  block: 'start'
+                });
+              }
+            }}
+          >
+            <span style={{
+              position: 'absolute',
+              top: 10,
+              left: 16,
+              zIndex: 2,
+              display: 'flex',
+              alignItems: 'center',
+            }}>
+              <Sparkles style={{ color: '#fff6fa', width: 28, height: 28 }} />
+            </span>
+            Start Your Transformation
+          </button>
+        </div>
+
+        <div id="upload-section" style={{
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'stretch',
@@ -815,7 +1109,7 @@ export default function Room() {
               alignItems: 'center',
               background: '#f91b84',
               borderBottom: '2px solid #f91b8f',
-              padding: '12px 20px',
+              padding: '8px 20px',
               fontFamily: "Roboto Mono, monospace",
               fontSize: '16px',
               fontWeight: 600,
@@ -1164,7 +1458,7 @@ export default function Room() {
               alignItems: 'center',
               background: '#f91b84',
               borderBottom: '2px solid #f91b8f',
-              padding: '12px 20px',
+              padding: '8px 20px',
               fontFamily: "Roboto Mono, monospace",
               fontSize: '16px',
               fontWeight: 600,
@@ -1401,7 +1695,7 @@ export default function Room() {
                 </button>
               </div>
               
-              {/* Find Products Button - Always visible for testing */}
+              {/* Find Products Button */}
               <div style={{ width: '100%', marginTop: '1rem', display: 'flex', justifyContent: 'center' }}>
                 <button
                   style={{
@@ -1642,7 +1936,6 @@ export default function Room() {
             </div>
           </section>
         )}
-
         {/* Glow Up Gallery Wall */}
         <section className={styles.gallerySection}>
           <div style={{
@@ -1651,7 +1944,7 @@ export default function Room() {
             margin: '0 0 0.4rem 0',
             fontWeight: 800,
             letterSpacing: '2px',
-            fontFamily: "'Press Start 2P', 'Tiny5', 'Courier New', Courier, monospace",
+            fontFamily: "VT323, 'Tiny5', 'Courier New', Courier, monospace",
           }}>GLOW UP GALLERY</div>
           <div style={{
                     fontFamily: 'Roboto Mono, monospace',
@@ -1668,7 +1961,8 @@ export default function Room() {
               <div className={styles.polaroid} key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 280, maxWidth: 340, padding: '2.2rem 2.2rem 3.2rem 2.2rem', position: 'relative', border: '2.5px solid #f91b8f', borderRadius: 18, background: '#fff' }}>
                 {/* Title */}
                 <div style={{
-                  fontFamily: 'Tiny5',
+
+                  fontFamily: 'VT323',
                   fontSize: '1.5rem',
                   fontWeight: 700,
                   color: '#f91b8f',
@@ -1726,8 +2020,8 @@ export default function Room() {
                 style={{
                   padding: '1rem 2rem',
                   borderRadius: '16px',
-                  background: 'linear-gradient(135deg, #ffdcae 0%, #ffe0f2 100%)',
-                  border: '2px solid #ff69b4',
+                  background: 'linear-gradient(135deg,#ffc9ea 0%, #ffe0f2 100%)',
+                  border: '2px solid #f91b8f',
                   color: '#f91b8f',
                   fontFamily: 'Roboto Mono, monospace',
                   fontSize: '1rem',
