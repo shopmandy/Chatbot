@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import styles from "./room.module.css";
 import Head from 'next/head'
 import { Upload, Download, Sparkles, Home, Hammer, ToyBrick } from "lucide-react"
@@ -250,6 +250,9 @@ function DinoGameModal({ show, onClose }: { show: boolean, onClose: () => void }
 
   if (!show) return null;
 
+  // ...existing code...
+  // Ensure 'After' image is shown by default
+  const [showAfterImage, setShowAfterImage] = React.useState(true);
   return (
     <div style={{
       position: 'fixed',
@@ -392,7 +395,7 @@ export default function Room() {
   const [enlargedImage, setEnlargedImage] = useState<null | { src: string; alt: string }>(null);
   const [customRoomType, setCustomRoomType] = useState('');
   const [showCustomInput, setShowCustomInput] = useState(false);
-  const [showAfterImage, setShowAfterImage] = useState(false);
+  const [showAfterImage, setShowAfterImage] = useState(true);
   const [showAllGallery, setShowAllGallery] = useState(false);
   const [amazonProducts, setAmazonProducts] = useState<any[]>([]);
   const [isMobile, setIsMobile] = useState(false);
@@ -431,18 +434,9 @@ export default function Room() {
 
   // Update vision prompt when room type changes
   useEffect(() => {
-    const roomTypeText = showCustomInput ? customRoomType : roomType;
-    
-    // Remove any existing room type prefix first
-    const cleanVision = vision.replace(/^I'm transforming my [^.]+\.?\s*/, '');
-    
-    if (roomTypeText && roomTypeText !== 'Other' && roomTypeText !== '') {
-      const prefix = `I'm transforming my ${roomTypeText} `;
-      setVision(prefix + cleanVision);
-    } else {
-      // No room type selected, just use the clean vision
-      setVision(cleanVision);
-    }
+    // No longer auto-prefix vision with room type
+    // The vision input will remain as entered by the user
+    // ...existing code...
   }, [roomType, customRoomType, showCustomInput]);
 
   const handleRoomTypeChange = (value: string) => {
@@ -1295,7 +1289,7 @@ export default function Room() {
                 onChange={e => setVision(e.target.value)}
                 onFocus={() => setVisionFocus(true)}
                 onBlur={() => setVisionFocus(false)}
-                placeholder="Tell us what changes you'd like to make to your room..."
+                placeholder="e.g. Pink and minimalistic"
                 style={{
                   width: '100%',
                   padding: '1.1rem 1.2rem',
@@ -1719,28 +1713,20 @@ export default function Room() {
                   onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.07)'}
                   onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
                   onClick={async () => {
-                    // Get current room type and vision for testing
+                    // Combine room type and vision into a single prompt string
                     const currentRoomType = showCustomInput ? customRoomType : roomType;
                     const currentVision = vision;
-                    
-                    console.log('Sending to Amazon API:', { 
-                      roomType: currentRoomType, 
-                      prompt: currentVision 
-                    });
-                    
+                    const combinedPrompt = `${currentRoomType || 'Living Room'}: ${currentVision || 'home decor'}`;
+                    console.log('Sending to Amazon API:', { prompt: combinedPrompt });
                     // Manually trigger Amazon product search
                     try {
                       const productResponse = await fetch('/api/amazon-products', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ 
-                          prompt: currentVision || 'home decor',
-                          roomType: currentRoomType || 'Living Room'
-                        }),
+                        body: JSON.stringify({ prompt: combinedPrompt }),
                       });
                       const productData = await productResponse.json();
                       console.log('Amazon API response:', productData);
-                      
                       if (productData.success && productData.products) {
                         console.log('First product sample:', productData.products[0]);
                         setAmazonProducts(productData.products);
