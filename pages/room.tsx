@@ -394,6 +394,7 @@ export default function Room() {
   const [showCustomInput, setShowCustomInput] = useState(false);
   const [showAfterImage, setShowAfterImage] = useState(false);
   const [showAllGallery, setShowAllGallery] = useState(false);
+  const [amazonProducts, setAmazonProducts] = useState<any[]>([]);
   const [isMobile, setIsMobile] = useState(false);
 
   // Check if device is mobile
@@ -483,16 +484,41 @@ export default function Room() {
       return
     }
     const imageUrl = uploadJson.data.display_url || uploadJson.data.url
+    
+    // Create enhanced prompt that includes room type
+    const currentRoomType = showCustomInput ? customRoomType : roomType;
+    const enhancedPrompt = currentRoomType && currentRoomType !== '' 
+      ? `Transform this ${currentRoomType.toLowerCase()} with ${vision}`
+      : vision;
+    
     const response = await fetch('/api/room-makeover', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ imageUrl, prompt: vision }),
+      body: JSON.stringify({ imageUrl, prompt: enhancedPrompt }),
+
     })
     const data = await response.json()
     setAfterImage(data.outputUrl)
     setLoading(false)
     setShowMain(true);
-    setGallery(g => [{ before: beforePreview || '/before-room.png', after: data.outputUrl, label: vision || 'My Glow Up!', roomType }, ...g]);
+    setGallery(g => [{ before: beforePreview || '/before-room.png', after: data.outputUrl, label: vision || 'My Glow Up!', roomType }, ...g]);    
+    // Search for Amazon products
+    try {
+      const productResponse = await fetch('/api/amazon-products', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          prompt: vision,
+          roomType: showCustomInput ? customRoomType : roomType
+        }),
+      });
+      const productData = await productResponse.json();
+      if (productData.success && productData.products) {
+        setAmazonProducts(productData.products);
+      }
+    } catch (error) {
+      console.log('Amazon products search failed:', error);
+    }
   }
 
   const handleSuggestionClick = (text: string) => {
@@ -564,6 +590,7 @@ export default function Room() {
       <Head>
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Tiny5&family=VT323&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet" />
       </Head>
+
       {loading && showMinigame && !isMobile && <DinoGameModal show={loading} onClose={() => setShowMinigame(false)} />}
       <div style={{
         width: '100%',
@@ -721,6 +748,7 @@ export default function Room() {
           justifyContent: 'center',
           alignItems: 'stretch',
           gap: '2rem',
+
           maxWidth: '800px',
           margin: '1.5rem auto',
           flexWrap: 'wrap',
@@ -1666,9 +1694,248 @@ export default function Room() {
                   Download
                 </button>
               </div>
+              
+              {/* Find Products Button */}
+              <div style={{ width: '100%', marginTop: '1rem', display: 'flex', justifyContent: 'center' }}>
+                <button
+                  style={{
+                    width: '100%',
+                    maxWidth: '100%',
+                    padding: '1.2rem 0',
+                    background: 'linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%)',
+                    color: '#fff',
+                    fontFamily: 'Roboto Mono, monospace',
+                    fontSize: '1.2rem',
+                    fontWeight: 800,
+                    border: 'none',
+                    borderRadius: '12px',
+                    boxShadow: '0 4px 24px rgba(139, 92, 246, 0.3)',
+                    cursor: 'pointer',
+                    letterSpacing: '0.9px',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    transition: 'transform 0.18s cubic-bezier(.4,2,.6,1)',
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.07)'}
+                  onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                  onClick={async () => {
+                    // Get current room type and vision for testing
+                    const currentRoomType = showCustomInput ? customRoomType : roomType;
+                    const currentVision = vision;
+                    
+                    console.log('Sending to Amazon API:', { 
+                      roomType: currentRoomType, 
+                      prompt: currentVision 
+                    });
+                    
+                    // Manually trigger Amazon product search
+                    try {
+                      const productResponse = await fetch('/api/amazon-products', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ 
+                          prompt: currentVision || 'home decor',
+                          roomType: currentRoomType || 'Living Room'
+                        }),
+                      });
+                      const productData = await productResponse.json();
+                      console.log('Amazon API response:', productData);
+                      
+                      if (productData.success && productData.products) {
+                        console.log('First product sample:', productData.products[0]);
+                        setAmazonProducts(productData.products);
+                        // Removed popup alert - products will show in the section below
+                      } else {
+                        console.log('No products found or API error:', productData);
+                        alert('No products found. Check console for details.');
+                      }
+                    } catch (error) {
+                      console.log('Amazon products search failed:', error);
+                      alert('Product search failed. Check console for details.');
+                    }
+                  }}
+                >
+                  <span style={{
+                    position: 'absolute',
+                    top: 10,
+                    left: 16,
+                    zIndex: 2,
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}>
+                    🔍
+                  </span>
+                  Find Products
+                </button>
+              </div>
             </div>
           </div>
         </div>
+
+        {/* SHOP THE LOOK Section - Separate Section */}
+        {amazonProducts.length > 0 && (
+          <section style={{ 
+            margin: '4rem 0',
+            padding: '0 1rem'
+          }}>
+            <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+              <div className="text-center mb-8">
+                <h2 className="text-3xl md:text-4xl font-black mb-4" style={{
+                  fontFamily: 'Roboto Mono, monospace',
+                  color: '#f91b8f',
+                  textShadow: '0 0 8px #fff0f8',
+                }}>
+                  SHOP THE LOOK 🛍️
+                </h2>
+                <p className="text-lg font-semibold" style={{
+                  fontFamily: 'Roboto Mono, monospace',
+                  color: '#f91b8f',
+                  opacity: 0.8,
+                }}>
+                  Products to complete your dream room design
+                </p>
+              </div>
+
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                gap: '1.5rem',
+              }}>
+                {amazonProducts.slice(0, 8).map((product, index) => (
+                  <div key={index} style={{
+                    background: '#fff',
+                    border: '4px solid #f91b8f',
+                    borderRadius: '16px',
+                    padding: '1.5rem',
+                    transition: 'all 0.3s ease',
+                    cursor: 'pointer',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'scale(1.05)';
+                    e.currentTarget.style.boxShadow = '0 10px 20px rgba(249, 27, 143, 0.3)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'scale(1)';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
+                  onClick={() => window.open(product.url, '_blank')}
+                  >
+                    {product.image && product.image !== '/placeholder-image.jpg' && (
+                      <img 
+                        src={product.image} 
+                        alt={product.title || 'Product'}
+                        style={{
+                          width: '100%',
+                          height: '160px',
+                          objectFit: 'cover',
+                          borderRadius: '12px',
+                          border: '2px solid rgba(249, 27, 143, 0.2)',
+                          marginBottom: '1rem',
+                        }}
+                      />
+                    )}
+                    
+                    <div style={{ marginBottom: '0.5rem' }}>
+                      <h3 style={{
+                        fontFamily: 'Roboto Mono, monospace',
+                        fontSize: '1rem',
+                        color: '#f91b8f',
+                        fontWeight: 700,
+                        lineHeight: '1.3',
+                        marginBottom: '0.5rem',
+                        height: '2.6rem',
+                        overflow: 'hidden',
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical',
+                      }}>
+                        {product.title || 'Amazon Product'}
+                      </h3>
+                      
+                      {product.price && product.price !== 'Price not available' && (
+                        <div style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          marginBottom: '0.75rem',
+                        }}>
+                          <span style={{
+                            fontFamily: 'Roboto Mono, monospace',
+                            fontSize: '1.25rem',
+                            color: '#f91b8f',
+                            fontWeight: 800,
+                          }}>
+                            {product.price}
+                          </span>
+                          <button style={{
+                            background: '#f91b8f',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '8px',
+                            padding: '0.5rem 0.75rem',
+                            fontSize: '0.75rem',
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.25rem',
+                            transition: 'background 0.2s',
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.background = '#e1186d';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.background = '#f91b8f';
+                          }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            window.open(product.url, '_blank');
+                          }}
+                          >
+                            🛒 Buy
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div style={{
+                      marginTop: '0.75rem',
+                      paddingTop: '0.75rem',
+                      borderTop: '2px solid rgba(249, 27, 143, 0.1)',
+                    }}>
+                      <button style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        background: 'none',
+                        border: 'none',
+                        color: 'rgba(249, 27, 143, 0.6)',
+                        fontSize: '0.75rem',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        transition: 'color 0.2s',
+                        fontFamily: 'Roboto Mono, monospace',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.color = '#f91b8f';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.color = 'rgba(249, 27, 143, 0.6)';
+                      }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open(product.url, '_blank');
+                      }}
+                      >
+                        <span style={{ marginRight: '0.25rem' }}>🔗</span>
+                        View Details
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
         {/* Glow Up Gallery Wall */}
         <section className={styles.gallerySection}>
           <div style={{
@@ -1694,6 +1961,7 @@ export default function Room() {
               <div className={styles.polaroid} key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 280, maxWidth: 340, padding: '2.2rem 2.2rem 3.2rem 2.2rem', position: 'relative', border: '2.5px solid #f91b8f', borderRadius: 18, background: '#fff' }}>
                 {/* Title */}
                 <div style={{
+
                   fontFamily: 'VT323',
                   fontSize: '1.5rem',
                   fontWeight: 700,

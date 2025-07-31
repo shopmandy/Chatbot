@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getAuth } from '@clerk/nextjs/server';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '../../lib/supabase';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { userId } = getAuth(req);
