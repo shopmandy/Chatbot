@@ -11,6 +11,7 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 import { useState, useEffect } from 'react';
+import { useUser } from "@clerk/nextjs";
 
 const navItems = [
   { id: 'home', label: 'Home', icon: Home, path: '/' },
@@ -25,13 +26,38 @@ export default function App({ Component, pageProps }: AppProps) {
   const activeTab = navItems.find(item => item.path === router.pathname)?.id || 'home';
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+
   // Close sidebar on route change (mobile)
   useEffect(() => {
     setSidebarOpen(false);
   }, [router.pathname]);
 
+  function OnboardingWrapper({ children }: { children: React.ReactNode }) {
+  const { user, isLoaded } = useUser();
+  
+
+  useEffect(() => {
+    setSidebarOpen(false);
+
+    if (!isLoaded) return;
+
+    const onboardingComplete = user?.unsafeMetadata?.onboardingComplete;
+
+    if (
+      user &&
+      onboardingComplete !== true &&
+      !router.pathname.startsWith("/onboarding")
+    ) {
+      router.push("/onboarding/step1");
+    }
+  }, [router.pathname, isLoaded, user]);
+
+  return <>{children}</>;
+}
+
   return (
     <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
+      <OnboardingWrapper>
       <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Poppins:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet" />
       {/* Hamburger menu for mobile */}
       <button
@@ -199,6 +225,7 @@ export default function App({ Component, pageProps }: AppProps) {
           </footer>
         </div>
       </div>
+      </OnboardingWrapper>
     </ClerkProvider>
   );
 }
