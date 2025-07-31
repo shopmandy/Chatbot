@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
-import { MessageCircle, Sparkles, ShoppingBag, LogIn, Heart } from 'lucide-react';
+import { MessageCircle, Sparkles, ShoppingBag, LogIn, Heart, Package} from 'lucide-react';
 import {
   SignedIn,
   SignedOut,
@@ -681,6 +681,124 @@ useEffect(() => {
               </div>
             </div>
           </motion.section>
+          </div>
+        </div>
+      </div>
+      <div style={{ maxWidth: "1080px", margin: "0 auto", padding: "2rem" }}>
+        <div
+          style={{
+            background: "linear-gradient(135deg, rgba(255, 224, 242, 0.8) 0%, #ffdcae 100%)",
+            border: "2px solid #f91b8f",
+            borderRadius: "16px",
+            boxShadow: "0 8px 32px rgba(255, 105, 180, 0.3)",
+            backdropFilter: "blur(10px)",
+            overflow: "hidden",
+            marginBottom: "2rem",
+          }}
+        >
+          {/* Window Title Bar */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              background: "linear-gradient(135deg, rgba(255, 200, 230, 0.95) 0%, #ffdcae 100%)",
+              borderBottom: "2px solid #f91b8f",
+              padding: "12px 20px",
+              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+              fontSize: "16px",
+              fontWeight: "600",
+              color: "#ff69b4",
+              boxShadow: "0 2px 12px rgba(255, 105, 180, 0.15)",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                fontWeight: "700",
+                letterSpacing: "1px",
+                color: "f91b8f",
+                textShadow: "0 0 8px rgba(255, 182, 230, 0.5)",
+              }}
+            >
+              <span style={{ fontSize: "18px", color: "#f91b8f"}}></span>
+              READY TO START BUILDING?
+            </div>
+                         <div className="window-controls">
+                 <button 
+                   className="window-buttons" 
+                   title="Minimize"
+                   onClick={handleAboutMinimize}
+                 >
+                   <span className="window-button-icon">─</span>
+                 </button>
+                <button className="window-buttons" title="Maximize">
+                  <span className="window-button-icon">□</span>
+                </button>
+                <button className="window-buttons" title="Close">
+                  <span className="window-button-icon">×</span>
+                </button>
+              </div>
+          </div>
+
+          {/* Section Content */}
+          <div 
+            style={{ 
+              padding: "2rem", 
+              textAlign: "left",
+              display: isAboutMinimized ? "none" : "block",
+              transition: "all 0.3s ease"
+            }}
+          >
+            <h1
+              style={{
+                fontSize: "3.2rem",
+                color: "#f91b8f",
+                marginBottom: "2rem",
+                fontWeight: "600",
+                letterSpacing: "2px",
+                lineHeight: "1.5",
+                fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+              }}
+            >
+              YOUR NEXT PROJECT IS ONE TOOLKIT AWAY
+            </h1>
+            <div className={styles.aboutContent}>
+              <p>
+              Browse our complete collection of curated toolkits and find everything you need to bring your DIY dreams to life. Quality tools, expert picks!
+              </p>
+              <button
+                    key={'shop'}
+                    onClick={() => handleButtonClick('https://shopmandy.com/')}
+                    className="nav-link home-button"
+                    style={{
+                      width: "160px",
+                      textAlign: "center",
+                      fontSize: "0.8rem",
+                      fontFamily: "'Press Start 2P', VT323, Poppins, Montserrat, Arial, sans-serif",
+                      fontWeight: "700",
+                      letterSpacing: "1px",
+                      borderRadius: "24px",
+                      border: "none",
+                      padding: "0.4rem 0.8rem",
+                      cursor: "pointer",
+                      margin: "0",
+                      height: "auto",
+                      minHeight: "auto",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: "0.5rem",
+                    }}
+                  >
+                    <Package className="w-4 h-4 mr-2" />
+                    Shop All Toolkits
+                   
+                  </button>
+            </div>
           </div>
         </div>
       </div>
