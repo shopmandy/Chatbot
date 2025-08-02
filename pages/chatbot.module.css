@@ -1,7 +1,7 @@
 /* Page Container */
 .pageContainer {
   min-height: 100vh;
-  background: linear-gradient(135deg, #f8f9ff 0%, #fff0f8 50%, #f0f8ff 100%);
+  background: transparent;
   font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace;
   position: relative;
 }
@@ -23,8 +23,8 @@
 /* Header */
 .header {
   background: transparent;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 2px 20px rgba(255, 105, 180, 0.15);
+  backdrop-filter: none;
+  box-shadow: none;
   top: 0;
   z-index: 100;
 }
@@ -66,6 +66,7 @@
 .heroContent {
   text-align: center;
   width: 100%;
+  background: transparent;
 }
 
 /* Main Content */
@@ -75,6 +76,7 @@
   padding: 2rem;
   position: relative;
   z-index: 1;
+  background: transparent;
 }
 
 /* Chat Container */
@@ -85,7 +87,7 @@
   box-shadow: 
     0 8px 32px rgba(255, 105, 180, 0.2),
     0 0 0 1px rgba(255, 105, 180, 0.1);
-  backdrop-filter: blur(10px);
+  backdrop-filter: none;
   overflow: hidden;
   position: relative;
 }
@@ -112,16 +114,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(135deg, rgba(255, 200, 230, 0.95) 0%, rgba(200, 210, 240, 0.95) 100%);
+  background: transparent;
   border-bottom: 2px solid var(--button-border, #ff69b4);
   padding: 12px 20px;
   font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace;
   font-size: 16px;
   font-weight: 600;
   color: var(--button-text, #ff69b4);
-  box-shadow: 0 2px 12px rgba(255, 105, 180, 0.15);
+  box-shadow: none;
   border-radius: 16px 16px 0 0;
-  backdrop-filter: blur(10px);
+  backdrop-filter: none;
 }
 
 .windowTitle {
@@ -190,13 +192,11 @@
 }
 
 .heroTitle {
-  font-size: 3.5rem;
+  font-size: 4.8rem;
+  color: #f91b8f;
+  margin: 0;
+  letter-spacing: 2px;
   font-weight: 900;
-  color: var(--button-text, #ff69b4);
-  text-shadow: 0 0 20px #ffb6e6, 0 0 4px #fff;
-  letter-spacing: 3px;
-  margin: 0 0 1rem 0;
-  line-height: 1.2;
 }
 
 .heroSubtitle {
