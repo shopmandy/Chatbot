@@ -267,7 +267,7 @@ export default function Chatbot() {
 
 
             {/* Chat Interface */}
-            <div className={styles.chatInterface}>
+            <div className={styles.chatInterface} >
               <div className={styles.chatBox} ref={chatBoxRef}>
                 {messages.map((msg, idx) => {
                   // If this is a user message and the next message is assistant, group them

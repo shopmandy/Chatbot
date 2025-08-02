@@ -79,7 +79,7 @@
 
 /* Chat Container */
 .chatContainer {
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--chat-bg, transparent);
   border: 3px solid var(--chat-border, #ff69b4);
   border-radius: 24px;
   box-shadow: 
@@ -255,7 +255,7 @@
   height: 500px;
   padding: 1.5rem;
   overflow-y: auto;
-  background: var(--chat-bg, rgba(255, 255, 255, 0.9));
+  background: var(--chat-bg, transparent);
   border-radius: 16px;
   border: 2px solid rgba(255, 105, 180, 0.3);
   box-shadow: inset 0 2px 8px rgba(255, 182, 230, 0.2);
@@ -422,7 +422,7 @@
   display: flex;
   gap: 0.8rem;
   padding: 1.5rem;
-  background: var(--chat-bg, linear-gradient(135deg, #fff0fa 0%, #f0f8ff 100%));
+  background: var(--chat-bg, transparent);
   border-radius: 20px;
   border: 2px solid rgba(255, 105, 180, 0.3);
   box-shadow: 0 4px 16px rgba(255, 105, 180, 0.1);
@@ -431,7 +431,7 @@
 .inputBox {
   flex: 1;
   padding: 1rem 1.5rem;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.1);
   border: 2px solid var(--button-border, #ff69b4);
   color: var(--chat-text, #f91b8f);
   border-radius: 16px;
@@ -556,7 +556,7 @@
   align-items: center;
   gap: 1rem;
   padding: 1rem;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   border: 2px solid var(--button-border, #ff69b4);
 }
