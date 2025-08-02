@@ -368,10 +368,9 @@ useEffect(() => {
               style={{
                 fontSize: "3.2rem",
                 color: "#f91b8f",
-                marginBottom: "2rem",
                 fontWeight: "600",
                 letterSpacing: "2px",
-                lineHeight: "1.5",
+                lineHeight: "1.0",
                 fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
               }}
             >
@@ -380,7 +379,7 @@ useEffect(() => {
                          <div style={{
                display: "flex",
                alignItems: "flex-start",
-               gap: "3rem",
+               gap: "1rem",
                marginBottom: "2rem"
              }}>
                <div className="mt-6" style={{ flex: "0 0 50%", marginTop: "5rem" }}>
@@ -514,7 +513,6 @@ useEffect(() => {
               style={{
                 fontSize: "3.2rem",
                 color: "#f91b8f",
-                marginBottom: "2rem",
                 fontWeight: "600",
                 letterSpacing: "2px",
                 lineHeight: "1.5",
@@ -638,21 +636,15 @@ useEffect(() => {
                 letterSpacing: "2px",
                 lineHeight: "1.5",
                 fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+                justifyContent: "center",
+                alignItems: "center",
+                textAlign: "center",
               }}
             >
               BUILD WITH US @SHOPMANDYTOOLS
             </h1>
             <motion.section className={styles.carouselSection} style={{ y: yCarousel }}>
             <div className={styles.carouselHeader}>
-              <span className={styles.carouselHeaderText}>Build along with us!</span>
-              <a
-                href="https://instagram.com/shopmandytools"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.carouselHeaderLink}
-              >
-                @shopmandytools
-              </a>
             </div>
             <div className={styles.carouselContainer}>
               <div className={styles.carouselWrapper}>
@@ -687,7 +679,7 @@ useEffect(() => {
       <div style={{ maxWidth: "1080px", margin: "0 auto", padding: "2rem" }}>
         <div
           style={{
-            background: "linear-gradient(135deg, rgba(255, 224, 242, 0.8) 0%, #ffdcae 100%)",
+            background: "linear-gradient(135deg, rgba(255, 224, 242, 0.8) 0%,rgb(250, 238, 246) 100%)",
             border: "2px solid #f91b8f",
             borderRadius: "16px",
             boxShadow: "0 8px 32px rgba(255, 105, 180, 0.3)",
@@ -756,7 +748,6 @@ useEffect(() => {
               style={{
                 fontSize: "3.2rem",
                 color: "#f91b8f",
-                marginBottom: "2rem",
                 fontWeight: "600",
                 letterSpacing: "2px",
                 lineHeight: "1.5",
