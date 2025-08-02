@@ -746,20 +746,39 @@ useEffect(() => {
           >
             <h1
               style={{
-                fontSize: "3.2rem",
+                fontSize: "2.8rem",
                 color: "#f91b8f",
                 fontWeight: "600",
                 letterSpacing: "2px",
-                lineHeight: "1.5",
+                lineHeight: "1.2",
                 fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+                textAlign: "center",
+                marginBottom: "1rem"
               }}
             >
-              YOUR NEXT PROJECT IS ONE TOOLKIT AWAY
+              YOUR NEXT PROJECT IS ONE<br />
+              <span style={{ marginLeft: "2rem" }}>TOOLKIT AWAY</span>
             </h1>
-            <div className={styles.aboutContent}>
-              <p>
-              Browse our complete collection of curated toolkits and find everything you need to bring your DIY dreams to life. Quality tools, expert picks!
-              </p>
+            <p style={{
+              fontSize: "1.2rem",
+              color: "#f91b8f",
+              marginBottom: "2rem",
+              fontWeight: "600",
+              lineHeight: "1.4",
+              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+              textAlign: "center",
+              opacity: 0.8
+            }}>
+              Browse our complete collection of curated toolkits and find everything you need<br />
+              to bring your DIY dreams to life. Quality tools, expert picks!
+            </p>
+            <div style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: "2rem",
+              flexWrap: "wrap"
+            }}>
+              {/* Shop All Toolkits Button */}
               <div style={{ position: "relative", display: "inline-block" }}>
                 {/* Shadow layer */}
                 <div style={{
@@ -769,30 +788,28 @@ useEffect(() => {
                   width: "100%",
                   height: "100%",
                   backgroundColor: "#4a1d3d",
-                  borderRadius: "12px",
+                  borderRadius: "8px",
                   zIndex: 1
                 }}></div>
                 {/* Main button */}
                 <button
-                  key={'shop'}
                   onClick={() => handleButtonClick('https://shopmandy.com/')}
                   style={{
                     position: "relative",
-                    width: "200px",
+                    width: "180px",
                     textAlign: "center",
-                    fontSize: "1rem",
-                    fontFamily: "'Press Start 2P', VT323, Poppins, Montserrat, Arial, sans-serif",
+                    fontSize: "0.9rem",
+                    fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
                     fontWeight: "700",
                     letterSpacing: "1px",
-                    borderRadius: "12px",
-                    border: "3px solid #4a1d3d",
+                    borderRadius: "8px",
+                    border: "2px solid #4a1d3d",
                     padding: "12px 16px",
                     cursor: "pointer",
                     margin: "0",
-                    backgroundColor: "#ff0080",
+                    backgroundColor: "#f91b8f",
                     color: "white",
                     display: "flex",
-                    flexDirection: "column",
                     alignItems: "center",
                     justifyContent: "center",
                     gap: "8px",
@@ -801,15 +818,67 @@ useEffect(() => {
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = "translateY(-2px)";
-                    e.currentTarget.style.boxShadow = "0 6px 20px rgba(255, 0, 128, 0.4)";
+                    e.currentTarget.style.boxShadow = "0 6px 20px rgba(249, 27, 143, 0.4)";
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = "translateY(0)";
                     e.currentTarget.style.boxShadow = "none";
                   }}
                 >
-                  <Package style={{ width: 25, height: 25, color: "white" }} />
+                  <Package style={{ width: 20, height: 20, color: "white" }} />
                   <span>Shop All Toolkits</span>
+                </button>
+              </div>
+
+              {/* Join Community Button */}
+              <div style={{ position: "relative", display: "inline-block" }}>
+                {/* Shadow layer */}
+                <div style={{
+                  position: "absolute",
+                  top: "4px",
+                  left: "4px",
+                  width: "100%",
+                  height: "100%",
+                  backgroundColor: "#4a1d3d",
+                  borderRadius: "8px",
+                  zIndex: 1
+                }}></div>
+                {/* Main button */}
+                <button
+                  onClick={() => handleButtonClick('https://instagram.com/shopmandytools')}
+                  style={{
+                    position: "relative",
+                    width: "180px",
+                    textAlign: "center",
+                    fontSize: "0.9rem",
+                    fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+                    fontWeight: "700",
+                    letterSpacing: "1px",
+                    borderRadius: "8px",
+                    border: "2px solid #4a1d3d",
+                    padding: "12px 16px",
+                    cursor: "pointer",
+                    margin: "0",
+                    backgroundColor: "#f91b8f",
+                    color: "white",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "8px",
+                    zIndex: 2,
+                    transition: "all 0.2s ease"
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "translateY(-2px)";
+                    e.currentTarget.style.boxShadow = "0 6px 20px rgba(249, 27, 143, 0.4)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.boxShadow = "none";
+                  }}
+                >
+                  <Heart style={{ width: 20, height: 20, color: "white" }} />
+                  <span>Join Community</span>
                 </button>
               </div>
             </div>
