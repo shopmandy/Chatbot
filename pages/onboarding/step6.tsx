@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useUser } from "@clerk/nextjs";
-import styles from './step6.module.css'; 
+import styles from './step6.module.css';
+import { saveOnboardingData } from '../../lib/onboardingAPI'; 
 
 export default function OnboardingStep6() {
   const router = useRouter();
@@ -16,41 +17,155 @@ export default function OnboardingStep6() {
   }, []);
 
   const handleComplete = async () => {
-    // Mark onboarding as complete and redirect to home
-    if (user) {
-      try {
-        await user.update({
-          unsafeMetadata: { onboardingComplete: true }
-        });
-        // Add a small delay to ensure metadata is updated
-        setTimeout(() => {
-          router.push('/');
-        }, 500);
-      } catch (error) {
-        console.error('Error updating user metadata:', error);
-        router.push('/');
+    try {
+      // Collect all onboarding data from localStorage
+      const name = localStorage.getItem('onboarding_name') || '';
+      const age = localStorage.getItem('onboarding_age') || '';
+      const city = localStorage.getItem('onboarding_city') || '';
+      const type_of_home = localStorage.getItem('onboarding_homeType') || '';
+      const spendingData = localStorage.getItem('onboarding_spending');
+      const stylesData = localStorage.getItem('onboarding_styles');
+      const brandsData = localStorage.getItem('onboarding_brands');
+
+      // Parse JSON data
+      const category_budgets = spendingData ? JSON.parse(spendingData) : {};
+      const styles = stylesData ? JSON.parse(stylesData) : [];
+      const brands = brandsData ? JSON.parse(brandsData) : [];
+
+      console.log('📊 Collected onboarding data:', {
+        name, age, city, type_of_home, category_budgets, styles, brands
+      });
+
+      // Save data to Supabase
+      const result = await saveOnboardingData({
+        name,
+        age,
+        city,
+        type_of_home,
+        category_budgets,
+        styles,
+        brands
+      });
+
+      if (result.success) {
+        console.log('✅ Onboarding data saved successfully!');
+      } else {
+        console.error('❌ Failed to save onboarding data:', result.error);
       }
-    } else {
+
+      // TEMPORARY: For testing - don't mark onboarding as complete
+      // This will make the onboarding pop up again after completion
+      console.log('Onboarding completed - but not marking as complete for testing');
+      
+      // Clear localStorage to reset onboarding data
+      localStorage.removeItem('onboarding_name');
+      localStorage.removeItem('onboarding_age');
+      localStorage.removeItem('onboarding_city');
+      localStorage.removeItem('onboarding_homeType');
+      localStorage.removeItem('onboarding_spending');
+      localStorage.removeItem('onboarding_styles');
+      localStorage.removeItem('onboarding_brands');
+      
+      // Redirect to home (onboarding will pop up again due to not being marked complete)
+      router.push('/');
+      
+      // ORIGINAL CODE (commented out for testing):
+      // if (user) {
+      //   try {
+      //     await user.update({
+      //       unsafeMetadata: { onboardingComplete: true }
+      //   });
+      //     // Add a delay to ensure metadata is updated
+      //     setTimeout(() => {
+      //       router.push('/');
+      //     }, 500);
+      //   } catch (error) {
+      //     console.error('Error updating user metadata:', error);
+      //     router.push('/');
+      //   }
+      // } else {
+      //   router.push('/');
+      // }
+    } catch (error) {
+      console.error('❌ Error in handleComplete:', error);
+      // Still redirect even if saving fails
       router.push('/');
     }
   };
 
   const handleClose = async () => {
-    // Mark onboarding as complete and redirect to home
-    if (user) {
-      try {
-        await user.update({
-          unsafeMetadata: { onboardingComplete: true }
-        });
-        // Add a small delay to ensure metadata is updated
-        setTimeout(() => {
-          router.push('/');
-        }, 500);
-      } catch (error) {
-        console.error('Error updating user metadata:', error);
-        router.push('/');
+    try {
+      // Collect all onboarding data from localStorage
+      const name = localStorage.getItem('onboarding_name') || '';
+      const age = localStorage.getItem('onboarding_age') || '';
+      const city = localStorage.getItem('onboarding_city') || '';
+      const type_of_home = localStorage.getItem('onboarding_homeType') || '';
+      const spendingData = localStorage.getItem('onboarding_spending');
+      const stylesData = localStorage.getItem('onboarding_styles');
+      const brandsData = localStorage.getItem('onboarding_brands');
+
+      // Parse JSON data
+      const category_budgets = spendingData ? JSON.parse(spendingData) : {};
+      const styles = stylesData ? JSON.parse(stylesData) : [];
+      const brands = brandsData ? JSON.parse(brandsData) : [];
+
+      console.log('📊 Collected onboarding data (close):', {
+        name, age, city, type_of_home, category_budgets, styles, brands
+      });
+
+      // Save data to Supabase
+      const result = await saveOnboardingData({
+        name,
+        age,
+        city,
+        type_of_home,
+        category_budgets,
+        styles,
+        brands
+      });
+
+      if (result.success) {
+        console.log('✅ Onboarding data saved successfully! (close)');
+      } else {
+        console.error('❌ Failed to save onboarding data (close):', result.error);
       }
-    } else {
+
+      // TEMPORARY: For testing - don't mark onboarding as complete
+      // This will make the onboarding pop up again after completion
+      console.log('Onboarding closed - but not marking as complete for testing');
+      
+      // Clear localStorage to reset onboarding data
+      localStorage.removeItem('onboarding_name');
+      localStorage.removeItem('onboarding_age');
+      localStorage.removeItem('onboarding_city');
+      localStorage.removeItem('onboarding_homeType');
+      localStorage.removeItem('onboarding_spending');
+      localStorage.removeItem('onboarding_styles');
+      localStorage.removeItem('onboarding_brands');
+      
+      // Redirect to home (onboarding will pop up again due to not being marked complete)
+      router.push('/');
+      
+      // ORIGINAL CODE (commented out for testing):
+      // if (user) {
+      //   try {
+      //     await user.update({
+      //       unsafeMetadata: { onboardingComplete: true }
+      //     });
+      //     // Add a small delay to ensure metadata is updated
+      //     setTimeout(() => {
+      //       router.push('/');
+      //     }, 500);
+      //   } catch (error) {
+      //     console.error('Error updating user metadata:', error);
+      //     router.push('/');
+      //   }
+      // } else {
+      //   router.push('/');
+      // }
+    } catch (error) {
+      console.error('❌ Error in handleClose:', error);
+      // Still redirect even if saving fails
       router.push('/');
     }
   };

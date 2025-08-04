@@ -33,27 +33,37 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [router.pathname]);
 
   function OnboardingWrapper({ children }: { children: React.ReactNode }) {
-  const { user, isLoaded } = useUser();
-  
+    const { user, isLoaded } = useUser();
+    const wrapperRouter = useRouter();
 
-  useEffect(() => {
-    setSidebarOpen(false);
+    useEffect(() => {
+      setSidebarOpen(false);
 
-    if (!isLoaded) return;
+      if (!isLoaded) return;
 
-    const onboardingComplete = user?.unsafeMetadata?.onboardingComplete;
+      const onboardingComplete = user?.unsafeMetadata?.onboardingComplete;
+      
+      // DEBUG: Log the onboarding status
+      console.log('🔍 Onboarding Debug:', {
+        user: !!user,
+        isLoaded,
+        onboardingComplete,
+        currentPath: wrapperRouter.pathname,
+        shouldRedirect: user && onboardingComplete !== true && !wrapperRouter.pathname.startsWith("/onboarding")
+      });
 
-    if (
-      user &&
-      onboardingComplete !== true &&
-      !router.pathname.startsWith("/onboarding")
-    ) {
-      router.push("/onboarding/step1");
-    }
-  }, [router.pathname, isLoaded, user]);
+      if (
+        user &&
+        onboardingComplete !== true &&
+        !wrapperRouter.pathname.startsWith("/onboarding")
+      ) {
+        console.log('🚀 Redirecting to onboarding...');
+        wrapperRouter.push("/onboarding/step1");
+      }
+    }, [wrapperRouter.pathname, isLoaded, user]);
 
-  return <>{children}</>;
-}
+    return <>{children}</>;
+  }
 
   return (
     <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
