@@ -53,39 +53,23 @@ export default function OnboardingStep6() {
         console.error('❌ Failed to save onboarding data:', result.error);
       }
 
-      // TEMPORARY: For testing - don't mark onboarding as complete
-      // This will make the onboarding pop up again after completion
-      console.log('Onboarding completed - but not marking as complete for testing');
-      
-      // Clear localStorage to reset onboarding data
-      localStorage.removeItem('onboarding_name');
-      localStorage.removeItem('onboarding_age');
-      localStorage.removeItem('onboarding_city');
-      localStorage.removeItem('onboarding_homeType');
-      localStorage.removeItem('onboarding_spending');
-      localStorage.removeItem('onboarding_styles');
-      localStorage.removeItem('onboarding_brands');
-      
-      // Redirect to home (onboarding will pop up again due to not being marked complete)
-      router.push('/');
-      
-      // ORIGINAL CODE (commented out for testing):
-      // if (user) {
-      //   try {
-      //     await user.update({
-      //       unsafeMetadata: { onboardingComplete: true }
-      //   });
-      //     // Add a delay to ensure metadata is updated
-      //     setTimeout(() => {
-      //       router.push('/');
-      //     }, 500);
-      //   } catch (error) {
-      //     console.error('Error updating user metadata:', error);
-      //     router.push('/');
-      //   }
-      // } else {
-      //   router.push('/');
-      // }
+      // Mark onboarding as complete and redirect to home
+      if (user) {
+        try {
+          await user.update({
+            unsafeMetadata: { onboardingComplete: true }
+          });
+          // Add a delay to ensure metadata is updated
+          setTimeout(() => {
+            router.push('/');
+          }, 500);
+        } catch (error) {
+          console.error('Error updating user metadata:', error);
+          router.push('/');
+        }
+      } else {
+        router.push('/');
+      }
     } catch (error) {
       console.error('❌ Error in handleComplete:', error);
       // Still redirect even if saving fails
@@ -130,39 +114,23 @@ export default function OnboardingStep6() {
         console.error('❌ Failed to save onboarding data (close):', result.error);
       }
 
-      // TEMPORARY: For testing - don't mark onboarding as complete
-      // This will make the onboarding pop up again after completion
-      console.log('Onboarding closed - but not marking as complete for testing');
-      
-      // Clear localStorage to reset onboarding data
-      localStorage.removeItem('onboarding_name');
-      localStorage.removeItem('onboarding_age');
-      localStorage.removeItem('onboarding_city');
-      localStorage.removeItem('onboarding_homeType');
-      localStorage.removeItem('onboarding_spending');
-      localStorage.removeItem('onboarding_styles');
-      localStorage.removeItem('onboarding_brands');
-      
-      // Redirect to home (onboarding will pop up again due to not being marked complete)
-      router.push('/');
-      
-      // ORIGINAL CODE (commented out for testing):
-      // if (user) {
-      //   try {
-      //     await user.update({
-      //       unsafeMetadata: { onboardingComplete: true }
-      //     });
-      //     // Add a small delay to ensure metadata is updated
-      //     setTimeout(() => {
-      //       router.push('/');
-      //     }, 500);
-      //   } catch (error) {
-      //     console.error('Error updating user metadata:', error);
-      //     router.push('/');
-      //   }
-      // } else {
-      //   router.push('/');
-      // }
+      // Mark onboarding as complete and redirect to home
+      if (user) {
+        try {
+          await user.update({
+            unsafeMetadata: { onboardingComplete: true }
+          });
+          // Add a small delay to ensure metadata is updated
+          setTimeout(() => {
+            router.push('/');
+          }, 500);
+        } catch (error) {
+          console.error('Error updating user metadata:', error);
+          router.push('/');
+        }
+      } else {
+        router.push('/');
+      }
     } catch (error) {
       console.error('❌ Error in handleClose:', error);
       // Still redirect even if saving fails

@@ -42,22 +42,12 @@ export default function App({ Component, pageProps }: AppProps) {
       if (!isLoaded) return;
 
       const onboardingComplete = user?.unsafeMetadata?.onboardingComplete;
-      
-      // DEBUG: Log the onboarding status
-      console.log('🔍 Onboarding Debug:', {
-        user: !!user,
-        isLoaded,
-        onboardingComplete,
-        currentPath: wrapperRouter.pathname,
-        shouldRedirect: user && onboardingComplete !== true && !wrapperRouter.pathname.startsWith("/onboarding")
-      });
 
       if (
         user &&
         onboardingComplete !== true &&
         !wrapperRouter.pathname.startsWith("/onboarding")
       ) {
-        console.log('🚀 Redirecting to onboarding...');
         wrapperRouter.push("/onboarding/step1");
       }
     }, [wrapperRouter.pathname, isLoaded, user]);
