@@ -170,7 +170,8 @@
   background: #f0e6ff;
 }
 
-.backButton, .nextButton {
+.backButton,
+.nextButton {
   flex: 1;
   padding: 12px 24px;
   font-size: 18px;
@@ -216,28 +217,28 @@
     height: 90vh;
     width: 98%;
   }
-  
+
   .mainTitle {
     font-size: 24px;
   }
-  
+
   .categoryTitle {
     font-size: 18px;
   }
-  
+
   .priceButtons {
     flex-direction: column;
   }
-  
+
   .priceButton {
     min-width: auto;
     width: 100%;
   }
-  
+
   .content {
     padding: 20px 15px;
   }
-  
+
   .categoriesContainer {
     gap: 20px;
   }
@@ -247,13 +248,13 @@
   .mainTitle {
     font-size: 20px;
   }
-  
+
   .categoryTitle {
     font-size: 16px;
   }
-  
+
   .priceButton {
     font-size: 12px;
     padding: 8px 12px;
   }
-} 
+}

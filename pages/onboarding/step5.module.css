@@ -241,7 +241,8 @@
   background: #f0e6ff;
 }
 
-.backButton, .nextButton {
+.backButton,
+.nextButton {
   flex: 1;
   padding: 12px 24px;
   font-size: 18px;
@@ -280,20 +281,20 @@
     height: 90vh;
     width: 95%;
   }
-  
+
   .mainTitle {
     font-size: 24px;
   }
-  
+
   .inputGroup {
     flex-direction: column;
   }
-  
+
   .addButton {
     width: 100%;
   }
-  
+
   .content {
     padding: 20px 15px;
   }
-} 
+}

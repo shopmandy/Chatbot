@@ -99,7 +99,11 @@
 }
 
 @keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
     transform: translateY(0);
   }
   40% {
@@ -137,7 +141,8 @@
   background: #f0e6ff;
 }
 
-.backButton, .completeButton {
+.backButton,
+.completeButton {
   flex: 1;
   padding: 12px 24px;
   font-size: 18px;
@@ -178,24 +183,24 @@
     height: 90vh;
     width: 95%;
   }
-  
+
   .mainTitle {
     font-size: 24px;
   }
-  
+
   .celebrationIcon {
     font-size: 48px;
   }
-  
+
   .content {
     padding: 30px 15px;
   }
-  
+
   .buttonGroup {
     flex-direction: column;
   }
-  
+
   .completeButton {
     flex: 1;
   }
-} 
+}

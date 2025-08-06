@@ -1,68 +1,72 @@
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import { useUser } from "@clerk/nextjs";
-import styles from './step2.module.css'; 
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { useUser } from '@clerk/nextjs'
+import styles from './step2.module.css'
 
 export default function OnboardingStep2() {
-  const router = useRouter();
-  const { user } = useUser();
-  const [age, setAge] = useState('');
-  const [city, setCity] = useState('');
-  const [homeType, setHomeType] = useState('');
-  const [userName, setUserName] = useState('');
+  const router = useRouter()
+  const { user } = useUser()
+  const [age, setAge] = useState('')
+  const [city, setCity] = useState('')
+  const [homeType, setHomeType] = useState('')
+  const [userName, setUserName] = useState('')
 
   const homeTypes = [
-    'Apartment', 'Condo', 'Studio',
-    'House', 'Townhouse', 'Other'
-  ];
+    'Apartment',
+    'Condo',
+    'Studio',
+    'House',
+    'Townhouse',
+    'Other',
+  ]
 
   useEffect(() => {
     // Get name from localStorage
-    const name = localStorage.getItem('onboarding_name');
+    const name = localStorage.getItem('onboarding_name')
     if (name) {
-      setUserName(name);
+      setUserName(name)
     } else {
       // If no name, go back to step 1
-      router.push('/onboarding/step1');
+      router.push('/onboarding/step1')
     }
 
     // Lock scrolling when onboarding is visible
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden'
     return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, [router]);
+      document.body.style.overflow = 'auto'
+    }
+  }, [router])
 
   const handleNext = () => {
     if (age.trim() && city.trim() && homeType) {
-      localStorage.setItem('onboarding_age', age);
-      localStorage.setItem('onboarding_city', city);
-      localStorage.setItem('onboarding_homeType', homeType);
-      router.push('/onboarding/step3');
+      localStorage.setItem('onboarding_age', age)
+      localStorage.setItem('onboarding_city', city)
+      localStorage.setItem('onboarding_homeType', homeType)
+      router.push('/onboarding/step3')
     }
-  };
+  }
 
   const handleClose = async () => {
     // Mark onboarding as complete and redirect to home
     if (user) {
       try {
         await user.update({
-          unsafeMetadata: { onboardingComplete: true }
-        });
+          unsafeMetadata: { onboardingComplete: true },
+        })
         // Add a small delay to ensure metadata is updated
         setTimeout(() => {
-          router.push('/');
-        }, 500);
+          router.push('/')
+        }, 500)
       } catch (error) {
-        console.error('Error updating user metadata:', error);
-        router.push('/');
+        console.error('Error updating user metadata:', error)
+        router.push('/')
       }
     } else {
-      router.push('/');
+      router.push('/')
     }
-  };
+  }
 
-  const canProceed = age.trim() && city.trim() && homeType;
+  const canProceed = age.trim() && city.trim() && homeType
 
   return (
     <div className={styles.overlay}>
@@ -70,9 +74,13 @@ export default function OnboardingStep2() {
         {/* Header with window controls */}
         <div className={styles.header}>
           <div className={styles.headerContent}>
-            <span className={styles.headerTitle}>GETTING TO KNOW YOU (2/6)</span>
+            <span className={styles.headerTitle}>
+              GETTING TO KNOW YOU (2/6)
+            </span>
             <div className={styles.windowControls}>
-              <button className={styles.windowButton} onClick={handleClose}>×</button>
+              <button className={styles.windowButton} onClick={handleClose}>
+                ×
+              </button>
               <button className={styles.windowButton}>□</button>
               <button className={styles.windowButton}>□</button>
             </div>
@@ -84,8 +92,10 @@ export default function OnboardingStep2() {
 
         {/* Main content */}
         <div className={styles.content}>
-          <h1 className={styles.mainTitle}>TELL ME ABOUT YOURSELF, {userName.toUpperCase()}!</h1>
-          
+          <h1 className={styles.mainTitle}>
+            TELL ME ABOUT YOURSELF, {userName.toUpperCase()}!
+          </h1>
+
           <div className={styles.formSection}>
             <div className={styles.inputGroup}>
               <label className={styles.label}>Age</label>
@@ -93,7 +103,7 @@ export default function OnboardingStep2() {
                 className={styles.input}
                 type="number"
                 value={age}
-                onChange={(e) => setAge(e.target.value)}
+                onChange={e => setAge(e.target.value)}
                 placeholder="Your age"
                 min="1"
                 max="120"
@@ -105,15 +115,17 @@ export default function OnboardingStep2() {
               <input
                 className={styles.input}
                 value={city}
-                onChange={(e) => setCity(e.target.value)}
+                onChange={e => setCity(e.target.value)}
                 placeholder="Where do you live?"
               />
             </div>
 
             <div className={styles.inputGroup}>
-              <label className={styles.label}>What type of home do you have?</label>
+              <label className={styles.label}>
+                What type of home do you have?
+              </label>
               <div className={styles.homeTypeGrid}>
-                {homeTypes.map((type) => (
+                {homeTypes.map(type => (
                   <button
                     key={type}
                     className={`${styles.homeTypeButton} ${homeType === type ? styles.selected : ''}`}
@@ -129,11 +141,14 @@ export default function OnboardingStep2() {
 
         {/* Navigation buttons */}
         <div className={styles.buttonGroup}>
-          <button className={styles.backButton} onClick={() => router.push('/onboarding/step1')}>
+          <button
+            className={styles.backButton}
+            onClick={() => router.push('/onboarding/step1')}
+          >
             ← Back
           </button>
-          <button 
-            className={styles.nextButton} 
+          <button
+            className={styles.nextButton}
             onClick={handleNext}
             disabled={!canProceed}
           >
@@ -142,5 +157,5 @@ export default function OnboardingStep2() {
         </div>
       </div>
     </div>
-  );
-} 
+  )
+}
