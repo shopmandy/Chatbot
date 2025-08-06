@@ -99,8 +99,13 @@
 }
 
 @keyframes sparkle {
-  0%, 100% { transform: scale(1) rotate(0deg); }
-  50% { transform: scale(1.1) rotate(180deg); }
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.1) rotate(180deg);
+  }
 }
 
 .mainTitle {
@@ -158,7 +163,8 @@
   gap: 20px;
 }
 
-.backButton, .nextButton {
+.backButton,
+.nextButton {
   flex: 1;
   padding: 12px 24px;
   font-size: 18px;

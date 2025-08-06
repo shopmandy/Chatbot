@@ -1,34 +1,38 @@
-import React, { useEffect, useState } from 'react';
-import { SignedIn, SignedOut } from "@clerk/nextjs";
+import { SignedIn, SignedOut } from '@clerk/nextjs'
+import React, { useEffect, useState } from 'react'
 
 type ChatSummary = {
-  id: string;
-  title: string;
-};
+  id: string
+  title: string
+}
 
 type ChatDropdownProps = {
-  onClose: () => void;
-  mode?: 'default' | 'save';
-  onChatSelect?: (chatId: string) => void;
-};
+  onClose: () => void
+  mode?: 'default' | 'save'
+  onChatSelect?: (chatId: string) => void
+}
 
-const ChatDropdown: React.FC<ChatDropdownProps> = ({ onClose, mode = 'default', onChatSelect }) => {
-  const [chats, setChats] = useState<ChatSummary[]>([]);
+const ChatDropdown: React.FC<ChatDropdownProps> = ({
+  onClose,
+  mode = 'default',
+  onChatSelect,
+}) => {
+  const [chats, setChats] = useState<ChatSummary[]>([])
 
   useEffect(() => {
     const fetchChats = async () => {
-      const res = await fetch('/api/get-chats');
+      const res = await fetch('/api/get-chats')
       if (res.ok) {
-        const data = await res.json();
-        setChats(data.chats);
+        const data = await res.json()
+        setChats(data.chats)
       }
-    };
+    }
 
-    fetchChats();
-  }, []);
+    fetchChats()
+  }, [])
 
   return (
-    <div 
+    <div
       onClick={onClose}
       style={{
         position: 'fixed',
@@ -47,9 +51,26 @@ const ChatDropdown: React.FC<ChatDropdownProps> = ({ onClose, mode = 'default', 
       }}
     >
       <SignedOut>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5em', position: 'relative' }}>
-          <span style={{ fontWeight: 'bold', color: 'var(--chat-text)', fontSize: '1em', whiteSpace: 'nowrap' }}>
-            {mode === 'save' ? 'Sign In to Save Chat' : 'Sign In to See Saved Chats'}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '0.5em',
+            position: 'relative',
+          }}
+        >
+          <span
+            style={{
+              fontWeight: 'bold',
+              color: 'var(--chat-text)',
+              fontSize: '1em',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {mode === 'save'
+              ? 'Sign In to Save Chat'
+              : 'Sign In to See Saved Chats'}
           </span>
           <button
             onClick={onClose}
@@ -72,15 +93,17 @@ const ChatDropdown: React.FC<ChatDropdownProps> = ({ onClose, mode = 'default', 
       </SignedOut>
 
       <SignedIn>
-        <p style={{ fontWeight: 'bold', color: 'var(--chat-text)' }}>Previous Chats</p>
+        <p style={{ fontWeight: 'bold', color: 'var(--chat-text)' }}>
+          Previous Chats
+        </p>
         <ul style={{ listStyle: 'none', padding: 0 }}>
-          {chats.map((chat) => (
+          {chats.map(chat => (
             <li
               key={chat.id}
               style={{ padding: '0.5rem 0', cursor: 'pointer' }}
               onClick={() => {
-                if (onChatSelect) onChatSelect(chat.id);
-                onClose();
+                if (onChatSelect) onChatSelect(chat.id)
+                onClose()
               }}
             >
               {chat.title}
@@ -89,7 +112,7 @@ const ChatDropdown: React.FC<ChatDropdownProps> = ({ onClose, mode = 'default', 
         </ul>
       </SignedIn>
     </div>
-  );
-};
+  )
+}
 
-export default ChatDropdown;
+export default ChatDropdown

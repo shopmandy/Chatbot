@@ -1,131 +1,136 @@
-import React from 'react';
-import { useState, useRef, useEffect } from 'react';
-import styles from "./chatbot.module.css";
-import ReactMarkdown from 'react-markdown';
+import { useUser } from '@clerk/nextjs'
 import Head from 'next/head'
-import CustomizePanel from './components/CustomizePanel';
-import ChatDropdown from './components/chatDropdown';
-import { redis } from '@/lib/redis';
-import { SignedIn, SignedOut, useUser } from "@clerk/nextjs";
+import React, { useEffect, useRef, useState } from 'react'
+import ReactMarkdown from 'react-markdown'
+import styles from './chatbot.module.css'
+import CustomizePanel from './components/CustomizePanel'
+import ChatDropdown from './components/chatDropdown'
 
 type Message = {
-  role: 'system' | 'user' | 'assistant';
-  content: string;
-  imageUrl?: string;
-};
+  role: 'system' | 'user' | 'assistant'
+  content: string
+  imageUrl?: string
+}
 
 export default function Chatbot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hey there! I'm Mandy, your DIY companion! Whether you need help with home projects, want decor inspiration, or need step-by-step guidance, I'm here to help! What are you working on today? 🔨💕"
-    }
-  ]);
-  const [input, setInput] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [showHero, setShowHero] = useState(true);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [trendingTopics, setTrendingTopics] = useState<string[] | null>(null);
-  const chatBoxRef = useRef<HTMLDivElement>(null);
-  const [showChats, setShowChats] = useState<false | 'default' | 'save'>(false);
-  const [showSignInPopup, setShowSignInPopup] = useState(true);
-  const { isSignedIn } = useUser();
-
+      content:
+        "Hey there! I'm Mandy, your DIY companion! Whether you need help with home projects, want decor inspiration, or need step-by-step guidance, I'm here to help! What are you working on today? 🔨💕",
+    },
+  ])
+  const [input, setInput] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [imagePreview, setImagePreview] = useState<string | null>(null)
+  const [showHero, setShowHero] = useState(true)
+  const fileInputRef = useRef<HTMLInputElement>(null)
+  const [trendingTopics, setTrendingTopics] = useState<string[] | null>(null)
+  const chatBoxRef = useRef<HTMLDivElement>(null)
+  const [showChats, setShowChats] = useState<false | 'default' | 'save'>(false)
+  const { isSignedIn } = useUser()
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+    const file = e.target.files?.[0]
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setImagePreview(event.target?.result as string);
-      };
-      reader.readAsDataURL(file);
+      const reader = new FileReader()
+      reader.onload = event => {
+        setImagePreview(event.target?.result as string)
+      }
+      reader.readAsDataURL(file)
     }
-  };
+  }
 
   const triggerFileInput = () => {
-    fileInputRef.current?.click();
-  };
+    fileInputRef.current?.click()
+  }
 
   const removePreview = () => {
-    setImagePreview(null);
+    setImagePreview(null)
     if (fileInputRef.current) {
-      fileInputRef.current.value = '';
+      fileInputRef.current.value = ''
     }
-  };
+  }
 
   const sendMessage = async (customInput?: string) => {
-    const userInput = customInput ?? input;
-    if (!userInput.trim() && !imagePreview) return;
+    const userInput = customInput ?? input
+    if (!userInput.trim() && !imagePreview) return
 
     // Hide hero section when user starts chatting
     if (showHero) {
-      setShowHero(false);
+      setShowHero(false)
     }
 
-    const newMessage: Message = { 
-      role: 'user', 
+    const newMessage: Message = {
+      role: 'user',
       content: userInput,
-      ...(imagePreview && { imageUrl: imagePreview })
-    };
+      ...(imagePreview && { imageUrl: imagePreview }),
+    }
 
-    const newMessages: Message[] = [...messages, newMessage];
-    setMessages(newMessages);
-    setInput('');
-    setImagePreview(null);
-    setLoading(true);
+    const newMessages: Message[] = [...messages, newMessage]
+    setMessages(newMessages)
+    setInput('')
+    setImagePreview(null)
+    setLoading(true)
 
     try {
-      const formData = new FormData();
-      formData.append('messages', JSON.stringify(newMessages));
-      
+      const formData = new FormData()
+      formData.append('messages', JSON.stringify(newMessages))
+
       if (fileInputRef.current?.files?.[0]) {
-        formData.append('image', fileInputRef.current.files[0]);
+        formData.append('image', fileInputRef.current.files[0])
       }
 
       const res = await fetch('/api/chat', {
         method: 'POST',
         body: formData,
-      });
+      })
 
       if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
+        throw new Error(`HTTP error! status: ${res.status}`)
       }
 
-      const data = await res.json();
-      
+      const data = await res.json()
+
       if (!data.response?.content) {
-        throw new Error('Invalid response from server');
+        throw new Error('Invalid response from server')
       }
 
-      setMessages([...newMessages, {
-        role: 'assistant',
-        content: data.response.content
-      }]);
+      setMessages([
+        ...newMessages,
+        {
+          role: 'assistant',
+          content: data.response.content,
+        },
+      ])
     } catch (err) {
-      console.error('Error:', err);
-      setMessages([...newMessages, { 
-        role: 'assistant', 
-        content: 'Error: Failed to get response' 
-      }]);
+      console.error('Error:', err)
+      setMessages([
+        ...newMessages,
+        {
+          role: 'assistant',
+          content: 'Error: Failed to get response',
+        },
+      ])
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
     if (chatBoxRef.current) {
-      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight
     }
-  }, [messages]);
+  }, [messages])
 
-  const [showSettings, setShowSettings] = useState(false);
+  const [showSettings, setShowSettings] = useState(false)
 
   //default colors
   useEffect(() => {
-    const savedTheme = JSON.parse(localStorage.getItem('chatTheme') || '{}') as Record<string, string>;
+    const savedTheme = JSON.parse(
+      localStorage.getItem('chatTheme') || '{}'
+    ) as Record<string, string>
     const defaultTheme = {
       '--button-bg': 'linear-gradient(90deg, #ffe0f2 0%, #ffd6f7 100%)',
       '--button-text': '#f91b8f',
@@ -135,43 +140,51 @@ export default function Chatbot() {
       '--chat-bubble': '#ffe0f2',
       '--chat-bg': 'linear-gradient(135deg, #ffe0f2 0%, #e0eaff 100%)',
       '--chat-text': '#f91b8f',
-      '--chat-text-user': 'white'
-    };
-  
-    const themeToApply = Object.keys(savedTheme).length ? savedTheme : defaultTheme;
-  
-    for (const [key, value] of Object.entries(themeToApply)) {
-      document.documentElement.style.setProperty(key, value);
+      '--chat-text-user': 'white',
     }
-  }, []);
-  
+
+    const themeToApply = Object.keys(savedTheme).length
+      ? savedTheme
+      : defaultTheme
+
+    for (const [key, value] of Object.entries(themeToApply)) {
+      document.documentElement.style.setProperty(key, value)
+    }
+  }, [])
+
   useEffect(() => {
-    fetch('/api/get-trending-topics').then((res) => res.json()).then((data) => {
-      if (Array.isArray(data.questions)) {
-        setTrendingTopics(data.questions);
-      }
-    })
-    .catch((err) => {
-      console.error("Failed to fetch trending topics.");
-    });
-  }, []);
+    fetch('/api/get-trending-topics')
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data.questions)) {
+          setTrendingTopics(data.questions)
+        }
+      })
+      .catch(() => {
+        console.error('Failed to fetch trending topics.')
+      })
+  }, [])
   // Common questions for chatbot presets
   const commonQuestions = [
-    "How do I paint a room?",
+    'How do I paint a room?',
     "What's a quick DIY decor project for my bedroom?",
-    "How to hang wallpaper",
-    "How do I fix a hole in drywall?"
-  ];
-  const questionsToShow = trendingTopics === null ? [] : trendingTopics.length > 0 ? trendingTopics : commonQuestions;
-
+    'How to hang wallpaper',
+    'How do I fix a hole in drywall?',
+  ]
+  const questionsToShow =
+    trendingTopics === null
+      ? []
+      : trendingTopics.length > 0
+        ? trendingTopics
+        : commonQuestions
 
   const handleSaveChat = async () => {
     if (!isSignedIn) {
-      setShowChats('save'); // open the sign in popup with save mode
-      return;
+      setShowChats('save') // open the sign in popup with save mode
+      return
     }
-    const title = prompt("Enter a title for this chat:");
-    if (!title) return;
+    const title = prompt('Enter a title for this chat:')
+    if (!title) return
     const response = await fetch('/api/save-chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -179,34 +192,39 @@ export default function Chatbot() {
         messages,
         title,
       }),
-    });
+    })
     if (response.ok) {
-      alert("Chat saved!");
+      alert('Chat saved!')
       // Optionally: refresh chat list
     } else {
-      const { error } = await response.json();
-      alert(`Error saving chat: ${error}`);
+      const { error } = await response.json()
+      alert(`Error saving chat: ${error}`)
     }
-  };
+  }
 
   return (
     <>
       <Head>
-        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Tiny5&family=VT323&display=swap" rel="stylesheet" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Tiny5&family=VT323&display=swap"
+          rel="stylesheet"
+        />
       </Head>
       <div className={styles.pageContainer}>
         {/* Header */}
         <header className={styles.header}>
           <div className={styles.headerContent}>
-           {/* Hero Section */}
-                <div className={styles.heroContent}>
-                  <h2 className={styles.heroTitle}>Handy Mandy's DIY Chatbot</h2>
-                  <p className={styles.heroSubtitle}>
-                    Your 24/7 DIY Assistant 🤖✨ Get instant help with home projects, decor ideas, and DIY tips. Just ask Mandy anything!
-                  </p>
-                </div>
-            
-           
+            {/* Hero Section */}
+            <div className={styles.heroContent}>
+              <h2 className={styles.heroTitle}>
+                Handy Mandy&apos;s DIY Chatbot
+              </h2>
+              <p className={styles.heroSubtitle}>
+                Your 24/7 DIY Assistant 🤖✨ Get instant help with home
+                projects, decor ideas, and DIY tips. Just ask Mandy anything!
+              </p>
+            </div>
+
             {/* Removed headerActions with Customize and Chats buttons */}
           </div>
         </header>
@@ -214,12 +232,12 @@ export default function Chatbot() {
           <ChatDropdown
             onClose={() => setShowChats(false)}
             mode={showChats === 'save' ? 'save' : 'default'}
-            onChatSelect={async (chatId) => {
-              const res = await fetch(`/api/load-chat?chatId=${chatId}`);
+            onChatSelect={async chatId => {
+              const res = await fetch(`/api/load-chat?chatId=${chatId}`)
               if (res.ok) {
-                const data = await res.json();
-                setMessages(data.messages || []);
-                setShowHero(false);
+                const data = await res.json()
+                setMessages(data.messages || [])
+                setShowHero(false)
               }
             }}
           />
@@ -229,27 +247,34 @@ export default function Chatbot() {
           <div className={styles.chatContainer}>
             {/* Window Title Bar - Always visible */}
             <div className={styles.windowTitleBar}>
-              <div className={styles.windowTitle}>
-                CHAT WITH MANDY
-              </div>
+              <div className={styles.windowTitle}>CHAT WITH MANDY</div>
               <div className={styles.windowActions}>
                 <button
                   className={styles.customizeButton}
                   onClick={() => setShowSettings(true)}
                 >
-                  Customize <span role="img" aria-label="wrench">⚙️</span>
+                  Customize{' '}
+                  <span role="img" aria-label="wrench">
+                    ⚙️
+                  </span>
                 </button>
                 <button
                   className={styles.customizeButton}
                   onClick={() => setShowChats('default')}
                 >
-                  Chats <span role="img" aria-label="chat bubble">💬</span>
+                  Chats{' '}
+                  <span role="img" aria-label="chat bubble">
+                    💬
+                  </span>
                 </button>
                 <button
                   className={styles.customizeButton}
                   onClick={handleSaveChat}
                 >
-                  Save Chat <span role="img" aria-label="floppy disk">💾</span>
+                  Save Chat{' '}
+                  <span role="img" aria-label="floppy disk">
+                    💾
+                  </span>
                 </button>
               </div>
               <div className={styles.windowControls}>
@@ -265,13 +290,15 @@ export default function Chatbot() {
               </div>
             </div>
 
-
             {/* Chat Interface */}
-            <div className={styles.chatInterface} >
+            <div className={styles.chatInterface}>
               <div className={styles.chatBox} ref={chatBoxRef}>
                 {messages.map((msg, idx) => {
                   // If this is a user message and the next message is assistant, group them
-                  if (msg.role === 'user' && messages[idx + 1]?.role === 'assistant') {
+                  if (
+                    msg.role === 'user' &&
+                    messages[idx + 1]?.role === 'assistant'
+                  ) {
                     return (
                       <div key={idx} className={styles.chatMessageGroup}>
                         <div className={styles.questionBubble}>
@@ -282,14 +309,20 @@ export default function Chatbot() {
                             <span className={styles.mandyIcon}>M</span>
                             <span className={styles.messageLabel}>Mandy</span>
                           </div>
-                          <ReactMarkdown>{messages[idx + 1].content}</ReactMarkdown>
+                          <ReactMarkdown>
+                            {messages[idx + 1].content}
+                          </ReactMarkdown>
                         </div>
                       </div>
-                    );
+                    )
                   }
                   // If this is an assistant message that was not paired, skip (already rendered)
-                  if (msg.role === 'assistant' && idx > 0 && messages[idx - 1]?.role === 'user') {
-                    return null;
+                  if (
+                    msg.role === 'assistant' &&
+                    idx > 0 &&
+                    messages[idx - 1]?.role === 'user'
+                  ) {
+                    return null
                   }
                   // Otherwise, render as normal (for system or unpaired messages)
                   if (msg.role === 'user') {
@@ -297,7 +330,7 @@ export default function Chatbot() {
                       <div key={idx} className={styles.questionBubble}>
                         <ReactMarkdown>{msg.content}</ReactMarkdown>
                       </div>
-                    );
+                    )
                   }
                   return (
                     <div key={idx} className={styles.bubble}>
@@ -307,7 +340,7 @@ export default function Chatbot() {
                       </div>
                       <ReactMarkdown>{msg.content}</ReactMarkdown>
                     </div>
-                  );
+                  )
                 })}
                 {loading && (
                   <div className={styles.loadingBubble}>
@@ -323,25 +356,37 @@ export default function Chatbot() {
                   </div>
                 )}
                 {showHero && (
-                      <div className="border-t-4 border-primary/30 pt-4">
-                        <h3 className="text-center text-pink-600 font-bold text-xl mb-4">Try these popular questions:</h3>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
-                          {questionsToShow.map((question, idx) => (
-                            <button key={idx} onClick={() => sendMessage(question)}
-                            className="text-lg p-4 border-2 border-pink-400 rounded-2xl text-pink-600 hover:bg-pink-50 transition-colors text-left">
-                              {question}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    )}
+                  <div className="border-t-4 border-primary/30 pt-4">
+                    <h3 className="text-center text-pink-600 font-bold text-xl mb-4">
+                      Try these popular questions:
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                      {questionsToShow.map((question, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => sendMessage(question)}
+                          className="text-lg p-4 border-2 border-pink-400 rounded-2xl text-pink-600 hover:bg-pink-50 transition-colors text-left"
+                        >
+                          {question}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Image Preview */}
               {imagePreview && (
                 <div className={styles.previewContainer}>
-                  <img src={imagePreview} alt="Preview" className={styles.imagePreview} />
-                  <button className={styles.removePreview} onClick={removePreview}>
+                  <img
+                    src={imagePreview}
+                    alt="Preview"
+                    className={styles.imagePreview}
+                  />
+                  <button
+                    className={styles.removePreview}
+                    onClick={removePreview}
+                  >
                     Remove
                   </button>
                 </div>
@@ -364,16 +409,16 @@ export default function Chatbot() {
                 >
                   📷
                 </button>
-                
+
                 <input
                   className={styles.inputBox}
                   value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+                  onChange={e => setInput(e.target.value)}
+                  onKeyDown={e => e.key === 'Enter' && sendMessage()}
                   placeholder="Ask about DIY home projects..."
                   disabled={loading}
                 />
-                
+
                 <button
                   className={styles.sendButton}
                   onClick={() => sendMessage()}
@@ -383,13 +428,14 @@ export default function Chatbot() {
                 </button>
               </div>
             </div>
-            
           </div>
         </main>
 
         {/* Settings Panel */}
-        {showSettings && <CustomizePanel onClose={() => setShowSettings(false)} />}
+        {showSettings && (
+          <CustomizePanel onClose={() => setShowSettings(false)} />
+        )}
       </div>
     </>
-  );
+  )
 }
