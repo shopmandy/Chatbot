@@ -427,6 +427,7 @@ export default function Room() {
   const [showCustomInput, setShowCustomInput] = useState(false);
   const [showAfterImage, setShowAfterImage] = useState(false);
   const [showAllGallery, setShowAllGallery] = useState(false);
+  const [amazonProducts, setAmazonProducts] = useState<any[]>([])
   const [isMobile, setIsMobile] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState('Mandy is thinking');
   const [messageOpacity, setMessageOpacity] = useState(1);
