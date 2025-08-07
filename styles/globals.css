@@ -44,8 +44,8 @@ html {
   margin-bottom: 14px;
   margin-top: 14px;
   transition:
-    box-shadow 0.2s,
-    transform 0.2s;
+    box-shadow 0.1s ease,
+    transform 0.1s ease;
 }
 
 .nav-link::before {
@@ -151,7 +151,7 @@ html {
   cursor: pointer;
   margin-right: 1rem;
   z-index: 1001;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.1s ease;
 }
 
 .app-layout {
@@ -220,8 +220,8 @@ html {
   background: #fff6fa;
   color: #f91b8f;
   transition:
-    box-shadow 0.2s,
-    transform 0.2s;
+    box-shadow 0.1s ease,
+    transform 0.1s ease;
 }
 
 .sidebar .nav-link:hover {
@@ -246,10 +246,10 @@ html {
   background: #fff6fa !important;
   color: #f91b8f !important;
   transition:
-    box-shadow 0.2s,
-    transform 0.2s,
-    background 0.2s,
-    color 0.2s !important;
+    box-shadow 0.1s ease,
+    transform 0.1s ease,
+    background 0.1s ease,
+    color 0.1s ease !important;
 }
 
 .home-button:hover {
@@ -277,7 +277,10 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  transition:
+    background 0.15s ease,
+    transform 0.1s ease,
+    box-shadow 0.15s ease;
   font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace;
   font-size: 14px;
   font-weight: bold;
@@ -409,7 +412,7 @@ button:hover,
     z-index: 2000;
     background: #fff;
     box-shadow: 2px 0 16px 0 rgba(249, 27, 143, 0.07);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     transform: translateX(-100%);
     margin-left: 0 !important;
     padding-top: 2rem;
