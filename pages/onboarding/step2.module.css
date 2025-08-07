@@ -1,0 +1,250 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(12px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  background: #f0e6ff; /* Light purple background */
+  border: 3px solid #590046; /* Dark purple border */
+  max-width: 800px;
+  height: 700px;
+  width: 90%;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  font-family: 'VT323', monospace; /* Pixelated font */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Header styles */
+.header {
+  background: #e11e74; /* Bright pink header */
+  border-bottom: 2px solid #590046;
+  padding: 0;
+}
+
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+}
+
+.headerTitle {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.windowControls {
+  display: flex;
+  gap: 8px;
+}
+
+.windowButton {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  transition: background-color 0.2s;
+}
+
+.windowButton:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Progress bar */
+.progressBar {
+  height: 4px;
+  background: #f9a3cc; /* Light pink background */
+  position: relative;
+}
+
+.progressFill {
+  height: 100%;
+  width: 33.33%; /* 2/6 for step 2 */
+  background: #e11e74; /* Bright pink fill */
+  transition: width 0.3s ease;
+}
+
+/* Content styles */
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 20px;
+  overflow-y: auto;
+}
+
+.mainTitle {
+  font-size: 28px;
+  font-weight: bold;
+  color: #590046; /* Dark purple */
+  margin-bottom: 30px;
+  line-height: 1.2;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.formSection {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  max-width: 500px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: 18px;
+  color: #590046;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.input {
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 2px solid #590046;
+  border-radius: 8px;
+  background: #f9a3cc; /* Light pink background */
+  color: #590046;
+  font-family: 'VT323', monospace;
+  transition: border-color 0.2s;
+}
+
+.input::placeholder {
+  color: #8b5a96; /* Lighter purple for placeholder */
+}
+
+.input:focus {
+  outline: none;
+  border-color: #e11e74;
+  box-shadow: 0 0 0 3px rgba(225, 30, 116, 0.2);
+}
+
+/* Home type grid */
+.homeTypeGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.homeTypeButton {
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 2px solid #590046;
+  border-radius: 8px;
+  background: #f9a3cc; /* Light pink background */
+  color: #590046;
+  font-family: 'VT323', monospace;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.5px;
+}
+
+.homeTypeButton:hover {
+  background: #e11e74;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.homeTypeButton.selected {
+  background: #e11e74;
+  color: white;
+  border-color: #e11e74;
+  box-shadow: 0 4px 8px rgba(225, 30, 116, 0.3);
+}
+
+/* Button styles */
+.buttonGroup {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  gap: 20px;
+  border-top: 2px solid #590046;
+  background: #f0e6ff;
+}
+
+.backButton,
+.nextButton {
+  flex: 1;
+  padding: 12px 24px;
+  font-size: 18px;
+  font-weight: bold;
+  border: 3px solid #e11e74;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'VT323', monospace;
+  transition: all 0.2s;
+  letter-spacing: 1px;
+}
+
+.backButton {
+  background: #f9a3cc; /* Light pink background */
+  color: white;
+}
+
+.backButton:hover {
+  background: #e11e74;
+  transform: translateY(-2px);
+}
+
+.nextButton {
+  background: #e11e74; /* Bright pink background */
+  color: white;
+}
+
+.nextButton:hover:not(:disabled) {
+  background: #c71585;
+  transform: translateY(-2px);
+}
+
+.nextButton:disabled {
+  background: #ccc;
+  border-color: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .modal {
+    height: 90vh;
+    width: 95%;
+  }
+
+  .mainTitle {
+    font-size: 24px;
+  }
+
+  .homeTypeGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .formSection {
+    gap: 20px;
+  }
+}

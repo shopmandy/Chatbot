@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Poppins:wght@200;300;400;500;600;700;900&display=swap');
 
 body {
@@ -25,7 +25,11 @@ html {
   min-width: fit-content;
   padding: 0.4rem 1.4rem;
   background: linear-gradient(90deg, #fbc6e7 0%, #e3e3e3 100%);
-  box-shadow: 0 4px 16px 0 rgba(120, 40, 120, 0.18), 0 1.5px 0 #fff6fa inset, 0 2px 8px #fff6fa inset, 0 2px 0 0 #fff6fa;
+  box-shadow:
+    0 4px 16px 0 rgba(120, 40, 120, 0.18),
+    0 1.5px 0 #fff6fa inset,
+    0 2px 8px #fff6fa inset,
+    0 2px 0 0 #fff6fa;
   border: none;
   border-radius: 999px;
   text-decoration: none;
@@ -39,7 +43,9 @@ html {
   cursor: pointer;
   margin-bottom: 14px;
   margin-top: 14px;
-  transition: box-shadow 0.2s, transform 0.2s;
+  transition:
+    box-shadow 0.1s ease,
+    transform 0.1s ease;
 }
 
 .nav-link::before {
@@ -49,7 +55,11 @@ html {
   top: 7px;
   width: 80%;
   height: 30%;
-  background: linear-gradient(180deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.15) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(255, 255, 255, 0.15) 100%
+  );
   border-radius: 999px;
   pointer-events: none;
   z-index: 1;
@@ -73,22 +83,26 @@ html {
   right: 14px;
   width: 18px;
   height: 18px;
-  background: url('data:image/svg+xml;utf8,<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><g filter="url(%23a)"><path d="M16 4l2.5 7.5L26 12l-6 4.5L22 24l-6-4.5L10 24l2-7.5L6 12l7.5-0.5L16 4z" fill="white" fill-opacity="0.85"/></g><defs><filter id="a" x="0" y="0" width="32" height="32" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="1.5"/></filter></defs></svg>') no-repeat center/contain;
+  background: url('data:image/svg+xml;utf8,<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><g filter="url(%23a)"><path d="M16 4l2.5 7.5L26 12l-6 4.5L22 24l-6-4.5L10 24l2-7.5L6 12l7.5-0.5L16 4z" fill="white" fill-opacity="0.85"/></g><defs><filter id="a" x="0" y="0" width="32" height="32" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="1.5"/></filter></defs></svg>')
+    no-repeat center/contain;
   pointer-events: none;
 }
 
 .nav-link:hover {
-  box-shadow: 0 6px 16px rgba(184, 111, 166, 0.25), 0 1px 8px #fff6fa, inset 0 2px 8px #fff6fa;
+  box-shadow:
+    0 6px 16px rgba(184, 111, 166, 0.25),
+    0 1px 8px #fff6fa,
+    inset 0 2px 8px #fff6fa;
   transform: translateY(-2px) scale(1.03);
   background: linear-gradient(90deg, #fbc6e7 0%, #f5f5f5 100%);
 }
 
-.header {                    
+.header {
   display: flex;
   justify-content: space-between;
-  align-items: center;       
-  padding: 1rem;                 
-  background-color: #f91b8f;  
+  align-items: center;
+  padding: 1rem;
+  background-color: #f91b8f;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
   position: sticky;
@@ -137,7 +151,7 @@ html {
   cursor: pointer;
   margin-right: 1rem;
   z-index: 1001;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.1s ease;
 }
 
 .app-layout {
@@ -198,14 +212,23 @@ html {
   font-weight: 700;
   letter-spacing: 2px;
   border-radius: 24px;
-  box-shadow: 0 4px 16px 0 rgba(120, 40, 120, 0.10), 0 1.5px 0 #fff6fa inset, 0 2px 8px #fff6fa inset, 0 2px 0 0 #fff6fa;
+  box-shadow:
+    0 4px 16px 0 rgba(120, 40, 120, 0.1),
+    0 1.5px 0 #fff6fa inset,
+    0 2px 8px #fff6fa inset,
+    0 2px 0 0 #fff6fa;
   background: #fff6fa;
   color: #f91b8f;
-  transition: box-shadow 0.2s, transform 0.2s;
+  transition:
+    box-shadow 0.1s ease,
+    transform 0.1s ease;
 }
 
 .sidebar .nav-link:hover {
-  box-shadow: 0 6px 16px rgba(184, 111, 166, 0.18), 0 1px 8px #fff6fa, inset 0 2px 8px #fff6fa;
+  box-shadow:
+    0 6px 16px rgba(184, 111, 166, 0.18),
+    0 1px 8px #fff6fa,
+    inset 0 2px 8px #fff6fa;
   transform: translateY(-2px) scale(1.03);
   background: #ffe0f2;
   color: #ff0080;
@@ -214,20 +237,28 @@ html {
 .sidebar .nav-link,
 .sidebar .nav-link.active,
 .sidebar .nav-link span {
-  font-family: 'Press Start 2P', VT323, Poppins, Montserrat, Arial, sans-serif !important;
+  font-family:
+    'Press Start 2P', VT323, Poppins, Montserrat, Arial, sans-serif !important;
 }
 
 /* Home page button styling */
 .home-button {
   background: #fff6fa !important;
   color: #f91b8f !important;
-  transition: box-shadow 0.2s, transform 0.2s, background 0.2s, color 0.2s !important;
+  transition:
+    box-shadow 0.1s ease,
+    transform 0.1s ease,
+    background 0.1s ease,
+    color 0.1s ease !important;
 }
 
 .home-button:hover {
   background: #f0f3fb !important;
   color: #f91b8f !important;
-  box-shadow: 0 6px 16px rgba(184, 111, 166, 0.25), 0 1px 8px #fff6fa, inset 0 2px 8px #fff6fa !important;
+  box-shadow:
+    0 6px 16px rgba(184, 111, 166, 0.25),
+    0 1px 8px #fff6fa,
+    inset 0 2px 8px #fff6fa !important;
   transform: translateY(-2px) scale(1.03) !important;
 }
 
@@ -246,7 +277,10 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  transition:
+    background 0.15s ease,
+    transform 0.1s ease,
+    box-shadow 0.15s ease;
   font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace;
   font-size: 14px;
   font-weight: bold;
@@ -274,11 +308,18 @@ html {
   margin-bottom: 2rem;
   font-weight: 500;
   line-height: 1.5;
-  font-family: 'Poppins', 'VT323', 'Tiny5', 'Courier New', 'Courier', 'monospace';
+  font-family:
+    'Poppins', 'VT323', 'Tiny5', 'Courier New', 'Courier', 'monospace';
 }
 
 /* Hide old header styles for sidebar layout */
-.header, .header-left, .header-logo, .header-nav, .header-auth-desktop, .header-auth-mobile, .right-spacer {
+.header,
+.header-left,
+.header-logo,
+.header-nav,
+.header-auth-desktop,
+.header-auth-mobile,
+.right-spacer {
   display: none !important;
   visibility: hidden !important;
   height: 0 !important;
@@ -287,13 +328,25 @@ html {
   left: -9999px !important;
 }
 
-button:hover, .nav-link:hover, .home-button:hover {
-  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><text y="24" font-size="24" font-family="Arial" fill="hotpink">❤</text></svg>') 16 16, pointer;
+button:hover,
+.nav-link:hover,
+.home-button:hover {
+  cursor:
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><text y="24" font-size="24" font-family="Arial" fill="hotpink">❤</text></svg>')
+      16 16,
+    pointer;
 }
 
 @keyframes sidebar-dot-pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.2); opacity: 0.7; }
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
 }
 
 .sidebar-dot {
@@ -305,8 +358,12 @@ button:hover, .nav-link:hover, .home-button:hover {
   animation: sidebar-dot-pulse 1.5s infinite;
 }
 
-.sidebar-dot.pink { background: #f91b8f; }
-.sidebar-dot.light { background: #fbc6e7; }
+.sidebar-dot.pink {
+  background: #f91b8f;
+}
+.sidebar-dot.light {
+  background: #fbc6e7;
+}
 
 .nav-link-label-typing {
   font-family: inherit;
@@ -318,8 +375,13 @@ button:hover, .nav-link:hover, .home-button:hover {
 }
 
 @keyframes blink-cursor {
-  0%, 100% { border-color: #f91b8f; }
-  50% { border-color: transparent; }
+  0%,
+  100% {
+    border-color: #f91b8f;
+  }
+  50% {
+    border-color: transparent;
+  }
 }
 
 @media (max-width: 900px) {
@@ -350,7 +412,7 @@ button:hover, .nav-link:hover, .home-button:hover {
     z-index: 2000;
     background: #fff;
     box-shadow: 2px 0 16px 0 rgba(249, 27, 143, 0.07);
-    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     transform: translateX(-100%);
     margin-left: 0 !important;
     padding-top: 2rem;
@@ -397,5 +459,3 @@ button:hover, .nav-link:hover, .home-button:hover {
     gap: 1rem;
   }
 }
-
-

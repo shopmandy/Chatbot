@@ -5,7 +5,10 @@ const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN!,
 })
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
   }
@@ -14,7 +17,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     let prediction = await replicate.predictions.create({
-      version: '4836eb257a4fb8b87bac9eacbef9292ee8e1a497398ab96207067403a4be2daf',
+      version:
+        '4836eb257a4fb8b87bac9eacbef9292ee8e1a497398ab96207067403a4be2daf',
       input: {
         image: imageUrl,
         prompt,
@@ -30,17 +34,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       prediction.status !== 'succeeded' &&
       prediction.status !== 'failed'
     ) {
-      await new Promise((resolve) => setTimeout(resolve, 2000))
+      await new Promise(resolve => setTimeout(resolve, 2000))
       prediction = await replicate.predictions.get(prediction.id)
     }
 
     if (prediction.status === 'succeeded' && prediction.output) {
       console.log('Final output:', prediction.output)
-      return res.status(200).json({ outputUrl: Array.isArray(prediction.output) ? prediction.output[0] : prediction.output })
+      return res
+        .status(200)
+        .json({
+          outputUrl: Array.isArray(prediction.output)
+            ? prediction.output[0]
+            : prediction.output,
+        })
     } else {
-      return res.status(500).json({ error: prediction.error || 'Prediction failed' })
+      return res
+        .status(500)
+        .json({ error: prediction.error || 'Prediction failed' })
     }
-
   } catch (err) {
     console.error('Error calling Replicate:', err)
     return res.status(500).json({ error: 'Server error' })
