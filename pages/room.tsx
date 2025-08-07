@@ -7,17 +7,7 @@ import { Upload, Download, Sparkles, Home, Hammer, ToyBrick } from "lucide-react
 
 // --- Simple Dino Game Minigame Modal ---
 function DinoGameModal({ show, onClose }: { show: boolean, onClose: () => void }) {
-  // Listen for Escape key to exit
-  useEffect(() => {
-    if (!show) return;
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose();
-      }
-    };
-    window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
-  }, [show, onClose]);
+  
   
   const GAME_WIDTH = 400;
   const GAME_HEIGHT = 180;
@@ -253,25 +243,45 @@ function DinoGameModal({ show, onClose }: { show: boolean, onClose: () => void }
   return (
     <div style={{
       position: 'fixed',
-      top: 0, left: 0, right: 0, bottom: 0,
-      background: 'rgba(255, 224, 242, 0.92)',
+      top: '50%',
+      left: 'calc(50% + 140px)', // Reduced offset to center better
+      transform: 'translate(-50%, -50%)',
       zIndex: 9999,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      flexDirection: 'column',
-      fontFamily: "'Press Start 2P', Tiny5, VT323, Courier New, monospace",
+      background: '#fff',
+      borderRadius: '16px',
+      boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
+      border: '2px solid #f91b8f',
+      width: '450px',
+      maxWidth: '90vw',
     }}>
+      {/* Window Title Bar */}
       <div style={{
-        fontSize: '2.2rem',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        background: 'linear-gradient(135deg, #ffe0f2 0%, #e0eaff 100%)',
+        borderRadius: '16px 16px 0 0',
+        padding: '8px 20px',
+        marginBottom: '1rem',
+        fontFamily: "VT323, monospace",
+        fontSize: '20px',
+        fontWeight: 600,
         color: '#f91b8f',
-        fontWeight: 900,
-        marginBottom: '1.2rem',
-        textShadow: '0 0 12px #ffb6e6, 0 0 2px #fff',
-        letterSpacing: '2px',
+      }}> Jump the Blocks!
+        <div className="window-controls">
+          <button className="window-buttons" onClick={onClose} title="Close"><span className="window-button-icon">×</span></button>
+        </div>
+      </div>
+      <div style={{
+        fontSize: '1rem',
+        color: '#b8005c',
         textAlign: 'center',
+        marginBottom: '1rem',
+        padding: '0 1rem',
+        fontFamily: 'Roboto Mono, monospace',
+        fontWeight: 600,
       }}>
-        Jump the Blocks!
+        This may take a minute, play this game while you wait!
       </div>
       <div style={{
         position: 'relative',
@@ -279,8 +289,8 @@ function DinoGameModal({ show, onClose }: { show: boolean, onClose: () => void }
         background: 'rgba(255,255,255,0.7)',
         borderRadius: 24,
         border: '2.5px solid #f91b8f',
-        boxShadow: '0 4px 32px #ffb6e6',
         overflow: 'hidden',
+        margin: '0 auto',
       }}>
         {/* Ground */}
         <div style={{
@@ -341,6 +351,7 @@ function DinoGameModal({ show, onClose }: { show: boolean, onClose: () => void }
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'column',
+            fontFamily: 'Roboto Mono, monospace',
             zIndex: 2,
           }}>
             <div style={{ fontSize: '2rem', color: '#f91b8f', fontWeight: 900, marginBottom: 12 }}>Game Over!</div>
@@ -348,26 +359,15 @@ function DinoGameModal({ show, onClose }: { show: boolean, onClose: () => void }
           </div>
         )}
       </div>
-      <div style={{
-        marginTop: '1.2rem',
-        color: '#b8005c',
-        fontSize: '1.1rem',
-        fontWeight: 600,
-        textShadow: '0 0 4px #fff0f8',
-      }}>
-        Score: {score}
+      <div style={{ fontSize: '1rem', color: '#888', marginTop: 4, padding: '0 1rem', fontFamily: 'Roboto Mono, monospace'}}>Press Space to Jump</div>
+      <div style={{alignItems: 'center', justifyContent: 'center', display: 'flex', padding: '0 1rem', fontFamily: 'Roboto Mono, monospace'}}>
+        <div style={{fontSize: '1.1rem', color: '#b8005c', fontWeight: 600, marginTop: 6, padding: '0 1rem'}}>
+          Score: {score}
+        </div>
+        <div style={{fontSize: '1.1rem', color: '#b8005c', fontWeight: 600, marginTop: 6, padding: '0 1rem'}}>
+          High Score: {highScore}
+        </div>
       </div>
-      <div style={{
-        marginTop: '0.6rem',
-        color: '#b8005c',
-        fontSize: '1.1rem',
-        fontWeight: 600,
-        textShadow: '0 0 4px #fff0f8',
-      }}>
-        High Score: {highScore}
-      </div>
-      <div style={{ fontSize: '1rem', color: '#888', marginTop: 4 }}>Press Space or Tap to Jump</div>
-      <div style={{ fontSize: '1rem', color: '#888', marginTop: 4 }}>Press Esc to exit</div>
     </div>
   );
 }
@@ -395,6 +395,9 @@ export default function Room() {
   const [showAfterImage, setShowAfterImage] = useState(false);
   const [showAllGallery, setShowAllGallery] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState('Mandy is thinking');
+  const [messageOpacity, setMessageOpacity] = useState(1);
+  const [progress, setProgress] = useState(0);
 
   // Check if device is mobile
   useEffect(() => {
@@ -407,6 +410,62 @@ export default function Room() {
     
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // Progress bar animation
+  useEffect(() => {
+    const startTime = Date.now();
+    const estimatedDuration = 30000; // 30 seconds estimated
+    let isDone = false;
+    
+    const updateProgress = () => {
+      const elapsed = Date.now() - startTime;
+      // Start faster and then slow down - more responsive initial progress
+      const progressRate = Math.min(elapsed / 5000, 1); // First 5 seconds fill quickly
+      const remainingProgress = Math.min((elapsed - 5000) / (estimatedDuration - 5000), 1); // Rest fills gradually
+      const newProgress = Math.min(
+        (progressRate * 30) + (Math.max(0, remainingProgress) * 65), 
+        95
+      );
+      if (!isDone) {
+        setProgress(newProgress);
+        
+        if (newProgress < 95) {
+          setTimeout(updateProgress, 100); // Update every 100ms for smoother progress
+        }
+      }
+    };
+    
+    updateProgress(); // Start immediately
+    if (!loading) {
+      isDone = true;
+      setProgress(100);
+    }
+  }, [loading]);
+
+  // Cycle through loading messages with fade transitions
+  useEffect(() => {
+    if (!loading) return;
+    
+    const messages = ['Mandy is analyzing...', 'Mandy is decorating...', 'Mandy is transforming...'];
+    let currentIndex = 0;
+    
+    const cycleMessage = () => {
+      // Fade out
+      setMessageOpacity(0);
+      
+      // Change message after fade out
+      setTimeout(() => {
+        currentIndex = (currentIndex + 1) % messages.length;
+        setLoadingMessage(messages[currentIndex]);
+        // Fade in
+        setMessageOpacity(1);
+      }, 300); // Wait for fade out to complete
+    };
+    
+    const interval = setInterval(cycleMessage, 6000); // Change message every 6 seconds
+    
+    return () => clearInterval(interval);
+  }, [loading]);
 
   // Apply default theme colors
   useEffect(() => {
@@ -470,6 +529,8 @@ export default function Room() {
     }
     setShowMinigame(true);
     setLoading(true)
+    setAfterImage(null) // Clear the previously generated image
+    setShowMain(false) // Reset the show main state
     const formData = new FormData()
     formData.append('image', image)
     const uploadRes = await fetch(`https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API_KEY}`, {
@@ -1499,9 +1560,36 @@ export default function Room() {
                         fontWeight: 700,
                         letterSpacing: '1px',
                         textShadow: '0 0 4px #fff0f8',
+                        opacity: messageOpacity,
+                        transition: 'opacity 0.3s ease-in-out',
                       }}>
-                        Photo uploaded! Ready to transform
+                        {loading ? (
+                          <span style={{ opacity: messageOpacity, transition: 'opacity 0.3s ease-in-out' }}>
+                            {loadingMessage}
+                          </span>
+                        ) : (
+                          'Photo uploaded! Ready to transform'
+                        )}
                       </div>
+                      {loading && (
+                        <div style={{
+                          width: '100%',
+                          marginTop: '1rem',
+                          background: '#ffe0f2',
+                          borderRadius: '8px',
+                          overflow: 'hidden',
+                          border: '2px solid #ffd6f7',
+                        }}>
+                          <div style={{
+                            width: `${progress}%`,
+                            height: '8px',
+                            background: 'linear-gradient(90deg, #f91b8f 0%, #ff69b4 100%)',
+                            borderRadius: '6px',
+                            transition: 'width 0.3s ease-out',
+                            boxShadow: '0 2px 4px rgba(249, 27, 143, 0.3)',
+                          }} />
+                        </div>
+                      )}
                     </div>
                   ) : (
                     <>
