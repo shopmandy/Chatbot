@@ -1,12 +1,17 @@
 import '@/styles/globals.css'
-import Link from 'next/link'
+import {
+  ClerkProvider,
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+  useUser,
+} from '@clerk/nextjs'
+import { Home, LogIn, MessageCircle, ShoppingBag, Sparkles } from 'lucide-react'
 import type { AppProps } from 'next/app'
-import { ClerkProvider } from '@clerk/nextjs'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { MessageCircle, Home, Sparkles, ShoppingBag, LogIn } from 'lucide-react'
-import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs'
-import { useState, useEffect } from 'react'
-import { useUser } from '@clerk/nextjs'
+import { useEffect, useState } from 'react'
 
 const navItems = [
   { id: 'home', label: 'Home', icon: Home, path: '/' },
@@ -56,7 +61,7 @@ export default function App({ Component, pageProps }: AppProps) {
       ) {
         wrapperRouter.push('/onboarding/step1')
       }
-    }, [wrapperRouter.pathname, isLoaded, user])
+    }, [wrapperRouter.pathname, isLoaded, user, wrapperRouter])
 
     return <>{children}</>
   }
@@ -135,7 +140,7 @@ export default function App({ Component, pageProps }: AppProps) {
                   letterSpacing: '0.18em',
                 }}
               >
-                MANDY'S
+                MANDY&apos;S
               </h2>
               <p
                 style={{
@@ -169,7 +174,7 @@ export default function App({ Component, pageProps }: AppProps) {
                       onMouseLeave={() => setHoveredTab(null)}
                       className={`
                       relative px-6 py-4 rounded-3xl border-2 font-bold text-sm
-                      transition-all duration-300 min-h-[80px] max-w-[220px] w-full mx-auto
+                      transition-transform duration-150 min-h-[80px] max-w-[220px] w-full mx-auto
                       ${
                         isActive
                           ? 'bg-gradient-to-br from-pink-400 via-pink-500 to-pink-600 text-white border-pink-300 transform scale-105'
@@ -220,7 +225,7 @@ export default function App({ Component, pageProps }: AppProps) {
                     onMouseLeave={() => setHoveredTab(null)}
                     className={`
                     relative px-6 py-4 rounded-3xl border-2 font-bold text-sm
-                    transition-all duration-300 min-h-[80px] max-w-[220px] w-full mx-auto
+                    transition-transform duration-150 min-h-[80px] max-w-[220px] w-full mx-auto
                     ${
                       isActive
                         ? 'bg-gradient-to-br from-pink-400 via-pink-500 to-pink-600 text-white border-pink-300 transform scale-105'
