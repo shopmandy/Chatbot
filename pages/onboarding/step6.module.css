@@ -1,0 +1,206 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(12px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  background: #f0e6ff; /* Light purple background */
+  border: 3px solid #590046; /* Dark purple border */
+  max-width: 800px;
+  height: 600px;
+  width: 90%;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  font-family: 'VT323', monospace; /* Pixelated font */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Header styles */
+.header {
+  background: #e11e74; /* Bright pink header */
+  border-bottom: 2px solid #590046;
+  padding: 0;
+}
+
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+}
+
+.headerTitle {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.windowControls {
+  display: flex;
+  gap: 8px;
+}
+
+.windowButton {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  transition: background-color 0.2s;
+}
+
+.windowButton:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Progress bar */
+.progressBar {
+  height: 4px;
+  background: #f9a3cc; /* Light pink background */
+  position: relative;
+}
+
+.progressFill {
+  height: 100%;
+  width: 100%; /* 6/6 for step 6 - complete */
+  background: #e11e74; /* Bright pink fill */
+  transition: width 0.3s ease;
+}
+
+/* Content styles */
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.celebrationIcon {
+  font-size: 64px;
+  margin-bottom: 30px;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+}
+
+.mainTitle {
+  font-size: 32px;
+  font-weight: bold;
+  color: #590046; /* Dark purple */
+  margin-bottom: 20px;
+  line-height: 1.2;
+  letter-spacing: 1px;
+}
+
+.description {
+  font-size: 18px;
+  color: #590046;
+  margin-bottom: 30px;
+  line-height: 1.4;
+  max-width: 500px;
+}
+
+/* Button styles */
+.buttonGroup {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  gap: 20px;
+  border-top: 2px solid #590046;
+  background: #f0e6ff;
+}
+
+.backButton,
+.completeButton {
+  flex: 1;
+  padding: 12px 24px;
+  font-size: 18px;
+  font-weight: bold;
+  border: 3px solid #e11e74;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'VT323', monospace;
+  transition: all 0.2s;
+  letter-spacing: 1px;
+}
+
+.backButton {
+  background: #f9a3cc; /* Light pink background */
+  color: white;
+}
+
+.backButton:hover {
+  background: #e11e74;
+  transform: translateY(-2px);
+}
+
+.completeButton {
+  background: #e11e74; /* Bright pink background */
+  color: white;
+  flex: 1.5; /* Make the complete button slightly larger */
+}
+
+.completeButton:hover {
+  background: #c71585;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(225, 30, 116, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .modal {
+    height: 90vh;
+    width: 95%;
+  }
+
+  .mainTitle {
+    font-size: 24px;
+  }
+
+  .celebrationIcon {
+    font-size: 48px;
+  }
+
+  .content {
+    padding: 30px 15px;
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+  }
+
+  .completeButton {
+    flex: 1;
+  }
+}
