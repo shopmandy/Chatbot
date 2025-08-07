@@ -1,6 +1,6 @@
 import { Heart } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
-import styles from '../../about.module.css'
+import styles from '../../pages/about.module.css'
 
 export function InstagramSection() {
   const [slideWidth, setSlideWidth] = useState(300)
