@@ -1,7 +1,7 @@
 /* Page Container */
 .pageContainer {
   min-height: 100vh;
-  background: transparent;
+  background: linear-gradient(135deg, #ffe0f2 100%);
   font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace;
   position: relative;
 }
@@ -31,8 +31,7 @@
 /* Header */
 .header {
   background: transparent;
-  backdrop-filter: none;
-  box-shadow: none;
+  backdrop-filter: blur(10px);
   top: 0;
   z-index: 100;
 }
