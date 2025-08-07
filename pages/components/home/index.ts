@@ -1,0 +1,6 @@
+export { AboutSection } from './AboutSection'
+export { CTASection } from './CTASection'
+export { FounderSection } from './FounderSection'
+export { HeroSection } from './HeroSection'
+export { HomePage } from './HomePage'
+export { InstagramSection } from './InstagramSection'
