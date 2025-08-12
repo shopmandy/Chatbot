@@ -8,6 +8,7 @@ import {
   Home,
   Hammer,
   ToyBrick,
+  Search,
 } from 'lucide-react'
 
 // --- Simple Dino Game Minigame Modal ---
@@ -613,8 +614,16 @@ export default function Room() {
         }),
       })
       const productData = await productResponse.json()
+      console.log('Amazon API response:', productData)
       if (productData.success && productData.products) {
+        console.log(
+          'First product sample:',
+          productData.products[0]
+        )
         setAmazonProducts(productData.products)
+        // Removed popup alert - products will show in the section below
+      } else {
+        console.log('No products found or API error:', productData)
       }
     } catch (error) {
       console.log('Amazon products search failed:', error)
@@ -725,7 +734,7 @@ export default function Room() {
             display: 'flex',
             justifyContent: 'center',
             gap: '1.5rem',
-            marginBottom: '1rem',
+            marginBottom: '1.6rem',
             flexWrap: 'wrap',
           }}
         >
@@ -877,6 +886,39 @@ export default function Room() {
           </div>
         </div>
 
+        {/* Start Your Transformation Button */}
+        <div className="flex justify-center mt-8 mb-8">
+          <button
+            className="relative px-16 py-6 w-full max-w-md bg-gradient-to-br from-pink-400 via-pink-500 to-pink-600 text-white font-mono text-xl font-extrabold border-2 border-pink-400 rounded-3xl cursor-pointer tracking-wide transition-all duration-150 scale-105 overflow-hidden shadow-lg hover:scale-108 hover:shadow-xl"
+            onClick={() => {
+              // Scroll to the two windows section
+              const windowsSection = document.querySelector('#upload-section')
+              if (windowsSection) {
+                windowsSection.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start',
+                })
+              }
+            }}
+          >
+            {/* Highlight overlay for 3D effect */}
+            <div className="absolute top-2 left-2 right-2 h-4 rounded-t-2xl bg-gradient-to-r from-white/20 to-white/10 pointer-events-none" />
+            
+            {/* Inner glow for active state */}
+            <div className="absolute inset-3 rounded-2xl bg-white/5 animate-pulse pointer-events-none" />
+            
+            {/* Sparkles icon */}
+            <span className="absolute top-2.5 left-4 z-10 flex items-center">
+              <Sparkles className="w-7 h-7 text-white drop-shadow-sm" />
+            </span>
+            
+            {/* Button text */}
+            <span className="relative z-10 text-shadow-sm">
+              Start Your Transformation
+            </span>
+          </button>
+        </div>
+
         {/* Subheader section */}
         <div
           style={{
@@ -895,7 +937,7 @@ export default function Room() {
             style={{
               flex: 1,
               minWidth: '340px',
-              background: '#ffc9ea',
+              background:'linear-gradient(135deg, rgba(255, 224, 242, 0.9) 0%, rgba(250, 238, 246, 0.9) 100%)',
               border: '2.5px solid #f91b8f',
               borderRadius: '18px',
               boxShadow:
@@ -917,13 +959,13 @@ export default function Room() {
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                background: '#f91b84',
+                background: 'linear-gradient(135deg, rgba(255, 200, 230, 0.95) 0%, rgba(255, 220, 174, 0.95) 100%)',
                 borderBottom: '2px solid #f91b8f',
                 padding: '8px 20px',
                 fontFamily: 'Roboto Mono, monospace',
                 fontSize: '16px',
                 fontWeight: 600,
-                color: '#ffffff',
+                color: '#f91b8f',
                 boxShadow: '0 2px 12px rgba(255, 105, 180, 0.15)',
               }}
             >
@@ -1001,7 +1043,7 @@ export default function Room() {
                     >
                       <span
                         style={{
-                          background: '#ffa6d4',
+                          background: '#ffb9e2',
                           color: '#f91b8f',
                           fontSize: '0.7rem',
                           fontWeight: 700,
@@ -1083,9 +1125,9 @@ export default function Room() {
                     alignItems: 'center',
                     marginTop: '0.8rem',
                     padding: '0.8rem',
-                    background: '#ffc9ea',
+                    background: 'linear-gradient(135deg, rgba(255, 200, 230, 0.95) 0%, rgba(255, 220, 174, 0.95) 100%)',
                     borderRadius: '16px',
-                    border: '2px solid #f91b8f',
+                    border: '2px solid#f91b8f',
                     boxShadow: '0 4px 16px rgba(249, 27, 143, 0.1)',
                     width: '100%',
                     maxWidth: '900px',
@@ -1205,67 +1247,6 @@ export default function Room() {
           </section>
         </div>
 
-        {/* Start Your Transformation Button */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            marginTop: '0.2rem',
-            marginBottom: '2rem',
-          }}
-        >
-          <button
-            style={{
-              padding: '1.5rem 3rem',
-              background: '#f91b8f',
-              color: '#fff',
-              fontFamily: 'Roboto Mono, monospace',
-              fontSize: '1.3rem',
-              fontWeight: 800,
-              border: 'none',
-              borderRadius: '16px',
-              boxShadow: '0 8px 32px #ffd6f7',
-              cursor: 'pointer',
-              letterSpacing: '1px',
-              transition: 'all 0.3s ease',
-              position: 'relative',
-              overflow: 'hidden',
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.transform = 'translateY(-4px) scale(1.05)'
-              e.currentTarget.style.boxShadow = '0 12px 40px #ffd6f7'
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.transform = 'translateY(0) scale(1)'
-              e.currentTarget.style.boxShadow = '0 8px 32px #ffd6f7'
-            }}
-            onClick={() => {
-              // Scroll to the two windows section
-              const windowsSection = document.querySelector('#upload-section')
-              if (windowsSection) {
-                windowsSection.scrollIntoView({
-                  behavior: 'smooth',
-                  block: 'start',
-                })
-              }
-            }}
-          >
-            <span
-              style={{
-                position: 'absolute',
-                top: 10,
-                left: 16,
-                zIndex: 2,
-                display: 'flex',
-                alignItems: 'center',
-              }}
-            >
-              <Sparkles style={{ color: '#fff6fa', width: 28, height: 28 }} />
-            </span>
-            Start Your Transformation
-          </button>
-        </div>
-
         <div
           id="upload-section"
           style={{
@@ -1287,7 +1268,7 @@ export default function Room() {
               border: '2.5px solid #f91b8f',
               borderRadius: '18px',
               boxShadow:
-                '0 4px 24px #ffb6e6, 0 1.5px 0 0 #fff inset, 0 0 0 4px #ffe0f2 inset, 0 8px 32px rgba(182,182,255,0.13)',
+                '0 4px 24px #ffb6e6, 0 8px 32px rgba(182,182,255,0.13)',
               outlineOffset: '-6px',
               position: 'relative',
               transition: 'box-shadow 0.2s',
@@ -1305,13 +1286,13 @@ export default function Room() {
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                background: '#f91b84',
+                background: 'linear-gradient(135deg, rgba(255, 200, 230, 0.95) 0%, #ffdcae 100%)',
                 borderBottom: '2px solid #f91b8f',
                 padding: '8px 20px',
                 fontFamily: 'Roboto Mono, monospace',
                 fontSize: '16px',
                 fontWeight: 600,
-                color: '#ffffff',
+                color: '#f91b8f',
                 boxShadow: '0 2px 12px rgba(255, 105, 180, 0.15)',
               }}
             >
@@ -1599,103 +1580,83 @@ export default function Room() {
                   </span>
                 ))}
               </div>
-              <button
-                style={{
-                  width: '100%',
-                  padding: '1.2rem 0',
-                  marginTop: '0.5rem',
-                  marginBottom: '1.5rem',
-                  background: '#f91b8f',
-                  color: '#fff',
-                  fontFamily: 'Roboto Mono, monospace',
-                  fontSize: '1.2rem',
-                  fontWeight: 800,
-                  border: 'none',
-                  borderRadius: '12px',
-                  boxShadow: '0 4px 24px #ffd6f7',
-                  cursor: 'pointer',
-                  letterSpacing: '0.9px',
-                  transition: 'transform 0.18s cubic-bezier(.4,2,.6,1)',
-                  position: 'relative',
-                  overflow: 'hidden',
-                }}
-                onMouseEnter={e =>
-                  (e.currentTarget.style.transform = 'scale(1.07)')
-                }
-                onMouseLeave={e =>
-                  (e.currentTarget.style.transform = 'scale(1)')
-                }
-                onClick={handleGenerate}
-                disabled={loading}
-              >
-                <span
-                  style={{
-                    position: 'absolute',
-                    top: 10,
-                    left: 16,
-                    zIndex: 2,
-                    display: 'flex',
-                    alignItems: 'center',
-                  }}
+              <div className="flex justify-center mt-8 mb-8">
+                <button
+                  className="relative px-12 py-6 w-full max-w-md bg-gradient-to-br from-pink-400 via-pink-500 to-pink-600 text-white font-mono text-xl font-extrabold border-2 border-pink-400 rounded-3xl cursor-pointer tracking-wide transition-all duration-150 scale-105 overflow-hidden shadow-lg hover:scale-108 hover:shadow-xl"
+                  onMouseEnter={e =>
+                    (e.currentTarget.style.transform = 'scale(1.07)')
+                  }
+                  onMouseLeave={e =>
+                    (e.currentTarget.style.transform = 'scale(1)')
+                  }
+                  onClick={handleGenerate}
+                  disabled={loading}
                 >
-                  <Sparkles
-                    style={{ color: '#fff6fa', width: 26, height: 26 }}
-                  />
-                </span>
-                {loading ? (
-                  <span>
-                    Transforming
-                    <span
-                      style={{
-                        display: 'inline-block',
-                        width: '1.2em',
-                        textAlign: 'left',
-                      }}
-                    >
-                      <span
-                        style={{
-                          animation: 'dot1 1.5s infinite',
-                          display: 'inline',
-                        }}
-                      >
-                        .
-                      </span>
-                      <span
-                        style={{
-                          animation: 'dot2 1.5s infinite',
-                          display: 'inline',
-                        }}
-                      >
-                        .
-                      </span>
-                      <span
-                        style={{
-                          animation: 'dot3 1.5s infinite',
-                          display: 'inline',
-                        }}
-                      >
-                        .
-                      </span>
-                    </span>
-                    <style>{`
-                      @keyframes dot1 {
-                        0%, 20% { opacity: 0; }
-                        40%, 100% { opacity: 1; }
-                      }
-                      @keyframes dot2 {
-                        0%, 40% { opacity: 0; }
-                        60%, 100% { opacity: 1; }
-                      }
-                      @keyframes dot3 {
-                        0%, 60% { opacity: 0; }
-                        80%, 100% { opacity: 1; }
-                      }
-                    `}</style>
+                  {/* Highlight overlay for 3D effect */}
+                  <div className="absolute top-2 left-2 right-2 h-4 rounded-t-2xl bg-gradient-to-r from-white/20 to-white/10 pointer-events-none" />
+            
+                  {/* Inner glow for active state */}
+                  <div className="absolute inset-3 rounded-2xl bg-white/5 animate-pulse pointer-events-none" />
+                  
+                  {/* Sparkles icon */}
+                  <span className="absolute top-2.5 left-4 z-10 flex items-center">
+                    <Sparkles className="w-7 h-7 text-white drop-shadow-sm" />
                   </span>
-                ) : (
-                  'Generate my room!'
-                )}
-              </button>
+                  {loading ? (
+                    <span>
+                      Transforming
+                      <span
+                        style={{
+                          display: 'inline-block',
+                          width: '1.2em',
+                          textAlign: 'left',
+                        }}
+                      >
+                        <span
+                          style={{
+                            animation: 'dot1 1.5s infinite',
+                            display: 'inline',
+                          }}
+                        >
+                          .
+                        </span>
+                        <span
+                          style={{
+                            animation: 'dot2 1.5s infinite',
+                            display: 'inline',
+                          }}
+                        >
+                          .
+                        </span>
+                        <span
+                          style={{
+                            animation: 'dot3 1.5s infinite',
+                            display: 'inline',
+                          }}
+                        >
+                          .
+                        </span>
+                      </span>
+                      <style>{`
+                        @keyframes dot1 {
+                          0%, 20% { opacity: 0; }
+                          40%, 100% { opacity: 1; }
+                        }
+                        @keyframes dot2 {
+                          0%, 40% { opacity: 0; }
+                          60%, 100% { opacity: 1; }
+                        }
+                        @keyframes dot3 {
+                          0%, 60% { opacity: 0; }
+                          80%, 100% { opacity: 1; }
+                        }
+                      `}</style>
+                    </span>
+                  ) : (
+                    'Generate my room!'
+                  )}
+                </button>
+              </div>
             </div>
           </div>
           {/* Right Window */}
@@ -1707,7 +1668,7 @@ export default function Room() {
               border: '2.5px solid #f91b8f',
               borderRadius: '18px',
               boxShadow:
-                '0 4px 24px #ffb6e6, 0 1.5px 0 0 #fff inset, 0 0 0 4px #ffe0f2 inset, 0 8px 32px rgba(182,182,255,0.13)',
+                '0 4px 24px #ffb6e6, 0 8px 32px rgba(182,182,255,0.13)',
               outlineOffset: '-6px',
               position: 'relative',
               transition: 'box-shadow 0.2s',
@@ -1726,13 +1687,13 @@ export default function Room() {
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                background: '#f91b84',
+                background: 'linear-gradient(135deg, rgba(255, 200, 230, 0.95) 0%, #ffdcae 100%)',
                 borderBottom: '2px solid #f91b8f',
                 padding: '8px 20px',
                 fontFamily: 'Roboto Mono, monospace',
                 fontSize: '16px',
                 fontWeight: 600,
-                color: '#ffffff',
+                color: '#f91b8f',
                 boxShadow: '0 2px 12px rgba(255, 105, 180, 0.15)',
               }}
             >
@@ -2006,54 +1967,27 @@ export default function Room() {
                   </div>
                 </div>
               )}
-              <div
-                style={{
-                  width: '100%',
-                  marginTop: '2.5rem',
-                  display: 'flex',
-                  justifyContent: 'center',
-                }}
-              >
+              <div className="flex justify-center mt-8 mb-8">
                 <button
-                  style={{
-                    width: '100%',
-                    maxWidth: '100%',
-                    padding: '1.2rem 0',
-                    background: '#f91b8f',
-                    color: '#fff',
-                    fontFamily: 'Roboto Mono, monospace',
-                    fontSize: '1.2rem',
-                    fontWeight: 800,
-                    border: 'none',
-                    borderRadius: '12px',
-                    boxShadow: '0 4px 24px #ffd6f7',
-                    cursor: 'pointer',
-                    letterSpacing: '0.9px',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    transition: 'transform 0.18s cubic-bezier(.4,2,.6,1)',
-                  }}
+                  className="relative px-12 py-6 w-full max-w-md bg-gradient-to-br from-pink-400 via-pink-500 to-pink-600 text-white font-mono text-xl font-extrabold border-2 border-pink-400 rounded-3xl cursor-pointer tracking-wide transition-all duration-150 scale-105 overflow-hidden shadow-lg hover:scale-108 hover:shadow-xl"
                   onMouseEnter={e =>
                     (e.currentTarget.style.transform = 'scale(1.07)')
                   }
                   onMouseLeave={e =>
                     (e.currentTarget.style.transform = 'scale(1)')
                   }
-                  onClick={handleDownload}
+                  onClick={handleGenerate}
+                  disabled={loading}
                 >
-                  <span
-                    style={{
-                      position: 'absolute',
-                      top: 10,
-                      left: 16,
-                      zIndex: 2,
-                      display: 'flex',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <Download
-                      style={{ color: '#fff6fa', width: 26, height: 26 }}
-                    />
+                  {/* Highlight overlay for 3D effect */}
+                  <div className="absolute top-2 left-2 right-2 h-4 rounded-t-2xl bg-gradient-to-r from-white/20 to-white/10 pointer-events-none" />
+            
+                  {/* Inner glow for active state */}
+                  <div className="absolute inset-3 rounded-2xl bg-white/5 animate-pulse pointer-events-none" />
+                  
+                  {/* Sparkles icon */}
+                  <span className="absolute top-2.5 left-4 z-10 flex items-center">
+                    <Download className="w-7 h-7 text-white drop-shadow-sm" />
                   </span>
                   Download
                 </button>
@@ -2069,25 +2003,7 @@ export default function Room() {
                 }}
               >
                 <button
-                  style={{
-                    width: '100%',
-                    maxWidth: '100%',
-                    padding: '1.2rem 0',
-                    background:
-                      'linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%)',
-                    color: '#fff',
-                    fontFamily: 'Roboto Mono, monospace',
-                    fontSize: '1.2rem',
-                    fontWeight: 800,
-                    border: 'none',
-                    borderRadius: '12px',
-                    boxShadow: '0 4px 24px rgba(139, 92, 246, 0.3)',
-                    cursor: 'pointer',
-                    letterSpacing: '0.9px',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    transition: 'transform 0.18s cubic-bezier(.4,2,.6,1)',
-                  }}
+                  className="relative px-16 py-6 w-full max-w-md bg-gradient-to-br from-[#ffdcae] via-[#ffd4a0] to-[#ffc890] text-[#f91b8f] font-mono text-xl font-extrabold rounded-3xl cursor-pointer tracking-wide transition-all duration-150 scale-105 overflow-hidden shadow-lg hover:scale-108 hover:shadow-xl"
                   onMouseEnter={e =>
                     (e.currentTarget.style.transform = 'scale(1.07)')
                   }
@@ -2136,19 +2052,21 @@ export default function Room() {
                     }
                   }}
                 >
-                  <span
-                    style={{
-                      position: 'absolute',
-                      top: 10,
-                      left: 16,
-                      zIndex: 2,
-                      display: 'flex',
-                      alignItems: 'center',
-                    }}
-                  >
-                    🔍
+                  {/* Highlight overlay for 3D effect */}
+                  <div className="absolute top-2 left-2 right-2 h-4 rounded-t-2xl bg-gradient-to-r from-white/20 to-white/10 pointer-events-none" />
+                  
+                  {/* Inner glow for active state */}
+                  <div className="absolute inset-3 rounded-2xl bg-white/5 animate-pulse pointer-events-none" />
+                  
+                  {/* Search icon */}
+                  <span className="absolute top-2.5 left-4 z-10 flex items-center">
+                    <Search className="w-7 h-7 text-[#f91b8f] drop-shadow-sm" />
                   </span>
-                  Find Products
+                  
+                  {/* Button text */}
+                  <span className="relative z-10 text-shadow-sm">
+                    Find Products
+                  </span>
                 </button>
               </div>
             </div>
