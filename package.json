@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "populate-kb": "tsx scripts/populate-knowledge-base.ts",
+    "test-rag": "tsx scripts/test-rag.ts"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.23.2",
@@ -16,6 +18,7 @@
     "@upstash/redis": "^1.35.1",
     "aws4": "^1.13.2",
     "crypto-js": "^4.2.0",
+    "dotenv": "^17.2.1",
     "formidable": "^3.5.4",
     "framer-motion": "^12.19.2",
     "lucide": "^0.525.0",
@@ -45,6 +48,7 @@
     "eslint-config-prettier": "^10.1.8",
     "prettier": "^3.6.2",
     "tailwindcss": "^4",
+    "tsx": "^4.7.0",
     "typescript": "^5"
   }
 }
