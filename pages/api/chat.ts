@@ -2,6 +2,7 @@ import { OpenAI } from 'openai'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import formidable from 'formidable'
 import type { File } from 'formidable'
+import { RAGProcessor } from '@/lib/ragProcessor'
 
 type Message = {
   role: 'user' | 'assistant' | 'system'
@@ -12,6 +13,8 @@ type Message = {
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 })
+
+const ragProcessor = new RAGProcessor()
 
 export const config = {
   api: {
@@ -66,22 +69,39 @@ export default async function handler(
       return res.status(400).json({ error: 'No messages provided' })
     }
 
-    // System prompt with branding & personality (merged from feature/chatbot)
+    // Base system prompt with branding & personality
+    const baseSystemPrompt = 'You are a fun, confident, and helpful DIY assistant for ShopMandy, a tools website for women. ' +
+      'You help women tackle home projects, crafts, and decorating with clear, concise, jargon-free guidance. ' +
+      'Your tone is playful, feminine, and empowering — always encouraging creativity and capability. ' +
+      'Match the bold, colorful aesthetic of ShopMandy in your responses: energetic, expressive, and full of personality. ' +
+      'Give step-by-step advice, clever shortcuts, and aesthetic tips (like styling, materials, and color choices). ' +
+      'When relevant, highlight tools from the Hot Girl Toolkit: hammer, wrench, screwdriver and bits, pliers, level, and tape measure. ' +
+      'Use markdown formatting, lists, casual expressions, and emojis to keep answers engaging and on-brand.' +
+      'If an image is provided, first visually analyze it and explain what you see in simple terms.' +
+      'Always mention safety tips for any risky task.' +
+      'If user input is ambiguous, ask clarifying questions before giving advice.' +
+      'Prioritize affordable, beginner-friendly solutions unless the user asks for professional-level advice.' +
+      'IMPORTANT: Use markdown headings, bullet points, and numbered lists to break up your response. Add extra line breaks between steps and sections. Separate each step or section clearly. Avoid large blocks of text.'
+
+    // Process RAG query to get relevant context
+    const lastUserMessage = messages[messages.length - 1]
+    let enhancedSystemPrompt = baseSystemPrompt
+    
+    if (lastUserMessage.role === 'user' && lastUserMessage.content) {
+      try {
+        const ragContext = await ragProcessor.processQuery(lastUserMessage.content)
+        enhancedSystemPrompt = await ragProcessor.enhanceSystemPrompt(baseSystemPrompt, ragContext)
+        
+        // Log RAG context for debugging
+        console.log('RAG Context Summary:', ragProcessor.getContextSummary(ragContext))
+      } catch (error) {
+        console.error('RAG processing failed, using base prompt:', error)
+      }
+    }
+
     const systemPrompt = {
       role: 'system',
-      content:
-        'You are a fun, confident, and helpful DIY assistant for ShopMandy, a tools website for women. ' +
-        'You help women tackle home projects, crafts, and decorating with clear, concise, jargon-free guidance. ' +
-        'Your tone is playful, feminine, and empowering — always encouraging creativity and capability. ' +
-        'Match the bold, colorful aesthetic of ShopMandy in your responses: energetic, expressive, and full of personality. ' +
-        'Give step-by-step advice, clever shortcuts, and aesthetic tips (like styling, materials, and color choices). ' +
-        'When relevant, highlight tools from the Hot Girl Toolkit: hammer, wrench, screwdriver and bits, pliers, level, and tape measure. ' +
-        'Use markdown formatting, lists, casual expressions, and emojis to keep answers engaging and on-brand.' +
-        'If an image is provided, first visually analyze it and explain what you see in simple terms.' +
-        'Always mention safety tips for any risky task.' +
-        'If user input is ambiguous, ask clarifying questions before giving advice.' +
-        'Prioritize affordable, beginner-friendly solutions unless the user asks for professional-level advice.' +
-        'IMPORTANT: Use markdown headings, bullet points, and numbered lists to break up your response. Add extra line breaks between steps and sections. Separate each step or section clearly. Avoid large blocks of text.',
+      content: enhancedSystemPrompt,
     }
 
     // Prepare messages for OpenAI API
