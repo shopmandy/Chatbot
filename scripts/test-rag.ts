@@ -26,34 +26,49 @@ This is a test document to verify the RAG system is working correctly. It contai
       source: 'Test Source',
       title: 'Test Document',
       category: 'Testing',
-      tags: ['test', 'rag', 'verification']
+      tags: ['test', 'rag', 'verification'],
     })
     console.log(`✅ Test document added with ID: ${testId}\n`)
 
     // Test 3: Test similarity search
     console.log('3. Testing similarity search...')
-    const searchResults = await vectorStore.searchSimilar('safety guidelines', 3, 0.5)
+    const searchResults = await vectorStore.searchSimilar(
+      'safety guidelines',
+      3,
+      0.5
+    )
     console.log(`✅ Found ${searchResults.length} similar documents`)
     searchResults.forEach((result, index) => {
-      console.log(`   ${index + 1}. ${result.metadata.title} (${(result.similarity * 100).toFixed(1)}% match)`)
+      console.log(
+        `   ${index + 1}. ${result.metadata.title} (${(result.similarity * 100).toFixed(1)}% match)`
+      )
     })
     console.log()
 
     // Test 4: Test RAG processor
     console.log('4. Testing RAG processor...')
     const ragProcessor = new RAGProcessor()
-    const ragContext = await ragProcessor.processQuery('What safety equipment should I use?')
-    
+    const ragContext = await ragProcessor.processQuery(
+      'What safety equipment should I use?'
+    )
+
     console.log(`✅ RAG context processed:`)
     console.log(`   Query: ${ragContext.query}`)
-    console.log(`   Retrieved documents: ${ragContext.retrievedDocuments.length}`)
-    console.log(`   Context length: ${ragContext.combinedContext.length} characters`)
+    console.log(
+      `   Retrieved documents: ${ragContext.retrievedDocuments.length}`
+    )
+    console.log(
+      `   Context length: ${ragContext.combinedContext.length} characters`
+    )
     console.log()
 
     // Test 5: Test enhanced system prompt
     console.log('5. Testing enhanced system prompt...')
     const basePrompt = 'You are a helpful DIY assistant.'
-    const enhancedPrompt = await ragProcessor.enhanceSystemPrompt(basePrompt, ragContext)
+    const enhancedPrompt = await ragProcessor.enhanceSystemPrompt(
+      basePrompt,
+      ragContext
+    )
     console.log(`✅ System prompt enhanced:`)
     console.log(`   Base length: ${basePrompt.length} characters`)
     console.log(`   Enhanced length: ${enhancedPrompt.length} characters`)
@@ -64,7 +79,9 @@ This is a test document to verify the RAG system is working correctly. It contai
     const kbResults = await ragProcessor.searchKnowledgeBase('tools safety', 5)
     console.log(`✅ Knowledge base search returned ${kbResults.length} results`)
     kbResults.forEach((result, index) => {
-      console.log(`   ${index + 1}. ${result.metadata.title || result.metadata.source}`)
+      console.log(
+        `   ${index + 1}. ${result.metadata.title || result.metadata.source}`
+      )
     })
     console.log()
 
@@ -90,5 +107,5 @@ This is a test document to verify the RAG system is working correctly. It contai
 if (require.main === module) {
   testRAGSystem()
 }
+export { testRAGSystem }
 
-export { testRAGSystem } 
