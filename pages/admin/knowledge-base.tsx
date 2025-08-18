@@ -21,6 +21,7 @@ export default function KnowledgeBaseAdmin() {
     title: '',
     category: '',
     tags: '',
+
   })
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState<KnowledgeBaseItem[]>([])
@@ -91,6 +92,7 @@ export default function KnowledgeBaseAdmin() {
       const response = await fetch(
         `/api/knowledge-base?query=${encodeURIComponent(searchQuery)}&limit=10`
       )
+
       const data = await response.json()
 
       if (data.success) {
@@ -116,6 +118,7 @@ export default function KnowledgeBaseAdmin() {
         <title>Knowledge Base Admin - ShopMandy</title>
       </Head>
 
+
       <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50 p-6">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-4xl font-bold text-gray-800 mb-8 text-center">
@@ -140,6 +143,7 @@ export default function KnowledgeBaseAdmin() {
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">
                 ➕ Add New Content
               </h2>
+
 
               <div className="space-y-4">
                 <div>
@@ -172,6 +176,7 @@ export default function KnowledgeBaseAdmin() {
                       placeholder="e.g., ShopMandy Guide"
                     />
                   </div>
+
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">

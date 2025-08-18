@@ -22,7 +22,6 @@ export async function generateEmbedding(text: string): Promise<number[]> {
       model: 'text-embedding-3-small',
       input: text,
     })
-
     return response.data[0].embedding
   } catch (error) {
     console.error('Error generating embedding:', error)
@@ -36,13 +35,13 @@ export async function generateEmbeddings(texts: string[]): Promise<number[][]> {
       model: 'text-embedding-3-small',
       input: texts,
     })
-
     return response.data.map(item => item.embedding)
   } catch (error) {
     console.error('Error generating embeddings:', error)
     throw new Error('Failed to generate embeddings')
   }
 }
+
 
 export function chunkText(
   text: string,
@@ -56,13 +55,13 @@ export function chunkText(
     const end = Math.min(start + chunkSize, text.length)
     let chunk = text.slice(start, end)
 
+
     // Try to break at sentence boundaries
     if (end < text.length) {
       const lastPeriod = chunk.lastIndexOf('.')
       const lastExclamation = chunk.lastIndexOf('!')
       const lastQuestion = chunk.lastIndexOf('?')
       const lastBreak = Math.max(lastPeriod, lastExclamation, lastQuestion)
-
       if (lastBreak > chunkSize * 0.7) {
         chunk = chunk.slice(0, lastBreak + 1)
         start = start + lastBreak + 1
@@ -83,3 +82,4 @@ export function chunkText(
 
   return chunks
 }
+

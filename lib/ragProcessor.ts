@@ -12,6 +12,7 @@ export class RAGProcessor {
   private maxRetrievedDocs = 5
   private similarityThreshold = 0.7
 
+
   async processQuery(query: string): Promise<RAGContext> {
     try {
       // Retrieve relevant documents
@@ -118,7 +119,6 @@ Current user question: ${context.query}`
       return []
     }
   }
-
   getContextSummary(context: RAGContext): string {
     if (context.retrievedDocuments.length === 0) {
       return 'No relevant context found'
@@ -133,3 +133,4 @@ Current user question: ${context.query}`
     return `Found ${context.retrievedDocuments.length} relevant sources: ${sources.join(', ')}`
   }
 }
+

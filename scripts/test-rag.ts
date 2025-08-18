@@ -92,6 +92,7 @@ This is a test document to verify the RAG system is working correctly. It contai
 
     console.log('🎉 All RAG system tests passed successfully!')
     console.log('\nYour RAG system is working correctly and ready to use.')
+
   } catch (error) {
     console.error('❌ RAG system test failed:', error)
     console.error('\nPlease check:')
@@ -106,5 +107,5 @@ This is a test document to verify the RAG system is working correctly. It contai
 if (require.main === module) {
   testRAGSystem()
 }
-
 export { testRAGSystem }
+
