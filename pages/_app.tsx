@@ -12,7 +12,7 @@ import { Home, LogIn, MessageCircle, ShoppingBag, Sparkles } from 'lucide-react'
 import type { AppProps } from 'next/app'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 
 const navItems = [
@@ -35,7 +35,6 @@ const navItems = [
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
-  const [hoveredTab, setHoveredTab] = useState<string | null>(null)
   const activeTab =
     navItems.find(item => item.path === router.pathname)?.id || 'home'
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -163,7 +162,7 @@ export default function App({ Component, pageProps }: AppProps) {
             <nav className="sidebar-nav" style={{ flex: 1, width: '100%' }}>
               {navItems.map(item => {
                 const isActive = activeTab === item.id
-                const isHovered = hoveredTab === item.id
+                const isHovered = false // Use CSS hover states instead
                 const Icon = item.icon
                 if (item.external) {
                   return (
@@ -172,8 +171,7 @@ export default function App({ Component, pageProps }: AppProps) {
                       href={item.path}
                       target="_blank"
                       rel="noopener noreferrer"
-                      onMouseEnter={() => setHoveredTab(item.id)}
-                      onMouseLeave={() => setHoveredTab(null)}
+
                       className={`
                       relative px-6 py-4 rounded-3xl border-2 font-bold text-sm
                       transition-transform duration-150 min-h-[80px] max-w-[220px] w-full mx-auto
@@ -223,8 +221,7 @@ export default function App({ Component, pageProps }: AppProps) {
                   <Link
                     key={item.id}
                     href={item.path}
-                    onMouseEnter={() => setHoveredTab(item.id)}
-                    onMouseLeave={() => setHoveredTab(null)}
+
                     className={`
                     relative px-6 py-4 rounded-3xl border-2 font-bold text-sm
                     transition-transform duration-150 min-h-[80px] max-w-[220px] w-full mx-auto
@@ -325,27 +322,6 @@ export default function App({ Component, pageProps }: AppProps) {
           <div className="main-content">
             <Component {...pageProps} />
             <Analytics />
-            <footer
-              style={{
-                textAlign: 'center',
-                marginTop: '2rem',
-                padding: '1rem',
-                backgroundColor: '#ffe0f2',
-                color: '#ff0080',
-                fontWeight: 'bold',
-                borderTop: '2px solid #ff0080',
-              }}
-            >
-              💖 Follow us on Instagram:{' '}
-              <a
-                href="https://www.instagram.com/shopmandytools"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: '#ff0080', textDecoration: 'underline' }}
-              >
-                @shopmandytools
-              </a>
-            </footer>
           </div>
         </div>
       </OnboardingWrapper>
