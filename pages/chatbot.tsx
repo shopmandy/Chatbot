@@ -152,6 +152,7 @@ export default function Chatbot() {
     }
   }, [])
 
+  /*
   useEffect(() => {
     fetch('/api/get-trending-topics')
       .then(res => res.json())
@@ -164,19 +165,41 @@ export default function Chatbot() {
         console.error('Failed to fetch trending topics.')
       })
   }, [])
+  */
+  
   // Common questions for chatbot presets
   const commonQuestions = [
     'How do I paint a room?',
     "What's a quick DIY decor project for my bedroom?",
     'How to hang wallpaper',
     'How do I fix a hole in drywall?',
+    'What essential tools do I need for a DIY project?',
+    'How do I hang a picture?',
+    'Ideas for brightening up my home',
+    'How to make a DIY photo collage',
+    'Space-saving ideas for small rooms',
+    'Decor suggestions for shelves',
+    'How do I hang blinds?',
+    'Tips for creating a photo wall',
+    'Painting tips for beginners',
+    'Best layout for studio apartment',
+    'What are creative storage hacks?',
+    'How can I upcycle thrifted furniture?',
+    'What is the best way to improve lighting in my home?',
+    'Affordable projects to make my space more stylish?',
   ]
-  const questionsToShow =
-    trendingTopics === null
-      ? []
-      : trendingTopics.length > 0
-        ? trendingTopics
-        : commonQuestions
+  // Function to get random questions
+  const getRandomQuestions = () => {
+    const shuffled = [...commonQuestions].sort(() => 0.5 - Math.random())
+    return shuffled.slice(0, 4)
+  }
+
+  // Initialize with random questions on client side only
+  const [questionsToShow, setQuestionsToShow] = useState<string[]>([])
+
+  useEffect(() => {
+    setQuestionsToShow(getRandomQuestions())
+  }, [])
 
   const handleSaveChat = async () => {
     if (!isSignedIn) {
