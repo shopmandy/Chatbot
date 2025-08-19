@@ -1,4 +1,5 @@
 import '@/styles/globals.css'
+import { Analytics } from "@vercel/analytics/next"
 import {
   ClerkProvider,
   SignedIn,
@@ -12,6 +13,7 @@ import type { AppProps } from 'next/app'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+
 
 const navItems = [
   { id: 'home', label: 'Home', icon: Home, path: '/' },
@@ -322,6 +324,7 @@ export default function App({ Component, pageProps }: AppProps) {
           </aside>
           <div className="main-content">
             <Component {...pageProps} />
+            <Analytics />
             <footer
               style={{
                 textAlign: 'center',
