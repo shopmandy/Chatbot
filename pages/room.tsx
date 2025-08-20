@@ -717,7 +717,7 @@ export default function Room() {
             fontFamily: 'VT323, Tiny5, Courier New, Courier, monospace',
           }}
         >
-          ROOM MAKEOVER
+          Room Makeover
         </h1>
         <div className={styles.headerText}>
           Upload your space, describe your dream, and watch the magic happen.
