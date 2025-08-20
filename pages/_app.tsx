@@ -39,18 +39,33 @@ export default function App({ Component, pageProps }: AppProps) {
     navItems.find(item => item.path === router.pathname)?.id || 'home'
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
+  const toggleSidebar = () => {
+    console.log('Toggling sidebar from:', sidebarOpen, 'to:', !sidebarOpen)
+    setSidebarOpen(!sidebarOpen)
+  }
+
+  const closeSidebar = () => {
+    console.log('Closing sidebar')
+    setSidebarOpen(false)
+  }
+
   // Close sidebar on route change (mobile)
   useEffect(() => {
-    setSidebarOpen(false)
+    if (sidebarOpen) {
+      closeSidebar()
+    }
   }, [router.pathname])
+
+  // Debug sidebar state changes
+  useEffect(() => {
+    console.log('Sidebar state changed to:', sidebarOpen)
+  }, [sidebarOpen])
 
   function OnboardingWrapper({ children }: { children: React.ReactNode }) {
     const { user, isLoaded } = useUser()
     const wrapperRouter = useRouter()
 
     useEffect(() => {
-      setSidebarOpen(false)
-
       if (!isLoaded) return
 
       const onboardingComplete = user?.unsafeMetadata?.onboardingComplete
@@ -80,7 +95,11 @@ export default function App({ Component, pageProps }: AppProps) {
         <button
           className="mobile-menu"
           aria-label="Open navigation menu"
-          onClick={() => setSidebarOpen(true)}
+          onClick={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            toggleSidebar()
+          }}
           style={{
             position: 'fixed',
             top: 18,
@@ -96,6 +115,21 @@ export default function App({ Component, pageProps }: AppProps) {
           <span aria-hidden="true">☰</span>
         </button>
         <div className="app-layout">
+          {/* Backdrop overlay for mobile sidebar */}
+          {sidebarOpen && (
+            <div
+              style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: 'rgba(0, 0, 0, 0.5)',
+                zIndex: 1999,
+              }}
+              onClick={() => closeSidebar()}
+            />
+          )}
           {/* Sidebar: slide-in for mobile */}
           <aside
             className={`sidebar${sidebarOpen ? ' open' : ''}`}
@@ -109,7 +143,11 @@ export default function App({ Component, pageProps }: AppProps) {
             <button
               className="close-sidebar"
               aria-label="Close navigation menu"
-              onClick={() => setSidebarOpen(false)}
+                        onClick={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            closeSidebar()
+          }}
               style={{
                 display: 'none',
                 position: 'absolute',

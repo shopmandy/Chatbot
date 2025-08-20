@@ -196,10 +196,11 @@ html {
 
 .main-content {
   margin-left: 280px; /* same as sidebar width */
-  width: 100%;
+  width: calc(100% - 280px);
   padding: 2rem 1rem 1rem 1rem;
   min-height: 100vh;
   background: #ffe0f2;
+  box-sizing: border-box;
 }
 
 /* Optional: Adjust nav-link for sidebar look */
@@ -384,25 +385,11 @@ button:hover,
   }
 }
 
-@media (max-width: 900px) {
-  .sidebar {
-    width: 80px;
-    padding-top: 1rem;
-  }
-  .main-content {
-    margin-left: 80px;
-    padding: 1rem 0.5rem 0.5rem 0.5rem;
-  }
-  .sidebar .nav-link {
-    width: 60px;
-    font-size: 0.9rem;
-    padding: 0.6rem 0.2rem;
-  }
-}
 
-@media (max-width: 768px) {
+
+@media (max-width: 1023px) {
   .sidebar {
-    display: none;
+    display: block;
     position: fixed;
     left: 0;
     top: 0;
@@ -412,17 +399,19 @@ button:hover,
     z-index: 2000;
     background: #fff;
     box-shadow: 2px 0 16px 0 rgba(249, 27, 143, 0.07);
-    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     transform: translateX(-100%);
     margin-left: 0 !important;
     padding-top: 2rem;
+    pointer-events: none;
   }
   .sidebar.open {
-    display: block;
     transform: translateX(0);
+    pointer-events: auto;
   }
   .main-content {
     margin-left: 0 !important;
+    width: 100%;
     padding: 1rem 0.5rem 0.5rem 0.5rem;
   }
   .mobile-menu {
@@ -449,7 +438,7 @@ button:hover,
   }
 }
 
-@media (min-width: 769px) {
+@media (min-width: 1024px) {
   .header-auth-mobile {
     display: none !important;
   }
