@@ -227,13 +227,15 @@
 }
 
 .heroSubtitle {
-  font-size: 1.8rem;
-  color: var(--chat-text, #b8005c);
-  margin: 0 0 2rem 0;
+  font-size: 1.2rem;
+  color: #ff69b4;
+  margin: 0 0 1.4rem 0;
   line-height: 1.4;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+  font-weight: 900;
+  letter-spacing: 0.5px;
 }
 
 .heroFeatures {
@@ -361,7 +363,7 @@
   box-shadow: 0 4px 16px rgba(255, 105, 180, 0.15);
   line-height: 1.6;
   align-self: flex-start;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .questionBubble {
@@ -518,7 +520,7 @@
 }
 
 .customizeButton {
-  padding: 0.8rem 1.5rem;
+  padding: 0.6rem 1rem;
   border-radius: 12px;
   background: var(
     --button-bg,
@@ -526,11 +528,36 @@
   );
   border: 2px solid var(--button-border, #ff69b4);
   color: var(--button-text, white);
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(255, 105, 180, 0.15);
   transition: all 0.3s ease;
+}
+
+/* Responsive sizing for customize buttons */
+@media (max-width: 768px) {
+  .customizeButton {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 700px) {
+  .customizeButton {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    border-radius: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .customizeButton {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.7rem;
+    border-radius: 6px;
+  }
 }
 
 .customizeButton:hover {
@@ -659,6 +686,12 @@
 
   .heroSubtitle {
     font-size: 1.4rem;
+    font-family: 'Roboto Mono', monospace;
+    color: #ff69b4;
+    margin-top: 0.05rem;
+    margin-bottom: 1rem;
+    font-weight: 900;
+    letter-spacing: 0.5px;
   }
 
   .heroFeatures {
@@ -733,7 +766,6 @@
 .customizeButton,
 .logoText,
 .heroTitle,
-.heroSubtitle,
 .quickStartTitle {
   font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace !important;
 }
@@ -805,10 +837,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 200, 230, 0.95) 0%,
-    rgba(200, 210, 240, 0.95) 100%
+  background: var(
+    --chat-bg,
+    linear-gradient(135deg, #ff69b4 0%, #ff1493 100%)
   );
   border-bottom: 2px solid var(--button-border, #ff69b4);
   padding: 12px 20px;
@@ -819,6 +850,17 @@
   box-shadow: 0 2px 12px rgba(255, 105, 180, 0.15);
   border-radius: 16px 16px 0 0;
   backdrop-filter: blur(10px);
+}
+
+.windowTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 0 0 8px rgba(255, 182, 230, 0.5);
+  flex: 1;
+  justify-content: flex-start;
 }
 
 .windowTitle {
@@ -887,4 +929,94 @@
   align-items: center;
   margin-left: auto;
   margin-right: 1.2rem; /* Add spacing before window controls */
+}
+
+/* Mobile Menu Styles */
+.mobileMenuButton {
+  display: none;
+  position: relative;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.mobileMenuToggle {
+  background: var(
+    --button-bg,
+    linear-gradient(135deg, #ff69b4 0%, #ff1493 100%)
+  );
+  border: 2px solid var(--button-border, #ff69b4);
+  color: var(--button-text, white);
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(255, 105, 180, 0.15);
+  transition: all 0.3s ease;
+}
+
+.mobileMenuToggle:hover {
+  background: var(
+    --button-bg,
+    linear-gradient(135deg, #ff1493 0%, #ff69b4 100%)
+  );
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(255, 105, 180, 0.25);
+}
+
+.mobileMenuDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  border: 2px solid var(--button-border, #ff69b4);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(255, 105, 180, 0.2);
+  z-index: 1000;
+  min-width: 140px;
+  margin-top: 0.5rem;
+  overflow: hidden;
+}
+
+.mobileMenuItem {
+  display: block;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--button-text, #ff69b4);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid rgba(255, 105, 180, 0.1);
+}
+
+.mobileMenuItem:last-child {
+  border-bottom: none;
+}
+
+.mobileMenuItem:hover {
+  background: var(--chat-bubble, #ffe0f2);
+  color: var(--button-text, #ff69b4);
+}
+
+/* Hide desktop actions and show mobile menu on small screens */
+@media (max-width: 480px) {
+  .windowActions {
+    display: none;
+  }
+  
+  .mobileMenuButton {
+    display: block;
+    margin-right: 1rem;
+  }
+}
+
+/* Hide mobile menu on larger screens */
+@media (min-width: 481px) {
+  .mobileMenuButton {
+    display: none;
+  }
 }

@@ -29,7 +29,7 @@ export function HeroSection() {
       icon: MessageCircle,
       path: '/chatbot',
     },
-    { id: 'room', label: 'Room Generator', icon: Sparkles, path: '/room' },
+    { id: 'room', label: 'Room Makeover', icon: Sparkles, path: '/room' },
     {
       id: 'shop',
       label: 'Shop Toolkits',
