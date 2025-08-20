@@ -38,13 +38,13 @@ const themes = {
   },
 
   sky: {
-    '--button-bg': 'linear-gradient(90deg, #5baefc 0%, #b6eaff 100%)',
+    '--button-bg': 'linear-gradient(90deg, #8ebeeb 0%, #b6eaff 100%)',
     '--button-text': '#1d37f5',
     '--button-border': '#1d37f5',
     '--chat-border': '#5baefc',
     '--user-bubble': '#1d37f5',
-    '--chat-bubble': '#5baefc',
-    '--chat-bg': 'linear-gradient(135deg, #5baefc 0%, #b6eaff 100%)',
+    '--chat-bubble': '#b6eaff',
+    '--chat-bg': 'linear-gradient(135deg, #8ebbeb 0%, #b6eaff 100%)',
     '--chat-text': '#1d37f5',
     '--chat-text-user': 'white',
   },

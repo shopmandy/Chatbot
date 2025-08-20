@@ -28,6 +28,7 @@ export default function Chatbot() {
   const [trendingTopics, setTrendingTopics] = useState<string[] | null>(null)
   const chatBoxRef = useRef<HTMLDivElement>(null)
   const [showChats, setShowChats] = useState<false | 'default' | 'save'>(false)
+  const [showMobileMenu, setShowMobileMenu] = useState(false)
   const { isSignedIn } = useUser()
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -229,7 +230,7 @@ export default function Chatbot() {
     <>
       <Head>
         <link
-          href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Tiny5&family=VT323&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Tiny5&family=Roboto+Mono:wght@400;700&family=VT323&display=swap"
           rel="stylesheet"
         />
       </Head>
@@ -242,7 +243,7 @@ export default function Chatbot() {
               <h2 className={styles.heroTitle}>
                 Handy Mandy&apos;s DIY Chatbot
               </h2>
-              <p className={styles.heroSubtitle}>
+              <p className={styles.heroSubtitle} style={{ fontFamily: 'Roboto Mono, monospace' }}>
                 Your 24/7 DIY Assistant 🤖✨ Get instant help with home
                 projects, decor ideas, and DIY tips. Just ask Mandy anything!
               </p>
@@ -270,7 +271,50 @@ export default function Chatbot() {
           <div className={styles.chatContainer}>
             {/* Window Title Bar - Always visible */}
             <div className={styles.windowTitleBar}>
+              {/* Mobile Menu Button - Left Side */}
+              <div className={styles.mobileMenuButton}>
+                <button
+                  className={styles.mobileMenuToggle}
+                  onClick={() => setShowMobileMenu(!showMobileMenu)}
+                >
+                  ☰
+                </button>
+                {showMobileMenu && (
+                  <div className={styles.mobileMenuDropdown}>
+                    <button
+                      className={styles.mobileMenuItem}
+                      onClick={() => {
+                        setShowSettings(true)
+                        setShowMobileMenu(false)
+                      }}
+                    >
+                      ⚙️ Customize
+                    </button>
+                    <button
+                      className={styles.mobileMenuItem}
+                      onClick={() => {
+                        setShowChats('default')
+                        setShowMobileMenu(false)
+                      }}
+                    >
+                      💬 Chats
+                    </button>
+                    <button
+                      className={styles.mobileMenuItem}
+                      onClick={() => {
+                        handleSaveChat()
+                        setShowMobileMenu(false)
+                      }}
+                    >
+                      💾 Save Chat
+                    </button>
+                  </div>
+                )}
+              </div>
+
               <div className={styles.windowTitle}>CHAT WITH MANDY</div>
+              
+              {/* Desktop Actions */}
               <div className={styles.windowActions}>
                 <button
                   className={styles.customizeButton}
@@ -300,6 +344,7 @@ export default function Chatbot() {
                   </span>
                 </button>
               </div>
+
               <div className={styles.windowControls}>
                 <button className={styles.windowButton} title="Minimize">
                   <span className={styles.windowButtonIcon}>─</span>
@@ -379,8 +424,8 @@ export default function Chatbot() {
                   </div>
                 )}
                 {showHero && (
-                  <div className="border-t-4 border-primary/30 pt-4">
-                    <h3 className="text-center text-pink-600 font-bold text-xl mb-4">
+                  <div className="border-t-4 border-primary/30 pt-2 mt-14 ">
+                    <h3 className="text-center text-pink-600 font-bold text-xl mb-2">
                       Try these popular questions:
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
@@ -388,7 +433,7 @@ export default function Chatbot() {
                         <button
                           key={idx}
                           onClick={() => sendMessage(question)}
-                          className="text-lg p-4 border-2 border-pink-400 rounded-2xl text-pink-600 hover:bg-pink-50 transition-colors text-left"
+                          className="text-lg p-2 border-2 border-pink-400 rounded-2xl text-pink-600 hover:bg-pink-50 transition-colors text-center"
                         >
                           {question}
                         </button>

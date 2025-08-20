@@ -258,7 +258,6 @@ function DinoGameModal({ show, onClose }: { show: boolean, onClose: () => void }
 
   if (!show) return null
 
-  // ...existing code...
   // Ensure 'After' image is shown by default
   const [showAfterImage, setShowAfterImage] = React.useState(true)
   return (
@@ -528,9 +527,6 @@ export default function Room() {
 
   // Update vision prompt when room type changes
   useEffect(() => {
-    // No longer auto-prefix vision with room type
-    // The vision input will remain as entered by the user
-    // ...existing code...
   }, [roomType, customRoomType, showCustomInput])
 
   const handleRoomTypeChange = (value: string) => {
@@ -721,7 +717,7 @@ export default function Room() {
             fontFamily: 'VT323, Tiny5, Courier New, Courier, monospace',
           }}
         >
-          ROOM GENERATOR
+          ROOM MAKEOVER
         </h1>
         <div className={styles.headerText}>
           Upload your space, describe your dream, and watch the magic happen.
@@ -1043,7 +1039,6 @@ export default function Room() {
                     >
                       <span
                         style={{
-                          background: '#ffb9e2',
                           color: '#f91b8f',
                           fontSize: '0.7rem',
                           fontWeight: 700,
@@ -1053,20 +1048,7 @@ export default function Room() {
                           letterSpacing: '0.5px',
                         }}
                       >
-                        COZY
-                      </span>
-                      <span
-                        style={{
-                          color: '#f91b8f',
-                          fontSize: '0.7rem',
-                          fontWeight: 700,
-                          padding: '0.2rem 0.5rem',
-                          borderRadius: '16px',
-                          fontFamily: 'Roboto Mono, monospace',
-                          letterSpacing: '0.5px',
-                        }}
-                      >
-                        NATURAL
+                        BEFORE
                       </span>
                     </div>
                   </div>
@@ -1092,7 +1074,7 @@ export default function Room() {
                         objectFit: 'cover',
                       }}
                     />
-                    {/* 30 SEC indicator for After image */}
+                    {/* Label for After image */}
                     <div
                       style={{
                         display: 'flex',
@@ -1103,6 +1085,7 @@ export default function Room() {
                       <span
                         style={{
                           color: '#f91b8f',
+                          background: '#ffb9e2',
                           fontSize: '0.7rem',
                           fontWeight: 700,
                           padding: '0.3rem 0.4rem',
@@ -1111,7 +1094,7 @@ export default function Room() {
                           letterSpacing: '0.5px',
                         }}
                       >
-                        🔥 30 SEC
+                        AFTER
                       </span>
                     </div>
                   </div>
@@ -1976,8 +1959,8 @@ export default function Room() {
                   onMouseLeave={e =>
                     (e.currentTarget.style.transform = 'scale(1)')
                   }
-                  onClick={handleGenerate}
-                  disabled={loading}
+                  onClick={handleDownload}
+                  disabled={!afterImage}
                 >
                   {/* Highlight overlay for 3D effect */}
                   <div className="absolute top-2 left-2 right-2 h-4 rounded-t-2xl bg-gradient-to-r from-white/20 to-white/10 pointer-events-none" />
@@ -1985,7 +1968,7 @@ export default function Room() {
                   {/* Inner glow for active state */}
                   <div className="absolute inset-3 rounded-2xl bg-white/5 animate-pulse pointer-events-none" />
                   
-                  {/* Sparkles icon */}
+                  {/* Download icon */}
                   <span className="absolute top-2.5 left-4 z-10 flex items-center">
                     <Download className="w-7 h-7 text-white drop-shadow-sm" />
                   </span>
