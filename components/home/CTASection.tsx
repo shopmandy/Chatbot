@@ -78,7 +78,7 @@ export function CTASection() {
               '0 20px 60px rgba(255, 105, 180, 0.25), 0 8px 32px rgba(0,0,0,0.1)',
             backdropFilter: 'blur(20px)',
             overflow: 'hidden',
-            marginBottom: '3rem',
+            marginBottom: '0rem',
             position: 'relative',
           }}
         >
@@ -132,7 +132,7 @@ export function CTASection() {
           {/* Enhanced Section Content */}
           <div
             style={{
-              padding: '3rem',
+              padding: '1rem',
               textAlign: 'center',
               display: isMinimized ? 'none' : 'block',
               transition: 'all 0.3s ease',
@@ -148,7 +148,7 @@ export function CTASection() {
                 fontFamily:
                   "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
                 textAlign: 'center',
-                marginBottom: '1.5rem',
+                marginBottom: '.5rem',
                 textShadow: '0 4px 16px rgba(255, 105, 180, 0.3)',
               }}
             >
@@ -161,7 +161,7 @@ export function CTASection() {
               style={{
                 fontSize: '1.4rem',
                 color: '#f91b8f',
-                marginBottom: '2rem',
+                marginBottom: '1rem',
                 fontWeight: '600',
                 lineHeight: '1.4',
                 fontFamily:
@@ -179,11 +179,11 @@ export function CTASection() {
             {/* Email Signup Form */}
             <div
               style={{
-                marginBottom: '3rem',
+                marginBottom: '1rem',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: '1rem',
+                gap: '.5rem',
               }}
             >
               <h3
@@ -269,8 +269,8 @@ export function CTASection() {
                         "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
                       fontWeight: '700',
                       letterSpacing: '1px',
-                      borderRadius: '12px',
-                      border: '2px solid #4a1d3d',
+                      borderRadius: '15px',
+                      border: '2px solid #000',
                       padding: '16px 20px',
                       cursor:
                         subscriptionStatus.type === 'loading'
@@ -279,7 +279,7 @@ export function CTASection() {
                       margin: '0',
                       backgroundColor:
                         subscriptionStatus.type === 'loading'
-                          ? '#ccc'
+                          ? '#fdd4e2'
                           : '#f91b8f',
                       color: 'white',
                       display: 'flex',

@@ -102,11 +102,10 @@ export function InstagramSection() {
               'linear-gradient(135deg, rgba(230, 184, 241, 0.9) 0%, rgba(248, 174, 255, 0.9) 100%)',
             border: '3px solid #f91b8f',
             borderRadius: '24px',
-            boxShadow:
-              '0 20px 60px rgba(255, 105, 180, 0.25), 0 8px 32px rgba(0,0,0,0.1)',
+            
             backdropFilter: 'blur(20px)',
             overflow: 'hidden',
-            marginBottom: '3rem',
+            marginBottom: '0rem',
             position: 'relative',
           }}
         >
@@ -160,7 +159,7 @@ export function InstagramSection() {
           {/* Enhanced Section Content */}
           <div
             style={{
-              padding: '3rem',
+              padding: '1rem',
               textAlign: 'center',
               display: isMinimized ? 'none' : 'block',
               transition: 'all 0.3s ease',
@@ -176,10 +175,20 @@ export function InstagramSection() {
                 lineHeight: '1.3',
                 fontFamily:
                   "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
-                textShadow: '0 4px 16px rgba(255, 105, 180, 0.3)',
               }}
             >
-              BUILD WITH US @SHOPMANDYTOOLS
+              BUILD WITH US {" "}
+              <a
+                href="https://www.instagram.com/shopmandytools"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: '#f91b8f',
+                  textDecoration: 'none',
+                 }}
+              >
+                @SHOPMANDYTOOLS
+              </a>
             </h1>
 
             <div
@@ -187,9 +196,9 @@ export function InstagramSection() {
                 position: 'relative',
                 overflow: 'hidden',
                 borderRadius: '16px',
-                background: 'rgba(255, 255, 255, 0.1)',
-                padding: '2rem',
-                marginTop: '2rem',
+                background: 'transparent',
+                padding: '0rem',
+                marginTop: '1rem',
               }}
             >
               <section className={styles.carouselSection}>
@@ -208,7 +217,11 @@ export function InstagramSection() {
                           className={styles.carouselSlide}
                           ref={index === 0 ? slideRef : undefined}
                         >
-                          <a href="https://instagram.com/shopmandytools">
+                          <a
+                            href="https://instagram.com/shopmandytools"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
                             <img
                               onMouseEnter={() => setIsPaused(true)}
                               onMouseLeave={() => setIsPaused(false)}
