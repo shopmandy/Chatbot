@@ -21,7 +21,7 @@ export function AboutSection() {
               '0 20px 60px rgba(255, 105, 180, 0.25), 0 8px 32px rgba(0,0,0,0.1)',
             backdropFilter: 'blur(20px)',
             overflow: 'hidden',
-            marginBottom: '3rem',
+            marginBottom: '0rem',
             position: 'relative',
           }}
         >
@@ -113,30 +113,14 @@ export function AboutSection() {
                     fontSize: '1.3rem',
                     color: '#f91b8f',
                     lineHeight: '1.6',
-                    fontFamily: 'Poppins, Montserrat, Arial, sans-serif',
+                    fontFamily: 'Roboto Mono, monospace',
                     fontWeight: '600',
                     marginBottom: '2rem',
                   }}
                 >
-                  We are dedicated to empowering women to confidently build,
-                  repair, and get it done, and we&apos;re here to provide the
-                  tools to make it happen.
-                </p>
-
-                <p
-                  className="font-semibold text-xl mb-8"
-                  style={{
-                    fontSize: '1.3rem',
-                    color: '#f91b8f',
-                    lineHeight: '1.6',
-                    fontFamily: 'Poppins, Montserrat, Arial, sans-serif',
-                    fontWeight: '600',
-                    marginBottom: '2rem',
-                  }}
-                >
-                  Our mission is to break down barriers and stereotypes in the
-                  world of DIY by offering thoughtfully designed tools that
-                  cater to the needs and preferences of women.
+                 We are dedicated to empowering everyone
+                 to confidently build, repair, and get it done,
+                 and we're here to provide the tools to make it happen.
                 </p>
 
                 <h3
@@ -177,7 +161,7 @@ export function AboutSection() {
                         marginBottom: '1rem',
                         fontSize: '1.2rem',
                         color: '#f91b8f',
-                        fontFamily: 'Poppins, Montserrat, Arial, sans-serif',
+                        fontFamily: 'Roboto Mono, monospace',
                         fontWeight: '600',
                       }}
                     >
@@ -203,14 +187,14 @@ export function AboutSection() {
                     fontSize: '1.3rem',
                     color: '#f91b8f',
                     lineHeight: '1.6',
-                    fontFamily: 'Poppins, Montserrat, Arial, sans-serif',
+                    fontFamily: 'Roboto Mono, monospace',
                     fontWeight: '600',
                     marginTop: '2rem',
                   }}
                 >
                   Mandy is not just a brand; it&apos;s a movement. We are here
                   to redefine what it means to be handy and to ensure that every
-                  woman has the tools and knowledge to turn her desires into
+                  person has the tools and knowledge to turn their desires into
                   reality.
                 </p>
               </div>
@@ -221,12 +205,12 @@ export function AboutSection() {
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'flex-start',
-                  marginTop: '2rem',
+                  marginTop: '1rem',
                 }}
               >
                 <div>
                   <Image
-                    src="/box-crop.png"
+                    src="/box-crop.jpeg"
                     alt="Mandy's tools and equipment"
                     width={450}
                     height={450}

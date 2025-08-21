@@ -52,7 +52,7 @@ export function HeroSection() {
               '0 20px 60px rgba(255, 105, 180, 0.25), 0 8px 32px rgba(0,0,0,0.1)',
             backdropFilter: 'blur(20px)',
             overflow: 'hidden',
-            marginBottom: '3rem',
+            marginBottom: '0rem',
             position: 'relative',
           }}
         >
@@ -106,7 +106,7 @@ export function HeroSection() {
           {/* Enhanced Section Content */}
           <div
             style={{
-              padding: '3rem',
+              padding: '1rem',
               textAlign: 'center',
               display: isMinimized ? 'none' : 'block',
               transition: 'all 0.3s ease',
@@ -165,42 +165,39 @@ export function HeroSection() {
                     onClick={() => handleButtonClick(item.path)}
                     className="nav-link home-button"
                     style={{
-                      width: '180px',
-                      textAlign: 'center',
-                      fontSize: '0.9rem',
-                      fontFamily:
-                        "'Press Start 2P', VT323, Poppins, Montserrat, Arial, sans-serif",
-                      fontWeight: '700',
-                      letterSpacing: '1px',
-                      borderRadius: '28px',
-                      border: 'none',
-                      padding: '0.8rem 1.2rem',
-                      cursor: 'pointer',
-                      margin: '0',
-                      height: 'auto',
-                      minHeight: 'auto',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '0.8rem',
-                      background:
-                        'linear-gradient(135deg, #fff6fa 0%, #f0f3fb 100%)',
-                      boxShadow: '0 8px 24px rgba(255, 105, 180, 0.2)',
-                      transition: 'transform 0.15s ease, box-shadow 0.15s ease',
-                    }}
+                    width: '300px',
+                    height: '140px', 
+                    textAlign: 'center',
+                    fontSize: '0.9rem',
+                    fontFamily: "'Press Start 2P', VT323, Montserrat, Arial, sans-serif",
+                    fontWeight: '700',
+                    letterSpacing: '1px',
+                    borderRadius: '28px',
+                    border: '2px solid #f91b8f',
+                    padding: '0.8rem 1.2rem',
+                    cursor: 'pointer',
+                    margin: '0',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '0.8rem',
+                    background: 'linear-gradient(135deg, #fff6fa 0%, #f0f3fb 100%)',
+                    boxShadow: '0 8px 24px rgba(255, 105, 180, 0.2)',
+                    transition: 'transform 0.15s ease, box-shadow 0.15s ease',
+                  }}
                   >
                     <Icon style={{ width: 28, height: 28 }} />
                     <span>{item.label}</span>
                     <span
                       style={{
-                        fontSize: '0.8rem',
+                        fontSize: '1rem',
                         fontWeight: '600',
                         letterSpacing: '0.5px',
                         opacity: 0.8,
                         lineHeight: 1.2,
-                        padding: '0.5rem',
-                        fontFamily: 'Poppins, Montserrat, Arial, sans-serif',
+                        padding: '0rem',
+                        fontFamily: 'Roboto Mono, monospace',
                       }}
                     >
                       {subheadings[item.id as keyof typeof subheadings]}

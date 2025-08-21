@@ -22,7 +22,7 @@ export function FounderSection() {
               '0 20px 60px rgba(255, 105, 180, 0.25), 0 8px 32px rgba(0,0,0,0.1)',
             backdropFilter: 'blur(20px)',
             overflow: 'hidden',
-            marginBottom: '3rem',
+            marginBottom: '0rem',
             position: 'relative',
           }}
         >
@@ -92,7 +92,7 @@ export function FounderSection() {
                 fontFamily:
                   "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
                 textShadow: '0 4px 16px rgba(255, 105, 180, 0.3)',
-                marginBottom: '2rem',
+                marginBottom: '0rem',
               }}
             >
               FEMALE FOUNDED
@@ -103,7 +103,7 @@ export function FounderSection() {
                 display: 'flex',
                 alignItems: 'flex-start',
                 gap: '3rem',
-                marginBottom: '2rem',
+                marginBottom: '0rem',
               }}
             >
               <div style={{ flex: '0 0 50%', marginTop: '1rem' }}>
@@ -119,9 +119,9 @@ export function FounderSection() {
                       fontSize: '1.3rem',
                       color: '#f91b8f',
                       lineHeight: '1.6',
-                      fontFamily: 'Poppins, Montserrat, Arial, sans-serif',
+                      fontFamily: 'Roboto Mono, monospace',
                       fontWeight: '600',
-                      marginBottom: '1.5rem',
+                      marginBottom: '1rem',
                     }}
                   >
                     {paragraph}
@@ -135,7 +135,7 @@ export function FounderSection() {
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'flex-start',
-                  marginTop: '1rem',
+                  marginTop: '0rem',
                 }}
               >
                 <div>
