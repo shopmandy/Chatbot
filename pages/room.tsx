@@ -705,21 +705,21 @@ export default function Room() {
       <div
         style={{
           width: '100%',
-          padding: '0.1rem 0 0.5rem 0',
+          padding: '2rem 0 0.5rem 0',
           textAlign: 'center',
           zIndex: 200,
           position: 'relative',
         }}
       >
         <h1
-          className={styles.headerTitle}
+          className={`${styles.headerTitle} text-2xl md:text-6xl`}
           style={{
             fontFamily: 'VT323, Tiny5, Courier New, Courier, monospace',
           }}
         >
           Room Makeover
         </h1>
-        <div className={styles.headerText}>
+        <div className={`${styles.headerText} text-xs md:text-lg`}>
           Upload your space, describe your dream, and watch the magic happen.
         </div>
       </div>
@@ -733,15 +733,16 @@ export default function Room() {
             marginBottom: '1.6rem',
             flexWrap: 'wrap',
           }}
+          className="px-4"
         >
           <div
+            className="w-full max-w-[320px] md:max-w-[340px]"
             style={{
               padding: '1rem 1.5rem',
               background: '#fff',
               borderRadius: '16px',
               border: '3px solid #f91b8f',
               boxShadow: '0 4px 16px rgba(255, 105, 180, 0.15)',
-              maxWidth: '340px',
               transition: 'all 0.3s ease',
               cursor: 'pointer',
               transform: 'translateY(0) scale(1)',
@@ -771,26 +772,26 @@ export default function Room() {
               🎨 AI-POWERED DESIGN
             </div>
             <div
+              className="text-xs md:text-xs"
               style={{
                 fontFamily: 'Roboto Mono, monospace',
-                fontSize: '0.8rem',
                 color: '#b8005c',
                 lineHeight: '1.4',
                 textAlign: 'center',
               }}
             >
-              Smart algorithms create personalized room layouts
+              Create personalized room layouts
             </div>
           </div>
 
           <div
+            className="w-full max-w-[320px] md:max-w-[340px]"
             style={{
               padding: '1rem 1.5rem',
               background: '#fff',
               borderRadius: '16px',
               border: '3px solid #f91b8f',
               boxShadow: '0 4px 16px rgba(255, 105, 180, 0.15)',
-              maxWidth: '340px',
               transition: 'all 0.3s ease',
               cursor: 'pointer',
               transform: 'translateY(0) scale(1)',
@@ -820,9 +821,9 @@ export default function Room() {
               ⚡ INSTANT RESULTS
             </div>
             <div
+              className="text-xs md:text-xs"
               style={{
                 fontFamily: 'Roboto Mono, monospace',
-                fontSize: '0.8rem',
                 color: '#b8005c',
                 lineHeight: '1.4',
                 textAlign: 'center',
@@ -833,13 +834,13 @@ export default function Room() {
           </div>
 
           <div
+            className="w-full max-w-[320px] md:max-w-[340px]"
             style={{
               padding: '1rem 1.5rem',
               background: '#fff',
               borderRadius: '16px',
               border: '3px solid #f91b8f',
               boxShadow: '0 4px 16px rgba(255, 105, 180, 0.15)',
-              maxWidth: '340px',
               transition: 'all 0.3s ease',
               cursor: 'pointer',
               transform: 'translateY(0) scale(1)',
@@ -869,15 +870,15 @@ export default function Room() {
               💡 SMART SUGGESTIONS
             </div>
             <div
+              className="text-xs md:text-xs"
               style={{
                 fontFamily: 'Roboto Mono, monospace',
-                fontSize: '0.8rem',
                 color: '#b8005c',
                 lineHeight: '1.4',
                 textAlign: 'center',
               }}
             >
-              Get product recommendations based on your room
+              Curated product recommendations
             </div>
           </div>
         </div>
@@ -885,7 +886,7 @@ export default function Room() {
         {/* Start Your Transformation Button */}
         <div className="flex justify-center mt-8 mb-8">
           <button
-            className="relative px-16 py-6 w-full max-w-md bg-gradient-to-br from-pink-400 via-pink-500 to-pink-600 text-white font-mono text-xl font-extrabold border-2 border-pink-400 rounded-3xl cursor-pointer tracking-wide transition-all duration-150 scale-105 overflow-hidden shadow-lg hover:scale-108 hover:shadow-xl"
+            className="relative px-16 py-6 w-full max-w-[280px] md:max-w-md bg-gradient-to-br from-pink-400 via-pink-500 to-pink-600 text-white font-mono text-lg font-extrabold border-2 border-pink-400 rounded-3xl cursor-pointer tracking-wide transition-all duration-150 scale-105 overflow-hidden shadow-lg hover:scale-108 hover:shadow-xl"
             onClick={() => {
               // Scroll to the two windows section
               const windowsSection = document.querySelector('#upload-section')
@@ -1129,7 +1130,7 @@ export default function Room() {
                   >
                     <div
                       style={{
-                        fontSize: '1.8rem',
+                        fontSize: '1.6rem',
                         fontWeight: 900,
                         color: '#f91b8f',
                         fontFamily: 'Roboto Mono, monospace',
@@ -1140,7 +1141,7 @@ export default function Room() {
                     </div>
                     <div
                       style={{
-                        fontSize: '0.8rem',
+                        fontSize: '0.7rem',
                         color: '#b8005c',
                         fontFamily: 'Roboto Mono, monospace',
                         fontWeight: 600,
@@ -1161,7 +1162,7 @@ export default function Room() {
                   >
                     <div
                       style={{
-                        fontSize: '1.8rem',
+                        fontSize: '1.6rem',
                         fontWeight: 900,
                         color: '#f91b8f',
                         fontFamily: 'Roboto Mono, monospace',
@@ -1172,7 +1173,7 @@ export default function Room() {
                     </div>
                     <div
                       style={{
-                        fontSize: '0.8rem',
+                        fontSize: '0.7rem',
                         color: '#b8005c',
                         fontFamily: 'Roboto Mono, monospace',
                         fontWeight: 600,
@@ -1193,7 +1194,7 @@ export default function Room() {
                   >
                     <div
                       style={{
-                        fontSize: '1.8rem',
+                        fontSize: '1.6rem',
                         fontWeight: 900,
                         color: '#f91b8f',
                         fontFamily: 'Roboto Mono, monospace',
@@ -1204,13 +1205,13 @@ export default function Room() {
                     </div>
                     <div
                       style={{
-                        fontSize: '0.8rem',
+                        fontSize: '0.7rem',
                         color: '#b8005c',
                         fontFamily: 'Roboto Mono, monospace',
                         fontWeight: 600,
                       }}
                     >
-                      Average Generation Time
+                      Avg Generation Time
                     </div>
                   </div>
                 </div>
@@ -2249,8 +2250,8 @@ export default function Room() {
         {/* Glow Up Gallery Wall */}
         <section className={styles.gallerySection}>
           <div
+            className="text-4xl md:text-6xl"
             style={{
-              fontSize: '3.4rem',
               color: '#f91b84',
               margin: '0 0 0.4rem 0',
               fontWeight: 800,
@@ -2261,9 +2262,9 @@ export default function Room() {
             GLOW UP GALLERY
           </div>
           <div
+            className="text-sm md:text-lg"
             style={{
               fontFamily: 'Roboto Mono, monospace',
-              fontSize: '1.2rem',
               color: '#f91b84',
               fontWeight: 600,
               opacity: 0.9,
@@ -2309,15 +2310,18 @@ export default function Room() {
                 {/* Before label */}
                 <div
                   style={{
-                    fontSize: '1.1rem',
                     color: '#ff69b4',
+                    fontSize: '0.7rem',
                     fontWeight: 700,
-                    letterSpacing: '1px',
-                    marginBottom: 4,
+                    padding: '0.2rem 0.5rem',
+                    borderRadius: '16px',
                     fontFamily: 'Roboto Mono, monospace',
+                    letterSpacing: '0.5px',
+                    alignSelf: 'flex-start',
+                    marginBottom: '0.2rem',
                   }}
                 >
-                  Before
+                  BEFORE
                 </div>
                 {/* Before image */}
                 <img
@@ -2329,7 +2333,7 @@ export default function Room() {
                     objectFit: 'cover',
                     borderRadius: 16,
                     border: '2.5px solid #ff69b4',
-                    marginBottom: 22,
+                    marginBottom: 16,
                     boxShadow: '0 2px 12px #ffd6f7',
                     cursor: 'pointer',
                   }}
@@ -2337,6 +2341,17 @@ export default function Room() {
                     setEnlargedImage({ src: g.before, alt: 'Before' })
                   }
                 />
+                <div style={{
+                     color: '#f91b8f',
+                     fontSize: '0.9rem',
+                     fontWeight: 700,
+                     padding: '0.1rem 0.5rem',
+                     fontFamily: 'Roboto Mono, monospace',
+                     letterSpacing: '0.5px',
+                     textShadow: '0 0 8px rgba(249, 27, 143, 0.6)',
+                   }}>
+                     AI MAGIC
+                   </div>
                 {/* Animated arrow */}
                 <div
                   style={{
@@ -2344,7 +2359,7 @@ export default function Room() {
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    margin: '0.5rem 0',
+                    margin: '0.1rem 0',
                   }}
                 >
                   <span
@@ -2361,16 +2376,18 @@ export default function Room() {
                 {/* After label */}
                 <div
                   style={{
-                    fontSize: '1.1rem',
-                    color: '#5baefc',
+                    color: '#ff69b4',
+                    fontSize: '0.7rem',
                     fontWeight: 700,
-                    letterSpacing: '1px',
-                    marginTop: 10,
-                    marginBottom: 4,
+                    padding: '0.2rem 0.5rem',
+                    borderRadius: '16px',
                     fontFamily: 'Roboto Mono, monospace',
+                    letterSpacing: '0.5px',
+                    alignSelf: 'flex-start',
+                    marginBottom: '0.2rem',
                   }}
                 >
-                  After
+                  AFTER
                 </div>
                 {/* After image */}
                 <img
@@ -2382,7 +2399,7 @@ export default function Room() {
                     objectFit: 'cover',
                     borderRadius: 16,
                     border: '2.5px solid #ff69b4',
-                    marginTop: 22,
+                    marginTop: 4,
                     boxShadow: '0 2px 12px #ffd6f7',
                     cursor: 'pointer',
                   }}
