@@ -226,6 +226,14 @@
   font-weight: 900;
 }
 
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 3rem;
+    margin-bottom: 0.4rem;
+    margin-top: 1rem;
+  }
+}
+
 .heroSubtitle {
   font-size: 1.2rem;
   color: #ff69b4;
@@ -236,6 +244,12 @@
   margin-right: auto;
   font-weight: 900;
   letter-spacing: 0.5px;
+}
+
+@media (max-width: 768px) {
+  .heroSubtitle {
+    font-size: 0.75rem !important;
+  }
 }
 
 .heroFeatures {
@@ -284,9 +298,7 @@
   height: 500px;
   padding: 1.5rem;
   overflow-y: auto;
-  background: var(--chat-bg, transparent);
-
-  box-shadow: inset 0 2px 8px rgba(255, 182, 230, 0.2);
+  background: transparent;
   margin-bottom: 1.5rem;
   scroll-behavior: smooth;
   display: flex;
@@ -319,6 +331,13 @@
   gap: 0.8rem;
 }
 
+@media (max-width: 768px) {
+  .chatMessageGroup {
+    margin-bottom: 1.5rem;
+    gap: 0.6rem;
+  }
+}
+
 .messageHeader {
   display: flex;
   align-items: center;
@@ -326,6 +345,13 @@
   margin-bottom: 8px;
   font-size: 0.9rem;
   font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .messageHeader {
+    margin-bottom: 6px;
+    font-size: 0.8rem;
+  }
 }
 
 .mandyIcon {
@@ -344,10 +370,24 @@
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
+@media (max-width: 768px) {
+  .mandyIcon {
+    width: 28px;
+    height: 28px;
+    font-size: 18px;
+  }
+}
+
 .messageLabel {
   color: var(--button-text, #ff69b4);
   text-shadow: 0 0 2px rgba(255, 182, 230, 0.3);
   font-size: 1.4rem;
+}
+
+@media (max-width: 768px) {
+  .messageLabel {
+    font-size: 1.2rem;
+  }
 }
 
 .bubble {
@@ -364,6 +404,20 @@
   line-height: 1.6;
   align-self: flex-start;
   margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+  .bubble{
+    line-height: 1.3;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 85%;
+    padding: 0.8rem 1rem;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    border-radius: 16px 16px 16px 6px;
+  }
 }
 
 .questionBubble {
@@ -383,6 +437,20 @@
   margin-bottom: 1rem;
   display: block;
   word-break: break-word;
+}
+
+@media (max-width: 768px) {
+  .questionBubble{
+    line-height: 1.3;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 85%;
+    padding: 0.8rem 1rem;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    border-radius: 16px 16px 6px 16px;
+  }
 }
 
 .questionBubble .messageHeader {
@@ -635,6 +703,13 @@
   border-radius: 12px;
   border: 2px solid var(--button-border, #ff69b4);
   box-shadow: 0 4px 16px rgba(255, 105, 180, 0.2);
+}
+
+@media (max-width: 768px) {
+  .imagePreview {
+    max-width: 140px;
+    max-height: 140px;
+  }
 }
 
 .previewContainer {

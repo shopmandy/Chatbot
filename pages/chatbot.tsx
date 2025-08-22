@@ -243,7 +243,7 @@ export default function Chatbot() {
               <h2 className={styles.heroTitle}>
                 Handy Mandy&apos;s DIY Chatbot
               </h2>
-              <p className={styles.heroSubtitle} style={{ fontFamily: 'Roboto Mono, monospace' }}>
+              <p className={`${styles.heroSubtitle} text-xs md:text-lg`} style={{ fontFamily: 'Roboto Mono, monospace' }}>
                 Your 24/7 DIY Assistant 🤖✨ Get instant help with home
                 projects, decor ideas, and DIY tips. Just ask Mandy anything!
               </p>
