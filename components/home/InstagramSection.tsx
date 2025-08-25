@@ -167,7 +167,7 @@ export function InstagramSection() {
           >
             <h1
               style={{
-                fontSize: '3.6rem',
+                fontSize: '3.2rem',
                 color: '#f91b8f',
                 marginBottom: '2rem',
                 fontWeight: '700',
