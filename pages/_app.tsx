@@ -1,5 +1,5 @@
 import '@/styles/globals.css'
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from '@vercel/analytics/next'
 import {
   ClerkProvider,
   SignedIn,
@@ -12,18 +12,17 @@ import { Home, LogIn, MessageCircle, ShoppingBag, Sparkles } from 'lucide-react'
 import type { AppProps } from 'next/app'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useCallback, useEffect, useRef, useState } from 'react'
-
+import { useEffect, useState } from 'react'
 
 const navItems = [
   { id: 'home', label: 'Home', icon: Home, path: '/' },
+  { id: 'room', label: 'Room Makeover', icon: Sparkles, path: '/room' },
   {
     id: 'chatbot',
     label: 'DIY Chatbot',
     icon: MessageCircle,
     path: '/chatbot',
   },
-  { id: 'room', label: 'Room Makeover', icon: Sparkles, path: '/room' },
   {
     id: 'shop',
     label: 'Shop Toolkits',
@@ -95,7 +94,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <button
           className="mobile-menu"
           aria-label="Open navigation menu"
-          onClick={(e) => {
+          onClick={e => {
             e.preventDefault()
             e.stopPropagation()
             toggleSidebar()
@@ -143,11 +142,11 @@ export default function App({ Component, pageProps }: AppProps) {
             <button
               className="close-sidebar"
               aria-label="Close navigation menu"
-                        onClick={(e) => {
-            e.preventDefault()
-            e.stopPropagation()
-            closeSidebar()
-          }}
+              onClick={e => {
+                e.preventDefault()
+                e.stopPropagation()
+                closeSidebar()
+              }}
               style={{
                 display: 'none',
                 position: 'absolute',
@@ -209,7 +208,6 @@ export default function App({ Component, pageProps }: AppProps) {
                       href={item.path}
                       target="_blank"
                       rel="noopener noreferrer"
-
                       className={`
                       relative px-6 py-4 rounded-3xl border-2 font-bold text-sm
                       transition-transform duration-150 min-h-[80px] max-w-[220px] w-full mx-auto
@@ -222,8 +220,18 @@ export default function App({ Component, pageProps }: AppProps) {
                     `}
                       style={{
                         boxShadow: isActive
-                          ? `\n                      0 8px 16px rgba(236, 72, 153, 0.3),\n                      0 4px 8px rgba(236, 72, 153, 0.2),\n                      inset 0 1px 0 rgba(255, 255, 255, 0.3),\n                      inset 0 -1px 0 rgba(0, 0, 0, 0.1)\n                    `
-                          : `\n                      0 6px 12px rgba(236, 72, 153, 0.15),\n                      0 2px 4px rgba(236, 72, 153, 0.1),\n                      inset 0 1px 0 rgba(255, 255, 255, 0.8),\n                      inset 0 -1px 0 rgba(236, 72, 153, 0.1)\n                    `,
+                          ? `
+                      0 8px 16px rgba(236, 72, 153, 0.3),
+                      0 4px 8px rgba(236, 72, 153, 0.2),
+                      inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                      inset 0 -1px 0 rgba(0, 0, 0, 0.1)
+                    `
+                          : `
+                      0 6px 12px rgba(236, 72, 153, 0.15),
+                      0 2px 4px rgba(236, 72, 153, 0.1),
+                      inset 0 1px 0 rgba(255, 255, 255, 0.8),
+                      inset 0 -1px 0 rgba(236, 72, 153, 0.1)
+                    `,
                       }}
                     >
                       {/* Highlight overlay for 3D effect */}
@@ -244,6 +252,7 @@ export default function App({ Component, pageProps }: AppProps) {
                         />
                         <span
                           className={`text-sm leading-tight text-center font-bold ${isActive ? 'text-white drop-shadow-sm' : 'text-pink-600'}`}
+                          style={{ fontFamily: 'Roboto Mono, monospace' }}
                         >
                           {item.label}
                         </span>
@@ -259,7 +268,6 @@ export default function App({ Component, pageProps }: AppProps) {
                   <Link
                     key={item.id}
                     href={item.path}
-
                     className={`
                     relative px-6 py-4 rounded-3xl border-2 font-bold text-sm
                     transition-transform duration-150 min-h-[80px] max-w-[220px] w-full mx-auto
@@ -272,8 +280,18 @@ export default function App({ Component, pageProps }: AppProps) {
                   `}
                     style={{
                       boxShadow: isActive
-                        ? `\n                    0 8px 16px rgba(236, 72, 153, 0.3),\n                    0 4px 8px rgba(236, 72, 153, 0.2),\n                    inset 0 1px 0 rgba(255, 255, 255, 0.3),\n                    inset 0 -1px 0 rgba(0, 0, 0, 0.1)\n                  `
-                        : `\n                    0 6px 12px rgba(236, 72, 153, 0.15),\n                    0 2px 4px rgba(236, 72, 153, 0.1),\n                    inset 0 1px 0 rgba(255, 255, 255, 0.8),\n                    inset 0 -1px 0 rgba(236, 72, 153, 0.1)\n                  `,
+                        ? `
+                    0 8px 16px rgba(236, 72, 153, 0.3),
+                    0 4px 8px rgba(236, 72, 153, 0.2),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                    inset 0 -1px 0 rgba(0, 0, 0, 0.1)
+                  `
+                        : `
+                    0 6px 12px rgba(236, 72, 153, 0.15),
+                    0 2px 4px rgba(236, 72, 153, 0.1),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+                    inset 0 -1px 0 rgba(236, 72, 153, 0.1)
+                  `,
                     }}
                   >
                     {/* Highlight overlay for 3D effect */}
@@ -294,6 +312,7 @@ export default function App({ Component, pageProps }: AppProps) {
                       />
                       <span
                         className={`text-sm leading-tight text-center font-bold ${isActive ? 'text-white drop-shadow-sm' : 'text-pink-600'}`}
+                        style={{ fontFamily: 'Roboto Mono, monospace' }}
                       >
                         {item.label}
                       </span>
@@ -325,7 +344,9 @@ export default function App({ Component, pageProps }: AppProps) {
                     }}
                   >
                     <LogIn style={{ width: 20, height: 20 }} />
-                    <span>SIGN IN</span>
+                    <span style={{ fontFamily: 'Roboto Mono, monospace' }}>
+                      SIGN IN
+                    </span>
                   </a>
                 </SignInButton>
               </SignedOut>

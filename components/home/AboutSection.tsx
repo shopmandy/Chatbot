@@ -83,7 +83,7 @@ export function AboutSection() {
           >
             <h1
               style={{
-                fontSize: '3.6rem',
+                fontSize: '3.2rem',
                 color: '#f91b8f',
                 fontWeight: '700',
                 letterSpacing: '2px',

@@ -23,13 +23,13 @@ export function HeroSection() {
   }
 
   const navItems = [
+    { id: 'room', label: 'Room Makeover', icon: Sparkles, path: '/room' },
     {
       id: 'chatbot',
       label: 'DIY Chatbot',
       icon: MessageCircle,
       path: '/chatbot',
     },
-    { id: 'room', label: 'Room Makeover', icon: Sparkles, path: '/room' },
     {
       id: 'shop',
       label: 'Shop Toolkits',
@@ -40,7 +40,7 @@ export function HeroSection() {
   ]
 
   return (
-    <div className="hero-section">
+    <div>
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem' }}>
         <div
           style={{
@@ -106,7 +106,7 @@ export function HeroSection() {
           {/* Enhanced Section Content */}
           <div
             style={{
-              padding: '1rem',
+              padding: '2andrem',
               textAlign: 'center',
               display: isMinimized ? 'none' : 'block',
               transition: 'all 0.3s ease',
@@ -118,6 +118,7 @@ export function HeroSection() {
                 color: '#f91b8f',
                 marginBottom: '1.5rem',
                 fontWeight: '700',
+                letterSpacing: '2px',
                 lineHeight: '1.3',
                 fontFamily:
                   "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
@@ -129,18 +130,17 @@ export function HeroSection() {
 
             <p
               style={{
-                fontSize: '1.8rem',
+                fontSize: '1.2rem',
                 color: '#f91b8f',
                 marginBottom: '3rem',
                 fontWeight: '600',
                 lineHeight: '1.4',
-                fontFamily:
-                  "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+                fontFamily: 'Roboto Mono, monospace',
                 opacity: 0.9,
               }}
             >
-              Get instant help with home projects, decor ideas, and DIY tips.
-              Just ask Mandy anything!
+              Decorate your room with AI, get expert help from our DIY bot, and
+              shop our tools to bring your project to life.
             </p>
 
             {/* Enhanced Buttons */}
@@ -148,60 +148,59 @@ export function HeroSection() {
               style={{
                 display: 'flex',
                 justifyContent: 'center',
-                gap: '2rem',
+                alignItems: 'center',
+                gap: '0',
                 flexWrap: 'wrap',
+                paddingBottom: '2rem',
               }}
             >
               {navItems.map(item => {
                 const Icon = item.icon
                 const subheadings = {
-                  chatbot: 'Chat with Mandy',
                   room: 'AI-powered design',
+                  chatbot: 'Expert DIY guidance',
                   shop: 'Get equipped',
                 }
                 return (
                   <button
                     key={item.id}
                     onClick={() => handleButtonClick(item.path)}
-                    className="nav-link home-button"
+                    className="relative rounded-3xl border-2 font-bold text-sm transition-transform duration-150 bg-gradient-to-br from-white via-pink-50 to-pink-100 text-pink-600 border-pink-200 hover:from-pink-100 hover:via-pink-150 hover:to-pink-200"
                     style={{
-                    width: '300px',
-                    height: '140px', 
-                    textAlign: 'center',
-                    fontSize: '0.9rem',
-                    fontFamily: "'Press Start 2P', VT323, Montserrat, Arial, sans-serif",
-                    fontWeight: '700',
-                    letterSpacing: '1px',
-                    borderRadius: '28px',
-                    border: '2px solid #f91b8f',
-                    padding: '0.8rem 1.2rem',
-                    cursor: 'pointer',
-                    margin: '0',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '0.8rem',
-                    background: 'linear-gradient(135deg, #fff6fa 0%, #f0f3fb 100%)',
-                    boxShadow: '0 8px 24px rgba(255, 105, 180, 0.2)',
-                    transition: 'transform 0.15s ease, box-shadow 0.15s ease',
-                  }}
+                      minHeight: '140px',
+                      maxWidth: '300px',
+                      width: '100%',
+                      margin: '0 auto',
+                      padding: '2rem',
+                      boxShadow: `
+                        0 6px 12px rgba(236, 72, 153, 0.15),
+                        0 2px 4px rgba(236, 72, 153, 0.1),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.8),
+                        inset 0 -1px 0 rgba(236, 72, 153, 0.1)
+                      `,
+                    }}
                   >
-                    <Icon style={{ width: 28, height: 28 }} />
-                    <span>{item.label}</span>
-                    <span
-                      style={{
-                        fontSize: '1rem',
-                        fontWeight: '600',
-                        letterSpacing: '0.5px',
-                        opacity: 0.8,
-                        lineHeight: 1.2,
-                        padding: '0rem',
-                        fontFamily: 'Roboto Mono, monospace',
-                      }}
-                    >
-                      {subheadings[item.id as keyof typeof subheadings]}
-                    </span>
+                    {/* Highlight overlay for 3D effect */}
+                    <div className="absolute top-2 left-2 right-2 h-4 rounded-t-2xl bg-gradient-to-r from-white/60 to-white/30" />
+                    {/* Tab Content */}
+                    <div className="flex flex-col items-center gap-3 relative z-10">
+                      <Icon className="w-8 h-8 text-pink-600" />
+                      <span
+                        className="leading-tight text-center font-bold text-pink-600"
+                        style={{
+                          fontFamily: 'Roboto Mono, monospace',
+                          fontSize: '1.1rem',
+                        }}
+                      >
+                        {item.label}
+                      </span>
+                      <span
+                        className="text-xs text-pink-500 opacity-80 font-medium"
+                        style={{ fontFamily: 'Roboto Mono, monospace' }}
+                      >
+                        {subheadings[item.id as keyof typeof subheadings]}
+                      </span>
+                    </div>
                   </button>
                 )
               })}
