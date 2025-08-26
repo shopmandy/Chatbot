@@ -562,8 +562,8 @@ export default function Room() {
     const uploadRes = await fetch(
       `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API_KEY}`,
       {
-        method: 'POST',
-        body: formData,
+      method: 'POST',
+      body: formData,
       }
     )
     const uploadJson = await uploadRes.json()
@@ -721,7 +721,7 @@ export default function Room() {
         </h1>
         <div className={`${styles.headerText} text-xs md:text-lg`}>
           Upload your space, describe your dream, and watch the magic happen.
-        </div>
+          </div>
       </div>
       <div>
         {/* Feature Bubbles */}
@@ -981,7 +981,7 @@ export default function Room() {
               <div className="window-controls">
                 <button className="window-buttons" title="Minimize">
                   <span className="window-button-icon">─</span>
-                </button>
+          </button>
                 <button className="window-buttons" title="Maximize">
                   <span className="window-button-icon">□</span>
                 </button>
@@ -1038,7 +1038,7 @@ export default function Room() {
                         gap: '0.3rem',
                       }}
                     >
-                      <span
+            <span
                         style={{
                           color: '#f91b8f',
                           fontSize: '0.7rem',
@@ -1050,7 +1050,7 @@ export default function Room() {
                         }}
                       >
                         BEFORE
-                      </span>
+            </span>
                     </div>
                   </div>
 
@@ -1228,7 +1228,7 @@ export default function Room() {
                 `}</style>
               </div>
             </div>
-          </section>
+        </section>
         </div>
 
         <div
@@ -1303,7 +1303,7 @@ export default function Room() {
                   <span className="window-button-icon">×</span>
                 </button>
               </div>
-            </div>
+              </div>
             {/* Window Content */}
             <div style={{ padding: '2rem', minHeight: '300px' }}>
               <div
@@ -1319,7 +1319,7 @@ export default function Room() {
                 }}
               >
                 Upload Your Room Photo
-              </div>
+            </div>
               <div
                 style={{
                   display: 'flex',
@@ -1373,12 +1373,12 @@ export default function Room() {
                   onMouseLeave={() => setChooseFileHover(false)}
                 >
                   Choose photo
-                </label>
-                <input
-                  type="file"
-                  id="fileUpload"
-                  accept="image/*"
-                  onChange={handleUpload}
+              </label>
+              <input
+                type="file"
+                id="fileUpload"
+                accept="image/*"
+                onChange={handleUpload}
                 />
               </div>
               <div
@@ -1565,7 +1565,7 @@ export default function Room() {
                 ))}
               </div>
               <div className="flex justify-center mt-8 mb-8">
-                <button
+              <button
                   className="relative px-12 py-6 w-full max-w-md bg-gradient-to-br from-pink-400 via-pink-500 to-pink-600 text-white font-mono text-xl font-extrabold border-2 border-pink-400 rounded-3xl cursor-pointer tracking-wide transition-all duration-150 scale-105 overflow-hidden shadow-lg hover:scale-108 hover:shadow-xl"
                   onMouseEnter={e =>
                     (e.currentTarget.style.transform = 'scale(1.07)')
@@ -1573,8 +1573,8 @@ export default function Room() {
                   onMouseLeave={e =>
                     (e.currentTarget.style.transform = 'scale(1)')
                   }
-                  onClick={handleGenerate}
-                  disabled={loading}
+                onClick={handleGenerate}
+                disabled={loading}
                 >
                   {/* Highlight overlay for 3D effect */}
                   <div className="absolute top-2 left-2 right-2 h-4 rounded-t-2xl bg-gradient-to-r from-white/20 to-white/10 pointer-events-none" />
@@ -1639,7 +1639,7 @@ export default function Room() {
                   ) : (
                     'Generate my room!'
                   )}
-                </button>
+              </button>
               </div>
             </div>
           </div>
@@ -1778,7 +1778,7 @@ export default function Room() {
                           'Photo uploaded! Ready to transform'
                         )}
                       </div>
-                      {loading && (
+              {loading && (
                         <div style={{
                           width: '100%',
                           marginTop: '1rem',
@@ -1795,9 +1795,9 @@ export default function Room() {
                             transition: 'width 0.3s ease-out',
                             boxShadow: '0 2px 4px rgba(249, 27, 143, 0.3)',
                           }} />
-                        </div>
+                  </div>
                       )}
-                    </div>
+                </div>
                   ) : (
                     <>
                       <div
@@ -1948,9 +1948,9 @@ export default function Room() {
                     }}
                   >
                     Toggle to see the transformation!
-                  </div>
-                </div>
-              )}
+            </div>
+          </div>
+        )}
               <div className="flex justify-center mt-8 mb-8">
                 <button
                   className="relative px-12 py-6 w-full max-w-md bg-gradient-to-br from-pink-400 via-pink-500 to-pink-600 text-white font-mono text-xl font-extrabold border-2 border-pink-400 rounded-3xl cursor-pointer tracking-wide transition-all duration-150 scale-105 overflow-hidden shadow-lg hover:scale-108 hover:shadow-xl"
@@ -1974,7 +1974,7 @@ export default function Room() {
                     <Download className="w-7 h-7 text-white drop-shadow-sm" />
                   </span>
                   Download
-                </button>
+        </button>
               </div>
 
               {/* Find Products Button */}

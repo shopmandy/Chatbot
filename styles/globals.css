@@ -192,6 +192,7 @@ html {
   gap: 0.5rem;
   width: 100%;
   padding-bottom: 2rem;
+  min-height: fit-content;
 }
 
 .main-content {
@@ -404,6 +405,7 @@ button:hover,
     margin-left: 0 !important;
     padding-top: 2rem;
     pointer-events: none;
+    overflow-y: auto;
   }
   .sidebar.open {
     transform: translateX(0);
@@ -435,6 +437,80 @@ button:hover,
     color: #f91b8f;
     font-size: 2.2rem;
     z-index: 2101;
+  }
+  
+  .sidebar-auth {
+    display: flex !important;
+    visibility: visible !important;
+    margin-top: auto;
+    padding-bottom: 2rem;
+  }
+  
+  /* Mobile sidebar - slightly smaller elements */
+  .sidebar {
+    padding-top: 2rem !important;
+  }
+  
+  /* Slightly smaller brand header */
+  .sidebar > div:first-child {
+    margin-bottom: 1.5rem !important;
+  }
+  
+  .sidebar > div:first-child h2 {
+    font-size: 1.6rem !important;
+  }
+  
+  .sidebar > div:first-child p {
+    font-size: 0.7rem !important;
+  }
+  
+  /* Mobile navigation buttons */
+  .sidebar .nav-link {
+    width: 200px !important;
+    min-height: 90px !important;
+    max-height: 90px !important;
+    max-width: 200px !important;
+    margin: 0 0 1rem 0 !important;
+    font-size: 0.75rem !important;
+    letter-spacing: 1.5px !important;
+    border-radius: 20px !important;
+    padding: 0.5rem 0.8rem !important;
+  }
+  
+  /* Mobile navigation spacing */
+  .sidebar-nav {
+    gap: 1rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  /* Mobile auth section */
+  .sidebar-auth {
+    padding-bottom: 1.8rem !important;
+  }
+  
+  /* Mobile button icons */
+  .sidebar .nav-link svg {
+    width: 24px !important;
+    height: 24px !important;
+  }
+  
+  /* Mobile button text */
+  .sidebar .nav-link span {
+    font-size: 0.75rem !important;
+  }
+  
+  /* Mobile sign-in button (pill shape) */
+  .sidebar-auth .nav-link {
+    min-height: 50px !important;
+    max-height: 50px !important;
+    border-radius: 999px !important;
+    padding: 0.5rem 1rem !important;
+  }
+  
+  /* Mobile sign-in button icon */
+  .sidebar-auth .nav-link svg {
+    width: 18px !important;
+    height: 18px !important;
   }
 }
 

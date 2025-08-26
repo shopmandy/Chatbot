@@ -252,20 +252,6 @@ export default function Chatbot() {
             {/* Removed headerActions with Customize and Chats buttons */}
           </div>
         </header>
-        {showChats && (
-          <ChatDropdown
-            onClose={() => setShowChats(false)}
-            mode={showChats === 'save' ? 'save' : 'default'}
-            onChatSelect={async chatId => {
-              const res = await fetch(`/api/load-chat?chatId=${chatId}`)
-              if (res.ok) {
-                const data = await res.json()
-                setMessages(data.messages || [])
-                setShowHero(false)
-              }
-            }}
-          />
-        )}
         {/* Main Content */}
         <main className={styles.mainContent}>
           <div className={styles.chatContainer}>
@@ -302,13 +288,35 @@ export default function Chatbot() {
                     <button
                       className={styles.mobileMenuItem}
                       onClick={() => {
-                        handleSaveChat()
+                        if (!isSignedIn) {
+                          setShowChats('save')
+                        } else {
+                          handleSaveChat()
+                        }
                         setShowMobileMenu(false)
                       }}
                     >
                       💾 Save Chat
                     </button>
                   </div>
+                )}
+              </div>
+
+              {/* Mobile ChatDropdown - rendered outside mobile menu */}
+              <div className="md:hidden">
+                {showChats && (
+                  <ChatDropdown
+                    onClose={() => setShowChats(false)}
+                    mode={showChats === 'save' ? 'save' : 'default'}
+                    onChatSelect={async chatId => {
+                      const res = await fetch(`/api/load-chat?chatId=${chatId}`)
+                      if (res.ok) {
+                        const data = await res.json()
+                        setMessages(data.messages || [])
+                        setShowHero(false)
+                      }
+                    }}
+                  />
                 )}
               </div>
 
@@ -334,15 +342,31 @@ export default function Chatbot() {
                     💬
                   </span>
                 </button>
-                <button
-                  className={styles.customizeButton}
-                  onClick={handleSaveChat}
-                >
-                  Save Chat{' '}
-                  <span role="img" aria-label="floppy disk">
-                    💾
-                  </span>
-                </button>
+                <div style={{ position: 'relative' }}>
+                  <button
+                    className={styles.customizeButton}
+                    onClick={handleSaveChat}
+                  >
+                    Save Chat{' '}
+                    <span role="img" aria-label="floppy disk">
+                      💾
+                    </span>
+                  </button>
+                  {showChats && (
+                    <ChatDropdown
+                      onClose={() => setShowChats(false)}
+                      mode={showChats === 'save' ? 'save' : 'default'}
+                      onChatSelect={async chatId => {
+                        const res = await fetch(`/api/load-chat?chatId=${chatId}`)
+                        if (res.ok) {
+                          const data = await res.json()
+                          setMessages(data.messages || [])
+                          setShowHero(false)
+                        }
+                      }}
+                    />
+                  )}
+                </div>
               </div>
 
               <div className={styles.windowControls}>
