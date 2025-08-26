@@ -101,6 +101,7 @@ export function FounderSection() {
             </div>
             {/* Top row: grid with image on left spanning header + subheader */}
             <div
+              className="founder-grid"
               style={{
                 display: 'grid',
                 gridTemplateColumns: '1fr 1fr',
@@ -133,7 +134,7 @@ export function FounderSection() {
               </div>
 
               {/* Right-side text container (header + all paragraphs) */}
-              <div style={{ gridColumn: 2, gridRow: 1 }}>
+              <div className="founder-text-content" style={{ gridColumn: 2, gridRow: 1 }}>
                 <h1
                   style={{
                     fontSize: '3.2rem',
@@ -152,8 +153,8 @@ export function FounderSection() {
                 {[
                   'Mandy was founded by Caroline Blanck to make DIY feel like it belongs to everyone—especially women.',
                   'Led by an all-women, BIPOC team, we blend design, tech, and self-reliance to reimagine tools that are functional, intuitive, and beautiful.',
-                  'DIY isn’t just a skill—it’s a mindset. Our tools spark confidence, creativity, and control.',
-                  'Let’s build something better.',
+                  'DIY isn\'t just a skill—it\'s a mindset. Our tools spark confidence, creativity, and control.',
+                  'Let\'s build something better.',
                 ].map((paragraph, index) => (
                   <p
                     key={index}
@@ -163,7 +164,7 @@ export function FounderSection() {
                       lineHeight: '1.5',
                       fontFamily: 'Roboto Mono, monospace',
                       fontWeight: '600',
-                      marginBottom: '1rem',
+                      marginBottom: index === 0 ? '1rem' : '1rem',
                     }}
                   >
                     {paragraph}
@@ -179,7 +180,15 @@ export function FounderSection() {
               @media (max-width: 768px) {
                 .founder-mobile-image { display: block; }
                 .founder-desktop-image { display: none; }
+                /* Make text span full width on mobile */
                 .founder-text { width: 100% !important; }
+                /* Make the grid single column and text full width on mobile */
+                .founder-grid {
+                  grid-template-columns: 1fr !important;
+                }
+                .founder-text-content {
+                  grid-column: 1 !important;
+                }
               }
             `}</style>
           </div>
