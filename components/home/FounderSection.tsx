@@ -76,49 +76,91 @@ export function FounderSection() {
           {/* Enhanced Section Content */}
           <div
             style={{
-              padding: '3rem',
+              padding: '1.25rem',
               textAlign: 'left',
               display: isMinimized ? 'none' : 'block',
               transition: 'all 0.3s ease',
             }}
           >
-            <h1
-              style={{
-                fontSize: '3.2rem',
-                color: '#f91b8f',
-                fontWeight: '700',
-                letterSpacing: '2px',
-                lineHeight: '1.3',
-                fontFamily:
-                  "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
-                textShadow: '0 4px 16px rgba(255, 105, 180, 0.3)',
-                marginBottom: '0rem',
-              }}
-            >
-              FEMALE FOUNDED
-            </h1>
-
+            {/* Mobile-only image above the header (mirror About section) */}
+            <div className="founder-mobile-image" style={{ marginBottom: '1rem' }}>
+              <Image
+                src="/founder.png"
+                alt="Mandy's Founder, Caroline Blanck"
+                width={800}
+                height={800}
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                  aspectRatio: '1 / 1',
+                  objectFit: 'cover',
+                  borderRadius: '16px',
+                  boxShadow: '0 8px 20px rgba(255, 105, 180, 0.20)',
+                }}
+              />
+            </div>
+            {/* Top row: grid with image on left spanning header + subheader */}
             <div
               style={{
-                display: 'flex',
-                alignItems: 'flex-start',
-                gap: '3rem',
-                marginBottom: '0rem',
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                alignItems: 'start',
+                columnGap: '1.5rem',
+                marginBottom: '1rem',
               }}
             >
-              <div style={{ flex: '0 0 50%', marginTop: '1rem' }}>
+              {/* Left image spans full text block height */}
+              <div
+                className="founder-desktop-image"
+                style={{ gridColumn: 1, gridRow: '1', alignSelf: 'stretch' }}
+              >
+                <div style={{ width: '100%', height: '100%' }}>
+                  <Image
+                    src="/founder.png"
+                    alt="Mandy's Founder, Caroline Blanck"
+                    width={800}
+                    height={600}
+                    style={{
+                      width: '100%',
+                      height: 'auto',
+                      aspectRatio: '1 / 1',
+                      objectFit: 'cover',
+                      borderRadius: '16px',
+                      boxShadow: '0 8px 20px rgba(255, 105, 180, 0.20)',
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Right-side text container (header + all paragraphs) */}
+              <div style={{ gridColumn: 2, gridRow: 1 }}>
+                <h1
+                  style={{
+                    fontSize: '3.2rem',
+                    color: '#f91b8f',
+                    fontWeight: '700',
+                    letterSpacing: '2px',
+                    lineHeight: '1.2',
+                    fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+                    textShadow: '0 4px 16px rgba(255, 105, 180, 0.3)',
+                    margin: 0,
+                    marginBottom: '1rem',
+                  }}
+                >
+                  FEMALE FOUNDED
+                </h1>
                 {[
-                  'Mandy was founded by Caroline Blanck, an entrepreneur with a background in sustainability, law, and emerging tech. Her goal? Make DIY feel like it belongs to everyone—especially women.',
-                  "Today, Mandy is powered by an all-women and BIPOC-led team blending design, technology, and self-reliance. We're reimagining tools to be functional, intuitive, and beautiful—built for how we live now.",
-                  "DIY isn't just a skill—it's a mindset. Our tools are made to spark confidence, creativity, and control.",
-                  "Let's build something better.",
+                  'Mandy was founded by Caroline Blanck to make DIY feel like it belongs to everyone—especially women.',
+                  'Led by an all-women, BIPOC team, we blend design, tech, and self-reliance to reimagine tools that are functional, intuitive, and beautiful.',
+                  'DIY isn’t just a skill—it’s a mindset. Our tools spark confidence, creativity, and control.',
+                  'Let’s build something better.',
                 ].map((paragraph, index) => (
                   <p
                     key={index}
                     style={{
-                      fontSize: '1.3rem',
+                      fontSize: '1.25rem',
                       color: '#f91b8f',
-                      lineHeight: '1.6',
+                      lineHeight: '1.5',
                       fontFamily: 'Roboto Mono, monospace',
                       fontWeight: '600',
                       marginBottom: '1rem',
@@ -128,31 +170,18 @@ export function FounderSection() {
                   </p>
                 ))}
               </div>
-
-              <div
-                style={{
-                  flex: 1,
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'flex-start',
-                  marginTop: '0rem',
-                }}
-              >
-                <div>
-                  <Image
-                    src="/founder.png"
-                    alt="Mandy's Founder, Caroline Blanck"
-                    width={450}
-                    height={450}
-                    style={{
-                      borderRadius: '16px',
-                      boxShadow: '0 12px 32px rgba(255, 105, 180, 0.25)',
-                      transition: 'all 0.3s ease',
-                    }}
-                  />
-                </div>
-              </div>
             </div>
+
+            {/* Remaining paragraphs under the grid (right column content) */}
+            {/* No additional text below; all content is now in the right column */}
+            <style jsx>{`
+              .founder-mobile-image { display: none; }
+              @media (max-width: 768px) {
+                .founder-mobile-image { display: block; }
+                .founder-desktop-image { display: none; }
+                .founder-text { width: 100% !important; }
+              }
+            `}</style>
           </div>
         </div>
       </div>
