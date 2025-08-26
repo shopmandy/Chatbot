@@ -34,10 +34,11 @@ const ChatDropdown: React.FC<ChatDropdownProps> = ({
   return (
     <div
       onClick={onClose}
+      className="chat-dropdown"
       style={{
-        position: 'fixed',
-        top: '160px', // further down
-        right: '80px', // further left
+        position: 'absolute',
+        top: 'calc(100% + 4px)',
+        right: '0',
         background: 'white',
         border: '2px solid var(--chat-border)',
         borderRadius: '10px',
@@ -93,9 +94,35 @@ const ChatDropdown: React.FC<ChatDropdownProps> = ({
       </SignedOut>
 
       <SignedIn>
-        <p style={{ fontWeight: 'bold', color: 'var(--chat-text)' }}>
-          Previous Chats
-        </p>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '0.5em',
+            marginBottom: '0.5em',
+          }}
+        >
+          <p style={{ fontWeight: 'bold', color: 'var(--chat-text)', margin: 0 }}>
+            Previous Chats
+          </p>
+          <button
+            onClick={onClose}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: 'var(--chat-text)',
+              fontWeight: 'bold',
+              fontSize: '1.1em',
+              cursor: 'pointer',
+              lineHeight: 1,
+              padding: 0,
+            }}
+            aria-label="Close previous chats popup"
+          >
+            ×
+          </button>
+        </div>
         <ul style={{ listStyle: 'none', padding: 0 }}>
           {chats.map(chat => (
             <li
