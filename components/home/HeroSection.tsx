@@ -167,11 +167,11 @@ export function HeroSection() {
                     onClick={() => handleButtonClick(item.path)}
                     className="relative rounded-3xl border-2 font-bold text-sm transition-transform duration-150 bg-gradient-to-br from-white via-pink-50 to-pink-100 text-pink-600 border-pink-200 hover:from-pink-100 hover:via-pink-150 hover:to-pink-200"
                     style={{
-                      minHeight: '140px',
-                      maxWidth: '300px',
+                      minHeight: '108px',
+                      maxWidth: '240px',
                       width: '100%',
                       margin: '0 auto',
-                      padding: '2rem',
+                      padding: '1.25rem',
                       boxShadow: `
                         0 6px 12px rgba(236, 72, 153, 0.15),
                         0 2px 4px rgba(236, 72, 153, 0.1),
