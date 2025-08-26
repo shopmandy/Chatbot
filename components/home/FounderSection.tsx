@@ -153,8 +153,8 @@ export function FounderSection() {
                 {[
                   'Mandy was founded by Caroline Blanck to make DIY feel like it belongs to everyone—especially women.',
                   'Led by an all-women, BIPOC team, we blend design, tech, and self-reliance to reimagine tools that are functional, intuitive, and beautiful.',
-                  'DIY isn’t just a skill—it’s a mindset. Our tools spark confidence, creativity, and control.',
-                  'Let’s build something better.',
+                  'DIY isn\'t just a skill—it\'s a mindset. Our tools spark confidence, creativity, and control.',
+                  'Let\'s build something better.',
                 ].map((paragraph, index) => (
                   <p
                     key={index}
@@ -164,7 +164,7 @@ export function FounderSection() {
                       lineHeight: '1.5',
                       fontFamily: 'Roboto Mono, monospace',
                       fontWeight: '600',
-                      marginBottom: '1rem',
+                      marginBottom: index === 0 ? '1rem' : '1rem',
                     }}
                   >
                     {paragraph}
