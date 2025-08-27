@@ -6,28 +6,11 @@ import styles from './step3.module.css'
 export default function OnboardingStep3() {
   const router = useRouter()
   const { user } = useUser()
-  const [spendingPreferences, setSpendingPreferences] = useState({
-    furniture: '',
-    homeDecor: '',
-    lighting: '',
-    textilesRugs: '',
+  const [priceRange, setPriceRange] = useState({
+    min: 100,
+    max: 1000,
   })
-
-  const priceRanges = [
-    'Under $100',
-    '$100-$500',
-    '$500-$1500',
-    '$1500-$5000',
-    '$5000+',
-    'Custom',
-  ]
-
-  const categories = [
-    { key: 'furniture', label: 'FURNITURE' },
-    { key: 'homeDecor', label: 'HOME DECOR' },
-    { key: 'lighting', label: 'LIGHTING' },
-    { key: 'textilesRugs', label: 'TEXTILES & RUGS' },
-  ]
+  const [activeSlider, setActiveSlider] = useState<'min' | 'max' | null>(null)
 
   useEffect(() => {
     // Lock scrolling when onboarding is visible
@@ -37,23 +20,26 @@ export default function OnboardingStep3() {
     }
   }, [])
 
-  const handlePriceSelect = (category: string, priceRange: string) => {
-    setSpendingPreferences(prev => ({
-      ...prev,
-      [category]: priceRange,
-    }))
+  const handlePriceChange = (type: 'min' | 'max', value: number) => {
+    setPriceRange(prev => {
+      let newRange = { ...prev }
+
+      if (type === 'min') {
+        newRange.min = Math.min(value, prev.max - 100) // Ensure min is at least 100 less than max
+      } else {
+        newRange.max = Math.max(value, prev.min + 100) // Ensure max is at least 100 more than min
+      }
+
+      return newRange
+    })
   }
 
   const handleNext = () => {
-    // Check if at least one category has been selected
-    const hasSelection = Object.values(spendingPreferences).some(
-      value => value !== ''
-    )
-    if (hasSelection) {
-      localStorage.setItem(
-        'onboarding_spending',
-        JSON.stringify(spendingPreferences)
-      )
+    // Check if the price range is valid (min < max and both > 0)
+    const hasValidSelection =
+      priceRange.min >= 0 && priceRange.max > priceRange.min
+    if (hasValidSelection) {
+      localStorage.setItem('onboarding_spending', JSON.stringify(priceRange))
       router.push('/onboarding/step4')
     }
   }
@@ -78,9 +64,7 @@ export default function OnboardingStep3() {
     }
   }
 
-  const canProceed = Object.values(spendingPreferences).some(
-    value => value !== ''
-  )
+  const canProceed = priceRange.min >= 0 && priceRange.max > priceRange.min
 
   return (
     <div className={styles.overlay}>
@@ -111,30 +95,87 @@ export default function OnboardingStep3() {
           </h1>
 
           <div className={styles.categoriesContainer}>
-            {categories.map(category => (
-              <div key={category.key} className={styles.categorySection}>
-                <h2 className={styles.categoryTitle}>{category.label}</h2>
-                <div className={styles.priceButtons}>
-                  {priceRanges.map(priceRange => (
-                    <button
-                      key={priceRange}
-                      className={`${styles.priceButton} ${
-                        spendingPreferences[
-                          category.key as keyof typeof spendingPreferences
-                        ] === priceRange
-                          ? styles.selected
-                          : ''
-                      }`}
-                      onClick={() =>
-                        handlePriceSelect(category.key, priceRange)
+            <div className={styles.categorySection}>
+              <h2 className={styles.categoryTitle}>YOUR PRICE RANGE</h2>
+              <div className={styles.priceSliderContainer}>
+                <div className={styles.priceInputs}>
+                  <div className={styles.inputGroup}>
+                    <label className={styles.inputLabel}>Min Price</label>
+                    <input
+                      type="number"
+                      min="0"
+                      max="4900"
+                      value={priceRange.min}
+                      onChange={e => {
+                        const value = parseInt(e.target.value) || 0
+                        handlePriceChange('min', Math.max(0, value))
+                      }}
+                      className={styles.priceInput}
+                      placeholder="$0"
+                    />
+                  </div>
+                  <div className={styles.inputGroup}>
+                    <label className={styles.inputLabel}>Max Price</label>
+                    <input
+                      type="number"
+                      min="100"
+                      max="5000"
+                      value={priceRange.max}
+                      onChange={e => {
+                        const value = parseInt(e.target.value) || 100
+                        handlePriceChange('max', Math.max(100, value))
+                      }}
+                      className={styles.priceInput}
+                      placeholder="$5000"
+                    />
+                  </div>
+                </div>
+                <div className={styles.sliderContainer}>
+                  <div className={styles.sliderTrack}></div>
+                  <div
+                    className={styles.sliderRange}
+                    style={{
+                      left: `${(priceRange.min / 5000) * 100}%`,
+                      width: `${((priceRange.max - priceRange.min) / 5000) * 100}%`,
+                    }}
+                  ></div>
+                  <div className={styles.sliderWrapper}>
+                    <input
+                      type="range"
+                      min="0"
+                      max="5000"
+                      step="50"
+                      value={priceRange.min}
+                      onChange={e =>
+                        handlePriceChange('min', parseInt(e.target.value))
                       }
-                    >
-                      {priceRange}
-                    </button>
-                  ))}
+                      onMouseDown={() => setActiveSlider('min')}
+                      onTouchStart={() => setActiveSlider('min')}
+                      className={`${styles.priceSlider} ${styles.minSlider}`}
+                      style={{ zIndex: activeSlider === 'min' ? 4 : 2 }}
+                    />
+                    <input
+                      type="range"
+                      min="0"
+                      max="5000"
+                      step="50"
+                      value={priceRange.max}
+                      onChange={e =>
+                        handlePriceChange('max', parseInt(e.target.value))
+                      }
+                      onMouseDown={() => setActiveSlider('max')}
+                      onTouchStart={() => setActiveSlider('max')}
+                      className={`${styles.priceSlider} ${styles.maxSlider}`}
+                      style={{ zIndex: activeSlider === 'max' ? 4 : 3 }}
+                    />
+                  </div>
+                </div>
+                <div className={styles.priceDisplay}>
+                  ${priceRange.min.toLocaleString()} - $
+                  {priceRange.max.toLocaleString()}
                 </div>
               </div>
-            ))}
+            </div>
           </div>
         </div>
 
