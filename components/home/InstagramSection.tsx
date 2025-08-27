@@ -99,7 +99,7 @@ export function InstagramSection() {
         <div
           style={{
             background:
-              'linear-gradient(135deg, rgba(230, 184, 241, 0.9) 0%, rgba(248, 174, 255, 0.9) 100%)',
+              'linear-gradient(135deg, rgba(240, 200, 250, 0.9) 0%, rgba(250, 190, 255, 0.9) 100%)',
             border: '3px solid #f91b8f',
             borderRadius: '24px',
             
@@ -116,7 +116,7 @@ export function InstagramSection() {
               justifyContent: 'space-between',
               alignItems: 'center',
               background:
-                'linear-gradient(135deg, rgba(230, 184, 241, 0.95) 0%, rgba(248, 174, 255, 0.95) 100%)',
+                'linear-gradient(135deg, rgba(255, 200, 230, 0.95) 0%, rgba(240, 200, 250, 0.95) 100%)',
               borderBottom: '3px solid #f91b8f',
               padding: '16px 24px',
               fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
@@ -169,7 +169,7 @@ export function InstagramSection() {
               style={{
                 fontSize: '3.2rem',
                 color: '#f91b8f',
-                marginBottom: '2rem',
+                marginBottom: '1rem',
                 fontWeight: '700',
                 letterSpacing: '2px',
                 lineHeight: '1.3',
@@ -190,6 +190,21 @@ export function InstagramSection() {
                 @SHOPMANDYTOOLS
               </a>
             </h1>
+
+            <p
+              style={{
+                fontSize: '1.2rem',
+                color: '#f91b8f',
+                marginBottom: '2rem',
+                fontWeight: '600',
+                lineHeight: '1.4',
+                fontFamily: 'Roboto Mono, monospace',
+                textAlign: 'center',
+                opacity: 0.9,
+              }}
+            >
+              Follow @shopmandytools for DIY inspo, project ideas, and the latest drops.
+            </p>
 
             <div
               style={{
