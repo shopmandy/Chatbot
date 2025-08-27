@@ -10,6 +10,7 @@ export default function OnboardingStep3() {
     min: 100,
     max: 1000,
   })
+  const [activeSlider, setActiveSlider] = useState<'min' | 'max' | null>(null)
 
   useEffect(() => {
     // Lock scrolling when onboarding is visible
@@ -130,28 +131,44 @@ export default function OnboardingStep3() {
                   </div>
                 </div>
                 <div className={styles.sliderContainer}>
-                  <input
-                    type="range"
-                    min="0"
-                    max="5000"
-                    step="50"
-                    value={priceRange.min}
-                    onChange={e =>
-                      handlePriceChange('min', parseInt(e.target.value))
-                    }
-                    className={`${styles.priceSlider} ${styles.minSlider}`}
-                  />
-                  <input
-                    type="range"
-                    min="0"
-                    max="5000"
-                    step="50"
-                    value={priceRange.max}
-                    onChange={e =>
-                      handlePriceChange('max', parseInt(e.target.value))
-                    }
-                    className={`${styles.priceSlider} ${styles.maxSlider}`}
-                  />
+                  <div className={styles.sliderTrack}></div>
+                  <div
+                    className={styles.sliderRange}
+                    style={{
+                      left: `${(priceRange.min / 5000) * 100}%`,
+                      width: `${((priceRange.max - priceRange.min) / 5000) * 100}%`,
+                    }}
+                  ></div>
+                  <div className={styles.sliderWrapper}>
+                    <input
+                      type="range"
+                      min="0"
+                      max="5000"
+                      step="50"
+                      value={priceRange.min}
+                      onChange={e =>
+                        handlePriceChange('min', parseInt(e.target.value))
+                      }
+                      onMouseDown={() => setActiveSlider('min')}
+                      onTouchStart={() => setActiveSlider('min')}
+                      className={`${styles.priceSlider} ${styles.minSlider}`}
+                      style={{ zIndex: activeSlider === 'min' ? 4 : 2 }}
+                    />
+                    <input
+                      type="range"
+                      min="0"
+                      max="5000"
+                      step="50"
+                      value={priceRange.max}
+                      onChange={e =>
+                        handlePriceChange('max', parseInt(e.target.value))
+                      }
+                      onMouseDown={() => setActiveSlider('max')}
+                      onTouchStart={() => setActiveSlider('max')}
+                      className={`${styles.priceSlider} ${styles.maxSlider}`}
+                      style={{ zIndex: activeSlider === 'max' ? 4 : 3 }}
+                    />
+                  </div>
                 </div>
                 <div className={styles.priceDisplay}>
                   ${priceRange.min.toLocaleString()} - $

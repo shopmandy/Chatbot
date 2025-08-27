@@ -177,69 +177,124 @@
 .sliderContainer {
   position: relative;
   height: 40px;
-  margin: 10px 0;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  background: transparent;
+}
+
+.sliderTrack {
+  position: absolute;
+  width: 100%;
+  height: 6px;
+  background: #ddd;
+  border-radius: 3px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.sliderRange {
+  position: absolute;
+  height: 6px;
+  background: #e11e74;
+  border-radius: 3px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.sliderWrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
 }
 
 .priceSlider {
   position: absolute;
   width: 100%;
-  height: 8px;
-  border-radius: 4px;
+  height: 20px;
+  border-radius: 3px;
   background: transparent;
   outline: none;
   -webkit-appearance: none;
   appearance: none;
-  cursor: pointer;
+  cursor: grab;
+  top: 50%;
+  transform: translateY(-50%);
   pointer-events: none;
 }
 
+.priceSlider:active {
+  cursor: grabbing;
+}
+
 .priceSlider::-webkit-slider-track {
-  height: 8px;
-  background: #f9a3cc;
-  border-radius: 4px;
+  height: 6px;
+  background: transparent;
+  border-radius: 3px;
+  border: none;
+  pointer-events: none;
 }
 
 .priceSlider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  height: 20px;
-  width: 20px;
+  height: 24px;
+  width: 24px;
   border-radius: 50%;
-  background: #e11e74;
-  cursor: pointer;
-  border: 2px solid white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background: #fff;
+  cursor: grab;
+  border: 2px solid #e11e74;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
   pointer-events: auto;
-  transition: all 0.2s;
 }
 
 .priceSlider::-webkit-slider-thumb:hover {
-  background: #c71585;
+  background: #f0f0f0;
   transform: scale(1.1);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.priceSlider::-webkit-slider-thumb:active {
+  background: #e11e74;
+  transform: scale(1.05);
+  cursor: grabbing;
 }
 
 .priceSlider::-moz-range-track {
-  height: 8px;
-  background: #f9a3cc;
-  border-radius: 4px;
+  height: 6px;
+  background: transparent;
+  border-radius: 3px;
   border: none;
+  pointer-events: none;
 }
 
 .priceSlider::-moz-range-thumb {
-  height: 20px;
-  width: 20px;
+  height: 24px;
+  width: 24px;
   border-radius: 50%;
-  background: #e11e74;
-  cursor: pointer;
-  border: 2px solid white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background: #fff;
+  cursor: grab;
+  border: 2px solid #e11e74;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
   pointer-events: auto;
-  transition: all 0.2s;
 }
 
 .priceSlider::-moz-range-thumb:hover {
-  background: #c71585;
+  background: #f0f0f0;
   transform: scale(1.1);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.priceSlider::-moz-range-thumb:active {
+  background: #e11e74;
+  transform: scale(1.05);
+  cursor: grabbing;
 }
 
 .minSlider {
