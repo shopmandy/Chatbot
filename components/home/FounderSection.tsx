@@ -15,7 +15,7 @@ export function FounderSection() {
         <div
           style={{
             background:
-              'linear-gradient(135deg, rgba(97, 179, 242, 0.9) 0%, rgba(175, 219, 244, 0.9) 100%)',
+              'linear-gradient(135deg, rgba(255, 224, 242, 0.9) 0%, rgba(228, 246, 255, 0.9) 50%, rgba(228, 246, 255, 0.9) 100%)',
             border: '3px solid #f91b8f',
             borderRadius: '24px',
             boxShadow:
@@ -33,7 +33,7 @@ export function FounderSection() {
               justifyContent: 'space-between',
               alignItems: 'center',
               background:
-                'linear-gradient(135deg, rgba(97, 179, 242, 0.95) 0%, rgba(175, 219, 244, 0.95) 100%)',
+                'linear-gradient(135deg, rgba(255, 200, 230, 0.95) 0%, rgba(228, 246, 255, 0.95) 100%)',
               borderBottom: '3px solid #f91b8f',
               padding: '16px 24px',
               fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
