@@ -7,8 +7,8 @@ export default function OnboardingStep3() {
   const router = useRouter()
   const { user } = useUser()
   const [priceRange, setPriceRange] = useState({
-    min: 100,
-    max: 1000,
+    min: 50,
+    max: 500,
   })
   const [activeSlider, setActiveSlider] = useState<'min' | 'max' | null>(null)
 
@@ -25,9 +25,10 @@ export default function OnboardingStep3() {
       let newRange = { ...prev }
 
       if (type === 'min') {
-        newRange.min = Math.min(value, prev.max - 100) // Ensure min is at least 100 less than max
+        newRange.min = Math.min(value, prev.max - 10) // Ensure min is at least 10 less than max
+        newRange.min = Math.max(newRange.min, 1) // Ensure min is at least 1 (Amazon requirement)
       } else {
-        newRange.max = Math.max(value, prev.min + 100) // Ensure max is at least 100 more than min
+        newRange.max = Math.max(value, prev.min + 10) // Ensure max is at least 10 more than min
       }
 
       return newRange
@@ -35,11 +36,18 @@ export default function OnboardingStep3() {
   }
 
   const handleNext = () => {
-    // Check if the price range is valid (min < max and both > 0)
+    // Check if the price range is valid (min >= 1, max > min)
     const hasValidSelection =
-      priceRange.min >= 0 && priceRange.max > priceRange.min
+      priceRange.min >= 1 && priceRange.max > priceRange.min
     if (hasValidSelection) {
-      localStorage.setItem('onboarding_spending', JSON.stringify(priceRange))
+      // Save as general budget range (since we removed categories)
+      const budgetData = {
+        general: {
+          min: priceRange.min,
+          max: priceRange.max,
+        },
+      }
+      localStorage.setItem('onboarding_spending', JSON.stringify(budgetData))
       router.push('/onboarding/step4')
     }
   }
@@ -64,7 +72,7 @@ export default function OnboardingStep3() {
     }
   }
 
-  const canProceed = priceRange.min >= 0 && priceRange.max > priceRange.min
+  const canProceed = priceRange.min >= 1 && priceRange.max > priceRange.min
 
   return (
     <div className={styles.overlay}>
@@ -103,30 +111,30 @@ export default function OnboardingStep3() {
                     <label className={styles.inputLabel}>Min Price</label>
                     <input
                       type="number"
-                      min="0"
-                      max="4900"
+                      min="1"
+                      max="990"
                       value={priceRange.min}
                       onChange={e => {
-                        const value = parseInt(e.target.value) || 0
-                        handlePriceChange('min', Math.max(0, value))
+                        const value = parseInt(e.target.value) || 1
+                        handlePriceChange('min', Math.max(1, value))
                       }}
                       className={styles.priceInput}
-                      placeholder="$0"
+                      placeholder="$1"
                     />
                   </div>
                   <div className={styles.inputGroup}>
                     <label className={styles.inputLabel}>Max Price</label>
                     <input
                       type="number"
-                      min="100"
-                      max="5000"
+                      min="10"
+                      max="1000"
                       value={priceRange.max}
                       onChange={e => {
-                        const value = parseInt(e.target.value) || 100
-                        handlePriceChange('max', Math.max(100, value))
+                        const value = parseInt(e.target.value) || 10
+                        handlePriceChange('max', Math.max(10, value))
                       }}
                       className={styles.priceInput}
-                      placeholder="$5000"
+                      placeholder="$1000"
                     />
                   </div>
                 </div>
@@ -135,16 +143,16 @@ export default function OnboardingStep3() {
                   <div
                     className={styles.sliderRange}
                     style={{
-                      left: `${(priceRange.min / 5000) * 100}%`,
-                      width: `${((priceRange.max - priceRange.min) / 5000) * 100}%`,
+                      left: `${((priceRange.min - 1) / 999) * 100}%`,
+                      width: `${((priceRange.max - priceRange.min) / 999) * 100}%`,
                     }}
                   ></div>
                   <div className={styles.sliderWrapper}>
                     <input
                       type="range"
-                      min="0"
-                      max="5000"
-                      step="50"
+                      min="1"
+                      max="1000"
+                      step="10"
                       value={priceRange.min}
                       onChange={e =>
                         handlePriceChange('min', parseInt(e.target.value))
@@ -156,9 +164,9 @@ export default function OnboardingStep3() {
                     />
                     <input
                       type="range"
-                      min="0"
-                      max="5000"
-                      step="50"
+                      min="1"
+                      max="1000"
+                      step="10"
                       value={priceRange.max}
                       onChange={e =>
                         handlePriceChange('max', parseInt(e.target.value))

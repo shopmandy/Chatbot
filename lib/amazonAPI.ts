@@ -2,7 +2,8 @@ import ProductAdvertisingAPIv1 from 'paapi5-nodejs-sdk'
 
 export async function searchAmazonProducts(
   keywords: string,
-  category: string = 'All'
+  category: string = 'All',
+  priceRange?: { min: number; max: number }
 ) {
   try {
     // Validate environment variables
@@ -40,7 +41,7 @@ export async function searchAmazonProducts(
     )
 
     // Create search request using object format (works better with TypeScript)
-    const searchItemsRequest = {
+    const searchItemsRequest: any = {
       PartnerTag: partnerTag,
       PartnerType: 'Associates',
       Keywords: keywords,
@@ -53,6 +54,29 @@ export async function searchAmazonProducts(
         'Offers.Listings.Price',
         'ItemInfo.ByLineInfo',
       ],
+    }
+
+    // Add price range filtering if provided and valid
+    if (priceRange) {
+      const minPriceCents = Math.round(priceRange.min * 100)
+      const maxPriceCents = Math.round(priceRange.max * 100)
+
+      // Only add MinPrice if it's greater than 0 (Amazon requirement)
+      if (minPriceCents > 0) {
+        searchItemsRequest.MinPrice = minPriceCents
+      }
+
+      // Only add MaxPrice if it's greater than MinPrice or if MinPrice isn't set
+      if (
+        maxPriceCents > 0 &&
+        (minPriceCents === 0 || maxPriceCents > minPriceCents)
+      ) {
+        searchItemsRequest.MaxPrice = maxPriceCents
+      }
+
+      console.log(
+        `Adding price filter: $${priceRange.min} - $${priceRange.max} (${minPriceCents} - ${maxPriceCents} cents)`
+      )
     }
 
     console.log('Making API request with:', searchItemsRequest)

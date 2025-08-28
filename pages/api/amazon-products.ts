@@ -15,7 +15,7 @@ export default async function handler(
     return res.status(405).json({ success: false, error: 'Method not allowed' })
   }
 
-  const { prompt, roomType } = req.body
+  const { prompt, roomType, priceRange } = req.body
 
   if (!prompt || typeof prompt !== 'string') {
     return res.status(400).json({ success: false, error: 'Prompt is required' })
@@ -28,8 +28,19 @@ export default async function handler(
 
     console.log(`🎯 Making single search for: "${searchQuery}"`)
 
-    // Make ONLY ONE API call with correct SearchIndex
-    const products = await searchAmazonProducts(searchQuery, 'HomeAndKitchen')
+    // Log price range if provided
+    if (priceRange) {
+      console.log(
+        `💰 Using price filter: $${priceRange.min} - $${priceRange.max}`
+      )
+    }
+
+    // Make ONLY ONE API call with correct SearchIndex and price filtering
+    const products = await searchAmazonProducts(
+      searchQuery,
+      'HomeAndKitchen',
+      priceRange
+    )
 
     console.log(
       `✅ Single search returned ${products.Items?.length || 0} products`
@@ -43,6 +54,20 @@ export default async function handler(
     console.error('Amazon search failed:', error.message)
     console.error('Full error details:', error)
 
+    // Check if this is an HTML response (common with auth errors)
+    if (
+      error.message?.includes('Unexpected token') &&
+      error.message?.includes('<!DOCTYPE')
+    ) {
+      console.error(
+        '🚨 Amazon API returned HTML instead of JSON - likely an authentication or endpoint error'
+      )
+      return res.status(500).json({
+        success: false,
+        error: 'Amazon API authentication error. Please check credentials.',
+      })
+    }
+
     if (error.message?.includes('Too Many Requests')) {
       return res.status(429).json({
         success: false,
@@ -55,6 +80,14 @@ export default async function handler(
         success: false,
         error: 'Amazon API configuration error. Check environment variables.',
       })
+    }
+
+    // Log the raw error response for debugging
+    if (error.response?.text) {
+      console.error(
+        'Raw error response:',
+        error.response.text.substring(0, 500)
+      )
     }
 
     res.status(500).json({
