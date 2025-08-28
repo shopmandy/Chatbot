@@ -1,4 +1,4 @@
-import { MessageCircle, ShoppingBag, Sparkles, Star, User } from 'lucide-react'
+import { MessageCircle, ShoppingBag, Sparkles, Star } from 'lucide-react'
 import { useRouter } from 'next/router'
 import { useCallback, useState } from 'react'
 
@@ -30,12 +30,6 @@ export function HeroSection() {
       label: 'DIY Chatbot',
       icon: MessageCircle,
       path: '/chatbot',
-    },
-    {
-      id: 'profile',
-      label: 'My Profile',
-      icon: User,
-      path: '/profile',
     },
     {
       id: 'shop',
@@ -168,7 +162,6 @@ export function HeroSection() {
                 const subheadings = {
                   room: 'AI-powered design',
                   chatbot: 'Expert DIY guidance',
-                  profile: 'Manage preferences',
                   shop: 'Get equipped',
                 }
                 return (

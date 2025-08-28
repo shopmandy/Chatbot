@@ -190,33 +190,7 @@
 .userInfo {
   display: flex;
   align-items: center;
-  gap: 20px;
-}
-
-.avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 3px solid #f91b8f;
-  background: linear-gradient(135deg, #ff69b4, #f91b8f);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.avatarImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.avatarFallback {
-  font-size: 32px;
-  font-weight: 700;
-  color: white;
-  text-transform: uppercase;
-  font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace;
+  gap: 24px;
 }
 
 .userDetails {
@@ -244,6 +218,43 @@
   color: rgba(249, 27, 143, 0.6);
   margin: 0;
   font-family: 'Roboto Mono', monospace;
+}
+
+/* Enhanced User Button Section */
+.userButtonSection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.userButtonContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 16px;
+  border: 3px solid #f91b8f;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(249, 27, 143, 0.2);
+}
+
+.userButtonContainer:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: #ff69b4;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(249, 27, 143, 0.3);
+}
+
+.userButtonLabel {
+  font-size: 13px;
+  font-weight: 700;
+  color: #f91b8f;
+  font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace;
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 /* Price Range Section */
@@ -597,16 +608,11 @@
   .userInfo {
     flex-direction: column;
     text-align: center;
-    gap: 16px;
+    gap: 20px;
   }
 
-  .avatar {
-    width: 60px;
-    height: 60px;
-  }
-
-  .avatarFallback {
-    font-size: 24px;
+  .userButtonContainer {
+    padding: 20px;
   }
 
   .userName {
