@@ -1,0 +1,491 @@
+import React, { useState, useEffect } from 'react'
+import { useUser, SignInButton } from '@clerk/nextjs'
+import { useRouter } from 'next/router'
+import Head from 'next/head'
+import PriceRangeSlider from '../components/PriceRangeSlider'
+import { getUserPriceRange } from '../lib/onboardingAPI'
+import styles from './profile.module.css'
+
+interface PriceRange {
+  min: number
+  max: number
+}
+
+interface UserPreferences {
+  name: string
+  age: string
+  city: string
+  homeType: string
+  priceRange: PriceRange
+  styles: string[]
+  brands: string[]
+}
+
+export default function Profile() {
+  const { user, isLoaded } = useUser()
+  const router = useRouter()
+  const [preferences, setPreferences] = useState<UserPreferences>({
+    name: '',
+    age: '',
+    city: '',
+    homeType: '',
+    priceRange: { min: 50, max: 500 },
+    styles: [],
+    brands: [],
+  })
+  const [isSaving, setIsSaving] = useState(false)
+  const [saveMessage, setSaveMessage] = useState('')
+  const [newBrand, setNewBrand] = useState('')
+
+  const homeTypes = [
+    'Apartment',
+    'Condo',
+    'Studio',
+    'House',
+    'Townhouse',
+    'Other',
+  ]
+
+  const styleOptions = [
+    'Modern',
+    'Bohemian',
+    'Industrial',
+    'Eclectic',
+    'Farmhouse',
+    'Minimalist',
+    'Scandinavian',
+    'Traditional',
+    'Mid-Century',
+    'Art Deco',
+  ]
+
+  useEffect(() => {
+    // Load existing preferences from localStorage
+    const name = localStorage.getItem('onboarding_name') || ''
+    const age = localStorage.getItem('onboarding_age') || ''
+    const city = localStorage.getItem('onboarding_city') || ''
+    const homeType = localStorage.getItem('onboarding_homeType') || ''
+
+    const savedRange = getUserPriceRange()
+    const priceRange = savedRange || { min: 50, max: 500 }
+
+    const stylesData = localStorage.getItem('onboarding_styles')
+    const styles = stylesData ? JSON.parse(stylesData) : []
+
+    const brandsData = localStorage.getItem('onboarding_brands')
+    const brands = brandsData ? JSON.parse(brandsData) : []
+
+    setPreferences({
+      name,
+      age,
+      city,
+      homeType,
+      priceRange,
+      styles,
+      brands,
+    })
+  }, [])
+
+  // Don't redirect to sign-in, show popup instead
+  useEffect(() => {
+    if (isLoaded && !user) {
+      // Don't redirect, we'll show the popup
+      return
+    }
+  }, [isLoaded, user])
+
+  const handlePriceRangeChange = async (newRange: PriceRange) => {
+    const newPreferences = { ...preferences, priceRange: newRange }
+    setPreferences(newPreferences)
+    await savePreferences(newPreferences)
+  }
+
+  const handleBasicInfoChange = async (
+    field: keyof UserPreferences,
+    value: string
+  ) => {
+    const newPreferences = { ...preferences, [field]: value }
+    setPreferences(newPreferences)
+    await savePreferences(newPreferences)
+  }
+
+  const handleStyleToggle = async (style: string) => {
+    const newStyles = preferences.styles.includes(style)
+      ? preferences.styles.filter(s => s !== style)
+      : [...preferences.styles, style]
+
+    const newPreferences = { ...preferences, styles: newStyles }
+    setPreferences(newPreferences)
+    await savePreferences(newPreferences)
+  }
+
+  const handleAddBrand = async () => {
+    const trimmedBrand = newBrand.trim()
+    if (trimmedBrand && !preferences.brands.includes(trimmedBrand)) {
+      const newBrands = [...preferences.brands, trimmedBrand]
+      const newPreferences = { ...preferences, brands: newBrands }
+      setPreferences(newPreferences)
+      setNewBrand('')
+      await savePreferences(newPreferences)
+    }
+  }
+
+  const handleRemoveBrand = async (brandToRemove: string) => {
+    const newBrands = preferences.brands.filter(
+      brand => brand !== brandToRemove
+    )
+    const newPreferences = { ...preferences, brands: newBrands }
+    setPreferences(newPreferences)
+    await savePreferences(newPreferences)
+  }
+
+  const savePreferences = async (prefsToSave: UserPreferences) => {
+    setIsSaving(true)
+    setSaveMessage('')
+
+    try {
+      // Save to localStorage (same format as onboarding)
+      localStorage.setItem('onboarding_name', prefsToSave.name)
+      localStorage.setItem('onboarding_age', prefsToSave.age)
+      localStorage.setItem('onboarding_city', prefsToSave.city)
+      localStorage.setItem('onboarding_homeType', prefsToSave.homeType)
+
+      const budgetData = {
+        general: {
+          min: prefsToSave.priceRange.min,
+          max: prefsToSave.priceRange.max,
+        },
+      }
+      localStorage.setItem('onboarding_spending', JSON.stringify(budgetData))
+      localStorage.setItem(
+        'onboarding_styles',
+        JSON.stringify(prefsToSave.styles)
+      )
+      localStorage.setItem(
+        'onboarding_brands',
+        JSON.stringify(prefsToSave.brands)
+      )
+
+      setSaveMessage('Preferences updated successfully!')
+      setTimeout(() => setSaveMessage(''), 3000)
+    } catch (error) {
+      console.error('Error saving preferences:', error)
+      setSaveMessage('Failed to save preferences')
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
+  if (!isLoaded) {
+    return (
+      <div className={styles.loading}>
+        <div className={styles.spinner}></div>
+        <p>Loading profile...</p>
+      </div>
+    )
+  }
+
+  if (!user) {
+    // Show sign-in prompt with natural Clerk popup when not authenticated
+    return (
+      <>
+        <Head>
+          <title>Profile - Mandy AI</title>
+          <meta
+            name="description"
+            content="Manage your profile and preferences"
+          />
+        </Head>
+
+        <div className={styles.container}>
+          <div className={styles.header}>
+            <h1 className={styles.title}>Your Profile</h1>
+          </div>
+
+          <div className={styles.content}>
+            <div className={styles.signInPrompt}>
+              <h2 className={styles.signInTitle}>Welcome to Your Profile</h2>
+              <p className={styles.signInMessage}>
+                Please sign in to access your profile and manage your preferences.
+              </p>
+              
+              <SignInButton mode="modal" forceRedirectUrl="/profile">
+                <button className={styles.signInButton}>
+                  <span className={styles.signInIcon}>🔐</span>
+                  <span>Sign In to Continue</span>
+                </button>
+              </SignInButton>
+            </div>
+          </div>
+        </div>
+      </>
+    )
+  }
+
+  return (
+    <>
+      <Head>
+        <title>Profile - Mandy AI</title>
+        <meta
+          name="description"
+          content="Manage your profile and preferences"
+        />
+      </Head>
+
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <h1 className={styles.title}>Your Profile</h1>
+        </div>
+
+        <div className={styles.content}>
+          {/* User Info Card */}
+          <div className={styles.card}>
+            <div className={styles.cardHeader}>
+              <h2 className={styles.cardTitle}>Account Information</h2>
+            </div>
+            <div className={styles.cardContent}>
+              <div className={styles.userInfo}>
+                <div className={styles.avatar}>
+                  {user.imageUrl ? (
+                    <img
+                      src={user.imageUrl}
+                      alt="Profile"
+                      className={styles.avatarImage}
+                    />
+                  ) : (
+                    <div className={styles.avatarFallback}>
+                      {user.firstName?.charAt(0) ||
+                        user.emailAddresses[0]?.emailAddress.charAt(0) ||
+                        '?'}
+                    </div>
+                  )}
+                </div>
+                <div className={styles.userDetails}>
+                  <h3 className={styles.userName}>
+                    {user.firstName && user.lastName
+                      ? `${user.firstName} ${user.lastName}`
+                      : user.firstName || 'User'}
+                  </h3>
+                  <p className={styles.userEmail}>
+                    {user.emailAddresses[0]?.emailAddress}
+                  </p>
+                  <p className={styles.memberSince}>
+                    Member since{' '}
+                    {new Date(user.createdAt!).toLocaleDateString()}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Basic Info Card */}
+          <div className={styles.card}>
+            <div className={styles.cardHeader}>
+              <h2 className={styles.cardTitle}>Personal Information</h2>
+              <p className={styles.cardDescription}>
+                Update your basic information for better recommendations
+              </p>
+            </div>
+            <div className={styles.cardContent}>
+              <div className={styles.formGrid}>
+                <div className={styles.inputGroup}>
+                  <label className={styles.label}>Name</label>
+                  <input
+                    className={styles.input}
+                    value={preferences.name}
+                    onChange={e =>
+                      handleBasicInfoChange('name', e.target.value)
+                    }
+                    placeholder="Your name"
+                  />
+                </div>
+                <div className={styles.inputGroup}>
+                  <label className={styles.label}>Age</label>
+                  <input
+                    className={styles.input}
+                    type="number"
+                    value={preferences.age}
+                    onChange={e => handleBasicInfoChange('age', e.target.value)}
+                    placeholder="Your age"
+                    min="1"
+                    max="120"
+                  />
+                </div>
+                <div className={styles.inputGroup}>
+                  <label className={styles.label}>City</label>
+                  <input
+                    className={styles.input}
+                    value={preferences.city}
+                    onChange={e =>
+                      handleBasicInfoChange('city', e.target.value)
+                    }
+                    placeholder="Where do you live?"
+                  />
+                </div>
+                <div className={styles.inputGroup}>
+                  <label className={styles.label}>Home Type</label>
+                  <select
+                    className={styles.select}
+                    value={preferences.homeType}
+                    onChange={e =>
+                      handleBasicInfoChange('homeType', e.target.value)
+                    }
+                  >
+                    <option value="">Select home type</option>
+                    {homeTypes.map(type => (
+                      <option key={type} value={type}>
+                        {type}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Price Range Settings Card */}
+          <div className={styles.card}>
+            <div className={styles.cardHeader}>
+              <h2 className={styles.cardTitle}>Budget Preferences</h2>
+              <p className={styles.cardDescription}>
+                Set your preferred price range for furniture and decor
+                recommendations
+              </p>
+            </div>
+            <div className={styles.cardContent}>
+              <div className={styles.currentRange}>
+                <span className={styles.rangeLabel}>Current Range:</span>
+                <span className={styles.rangeValue}>
+                  ${preferences.priceRange.min.toLocaleString()} - $
+                  {preferences.priceRange.max.toLocaleString()}
+                </span>
+              </div>
+
+              <PriceRangeSlider
+                value={preferences.priceRange}
+                onChange={handlePriceRangeChange}
+                min={1}
+                max={1000}
+                step={10}
+              />
+            </div>
+          </div>
+
+          {/* Style Preferences Card */}
+          <div className={styles.card}>
+            <div className={styles.cardHeader}>
+              <h2 className={styles.cardTitle}>Style Preferences</h2>
+              <p className={styles.cardDescription}>
+                Select the design styles that speak to you
+              </p>
+            </div>
+            <div className={styles.cardContent}>
+              <div className={styles.stylesGrid}>
+                {styleOptions.map(style => (
+                  <button
+                    key={style}
+                    className={`${styles.styleButton} ${preferences.styles.includes(style) ? styles.selected : ''}`}
+                    onClick={() => handleStyleToggle(style)}
+                  >
+                    {style}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Favorite Brands Card */}
+          <div className={styles.card}>
+            <div className={styles.cardHeader}>
+              <h2 className={styles.cardTitle}>Favorite Brands</h2>
+              <p className={styles.cardDescription}>
+                Add brands you love or shop from often
+              </p>
+            </div>
+            <div className={styles.cardContent}>
+              <div className={styles.brandInputSection}>
+                <div className={styles.brandInputGroup}>
+                  <input
+                    className={styles.input}
+                    value={newBrand}
+                    onChange={e => setNewBrand(e.target.value)}
+                    onKeyPress={e => e.key === 'Enter' && handleAddBrand()}
+                    placeholder="Enter brand name"
+                  />
+                  <button
+                    className={styles.addButton}
+                    onClick={handleAddBrand}
+                    disabled={!newBrand.trim()}
+                  >
+                    Add
+                  </button>
+                </div>
+              </div>
+              <div className={styles.brandsSection}>
+                {preferences.brands.map(brand => (
+                  <div key={brand} className={styles.brandTag}>
+                    <span className={styles.brandName}>{brand}</span>
+                    <button
+                      className={styles.removeBrandButton}
+                      onClick={() => handleRemoveBrand(brand)}
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Save Status */}
+          {saveMessage && (
+            <div
+              className={`${styles.saveMessage} ${saveMessage.includes('Failed') ? styles.error : styles.success}`}
+            >
+              {saveMessage}
+            </div>
+          )}
+
+          {isSaving && (
+            <div className={styles.saving}>
+              <div className={styles.spinner}></div>
+              <span>Saving...</span>
+            </div>
+          )}
+
+          {/* Quick Actions Card */}
+          <div className={styles.card}>
+            <div className={styles.cardHeader}>
+              <h2 className={styles.cardTitle}>Quick Actions</h2>
+            </div>
+            <div className={styles.cardContent}>
+              <div className={styles.actionButtons}>
+                <button
+                  className={styles.actionButton}
+                  onClick={() => router.push('/room')}
+                >
+                  <span className={styles.actionIcon}>🏠</span>
+                  <span>Design a Room</span>
+                </button>
+                <button
+                  className={styles.actionButton}
+                  onClick={() => router.push('/chatbot')}
+                >
+                  <span className={styles.actionIcon}>💬</span>
+                  <span>Chat with Mandy</span>
+                </button>
+                <button
+                  className={styles.actionButton}
+                  onClick={() => router.push('/recommendations')}
+                >
+                  <span className={styles.actionIcon}>✨</span>
+                  <span>Get Recommendations</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
