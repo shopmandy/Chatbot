@@ -248,17 +248,20 @@ export default function Profile() {
               <div className={styles.userInfo}>
                 <div className={styles.userButtonSection}>
                   <div className={styles.userButtonContainer}>
-                    <UserButton 
+                    <UserButton
                       afterSignOutUrl="/"
                       appearance={{
                         elements: {
-                          avatarBox: "w-20 h-20 border-4 border-pink-500",
-                          userButtonPopoverCard: "shadow-lg",
-                          userButtonPopoverActionButton: "text-pink-600 hover:bg-pink-50"
-                        }
+                          avatarBox: 'w-20 h-20 border-4 border-pink-500',
+                          userButtonPopoverCard: 'shadow-lg',
+                          userButtonPopoverActionButton:
+                            'text-pink-600 hover:bg-pink-50',
+                        },
                       }}
                     />
-                    <span className={styles.userButtonLabel}>Manage Account</span>
+                    <span className={styles.userButtonLabel}>
+                      Manage Account
+                    </span>
                   </div>
                 </div>
                 <div className={styles.userDetails}>
