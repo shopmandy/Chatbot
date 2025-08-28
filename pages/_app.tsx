@@ -8,7 +8,7 @@ import {
   UserButton,
   useUser,
 } from '@clerk/nextjs'
-import { Home, LogIn, MessageCircle, ShoppingBag, Sparkles } from 'lucide-react'
+import { Home, LogIn, MessageCircle, ShoppingBag, Sparkles, User } from 'lucide-react'
 import type { AppProps } from 'next/app'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -22,6 +22,12 @@ const navItems = [
     label: 'DIY Chatbot',
     icon: MessageCircle,
     path: '/chatbot',
+  },
+  {
+    id: 'profile',
+    label: 'My Profile',
+    icon: User,
+    path: '/profile',
   },
   {
     id: 'shop',
@@ -209,8 +215,8 @@ export default function App({ Component, pageProps }: AppProps) {
                       target="_blank"
                       rel="noopener noreferrer"
                       className={`
-                      relative px-6 py-4 rounded-3xl border-2 font-bold text-sm
-                      transition-transform duration-150 min-h-[80px] max-w-[220px] w-full mx-auto
+                      relative px-4 py-3 rounded-2xl border-2 font-bold text-xs
+                      transition-transform duration-150 min-h-[60px] max-w-[180px] w-full mx-auto
                       ${
                         isActive
                           ? 'bg-gradient-to-br from-pink-400 via-pink-500 to-pink-600 text-white border-pink-300 transform scale-105'
@@ -246,12 +252,12 @@ export default function App({ Component, pageProps }: AppProps) {
                     `}
                       />
                       {/* Tab Content */}
-                      <div className="flex flex-col items-center gap-3 relative z-10">
+                      <div className="flex flex-col items-center gap-2 relative z-10">
                         <Icon
-                          className={`w-8 h-8 ${isActive ? 'text-white drop-shadow-sm' : 'text-pink-600'}`}
+                          className={`w-6 h-6 ${isActive ? 'text-white drop-shadow-sm' : 'text-pink-600'}`}
                         />
                         <span
-                          className={`text-sm leading-tight text-center font-bold ${isActive ? 'text-white drop-shadow-sm' : 'text-pink-600'}`}
+                          className={`text-xs leading-tight text-center font-bold ${isActive ? 'text-white drop-shadow-sm' : 'text-pink-600'}`}
                           style={{ fontFamily: 'Roboto Mono, monospace' }}
                         >
                           {item.label}
@@ -269,8 +275,8 @@ export default function App({ Component, pageProps }: AppProps) {
                     key={item.id}
                     href={item.path}
                     className={`
-                    relative px-6 py-4 rounded-3xl border-2 font-bold text-sm
-                    transition-transform duration-150 min-h-[80px] max-w-[220px] w-full mx-auto
+                    relative px-4 py-3 rounded-2xl border-2 font-bold text-xs
+                    transition-transform duration-150 min-h-[60px] max-w-[180px] w-full mx-auto
                     ${
                       isActive
                         ? 'bg-gradient-to-br from-pink-400 via-pink-500 to-pink-600 text-white border-pink-300 transform scale-105'
@@ -306,12 +312,12 @@ export default function App({ Component, pageProps }: AppProps) {
                   `}
                     />
                     {/* Tab Content */}
-                    <div className="flex flex-col items-center gap-3 relative z-10">
+                    <div className="flex flex-col items-center gap-2 relative z-10">
                       <Icon
-                        className={`w-8 h-8 ${isActive ? 'text-white drop-shadow-sm' : 'text-pink-600'}`}
+                        className={`w-6 h-6 ${isActive ? 'text-white drop-shadow-sm' : 'text-pink-600'}`}
                       />
                       <span
-                        className={`text-sm leading-tight text-center font-bold ${isActive ? 'text-white drop-shadow-sm' : 'text-pink-600'}`}
+                        className={`text-xs leading-tight text-center font-bold ${isActive ? 'text-white drop-shadow-sm' : 'text-pink-600'}`}
                         style={{ fontFamily: 'Roboto Mono, monospace' }}
                       >
                         {item.label}
@@ -325,10 +331,10 @@ export default function App({ Component, pageProps }: AppProps) {
                 )
               })}
             </nav>
-            {/* Sign In/Up or User Button */}
+            {/* Sign In/Up for logged out users */}
             <div
               className="sidebar-auth"
-              style={{ marginTop: '2rem', width: '100%' }}
+              style={{ marginTop: '0', width: '100%' }}
             >
               <SignedOut>
                 <SignInButton mode="modal">
@@ -350,9 +356,7 @@ export default function App({ Component, pageProps }: AppProps) {
                   </a>
                 </SignInButton>
               </SignedOut>
-              <SignedIn>
-                <UserButton />
-              </SignedIn>
+              
               {/* Animated dots and EST. 2024 section */}
               <div className="mt-6 text-center">
                 <div className="flex justify-center gap-2 mb-4">

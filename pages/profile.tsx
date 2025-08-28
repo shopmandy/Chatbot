@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useUser, SignInButton } from '@clerk/nextjs'
+import { useUser, SignInButton, UserButton } from '@clerk/nextjs'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import PriceRangeSlider from '../components/PriceRangeSlider'
@@ -246,20 +246,20 @@ export default function Profile() {
             </div>
             <div className={styles.cardContent}>
               <div className={styles.userInfo}>
-                <div className={styles.avatar}>
-                  {user.imageUrl ? (
-                    <img
-                      src={user.imageUrl}
-                      alt="Profile"
-                      className={styles.avatarImage}
+                <div className={styles.userButtonSection}>
+                  <div className={styles.userButtonContainer}>
+                    <UserButton 
+                      afterSignOutUrl="/"
+                      appearance={{
+                        elements: {
+                          avatarBox: "w-20 h-20 border-4 border-pink-500",
+                          userButtonPopoverCard: "shadow-lg",
+                          userButtonPopoverActionButton: "text-pink-600 hover:bg-pink-50"
+                        }
+                      }}
                     />
-                  ) : (
-                    <div className={styles.avatarFallback}>
-                      {user.firstName?.charAt(0) ||
-                        user.emailAddresses[0]?.emailAddress.charAt(0) ||
-                        '?'}
-                    </div>
-                  )}
+                    <span className={styles.userButtonLabel}>Manage Account</span>
+                  </div>
                 </div>
                 <div className={styles.userDetails}>
                   <h3 className={styles.userName}>

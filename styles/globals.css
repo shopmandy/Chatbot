@@ -191,8 +191,9 @@ html {
   align-items: center;
   gap: 0.5rem;
   width: 100%;
-  padding-bottom: 2rem;
+  padding: 1rem 1rem 2rem 1rem;
   min-height: fit-content;
+  flex-shrink: 0;
 }
 
 .main-content {

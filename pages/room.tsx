@@ -1805,8 +1805,7 @@ export default function Room() {
               display: 'flex',
               flexDirection: 'column',
               minHeight: '700px',
-              height: 'auto',
-              alignSelf: 'stretch',
+              height: '100%',
             }}
           >
             {/* Window Title Bar */}
