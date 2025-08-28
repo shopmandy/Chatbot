@@ -364,6 +364,30 @@ export default function App({ Component, pageProps }: AppProps) {
                 </SignInButton>
               </SignedOut>
 
+              {/* Profile picture for signed in users */}
+              <SignedIn>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginBottom: '1rem',
+                  }}
+                >
+                  <UserButton
+                    afterSignOutUrl="/"
+                    appearance={{
+                      elements: {
+                        avatarBox: 'w-12 h-12 border-2 border-pink-500',
+                        userButtonPopoverCard: 'shadow-lg',
+                        userButtonPopoverActionButton:
+                          'text-pink-600 hover:bg-pink-50',
+                      },
+                    }}
+                  />
+                </div>
+              </SignedIn>
+
               {/* Animated dots and EST. 2024 section */}
               <div className="mt-6 text-center">
                 <div className="flex justify-center gap-2 mb-4">
