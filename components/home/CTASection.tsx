@@ -142,38 +142,32 @@ export function CTASection() {
               style={{
                 fontSize: '3.2rem',
                 color: '#f91b8f',
+                marginBottom: '1rem',
                 fontWeight: '700',
                 letterSpacing: '2px',
                 lineHeight: '1.2',
                 fontFamily:
                   "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
                 textAlign: 'center',
-                marginBottom: '.5rem',
                 textShadow: '0 4px 16px rgba(255, 105, 180, 0.3)',
               }}
             >
-              YOUR NEXT PROJECT IS ONE
-              <br />
-              <span style={{ marginLeft: '2rem' }}>TOOLKIT AWAY</span>
+              JOIN THE MANDY WORKSHOP
             </h1>
 
             <p
               style={{
-                fontSize: '1.4rem',
+                fontSize: '1.25rem',
                 color: '#f91b8f',
                 marginBottom: '1rem',
                 fontWeight: '600',
-                lineHeight: '1.4',
-                fontFamily:
-                  "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+                lineHeight: '1.5',
+                fontFamily: 'Roboto Mono, monospace',
                 textAlign: 'center',
                 opacity: 0.9,
               }}
             >
-              Browse our complete collection of curated toolkits and find
-              everything you need
-              <br />
-              to bring your DIY dreams to life. Quality tools, expert picks!
+              Get 15% off your first toolkit, early access to our AI design tools, and DIY inspo you won't find anywhere else.
             </p>
 
             {/* Email Signup Form */}
@@ -186,21 +180,6 @@ export function CTASection() {
                 gap: '.5rem',
               }}
             >
-              <h3
-                style={{
-                  fontSize: '1.6rem',
-                  color: '#f91b8f',
-                  fontWeight: '700',
-                  fontFamily:
-                    "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
-                  textAlign: 'center',
-                  marginBottom: '0.5rem',
-                  letterSpacing: '1px',
-                }}
-              >
-                GET EXCLUSIVE TOOLKIT UPDATES!
-              </h3>
-
               <form
                 onSubmit={handleEmailSubmit}
                 style={{
@@ -214,21 +193,20 @@ export function CTASection() {
                 }}
               >
                 <div
-                  style={{ position: 'relative', flex: '1', minWidth: '280px' }}
+                  style={{ position: 'relative', flex: '1', minWidth: '320px' }}
                 >
                   <input
                     type="email"
                     value={email}
                     onChange={e => setEmail(e.target.value)}
-                    placeholder="Enter your email address"
+                    placeholder="Enter your email…"
                     required
                     disabled={subscriptionStatus.type === 'loading'}
                     style={{
                       width: '100%',
                       padding: '16px 20px',
                       fontSize: '1rem',
-                      fontFamily:
-                        "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+                      fontFamily: 'Roboto Mono, monospace',
                       fontWeight: '600',
                       border: '3px solid #f91b8f',
                       borderRadius: '12px',
@@ -242,64 +220,66 @@ export function CTASection() {
                 </div>
 
                 <div style={{ position: 'relative', display: 'inline-block' }}>
-                  {/* Shadow layer */}
-                  <div
-                    style={{
-                      position: 'absolute',
-                      top: '4px',
-                      left: '4px',
-                      width: '100%',
-                      height: '100%',
-                      backgroundColor: '#4a1d3d',
-                      borderRadius: '12px',
-                      zIndex: 1,
-                      opacity: 0.7,
-                    }}
-                  />
                   {/* Main button */}
                   <button
                     type="submit"
                     disabled={subscriptionStatus.type === 'loading'}
                     style={{
-                      position: 'relative',
                       width: '160px',
                       textAlign: 'center',
                       fontSize: '1rem',
-                      fontFamily:
-                        "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+                      fontFamily: 'Roboto Mono, monospace',
                       fontWeight: '700',
                       letterSpacing: '1px',
-                      borderRadius: '15px',
-                      border: '2px solid #000',
+                      borderRadius: '24px',
+                      border: 'none',
                       padding: '16px 20px',
                       cursor:
                         subscriptionStatus.type === 'loading'
                           ? 'not-allowed'
                           : 'pointer',
                       margin: '0',
-                      backgroundColor:
-                        subscriptionStatus.type === 'loading'
-                          ? '#fdd4e2'
-                          : '#f91b8f',
-                      color: 'white',
+                      background: subscriptionStatus.type === 'loading'
+                        ? 'linear-gradient(to bottom right, #fdd4e2, #fce7f3, #fdf2f8)'
+                        : 'linear-gradient(to bottom right, #ffffff, #fdf2f8, #fce7f3)',
+                      color: '#ec4899',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       gap: '10px',
-                      zIndex: 2,
                       transition: 'all 0.3s ease',
                       opacity: subscriptionStatus.type === 'loading' ? 0.7 : 1,
+                      boxShadow: `
+                        0 6px 12px rgba(236, 72, 153, 0.15),
+                        0 2px 4px rgba(236, 72, 153, 0.1),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.8),
+                        inset 0 -1px 0 rgba(236, 72, 153, 0.1)
+                      `,
                     }}
                   >
-                    <Mail style={{ width: 20, height: 20, color: 'white' }} />
                     <span>
                       {subscriptionStatus.type === 'loading'
                         ? 'Signing Up...'
-                        : 'Sign Up'}
+                        : 'Get 15% Off'}
                     </span>
                   </button>
                 </div>
               </form>
+
+              {/* Trust line */}
+              <p
+                style={{
+                  fontSize: '0.9rem',
+                  color: '#f91b8f',
+                  opacity: 0.8,
+                  fontFamily: 'Roboto Mono, monospace',
+                  fontWeight: '500',
+                  textAlign: 'center',
+                  marginTop: '0.5rem',
+                }}
+              >
+                No spam, just tools, tips, and early drops.
+              </p>
 
               {/* Status Messages */}
               {subscriptionStatus.message && (
