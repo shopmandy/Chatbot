@@ -206,9 +206,10 @@ export default function Profile() {
             <div className={styles.signInPrompt}>
               <h2 className={styles.signInTitle}>Welcome to Your Profile</h2>
               <p className={styles.signInMessage}>
-                Please sign in to access your profile and manage your preferences.
+                Please sign in to access your profile and manage your
+                preferences.
               </p>
-              
+
               <SignInButton mode="modal" forceRedirectUrl="/profile">
                 <button className={styles.signInButton}>
                   <span className={styles.signInIcon}>🔐</span>

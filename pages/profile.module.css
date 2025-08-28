@@ -150,7 +150,11 @@
 }
 
 .signInButton {
-  background: linear-gradient(135deg, rgba(249, 27, 143, 0.9) 0%, rgba(255, 105, 180, 0.9) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(249, 27, 143, 0.9) 0%,
+    rgba(255, 105, 180, 0.9) 100%
+  );
   border: 2px solid #f91b8f;
   border-radius: 12px;
   color: white;
@@ -171,7 +175,11 @@
 .signInButton:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 35px rgba(249, 27, 143, 0.4);
-  background: linear-gradient(135deg, rgba(249, 27, 143, 1) 0%, rgba(255, 105, 180, 1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(249, 27, 143, 1) 0%,
+    rgba(255, 105, 180, 1) 100%
+  );
 }
 
 .signInIcon {

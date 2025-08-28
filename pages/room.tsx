@@ -635,15 +635,15 @@ export default function Room() {
     setLoading(true)
     setAfterImage(null) // Clear the previously generated image
     setShowMain(false) // Reset the show main state
-    
+
     try {
       const formData = new FormData()
       formData.append('image', image)
       const uploadRes = await fetch(
         `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API_KEY}`,
         {
-        method: 'POST',
-        body: formData,
+          method: 'POST',
+          body: formData,
         }
       )
       const uploadJson = await uploadRes.json()
@@ -666,21 +666,21 @@ export default function Room() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ imageUrl, prompt: enhancedPrompt }),
       })
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
-      
+
       const data = await response.json()
-      
+
       if (data.error) {
         throw new Error(data.error)
       }
-      
+
       if (!data.outputUrl) {
         throw new Error('No output URL received from the API')
       }
-      
+
       setAfterImage(data.outputUrl)
       setLoading(false)
       setShowMain(true)
@@ -693,7 +693,7 @@ export default function Room() {
         },
         ...g,
       ])
-      
+
       // Search for Amazon products
       try {
         // Get user's price range from onboarding if available
@@ -756,12 +756,11 @@ export default function Room() {
       } catch (error) {
         console.log('Amazon products search failed:', error)
       }
-      
     } catch (error) {
       console.error('Room generation error:', error)
       setLoading(false)
       setShowMinigame(false)
-      
+
       // Show user-friendly error message
       alert('There was a problem while generating your room. Please try again!')
     }
