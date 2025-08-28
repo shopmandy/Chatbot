@@ -1,4 +1,4 @@
-import { MessageCircle, ShoppingBag, Sparkles, Star } from 'lucide-react'
+import { MessageCircle, ShoppingBag, Sparkles, Star, User } from 'lucide-react'
 import { useRouter } from 'next/router'
 import { useCallback, useState } from 'react'
 
@@ -8,7 +8,8 @@ export function HeroSection() {
 
   // Optimized click handler using Next.js router
   const handleButtonClick = useCallback(
-    (url: string) => {
+    (url: string, itemId?: string) => {
+      // Let profile page handle authentication - no special logic needed here
       if (url.startsWith('http')) {
         window.open(url, '_blank')
       } else {
@@ -29,6 +30,12 @@ export function HeroSection() {
       label: 'DIY Chatbot',
       icon: MessageCircle,
       path: '/chatbot',
+    },
+    {
+      id: 'profile',
+      label: 'My Profile',
+      icon: User,
+      path: '/profile',
     },
     {
       id: 'shop',
@@ -149,9 +156,11 @@ export function HeroSection() {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                gap: '0',
+                gap: '12px',
                 flexWrap: 'wrap',
                 paddingBottom: '2rem',
+                maxWidth: '1000px',
+                margin: '0 auto',
               }}
             >
               {navItems.map(item => {
@@ -159,12 +168,13 @@ export function HeroSection() {
                 const subheadings = {
                   room: 'AI-powered design',
                   chatbot: 'Expert DIY guidance',
+                  profile: 'Manage preferences',
                   shop: 'Get equipped',
                 }
                 return (
                   <button
                     key={item.id}
-                    onClick={() => handleButtonClick(item.path)}
+                    onClick={() => handleButtonClick(item.path, item.id)}
                     className="relative rounded-3xl border-2 font-bold text-sm transition-transform duration-150 bg-gradient-to-br from-white via-pink-50 to-pink-100 text-pink-600 border-pink-200 hover:from-pink-100 hover:via-pink-150 hover:to-pink-200"
                     style={{
                       minHeight: '108px',
@@ -183,19 +193,19 @@ export function HeroSection() {
                     {/* Highlight overlay for 3D effect */}
                     <div className="absolute top-2 left-2 right-2 h-4 rounded-t-2xl bg-gradient-to-r from-white/60 to-white/30" />
                     {/* Tab Content */}
-                    <div className="flex flex-col items-center gap-3 relative z-10">
-                      <Icon className="w-8 h-8 text-pink-600" />
+                    <div className="flex flex-col items-center gap-2 relative z-10">
+                      <Icon className="w-6 h-6 text-pink-600" />
                       <span
                         className="leading-tight text-center font-bold text-pink-600"
                         style={{
                           fontFamily: 'Roboto Mono, monospace',
-                          fontSize: '1.1rem',
+                          fontSize: '0.95rem',
                         }}
                       >
                         {item.label}
                       </span>
                       <span
-                        className="text-xs text-pink-500 opacity-80 font-medium"
+                        className="text-xs text-pink-500 opacity-80 font-medium text-center"
                         style={{ fontFamily: 'Roboto Mono, monospace' }}
                       >
                         {subheadings[item.id as keyof typeof subheadings]}

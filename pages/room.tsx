@@ -635,6 +635,7 @@ export default function Room() {
     setLoading(true)
     setAfterImage(null) // Clear the previously generated image
     setShowMain(false) // Reset the show main state
+
     try {
       const formData = new FormData()
       formData.append('image', image)
@@ -665,13 +666,21 @@ export default function Room() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ imageUrl, prompt: enhancedPrompt }),
       })
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
       const data = await response.json()
+
       if (data.error) {
         throw new Error(data.error)
       }
+
       if (!data.outputUrl) {
         throw new Error('No output URL received from the API')
       }
+
       setAfterImage(data.outputUrl)
       setLoading(false)
       setShowMain(true)
@@ -684,6 +693,7 @@ export default function Room() {
         },
         ...g,
       ])
+          
       // Search for Amazon products
       try {
         // Get user's price range from onboarding if available
