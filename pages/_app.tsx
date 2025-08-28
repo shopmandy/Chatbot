@@ -8,7 +8,14 @@ import {
   UserButton,
   useUser,
 } from '@clerk/nextjs'
-import { Home, LogIn, MessageCircle, ShoppingBag, Sparkles, User } from 'lucide-react'
+import {
+  Home,
+  LogIn,
+  MessageCircle,
+  ShoppingBag,
+  Sparkles,
+  User,
+} from 'lucide-react'
 import type { AppProps } from 'next/app'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -356,7 +363,7 @@ export default function App({ Component, pageProps }: AppProps) {
                   </a>
                 </SignInButton>
               </SignedOut>
-              
+
               {/* Animated dots and EST. 2024 section */}
               <div className="mt-6 text-center">
                 <div className="flex justify-center gap-2 mb-4">
