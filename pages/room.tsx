@@ -693,7 +693,7 @@ export default function Room() {
         },
         ...g,
       ])
-
+          
       // Search for Amazon products
       try {
         // Get user's price range from onboarding if available
