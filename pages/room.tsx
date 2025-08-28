@@ -635,109 +635,135 @@ export default function Room() {
     setLoading(true)
     setAfterImage(null) // Clear the previously generated image
     setShowMain(false) // Reset the show main state
-    const formData = new FormData()
-    formData.append('image', image)
-    const uploadRes = await fetch(
-      `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API_KEY}`,
-      {
+    
+    try {
+      const formData = new FormData()
+      formData.append('image', image)
+      const uploadRes = await fetch(
+        `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API_KEY}`,
+        {
         method: 'POST',
         body: formData,
+        }
+      )
+      const uploadJson = await uploadRes.json()
+      if (!uploadJson.success || !uploadJson.data?.url) {
+        setLoading(false)
+        alert('Image upload failed. Please check your API key and try again.')
+        return
       }
-    )
-    const uploadJson = await uploadRes.json()
-    if (!uploadJson.success || !uploadJson.data?.url) {
-      setLoading(false)
-      alert('Image upload failed. Please check your API key and try again.')
-      return
-    }
-    const imageUrl = uploadJson.data.display_url || uploadJson.data.url
+      const imageUrl = uploadJson.data.display_url || uploadJson.data.url
 
-    // Create enhanced prompt that includes room type
-    const currentRoomType = showCustomInput ? customRoomType : roomType
-    const enhancedPrompt =
-      currentRoomType && currentRoomType !== ''
-        ? `Transform this ${currentRoomType.toLowerCase()} with ${vision}`
-        : vision
+      // Create enhanced prompt that includes room type
+      const currentRoomType = showCustomInput ? customRoomType : roomType
+      const enhancedPrompt =
+        currentRoomType && currentRoomType !== ''
+          ? `Transform this ${currentRoomType.toLowerCase()} with ${vision}`
+          : vision
 
-    const response = await fetch('/api/room-makeover', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ imageUrl, prompt: enhancedPrompt }),
-    })
-    const data = await response.json()
-    setAfterImage(data.outputUrl)
-    setLoading(false)
-    setShowMain(true)
-    setGallery(g => [
-      {
-        before: beforePreview || '/before-room.png',
-        after: data.outputUrl,
-        label: vision || 'My Glow Up!',
-        roomType,
-      },
-      ...g,
-    ])
-    // Search for Amazon products
-    try {
-      // Get user's price range from onboarding if available
-      const rawPriceRange = getUserPriceRange()
-
-      // Validate price range to prevent API errors
-      const priceRange =
-        rawPriceRange &&
-        rawPriceRange.min >= 1 &&
-        rawPriceRange.max > rawPriceRange.min
-          ? rawPriceRange
-          : null
-
-      console.log('Using price range for search:', priceRange)
-
-      const productResponse = await fetch('/api/amazon-products', {
+      const response = await fetch('/api/room-makeover', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          prompt: vision,
-          roomType: showCustomInput ? customRoomType : roomType,
-          priceRange: priceRange,
-        }),
+        body: JSON.stringify({ imageUrl, prompt: enhancedPrompt }),
       })
-
-      // Check if response is OK and content-type is JSON
-      if (!productResponse.ok) {
-        const errorText = await productResponse.text()
-        console.error(
-          'Amazon API HTTP error:',
-          productResponse.status,
-          errorText
-        )
-        throw new Error(
-          `Amazon API returned ${productResponse.status}: ${errorText.substring(0, 200)}`
-        )
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
       }
-
-      const contentType = productResponse.headers.get('content-type')
-      if (!contentType || !contentType.includes('application/json')) {
-        const responseText = await productResponse.text()
-        console.error(
-          'Amazon API returned non-JSON response:',
-          responseText.substring(0, 500)
-        )
-        throw new Error(
-          'Amazon API returned HTML instead of JSON - check server logs'
-        )
+      
+      const data = await response.json()
+      
+      if (data.error) {
+        throw new Error(data.error)
       }
-
-      const productData = await productResponse.json()
-      console.log('Amazon API response:', productData)
-      if (productData.success && productData.products) {
-        console.log('First product sample:', productData.products[0])
-        setAmazonProducts(productData.products)
-        // Removed popup alert - products will show in the section below
-      } else {
-        console.log('No products found or API error:', productData)
+      
+      if (!data.outputUrl) {
+        throw new Error('No output URL received from the API')
       }
+      
+      setAfterImage(data.outputUrl)
+      setLoading(false)
+      setShowMain(true)
+      setGallery(g => [
+        {
+          before: beforePreview || '/before-room.png',
+          after: data.outputUrl,
+          label: vision || 'My Glow Up!',
+          roomType,
+        },
+        ...g,
+      ])
+      
+      // Search for Amazon products
+      try {
+        // Get user's price range from onboarding if available
+        const rawPriceRange = getUserPriceRange()
+
+        // Validate price range to prevent API errors
+        const priceRange =
+          rawPriceRange &&
+          rawPriceRange.min >= 1 &&
+          rawPriceRange.max > rawPriceRange.min
+            ? rawPriceRange
+            : null
+
+        console.log('Using price range for search:', priceRange)
+
+        const productResponse = await fetch('/api/amazon-products', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            prompt: vision,
+            roomType: showCustomInput ? customRoomType : roomType,
+            priceRange: priceRange,
+          }),
+        })
+
+        // Check if response is OK and content-type is JSON
+        if (!productResponse.ok) {
+          const errorText = await productResponse.text()
+          console.error(
+            'Amazon API HTTP error:',
+            productResponse.status,
+            errorText
+          )
+          throw new Error(
+            `Amazon API returned ${productResponse.status}: ${errorText.substring(0, 200)}`
+          )
+        }
+
+        const contentType = productResponse.headers.get('content-type')
+        if (!contentType || !contentType.includes('application/json')) {
+          const responseText = await productResponse.text()
+          console.error(
+            'Amazon API returned non-JSON response:',
+            responseText.substring(0, 500)
+          )
+          throw new Error(
+            'Amazon API returned HTML instead of JSON - check server logs'
+          )
+        }
+
+        const productData = await productResponse.json()
+        console.log('Amazon API response:', productData)
+        if (productData.success && productData.products) {
+          console.log('First product sample:', productData.products[0])
+          setAmazonProducts(productData.products)
+          // Removed popup alert - products will show in the section below
+        } else {
+          console.log('No products found or API error:', productData)
+        }
+      } catch (error) {
+        console.log('Amazon products search failed:', error)
+      }
+      
     } catch (error) {
-      console.log('Amazon products search failed:', error)
+      console.error('Room generation error:', error)
+      setLoading(false)
+      setShowMinigame(false)
+      
+      // Show user-friendly error message
+      alert('There was a problem while generating your room. Please try again!')
     }
   }
 
@@ -993,7 +1019,7 @@ export default function Room() {
                 textAlign: 'center',
               }}
             >
-              Curated product recommendations
+              Curate unique product ideas
             </div>
           </div>
         </div>
