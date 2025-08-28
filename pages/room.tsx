@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import styles from './room.module.css'
 import Head from 'next/head'
+import { getUserPriceRange } from '../lib/onboardingAPI'
+import '../lib/onboardingCleanup' // Auto-cleanup any invalid data
 import {
   Upload,
   Download,
@@ -12,19 +14,23 @@ import {
 } from 'lucide-react'
 
 // --- Simple Dino Game Minigame Modal ---
-function DinoGameModal({ show, onClose }: { show: boolean, onClose: () => void }) {
-  
-  
-  const GAME_WIDTH = 400;
-  const GAME_HEIGHT = 180;
-  const GROUND_Y = 140;
-  const PLAYER_SIZE = 33;
-  const OBSTACLE_WIDTH = 24;
-  const OBSTACLE_HEIGHT = 24;
-  const JUMP_HEIGHT = 68;
-  const JUMP_DURATION = 650; // ms
-  const OBSTACLE_SPEED = 3.0; // px per frame
-  const OBSTACLE_INTERVAL = 1200; // ms
+function DinoGameModal({
+  show,
+  onClose,
+}: {
+  show: boolean
+  onClose: () => void
+}) {
+  const GAME_WIDTH = 400
+  const GAME_HEIGHT = 180
+  const GROUND_Y = 140
+  const PLAYER_SIZE = 33
+  const OBSTACLE_WIDTH = 24
+  const OBSTACLE_HEIGHT = 24
+  const JUMP_HEIGHT = 68
+  const JUMP_DURATION = 650 // ms
+  const OBSTACLE_SPEED = 3.0 // px per frame
+  const OBSTACLE_INTERVAL = 1200 // ms
 
   // Refs for mutable game state
   const playerYRef = useRef(GROUND_Y)
@@ -95,7 +101,6 @@ function DinoGameModal({ show, onClose }: { show: boolean, onClose: () => void }
       window.removeEventListener('keydown', onKey)
       window.removeEventListener('touchstart', onTap)
     }
-     
   }, [show])
 
   // Game loop
@@ -180,7 +185,6 @@ function DinoGameModal({ show, onClose }: { show: boolean, onClose: () => void }
       running = false
       if (rafRef.current) cancelAnimationFrame(rafRef.current)
     }
-     
   }, [show])
 
   const restart = () => {
@@ -261,57 +265,70 @@ function DinoGameModal({ show, onClose }: { show: boolean, onClose: () => void }
   // Ensure 'After' image is shown by default
   const [showAfterImage, setShowAfterImage] = React.useState(true)
   return (
-    <div style={{
-      position: 'fixed',
-      top: '50%',
-      left: 'calc(50% + 140px)', // Reduced offset to center better
-      transform: 'translate(-50%, -50%)',
-      zIndex: 9999,
-      background: '#fff',
-      borderRadius: '16px',
-      boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
-      border: '2px solid #f91b8f',
-      width: '450px',
-      maxWidth: '90vw',
-    }}>
+    <div
+      style={{
+        position: 'fixed',
+        top: '50%',
+        left: 'calc(50% + 140px)', // Reduced offset to center better
+        transform: 'translate(-50%, -50%)',
+        zIndex: 9999,
+        background: '#fff',
+        borderRadius: '16px',
+        boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
+        border: '2px solid #f91b8f',
+        width: '450px',
+        maxWidth: '90vw',
+      }}
+    >
       {/* Window Title Bar */}
-      <div style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        background: 'linear-gradient(135deg, #ffe0f2 0%, #e0eaff 100%)',
-        borderRadius: '16px 16px 0 0',
-        padding: '8px 20px',
-        marginBottom: '1rem',
-        fontFamily: "VT323, monospace",
-        fontSize: '20px',
-        fontWeight: 600,
-        color: '#f91b8f',
-      }}> Jump the Blocks!
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          background: 'linear-gradient(135deg, #ffe0f2 0%, #e0eaff 100%)',
+          borderRadius: '16px 16px 0 0',
+          padding: '8px 20px',
+          marginBottom: '1rem',
+          fontFamily: 'VT323, monospace',
+          fontSize: '20px',
+          fontWeight: 600,
+          color: '#f91b8f',
+        }}
+      >
+        {' '}
+        Jump the Blocks!
         <div className="window-controls">
-          <button className="window-buttons" onClick={onClose} title="Close"><span className="window-button-icon">×</span></button>
+          <button className="window-buttons" onClick={onClose} title="Close">
+            <span className="window-button-icon">×</span>
+          </button>
         </div>
       </div>
-      <div style={{
-        fontSize: '1rem',
-        color: '#b8005c',
-        textAlign: 'center',
-        marginBottom: '1rem',
-        padding: '0 1rem',
-        fontFamily: 'Roboto Mono, monospace',
-        fontWeight: 600,
-      }}>
+      <div
+        style={{
+          fontSize: '1rem',
+          color: '#b8005c',
+          textAlign: 'center',
+          marginBottom: '1rem',
+          padding: '0 1rem',
+          fontFamily: 'Roboto Mono, monospace',
+          fontWeight: 600,
+        }}
+      >
         This may take a minute, play this game while you wait!
       </div>
-      <div style={{
-        position: 'relative',
-        width: GAME_WIDTH, height: GAME_HEIGHT,
-        background: 'rgba(255,255,255,0.7)',
-        borderRadius: 24,
-        border: '2.5px solid #f91b8f',
-        overflow: 'hidden',
-        margin: '0 auto',
-      }}>
+      <div
+        style={{
+          position: 'relative',
+          width: GAME_WIDTH,
+          height: GAME_HEIGHT,
+          background: 'rgba(255,255,255,0.7)',
+          borderRadius: 24,
+          border: '2.5px solid #f91b8f',
+          overflow: 'hidden',
+          margin: '0 auto',
+        }}
+      >
         {/* Ground */}
         <div
           style={{
@@ -371,28 +388,80 @@ function DinoGameModal({ show, onClose }: { show: boolean, onClose: () => void }
         ))}
         {/* Game Over Overlay */}
         {gameOver && (
-          <div style={{
-            position: 'absolute',
-            top: 0, left: 0, right: 0, bottom: 0,
-            background: 'rgba(255,255,255,0.85)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexDirection: 'column',
-            fontFamily: 'Roboto Mono, monospace',
-            zIndex: 2,
-          }}>
-            <div style={{ fontSize: '2rem', color: '#f91b8f', fontWeight: 900, marginBottom: 12 }}>Game Over!</div>
-            <div style={{ fontSize: '1.1rem', color: '#b8005c', marginBottom: 18 }}>Press Space or Tap to Restart</div>
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: 'rgba(255,255,255,0.85)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              fontFamily: 'Roboto Mono, monospace',
+              zIndex: 2,
+            }}
+          >
+            <div
+              style={{
+                fontSize: '2rem',
+                color: '#f91b8f',
+                fontWeight: 900,
+                marginBottom: 12,
+              }}
+            >
+              Game Over!
+            </div>
+            <div
+              style={{ fontSize: '1.1rem', color: '#b8005c', marginBottom: 18 }}
+            >
+              Press Space or Tap to Restart
+            </div>
           </div>
         )}
       </div>
-      <div style={{ fontSize: '1rem', color: '#888', marginTop: 4, padding: '0 1rem', fontFamily: 'Roboto Mono, monospace'}}>Press Space to Jump</div>
-      <div style={{alignItems: 'center', justifyContent: 'center', display: 'flex', padding: '0 1rem', fontFamily: 'Roboto Mono, monospace'}}>
-        <div style={{fontSize: '1.1rem', color: '#b8005c', fontWeight: 600, marginTop: 6, padding: '0 1rem'}}>
+      <div
+        style={{
+          fontSize: '1rem',
+          color: '#888',
+          marginTop: 4,
+          padding: '0 1rem',
+          fontFamily: 'Roboto Mono, monospace',
+        }}
+      >
+        Press Space to Jump
+      </div>
+      <div
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          display: 'flex',
+          padding: '0 1rem',
+          fontFamily: 'Roboto Mono, monospace',
+        }}
+      >
+        <div
+          style={{
+            fontSize: '1.1rem',
+            color: '#b8005c',
+            fontWeight: 600,
+            marginTop: 6,
+            padding: '0 1rem',
+          }}
+        >
           Score: {score}
         </div>
-        <div style={{fontSize: '1.1rem', color: '#b8005c', fontWeight: 600, marginTop: 6, padding: '0 1rem'}}>
+        <div
+          style={{
+            fontSize: '1.1rem',
+            color: '#b8005c',
+            fontWeight: 600,
+            marginTop: 6,
+            padding: '0 1rem',
+          }}
+        >
           High Score: {highScore}
         </div>
       </div>
@@ -415,23 +484,26 @@ export default function Room() {
       roomType: 'Dorm',
     },
     // Add more demo images if desired
-  ]);
-  const [chooseFileHover, setChooseFileHover] = useState(false);
-  const [vision, setVision] = useState('');
-  const [visionFocus, setVisionFocus] = useState(false);
-  const [hoveredBubble, setHoveredBubble] = useState<number | null>(null);
-  const [roomType, setRoomType] = useState('');
-  const [showMinigame, setShowMinigame] = useState(false);
-  const [enlargedImage, setEnlargedImage] = useState<null | { src: string; alt: string }>(null);
-  const [customRoomType, setCustomRoomType] = useState('');
-  const [showCustomInput, setShowCustomInput] = useState(false);
-  const [showAfterImage, setShowAfterImage] = useState(false);
-  const [showAllGallery, setShowAllGallery] = useState(false);
+  ])
+  const [chooseFileHover, setChooseFileHover] = useState(false)
+  const [vision, setVision] = useState('')
+  const [visionFocus, setVisionFocus] = useState(false)
+  const [hoveredBubble, setHoveredBubble] = useState<number | null>(null)
+  const [roomType, setRoomType] = useState('')
+  const [showMinigame, setShowMinigame] = useState(false)
+  const [enlargedImage, setEnlargedImage] = useState<null | {
+    src: string
+    alt: string
+  }>(null)
+  const [customRoomType, setCustomRoomType] = useState('')
+  const [showCustomInput, setShowCustomInput] = useState(false)
+  const [showAfterImage, setShowAfterImage] = useState(false)
+  const [showAllGallery, setShowAllGallery] = useState(false)
   const [amazonProducts, setAmazonProducts] = useState<any[]>([])
-  const [isMobile, setIsMobile] = useState(false);
-  const [loadingMessage, setLoadingMessage] = useState('Mandy is thinking');
-  const [messageOpacity, setMessageOpacity] = useState(1);
-  const [progress, setProgress] = useState(0);
+  const [isMobile, setIsMobile] = useState(false)
+  const [loadingMessage, setLoadingMessage] = useState('Mandy is thinking')
+  const [messageOpacity, setMessageOpacity] = useState(1)
+  const [progress, setProgress] = useState(0)
 
   // Check if device is mobile
   useEffect(() => {
@@ -447,59 +519,66 @@ export default function Room() {
 
   // Progress bar animation
   useEffect(() => {
-    const startTime = Date.now();
-    const estimatedDuration = 30000; // 30 seconds estimated
-    let isDone = false;
-    
+    const startTime = Date.now()
+    const estimatedDuration = 30000 // 30 seconds estimated
+    let isDone = false
+
     const updateProgress = () => {
-      const elapsed = Date.now() - startTime;
+      const elapsed = Date.now() - startTime
       // Start faster and then slow down - more responsive initial progress
-      const progressRate = Math.min(elapsed / 5000, 1); // First 5 seconds fill quickly
-      const remainingProgress = Math.min((elapsed - 5000) / (estimatedDuration - 5000), 1); // Rest fills gradually
+      const progressRate = Math.min(elapsed / 5000, 1) // First 5 seconds fill quickly
+      const remainingProgress = Math.min(
+        (elapsed - 5000) / (estimatedDuration - 5000),
+        1
+      ) // Rest fills gradually
       const newProgress = Math.min(
-        (progressRate * 30) + (Math.max(0, remainingProgress) * 65), 
+        progressRate * 30 + Math.max(0, remainingProgress) * 65,
         95
-      );
+      )
       if (!isDone) {
-        setProgress(newProgress);
-        
+        setProgress(newProgress)
+
         if (newProgress < 95) {
-          setTimeout(updateProgress, 100); // Update every 100ms for smoother progress
+          setTimeout(updateProgress, 100) // Update every 100ms for smoother progress
         }
       }
-    };
-    
-    updateProgress(); // Start immediately
-    if (!loading) {
-      isDone = true;
-      setProgress(100);
     }
-  }, [loading]);
+
+    updateProgress() // Start immediately
+    if (!loading) {
+      isDone = true
+      setProgress(100)
+    }
+  }, [loading])
 
   // Cycle through loading messages with fade transitions
   useEffect(() => {
-    if (!loading) return;
-    
-    const messages = ['Mandy is analyzing...', 'Mandy is decorating...', 'Mandy is transforming...'];
-    let currentIndex = 0;
-    
+    if (!loading) return
+
+    const messages = [
+      'Mandy is analyzing...',
+      'Mandy is decorating...',
+      'Mandy is transforming...',
+    ]
+    let currentIndex = 0
+
     const cycleMessage = () => {
       // Fade out
-      setMessageOpacity(0);
-      
+      setMessageOpacity(0)
+
       // Change message after fade out
       setTimeout(() => {
-        currentIndex = (currentIndex + 1) % messages.length;
-        setLoadingMessage(messages[currentIndex]);
+        currentIndex = (currentIndex + 1) % messages.length
+        setLoadingMessage(messages[currentIndex])
         // Fade in
-        setMessageOpacity(1);
-      }, 300); // Wait for fade out to complete
-    };
-    
-    const interval = setInterval(cycleMessage, 6000); // Change message every 6 seconds
-    
-    return () => clearInterval(interval);
-  }, [loading]);
+        setMessageOpacity(1)
+      }, 300) // Wait for fade out to complete
+    }
+
+    const interval = setInterval(cycleMessage, 6000) // Change message every 6 seconds
+
+    return () => clearInterval(interval)
+  }, [loading])
 
   // Apply default theme colors
   useEffect(() => {
@@ -526,8 +605,7 @@ export default function Room() {
   }, [])
 
   // Update vision prompt when room type changes
-  useEffect(() => {
-  }, [roomType, customRoomType, showCustomInput])
+  useEffect(() => {}, [roomType, customRoomType, showCustomInput])
 
   const handleRoomTypeChange = (value: string) => {
     if (value === 'Other') {
@@ -562,8 +640,8 @@ export default function Room() {
     const uploadRes = await fetch(
       `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API_KEY}`,
       {
-      method: 'POST',
-      body: formData,
+        method: 'POST',
+        body: formData,
       }
     )
     const uploadJson = await uploadRes.json()
@@ -601,21 +679,58 @@ export default function Room() {
     ])
     // Search for Amazon products
     try {
+      // Get user's price range from onboarding if available
+      const rawPriceRange = getUserPriceRange()
+
+      // Validate price range to prevent API errors
+      const priceRange =
+        rawPriceRange &&
+        rawPriceRange.min >= 1 &&
+        rawPriceRange.max > rawPriceRange.min
+          ? rawPriceRange
+          : null
+
+      console.log('Using price range for search:', priceRange)
+
       const productResponse = await fetch('/api/amazon-products', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           prompt: vision,
           roomType: showCustomInput ? customRoomType : roomType,
+          priceRange: priceRange,
         }),
       })
+
+      // Check if response is OK and content-type is JSON
+      if (!productResponse.ok) {
+        const errorText = await productResponse.text()
+        console.error(
+          'Amazon API HTTP error:',
+          productResponse.status,
+          errorText
+        )
+        throw new Error(
+          `Amazon API returned ${productResponse.status}: ${errorText.substring(0, 200)}`
+        )
+      }
+
+      const contentType = productResponse.headers.get('content-type')
+      if (!contentType || !contentType.includes('application/json')) {
+        const responseText = await productResponse.text()
+        console.error(
+          'Amazon API returned non-JSON response:',
+          responseText.substring(0, 500)
+        )
+        throw new Error(
+          'Amazon API returned HTML instead of JSON - check server logs'
+        )
+      }
+
       const productData = await productResponse.json()
       console.log('Amazon API response:', productData)
       if (productData.success && productData.products) {
-        console.log(
-          'First product sample:',
-          productData.products[0]
-        )
+        console.log('First product sample:', productData.products[0])
         setAmazonProducts(productData.products)
         // Removed popup alert - products will show in the section below
       } else {
@@ -721,7 +836,7 @@ export default function Room() {
         </h1>
         <div className={`${styles.headerText} text-xs md:text-lg`}>
           Upload your space, describe your dream, and watch the magic happen.
-          </div>
+        </div>
       </div>
       <div>
         {/* Feature Bubbles */}
@@ -900,15 +1015,15 @@ export default function Room() {
           >
             {/* Highlight overlay for 3D effect */}
             <div className="absolute top-2 left-2 right-2 h-4 rounded-t-2xl bg-gradient-to-r from-white/20 to-white/10 pointer-events-none" />
-            
+
             {/* Inner glow for active state */}
             <div className="absolute inset-3 rounded-2xl bg-white/5 animate-pulse pointer-events-none" />
-            
+
             {/* Sparkles icon */}
             <span className="absolute top-2.5 left-4 z-10 flex items-center">
               <Sparkles className="w-7 h-7 text-white drop-shadow-sm" />
             </span>
-            
+
             {/* Button text */}
             <span className="relative z-10 text-shadow-sm">
               Start Your Transformation
@@ -934,7 +1049,8 @@ export default function Room() {
             style={{
               flex: 1,
               minWidth: '340px',
-              background:'linear-gradient(135deg, rgba(255, 224, 242, 0.9) 0%, rgba(250, 238, 246, 0.9) 100%)',
+              background:
+                'linear-gradient(135deg, rgba(255, 224, 242, 0.9) 0%, rgba(250, 238, 246, 0.9) 100%)',
               border: '2.5px solid #f91b8f',
               borderRadius: '18px',
               boxShadow:
@@ -956,7 +1072,8 @@ export default function Room() {
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                background: 'linear-gradient(135deg, rgba(255, 200, 230, 0.95) 0%, rgba(255, 220, 174, 0.95) 100%)',
+                background:
+                  'linear-gradient(135deg, rgba(255, 200, 230, 0.95) 0%, rgba(255, 220, 174, 0.95) 100%)',
                 borderBottom: '2px solid #f91b8f',
                 padding: '8px 20px',
                 fontFamily: 'Roboto Mono, monospace',
@@ -981,7 +1098,7 @@ export default function Room() {
               <div className="window-controls">
                 <button className="window-buttons" title="Minimize">
                   <span className="window-button-icon">─</span>
-          </button>
+                </button>
                 <button className="window-buttons" title="Maximize">
                   <span className="window-button-icon">□</span>
                 </button>
@@ -1038,7 +1155,7 @@ export default function Room() {
                         gap: '0.3rem',
                       }}
                     >
-            <span
+                      <span
                         style={{
                           color: '#f91b8f',
                           fontSize: '0.7rem',
@@ -1050,7 +1167,7 @@ export default function Room() {
                         }}
                       >
                         BEFORE
-            </span>
+                      </span>
                     </div>
                   </div>
 
@@ -1109,7 +1226,8 @@ export default function Room() {
                     alignItems: 'center',
                     marginTop: '0.8rem',
                     padding: '0.8rem',
-                    background: 'linear-gradient(135deg, rgba(255, 200, 230, 0.95) 0%, rgba(255, 220, 174, 0.95) 100%)',
+                    background:
+                      'linear-gradient(135deg, rgba(255, 200, 230, 0.95) 0%, rgba(255, 220, 174, 0.95) 100%)',
                     borderRadius: '16px',
                     border: '2px solid#f91b8f',
                     boxShadow: '0 4px 16px rgba(249, 27, 143, 0.1)',
@@ -1228,7 +1346,7 @@ export default function Room() {
                 `}</style>
               </div>
             </div>
-        </section>
+          </section>
         </div>
 
         <div
@@ -1270,7 +1388,8 @@ export default function Room() {
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                background: 'linear-gradient(135deg, rgba(255, 200, 230, 0.95) 0%, #ffdcae 100%)',
+                background:
+                  'linear-gradient(135deg, rgba(255, 200, 230, 0.95) 0%, #ffdcae 100%)',
                 borderBottom: '2px solid #f91b8f',
                 padding: '8px 20px',
                 fontFamily: 'Roboto Mono, monospace',
@@ -1303,7 +1422,7 @@ export default function Room() {
                   <span className="window-button-icon">×</span>
                 </button>
               </div>
-              </div>
+            </div>
             {/* Window Content */}
             <div style={{ padding: '2rem', minHeight: '300px' }}>
               <div
@@ -1319,7 +1438,7 @@ export default function Room() {
                 }}
               >
                 Upload Your Room Photo
-            </div>
+              </div>
               <div
                 style={{
                   display: 'flex',
@@ -1373,12 +1492,12 @@ export default function Room() {
                   onMouseLeave={() => setChooseFileHover(false)}
                 >
                   Choose photo
-              </label>
-              <input
-                type="file"
-                id="fileUpload"
-                accept="image/*"
-                onChange={handleUpload}
+                </label>
+                <input
+                  type="file"
+                  id="fileUpload"
+                  accept="image/*"
+                  onChange={handleUpload}
                 />
               </div>
               <div
@@ -1565,7 +1684,7 @@ export default function Room() {
                 ))}
               </div>
               <div className="flex justify-center mt-8 mb-8">
-              <button
+                <button
                   className="relative px-12 py-6 w-full max-w-md bg-gradient-to-br from-pink-400 via-pink-500 to-pink-600 text-white font-mono text-xl font-extrabold border-2 border-pink-400 rounded-3xl cursor-pointer tracking-wide transition-all duration-150 scale-105 overflow-hidden shadow-lg hover:scale-108 hover:shadow-xl"
                   onMouseEnter={e =>
                     (e.currentTarget.style.transform = 'scale(1.07)')
@@ -1573,15 +1692,15 @@ export default function Room() {
                   onMouseLeave={e =>
                     (e.currentTarget.style.transform = 'scale(1)')
                   }
-                onClick={handleGenerate}
-                disabled={loading}
+                  onClick={handleGenerate}
+                  disabled={loading}
                 >
                   {/* Highlight overlay for 3D effect */}
                   <div className="absolute top-2 left-2 right-2 h-4 rounded-t-2xl bg-gradient-to-r from-white/20 to-white/10 pointer-events-none" />
-            
+
                   {/* Inner glow for active state */}
                   <div className="absolute inset-3 rounded-2xl bg-white/5 animate-pulse pointer-events-none" />
-                  
+
                   {/* Sparkles icon */}
                   <span className="absolute top-2.5 left-4 z-10 flex items-center">
                     <Sparkles className="w-7 h-7 text-white drop-shadow-sm" />
@@ -1639,7 +1758,7 @@ export default function Room() {
                   ) : (
                     'Generate my room!'
                   )}
-              </button>
+                </button>
               </div>
             </div>
           </div>
@@ -1671,7 +1790,8 @@ export default function Room() {
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                background: 'linear-gradient(135deg, rgba(255, 200, 230, 0.95) 0%, #ffdcae 100%)',
+                background:
+                  'linear-gradient(135deg, rgba(255, 200, 230, 0.95) 0%, #ffdcae 100%)',
                 borderBottom: '2px solid #f91b8f',
                 padding: '8px 20px',
                 fontFamily: 'Roboto Mono, monospace',
@@ -1760,44 +1880,56 @@ export default function Room() {
                           }}
                         />
                       </div>
-                      <div style={{
-                        fontFamily: 'Roboto Mono, monospace',
-                        fontSize: '1.1rem',
-                        color: '#f91b8f',
-                        fontWeight: 700,
-                        letterSpacing: '1px',
-                        textShadow: '0 0 4px #fff0f8',
-                        opacity: messageOpacity,
-                        transition: 'opacity 0.3s ease-in-out',
-                      }}>
+                      <div
+                        style={{
+                          fontFamily: 'Roboto Mono, monospace',
+                          fontSize: '1.1rem',
+                          color: '#f91b8f',
+                          fontWeight: 700,
+                          letterSpacing: '1px',
+                          textShadow: '0 0 4px #fff0f8',
+                          opacity: messageOpacity,
+                          transition: 'opacity 0.3s ease-in-out',
+                        }}
+                      >
                         {loading ? (
-                          <span style={{ opacity: messageOpacity, transition: 'opacity 0.3s ease-in-out' }}>
+                          <span
+                            style={{
+                              opacity: messageOpacity,
+                              transition: 'opacity 0.3s ease-in-out',
+                            }}
+                          >
                             {loadingMessage}
                           </span>
                         ) : (
                           'Photo uploaded! Ready to transform'
                         )}
                       </div>
-              {loading && (
-                        <div style={{
-                          width: '100%',
-                          marginTop: '1rem',
-                          background: '#ffe0f2',
-                          borderRadius: '8px',
-                          overflow: 'hidden',
-                          border: '2px solid #ffd6f7',
-                        }}>
-                          <div style={{
-                            width: `${progress}%`,
-                            height: '8px',
-                            background: 'linear-gradient(90deg, #f91b8f 0%, #ff69b4 100%)',
-                            borderRadius: '6px',
-                            transition: 'width 0.3s ease-out',
-                            boxShadow: '0 2px 4px rgba(249, 27, 143, 0.3)',
-                          }} />
-                  </div>
+                      {loading && (
+                        <div
+                          style={{
+                            width: '100%',
+                            marginTop: '1rem',
+                            background: '#ffe0f2',
+                            borderRadius: '8px',
+                            overflow: 'hidden',
+                            border: '2px solid #ffd6f7',
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: `${progress}%`,
+                              height: '8px',
+                              background:
+                                'linear-gradient(90deg, #f91b8f 0%, #ff69b4 100%)',
+                              borderRadius: '6px',
+                              transition: 'width 0.3s ease-out',
+                              boxShadow: '0 2px 4px rgba(249, 27, 143, 0.3)',
+                            }}
+                          />
+                        </div>
                       )}
-                </div>
+                    </div>
                   ) : (
                     <>
                       <div
@@ -1948,9 +2080,9 @@ export default function Room() {
                     }}
                   >
                     Toggle to see the transformation!
-            </div>
-          </div>
-        )}
+                  </div>
+                </div>
+              )}
               <div className="flex justify-center mt-8 mb-8">
                 <button
                   className="relative px-12 py-6 w-full max-w-md bg-gradient-to-br from-pink-400 via-pink-500 to-pink-600 text-white font-mono text-xl font-extrabold border-2 border-pink-400 rounded-3xl cursor-pointer tracking-wide transition-all duration-150 scale-105 overflow-hidden shadow-lg hover:scale-108 hover:shadow-xl"
@@ -1965,16 +2097,14 @@ export default function Room() {
                 >
                   {/* Highlight overlay for 3D effect */}
                   <div className="absolute top-2 left-2 right-2 h-4 rounded-t-2xl bg-gradient-to-r from-white/20 to-white/10 pointer-events-none" />
-            
                   {/* Inner glow for active state */}
                   <div className="absolute inset-3 rounded-2xl bg-white/5 animate-pulse pointer-events-none" />
-                  
                   {/* Download icon */}
                   <span className="absolute top-2.5 left-4 z-10 flex items-center">
                     <Download className="w-7 h-7 text-white drop-shadow-sm" />
                   </span>
                   Download
-        </button>
+                </button>
               </div>
 
               {/* Find Products Button */}
@@ -2006,14 +2136,63 @@ export default function Room() {
                     })
                     // Manually trigger Amazon product search
                     try {
+                      // Get user's price range from onboarding if available
+                      const rawPriceRange = getUserPriceRange()
+
+                      // Validate price range to prevent API errors
+                      const priceRange =
+                        rawPriceRange &&
+                        rawPriceRange.min >= 1 &&
+                        rawPriceRange.max > rawPriceRange.min
+                          ? rawPriceRange
+                          : null
+
+                      console.log(
+                        'Using price range for manual search:',
+                        priceRange
+                      )
+
                       const productResponse = await fetch(
                         '/api/amazon-products',
                         {
                           method: 'POST',
                           headers: { 'Content-Type': 'application/json' },
-                          body: JSON.stringify({ prompt: combinedPrompt }),
+                          body: JSON.stringify({
+                            prompt: combinedPrompt,
+                            priceRange: priceRange,
+                          }),
                         }
                       )
+
+                      // Check if response is OK and content-type is JSON
+                      if (!productResponse.ok) {
+                        const errorText = await productResponse.text()
+                        console.error(
+                          'Amazon API HTTP error:',
+                          productResponse.status,
+                          errorText
+                        )
+                        throw new Error(
+                          `Amazon API returned ${productResponse.status}: ${errorText.substring(0, 200)}`
+                        )
+                      }
+
+                      const contentType =
+                        productResponse.headers.get('content-type')
+                      if (
+                        !contentType ||
+                        !contentType.includes('application/json')
+                      ) {
+                        const responseText = await productResponse.text()
+                        console.error(
+                          'Amazon API returned non-JSON response:',
+                          responseText.substring(0, 500)
+                        )
+                        throw new Error(
+                          'Amazon API returned HTML instead of JSON - check server logs'
+                        )
+                      }
+
                       const productData = await productResponse.json()
                       console.log('Amazon API response:', productData)
                       if (productData.success && productData.products) {
@@ -2038,15 +2217,15 @@ export default function Room() {
                 >
                   {/* Highlight overlay for 3D effect */}
                   <div className="absolute top-2 left-2 right-2 h-4 rounded-t-2xl bg-gradient-to-r from-white/20 to-white/10 pointer-events-none" />
-                  
+
                   {/* Inner glow for active state */}
                   <div className="absolute inset-3 rounded-2xl bg-white/5 animate-pulse pointer-events-none" />
-                  
+
                   {/* Search icon */}
                   <span className="absolute top-2.5 left-4 z-10 flex items-center">
                     <Search className="w-7 h-7 text-[#f91b8f] drop-shadow-sm" />
                   </span>
-                  
+
                   {/* Button text */}
                   <span className="relative z-10 text-shadow-sm">
                     Find Products
@@ -2341,17 +2520,19 @@ export default function Room() {
                     setEnlargedImage({ src: g.before, alt: 'Before' })
                   }
                 />
-                <div style={{
-                     color: '#f91b8f',
-                     fontSize: '0.9rem',
-                     fontWeight: 700,
-                     padding: '0.1rem 0.5rem',
-                     fontFamily: 'Roboto Mono, monospace',
-                     letterSpacing: '0.5px',
-                     textShadow: '0 0 8px rgba(249, 27, 143, 0.6)',
-                   }}>
-                     AI MAGIC
-                   </div>
+                <div
+                  style={{
+                    color: '#f91b8f',
+                    fontSize: '0.9rem',
+                    fontWeight: 700,
+                    padding: '0.1rem 0.5rem',
+                    fontFamily: 'Roboto Mono, monospace',
+                    letterSpacing: '0.5px',
+                    textShadow: '0 0 8px rgba(249, 27, 143, 0.6)',
+                  }}
+                >
+                  AI MAGIC
+                </div>
                 {/* Animated arrow */}
                 <div
                   style={{
