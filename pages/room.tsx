@@ -557,72 +557,98 @@ export default function Room() {
     setLoading(true)
     setAfterImage(null) // Clear the previously generated image
     setShowMain(false) // Reset the show main state
-    const formData = new FormData()
-    formData.append('image', image)
-    const uploadRes = await fetch(
-      `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API_KEY}`,
-      {
-      method: 'POST',
-      body: formData,
-      }
-    )
-    const uploadJson = await uploadRes.json()
-    if (!uploadJson.success || !uploadJson.data?.url) {
-      setLoading(false)
-      alert('Image upload failed. Please check your API key and try again.')
-      return
-    }
-    const imageUrl = uploadJson.data.display_url || uploadJson.data.url
-
-    // Create enhanced prompt that includes room type
-    const currentRoomType = showCustomInput ? customRoomType : roomType
-    const enhancedPrompt =
-      currentRoomType && currentRoomType !== ''
-        ? `Transform this ${currentRoomType.toLowerCase()} with ${vision}`
-        : vision
-
-    const response = await fetch('/api/room-makeover', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ imageUrl, prompt: enhancedPrompt }),
-    })
-    const data = await response.json()
-    setAfterImage(data.outputUrl)
-    setLoading(false)
-    setShowMain(true)
-    setGallery(g => [
-      {
-        before: beforePreview || '/before-room.png',
-        after: data.outputUrl,
-        label: vision || 'My Glow Up!',
-        roomType,
-      },
-      ...g,
-    ])
-    // Search for Amazon products
+    
     try {
-      const productResponse = await fetch('/api/amazon-products', {
+      const formData = new FormData()
+      formData.append('image', image)
+      const uploadRes = await fetch(
+        `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API_KEY}`,
+        {
+        method: 'POST',
+        body: formData,
+        }
+      )
+      const uploadJson = await uploadRes.json()
+      if (!uploadJson.success || !uploadJson.data?.url) {
+        setLoading(false)
+        alert('Image upload failed. Please check your API key and try again.')
+        return
+      }
+      const imageUrl = uploadJson.data.display_url || uploadJson.data.url
+
+      // Create enhanced prompt that includes room type
+      const currentRoomType = showCustomInput ? customRoomType : roomType
+      const enhancedPrompt =
+        currentRoomType && currentRoomType !== ''
+          ? `Transform this ${currentRoomType.toLowerCase()} with ${vision}`
+          : vision
+
+      const response = await fetch('/api/room-makeover', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          prompt: vision,
-          roomType: showCustomInput ? customRoomType : roomType,
-        }),
+        body: JSON.stringify({ imageUrl, prompt: enhancedPrompt }),
       })
-      const productData = await productResponse.json()
-      console.log('Amazon API response:', productData)
-      if (productData.success && productData.products) {
-        console.log(
-          'First product sample:',
-          productData.products[0]
-        )
-        setAmazonProducts(productData.products)
-        // Removed popup alert - products will show in the section below
-      } else {
-        console.log('No products found or API error:', productData)
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
       }
+      
+      const data = await response.json()
+      
+      if (data.error) {
+        throw new Error(data.error)
+      }
+      
+      if (!data.outputUrl) {
+        throw new Error('No output URL received from the API')
+      }
+      
+      setAfterImage(data.outputUrl)
+      setLoading(false)
+      setShowMain(true)
+      setGallery(g => [
+        {
+          before: beforePreview || '/before-room.png',
+          after: data.outputUrl,
+          label: vision || 'My Glow Up!',
+          roomType,
+        },
+        ...g,
+      ])
+      
+      // Search for Amazon products
+      try {
+        const productResponse = await fetch('/api/amazon-products', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            prompt: vision,
+            roomType: showCustomInput ? customRoomType : roomType,
+          }),
+        })
+        const productData = await productResponse.json()
+        console.log('Amazon API response:', productData)
+        if (productData.success && productData.products) {
+          console.log(
+            'First product sample:',
+            productData.products[0]
+          )
+          setAmazonProducts(productData.products)
+          // Removed popup alert - products will show in the section below
+        } else {
+          console.log('No products found or API error:', productData)
+        }
+      } catch (error) {
+        console.log('Amazon products search failed:', error)
+      }
+      
     } catch (error) {
-      console.log('Amazon products search failed:', error)
+      console.error('Room generation error:', error)
+      setLoading(false)
+      setShowMinigame(false)
+      
+      // Show user-friendly error message
+      alert('There was a problem while generating your room. Please try again!')
     }
   }
 
@@ -878,7 +904,7 @@ export default function Room() {
                 textAlign: 'center',
               }}
             >
-              Curated product recommendations
+              Curate unique product ideas
             </div>
           </div>
         </div>
