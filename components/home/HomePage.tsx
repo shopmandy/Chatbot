@@ -8,7 +8,7 @@ export function HomePage() {
   return (
     <div
       style={{
-        backgroundColor: '#ffe0f2',
+        backgroundColor: '#ffffff',
         fontFamily: "'Helvetica Neue', Arial, sans-serif",
         color: '#ff0080',
         minHeight: '100vh',

@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Poppins:wght@200;300;400;500;600;700;900&display=swap');
 
 body {
-  background: #ffe0f2;
+  background: #ffffff;
   color: #f91b8f;
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
@@ -161,7 +161,7 @@ html {
 
 .sidebar {
   width: 280px;
-  background: #fff;
+  background: #ffe0f2;
   border-right: 2px solid #f91b8f;
   display: flex;
   flex-direction: column;
@@ -201,7 +201,7 @@ html {
   width: calc(100% - 280px);
   padding: 2rem 1rem 1rem 1rem;
   min-height: 100vh;
-  background: #ffe0f2;
+  background: #ffffff;
   box-sizing: border-box;
 }
 

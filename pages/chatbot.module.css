@@ -1,7 +1,7 @@
 /* Page Container */
 .pageContainer {
   min-height: 100vh;
-  background: linear-gradient(135deg, #ffe0f2 100%);
+  background: #ffffff;
   font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace;
   position: relative;
 }
@@ -16,12 +16,12 @@
   background:
     radial-gradient(
       circle at 20% 80%,
-      rgba(255, 105, 180, 0.1) 0%,
+      rgba(255, 105, 180, 0.05) 0%,
       transparent 50%
     ),
     radial-gradient(
       circle at 80% 20%,
-      rgba(182, 182, 255, 0.1) 0%,
+      rgba(182, 182, 255, 0.05) 0%,
       transparent 50%
     );
   pointer-events: none;
