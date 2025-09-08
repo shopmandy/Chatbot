@@ -58,7 +58,7 @@
 .logoText {
   font-size: 2.2rem;
   font-weight: 900;
-  color: var(--button-text, #ff69b4);
+  color: var(--button-text, #0a164d);
   text-shadow:
     0 0 12px #ffb6e6,
     0 0 2px #fff;
@@ -73,7 +73,7 @@
 
 .headerTitle {
   font-size: 4.8rem;
-  color: #f91b8f;
+  color: #0a164d;
   margin: 0;
   letter-spacing: 2px;
   font-weight: 900;
@@ -90,7 +90,7 @@
 .headerText {
   font-size: 1.2rem;
   font-family: 'Roboto Mono', monospace;
-  color: #ff69b4;
+  color: #0a164d;
   margin-top: 0.8rem;
   margin-bottom: 1.4rem;
   font-weight: 900;
@@ -105,7 +105,7 @@
 
 .home-button:hover {
   background: #f0f3fb !important;
-  color: #f91b8f !important;
+  color: #0a164d !important;
   box-shadow:
     0 6px 16px rgba(184, 111, 166, 0.25),
     0 1px 8px #fff6fa,
@@ -220,7 +220,7 @@
 }
 
 input:checked + .slider {
-  background-color: #f91b84;
+  background-color: #0a164d;
 }
 
 input:checked + .slider::before {
@@ -283,7 +283,7 @@ input:checked + .slider::before {
 .heroTitle {
   font-size: 3.5rem;
   font-weight: 900;
-  color: var(--button-text, #ff69b4);
+  color: var(--button-text, #0a164d);
   text-shadow:
     0 0 20px #ffb6e6,
     0 0 4px #fff;
@@ -294,7 +294,7 @@ input:checked + .slider::before {
 
 .heroSubtitle {
   font-size: 1.8rem;
-  color: var(--chat-text, #b8005c);
+  color: var(--chat-text, #0a164d);
   margin: 0 0 2rem 0;
   line-height: 1.4;
   max-width: 600px;
@@ -336,7 +336,7 @@ input:checked + .slider::before {
 .feature span:last-child {
   font-size: 1.2rem;
   font-weight: 600;
-  color: var(--chat-text, #b8005c);
+  color: var(--chat-text, #0a164d);
 }
 
 /* Room Interface */
@@ -363,7 +363,7 @@ input:checked + .slider::before {
 .imageLabel {
   font-size: 1.4rem;
   font-weight: 700;
-  color: var(--button-text, #ff69b4);
+  color: var(--button-text, #0a164d);
   text-shadow: 0 0 8px #ffb6e6;
   letter-spacing: 1px;
 }
@@ -400,7 +400,7 @@ input:checked + .slider::before {
 .inputLabel {
   font-size: 1.4rem;
   font-weight: 700;
-  color: var(--button-text, #ff69b4);
+  color: var(--button-text, #0a164d);
   text-shadow: 0 0 8px #ffb6e6;
   letter-spacing: 1px;
 }
@@ -411,7 +411,7 @@ input:checked + .slider::before {
   padding: 1rem 1.5rem;
   background: rgba(255, 255, 255, 0.95);
   border: 2px solid var(--button-border, #ff69b4);
-  color: var(--chat-text, #f91b8f);
+  color: var(--chat-text, #0a164d);
   border-radius: 16px;
   outline: none;
   font-size: 1.3rem;
@@ -497,7 +497,7 @@ input:checked + .slider::before {
   gap: 1rem;
   padding: 1rem 1.5rem;
   background: var(--chat-bubble, #ffe0f2);
-  color: var(--chat-text, #f91b8f);
+  color: var(--chat-text, #0a164d);
   border: 2px solid var(--button-border, #ff69b4);
   border-radius: 20px;
   box-shadow: 0 4px 16px rgba(255, 105, 180, 0.15);
@@ -551,7 +551,7 @@ input:checked + .slider::before {
 
 .shopTitle {
   font-size: 2rem;
-  color: var(--button-text, #ff69b4);
+  color: var(--button-text, #0a164d);
   text-align: center;
   margin: 0 0 1rem 0;
   font-weight: 700;
@@ -561,7 +561,7 @@ input:checked + .slider::before {
 
 .shopDescription {
   font-size: 1.2rem;
-  color: var(--chat-text, #b8005c);
+  color: var(--chat-text, #0a164d);
   text-align: center;
   margin: 0 0 2rem 0;
   max-width: 600px;
@@ -608,7 +608,7 @@ input:checked + .slider::before {
 .productName {
   font-size: 1.1rem;
   font-weight: 600;
-  color: var(--chat-text, #b8005c);
+  color: var(--chat-text, #0a164d);
   text-align: center;
   margin: 0;
 }
@@ -627,7 +627,7 @@ input:checked + .slider::before {
     linear-gradient(135deg, #ffdcae 0%, #ffe0f2 100%)
   );
   border: 2px solid var(--button-border, #ff69b4);
-  color: var(--button-text, #f91b8f);
+  color: var(--button-text, #0a164d);
   font-size: 1.2rem;
   font-weight: 600;
   font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace;
@@ -654,7 +654,7 @@ input:checked + .slider::before {
 
 .galleryTitle {
   font-size: 3.4rem;
-  color: var(--button-text, #f91b84);
+  color: var(--button-text, #0a164d);
   margin: 0 0 0.4rem 0;
   font-weight: 800;
   text-shadow: 0 0 8px #ffb6e6;
@@ -749,7 +749,7 @@ input:checked + .slider::before {
   gap: 1rem;
   font-size: 2.3rem;
   font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace;
-  color: #b8005c;
+  color: #0a164d;
   text-shadow:
     0 0 16px #ffb6e6,
     0 0 2px #fff;
@@ -807,7 +807,7 @@ input:checked + .slider::before {
 .y2kHeroTitle {
   font-size: 3.2rem;
   font-weight: 900;
-  color: #ff69b4;
+  color: #0a164d;
   text-shadow:
     0 0 24px #b6b6ff,
     0 0 4px #fff;
@@ -817,7 +817,7 @@ input:checked + .slider::before {
 }
 .y2kHeroSubtitle {
   font-size: 1.5rem;
-  color: #b8005c;
+  color: #0a164d;
   margin: 0 0 2.2rem 0;
   line-height: 1.4;
   max-width: 600px;
@@ -905,7 +905,7 @@ input:checked + .slider::before {
   left: 50%;
   transform: translateX(-50%);
   background: #fff0f8;
-  color: #ff69b4;
+  color: #0a164d;
   font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace;
   font-size: 1.1rem;
   font-weight: 700;
@@ -933,7 +933,7 @@ input:checked + .slider::before {
 .magicWandIcon {
   font-size: 2.5rem;
   animation: wandGlow 1.2s infinite alternate;
-  color: #ff69b4;
+  color: #0a164d;
   filter: drop-shadow(0 0 8px #b6b6ff);
 }
 @keyframes wandGlow {
@@ -970,7 +970,7 @@ input:checked + .slider::before {
   z-index: 200;
   background: linear-gradient(135deg, #ffdcae 0%, #ffe0f2 100%);
   border: 2px solid #ff69b4;
-  color: #f91b8f;
+  color: #0a164d;
   font-size: 2.2rem;
   border-radius: 50%;
   width: 68px;
@@ -985,7 +985,7 @@ input:checked + .slider::before {
 }
 .fabMoodboard:hover {
   background: linear-gradient(135deg, #ffe0f2 0%, #ffdcae 100%);
-  color: #ff69b4;
+  color: #0a164d;
   box-shadow: 0 8px 32px #b6b6ff99;
   transform: scale(1.08);
 }
@@ -1071,7 +1071,7 @@ input:checked + .slider::before {
 }
 
 .productsTitle {
-  color: #ff0099;
+  color: #0a164d;
   font-size: 1.5rem;
   font-weight: bold;
   text-align: center;
@@ -1085,7 +1085,7 @@ input:checked + .slider::before {
 }
 
 .categorySection h4 {
-  color: #ff0099;
+  color: #0a164d;
   font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 1rem;
@@ -1149,7 +1149,7 @@ input:checked + .slider::before {
 .productPrice {
   font-size: 1.1rem;
   font-weight: bold;
-  color: #ff0099;
+  color: #0a164d;
   margin: 0;
 }
 .productBrand {

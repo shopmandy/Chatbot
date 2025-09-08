@@ -293,7 +293,7 @@ function DinoGameModal({
           fontFamily: 'VT323, monospace',
           fontSize: '20px',
           fontWeight: 600,
-          color: '#f91b8f',
+          color: '#0a164d',
         }}
       >
         {' '}
@@ -307,7 +307,7 @@ function DinoGameModal({
       <div
         style={{
           fontSize: '1rem',
-          color: '#b8005c',
+          color: '#0a164d',
           textAlign: 'center',
           marginBottom: '1rem',
           padding: '0 1rem',
@@ -407,7 +407,7 @@ function DinoGameModal({
             <div
               style={{
                 fontSize: '2rem',
-                color: '#f91b8f',
+                color: '#0a164d',
                 fontWeight: 900,
                 marginBottom: 12,
               }}
@@ -415,7 +415,7 @@ function DinoGameModal({
               Game Over!
             </div>
             <div
-              style={{ fontSize: '1.1rem', color: '#b8005c', marginBottom: 18 }}
+              style={{ fontSize: '1.1rem', color: '#0a164d', marginBottom: 18 }}
             >
               Press Space or Tap to Restart
             </div>
@@ -445,7 +445,7 @@ function DinoGameModal({
         <div
           style={{
             fontSize: '1.1rem',
-            color: '#b8005c',
+            color: '#0a164d',
             fontWeight: 600,
             marginTop: 6,
             padding: '0 1rem',
@@ -456,7 +456,7 @@ function DinoGameModal({
         <div
           style={{
             fontSize: '1.1rem',
-            color: '#b8005c',
+            color: '#0a164d',
             fontWeight: 600,
             marginTop: 6,
             padding: '0 1rem',
@@ -902,7 +902,7 @@ export default function Room() {
               style={{
                 fontFamily: 'VT323, Tiny5, Courier, monospace',
                 fontSize: '1.6rem',
-                color: '#f91b8f',
+                color: '#0a164d',
                 fontWeight: 700,
                 marginBottom: '0.5rem',
                 lineHeight: '1.4',
@@ -915,7 +915,7 @@ export default function Room() {
               className="text-xs md:text-xs"
               style={{
                 fontFamily: 'Roboto Mono, monospace',
-                color: '#b8005c',
+                color: '#0a164d',
                 lineHeight: '1.4',
                 textAlign: 'center',
               }}
@@ -951,7 +951,7 @@ export default function Room() {
               style={{
                 fontFamily: 'VT323, Tiny5, Courier, monospace',
                 fontSize: '1.6rem',
-                color: '#f91b8f',
+                color: '#0a164d',
                 fontWeight: 700,
                 marginBottom: '0.5rem',
                 lineHeight: '1.4',
@@ -964,7 +964,7 @@ export default function Room() {
               className="text-xs md:text-xs"
               style={{
                 fontFamily: 'Roboto Mono, monospace',
-                color: '#b8005c',
+                color: '#0a164d',
                 lineHeight: '1.4',
                 textAlign: 'center',
               }}
@@ -1000,7 +1000,7 @@ export default function Room() {
               style={{
                 fontFamily: 'VT323, Tiny5, Courier, monospace',
                 fontSize: '1.6rem',
-                color: '#f91b8f',
+                color: '#0a164d',
                 fontWeight: 700,
                 marginBottom: '0.5rem',
                 lineHeight: '1.4',
@@ -1013,7 +1013,7 @@ export default function Room() {
               className="text-xs md:text-xs"
               style={{
                 fontFamily: 'Roboto Mono, monospace',
-                color: '#b8005c',
+                color: '#0a164d',
                 lineHeight: '1.4',
                 textAlign: 'center',
               }}
@@ -1104,7 +1104,7 @@ export default function Room() {
                 fontFamily: 'Roboto Mono, monospace',
                 fontSize: '16px',
                 fontWeight: 600,
-                color: '#f91b8f',
+                color: '#0a164d',
                 boxShadow: '0 2px 12px rgba(255, 105, 180, 0.15)',
               }}
             >
@@ -1182,7 +1182,7 @@ export default function Room() {
                     >
                       <span
                         style={{
-                          color: '#f91b8f',
+                          color: '#0a164d',
                           fontSize: '0.7rem',
                           fontWeight: 700,
                           padding: '0.2rem 0.5rem',
@@ -1227,7 +1227,7 @@ export default function Room() {
                     >
                       <span
                         style={{
-                          color: '#f91b8f',
+                          color: '#0a164d',
                           background: '#ffb9e2',
                           fontSize: '0.7rem',
                           fontWeight: 700,
@@ -1275,7 +1275,7 @@ export default function Room() {
                       style={{
                         fontSize: '1.6rem',
                         fontWeight: 900,
-                        color: '#f91b8f',
+                        color: '#0a164d',
                         fontFamily: 'Roboto Mono, monospace',
                         marginBottom: '0.3rem',
                       }}
@@ -1285,7 +1285,7 @@ export default function Room() {
                     <div
                       style={{
                         fontSize: '0.7rem',
-                        color: '#b8005c',
+                        color: '#0a164d',
                         fontFamily: 'Roboto Mono, monospace',
                         fontWeight: 600,
                       }}
@@ -1307,7 +1307,7 @@ export default function Room() {
                       style={{
                         fontSize: '1.6rem',
                         fontWeight: 900,
-                        color: '#f91b8f',
+                        color: '#0a164d',
                         fontFamily: 'Roboto Mono, monospace',
                         marginBottom: '0.3rem',
                       }}
@@ -1317,7 +1317,7 @@ export default function Room() {
                     <div
                       style={{
                         fontSize: '0.7rem',
-                        color: '#b8005c',
+                        color: '#0a164d',
                         fontFamily: 'Roboto Mono, monospace',
                         fontWeight: 600,
                       }}
@@ -1339,7 +1339,7 @@ export default function Room() {
                       style={{
                         fontSize: '1.6rem',
                         fontWeight: 900,
-                        color: '#f91b8f',
+                        color: '#0a164d',
                         fontFamily: 'Roboto Mono, monospace',
                         marginBottom: '0.3rem',
                       }}
@@ -1349,7 +1349,7 @@ export default function Room() {
                     <div
                       style={{
                         fontSize: '0.7rem',
-                        color: '#b8005c',
+                        color: '#0a164d',
                         fontFamily: 'Roboto Mono, monospace',
                         fontWeight: 600,
                       }}
@@ -1420,7 +1420,7 @@ export default function Room() {
                 fontFamily: 'Roboto Mono, monospace',
                 fontSize: '16px',
                 fontWeight: 600,
-                color: '#f91b8f',
+                color: '#0a164d',
                 boxShadow: '0 2px 12px rgba(255, 105, 180, 0.15)',
               }}
             >
@@ -1454,7 +1454,7 @@ export default function Room() {
                 style={{
                   fontFamily: 'Roboto Mono, monospace',
                   fontSize: '1.2rem',
-                  color: '#f91b8f',
+                  color: '#0a164d',
                   fontWeight: 600,
                   marginBottom: '2rem',
                   letterSpacing: '1px',
@@ -1477,7 +1477,7 @@ export default function Room() {
                   style={{
                     width: '2rem',
                     height: '2rem',
-                    color: '#f91b84',
+                    color: '#0a164d',
                     marginBottom: '0.5rem',
                     filter: 'drop-shadow(0 2px 8px #ffe0f2)',
                   }}
@@ -1486,7 +1486,7 @@ export default function Room() {
                   style={{
                     fontFamily: 'Roboto Mono, monospace',
                     fontSize: '1rem',
-                    color: '#f91b84',
+                    color: '#0a164d',
                     fontWeight: 600,
                     opacity: 0.8,
                     letterSpacing: '0.5px',
@@ -1529,7 +1529,7 @@ export default function Room() {
                 style={{
                   fontFamily: 'Roboto Mono, monospace',
                   fontSize: '1.2rem',
-                  color: '#f91b8f',
+                  color: '#0a164d',
                   fontWeight: 600,
                   marginBottom: '1.5rem',
                   letterSpacing: '1px',
@@ -1548,7 +1548,7 @@ export default function Room() {
                   borderRadius: '10px',
                   border: '2px solid #ffd6f7',
                   background: '#fff6fa',
-                  color: '#b8005c',
+                  color: '#0a164d',
                   fontFamily: 'Roboto Mono, monospace',
                   fontSize: '1rem',
                   fontWeight: 500,
@@ -1574,7 +1574,7 @@ export default function Room() {
                   style={{
                     fontFamily: 'Roboto Mono, monospace',
                     fontSize: '1.2rem',
-                    color: '#f91b8f',
+                    color: '#0a164d',
                     fontWeight: 600,
                     marginBottom: '1.5rem',
                     letterSpacing: '1px',
@@ -1599,7 +1599,7 @@ export default function Room() {
                       ? '2px solid #f91b8f'
                       : '2px solid #ffd6f7',
                     background: '#fff6fa',
-                    color: '#b8005c',
+                    color: '#0a164d',
                     fontFamily: 'Roboto Mono, monospace',
                     fontSize: '1rem',
                     fontWeight: 500,
@@ -1615,7 +1615,7 @@ export default function Room() {
                 style={{
                   fontFamily: 'Roboto Mono, monospace',
                   fontSize: '1.2rem',
-                  color: '#f91b8f',
+                  color: '#0a164d',
                   fontWeight: 600,
                   marginBottom: '1.5rem',
                   letterSpacing: '1px',
@@ -1639,7 +1639,7 @@ export default function Room() {
                     ? '2px solid #f91b8f'
                     : '2px solid #ffd6f7',
                   background: '#fff6fa',
-                  color: '#b8005c',
+                  color: '#0a164d',
                   fontFamily: 'Roboto Mono, monospace',
                   fontSize: '1rem',
                   fontWeight: 500,
@@ -1654,7 +1654,7 @@ export default function Room() {
                 style={{
                   fontFamily: 'Roboto Mono, monospace',
                   fontSize: '1rem',
-                  color: '#ff69b4',
+                  color: '#0a164d',
                   fontWeight: 600,
                   marginBottom: '0.8rem',
                   letterSpacing: '1px',
@@ -1690,7 +1690,7 @@ export default function Room() {
                       padding: '0.4rem 1rem',
                       borderRadius: '999px',
                       background: hoveredBubble === i ? '#ffd6f7' : '#ffe0f2',
-                      color: '#f91b84',
+                      color: '#0a164d',
                       fontFamily: 'Roboto Mono, monospace',
                       fontSize: '0.75rem',
                       fontWeight: 600,
@@ -1821,7 +1821,7 @@ export default function Room() {
                 fontFamily: 'Roboto Mono, monospace',
                 fontSize: '16px',
                 fontWeight: 600,
-                color: '#f91b8f',
+                color: '#0a164d',
                 boxShadow: '0 2px 12px rgba(255, 105, 180, 0.15)',
               }}
             >
@@ -1908,7 +1908,7 @@ export default function Room() {
                         style={{
                           fontFamily: 'Roboto Mono, monospace',
                           fontSize: '1.1rem',
-                          color: '#f91b8f',
+                          color: '#0a164d',
                           fontWeight: 700,
                           letterSpacing: '1px',
                           textShadow: '0 0 4px #fff0f8',
@@ -1968,7 +1968,7 @@ export default function Room() {
                           style={{
                             width: '3rem',
                             height: '3rem',
-                            color: '#f91b84',
+                            color: '#0a164d',
                             marginBottom: '0.5rem',
                             filter: 'drop-shadow(0 2px 8px #ffe0f2)',
                           }}
@@ -1978,7 +1978,7 @@ export default function Room() {
                         style={{
                           fontFamily: 'Roboto Mono, monospace',
                           fontSize: '1.3rem',
-                          color: '#f91b8f',
+                          color: '#0a164d',
                           fontWeight: 700,
                           letterSpacing: '1px',
                           marginBottom: '0.9rem',
@@ -1991,7 +1991,7 @@ export default function Room() {
                         style={{
                           fontFamily: 'Roboto Mono, monospace',
                           fontSize: '0.8rem',
-                          color: '#f91b84',
+                          color: '#0a164d',
                           fontWeight: 600,
                           opacity: 0.9,
                           letterSpacing: '0.5px',
@@ -2072,7 +2072,7 @@ export default function Room() {
                     <span
                       style={{
                         fontSize: '0.9rem',
-                        color: '#f91b84',
+                        color: '#0a164d',
                         fontFamily: 'Roboto Mono, monospace',
                         fontWeight: 600,
                       }}
@@ -2097,7 +2097,7 @@ export default function Room() {
                     style={{
                       fontFamily: 'Roboto Mono, monospace',
                       fontSize: '0.9rem',
-                      color: '#f91b84',
+                      color: '#0a164d',
                       fontWeight: 600,
                       opacity: 0.9,
                       letterSpacing: '0.5px',
@@ -2274,7 +2274,7 @@ export default function Room() {
                   className="text-3xl md:text-4xl font-black mb-4"
                   style={{
                     fontFamily: 'Roboto Mono, monospace',
-                    color: '#f91b8f',
+                    color: '#0a164d',
                     textShadow: '0 0 8px #fff0f8',
                   }}
                 >
@@ -2284,7 +2284,7 @@ export default function Room() {
                   className="text-lg font-semibold"
                   style={{
                     fontFamily: 'Roboto Mono, monospace',
-                    color: '#f91b8f',
+                    color: '#0a164d',
                     opacity: 0.8,
                   }}
                 >
@@ -2342,7 +2342,7 @@ export default function Room() {
                         style={{
                           fontFamily: 'Roboto Mono, monospace',
                           fontSize: '1rem',
-                          color: '#f91b8f',
+                          color: '#0a164d',
                           fontWeight: 700,
                           lineHeight: '1.3',
                           marginBottom: '0.5rem',
@@ -2370,7 +2370,7 @@ export default function Room() {
                               style={{
                                 fontFamily: 'Roboto Mono, monospace',
                                 fontSize: '1.25rem',
-                                color: '#f91b8f',
+                                color: '#0a164d',
                                 fontWeight: 800,
                               }}
                             >
@@ -2429,7 +2429,7 @@ export default function Room() {
                           fontFamily: 'Roboto Mono, monospace',
                         }}
                         onMouseEnter={e => {
-                          e.currentTarget.style.color = '#f91b8f'
+                          e.currentTarget.style.color = '#0a164d'
                         }}
                         onMouseLeave={e => {
                           e.currentTarget.style.color =
@@ -2455,7 +2455,7 @@ export default function Room() {
           <div
             className="text-4xl md:text-6xl"
             style={{
-              color: '#f91b84',
+              color: '#0a164d',
               margin: '0 0 0.4rem 0',
               fontWeight: 800,
               letterSpacing: '2px',
@@ -2468,7 +2468,7 @@ export default function Room() {
             className="text-sm md:text-lg"
             style={{
               fontFamily: 'Roboto Mono, monospace',
-              color: '#f91b84',
+              color: '#0a164d',
               fontWeight: 600,
               opacity: 0.9,
               letterSpacing: '0.5px',
@@ -2500,7 +2500,7 @@ export default function Room() {
                     fontFamily: 'VT323',
                     fontSize: '1.5rem',
                     fontWeight: 700,
-                    color: '#f91b8f',
+                    color: '#0a164d',
                     marginBottom: '0.7rem',
                     letterSpacing: '1px',
                     textShadow: '0 0 4px #fff0f8',
@@ -2513,7 +2513,7 @@ export default function Room() {
                 {/* Before label */}
                 <div
                   style={{
-                    color: '#ff69b4',
+                    color: '#0a164d',
                     fontSize: '0.7rem',
                     fontWeight: 700,
                     padding: '0.2rem 0.5rem',
@@ -2546,7 +2546,7 @@ export default function Room() {
                 />
                 <div
                   style={{
-                    color: '#f91b8f',
+                    color: '#0a164d',
                     fontSize: '0.9rem',
                     fontWeight: 700,
                     padding: '0.1rem 0.5rem',
@@ -2581,7 +2581,7 @@ export default function Room() {
                 {/* After label */}
                 <div
                   style={{
-                    color: '#ff69b4',
+                    color: '#0a164d',
                     fontSize: '0.7rem',
                     fontWeight: 700,
                     padding: '0.2rem 0.5rem',
@@ -2631,7 +2631,7 @@ export default function Room() {
                   background:
                     'linear-gradient(135deg,#ffc9ea 0%, #ffe0f2 100%)',
                   border: '2px solid #f91b8f',
-                  color: '#f91b8f',
+                  color: '#0a164d',
                   fontFamily: 'Roboto Mono, monospace',
                   fontSize: '1rem',
                   fontWeight: 600,
