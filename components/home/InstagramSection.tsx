@@ -6,6 +6,18 @@ export function InstagramSection() {
   const [slideWidth, setSlideWidth] = useState(300)
   const slideRef = useRef<HTMLDivElement>(null)
   const [isMinimized, setIsMinimized] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const handleMinimize = () => {
     setIsMinimized(!isMinimized)
@@ -28,10 +40,6 @@ export function InstagramSection() {
     {
       src: '/wrench.png',
       alt: 'Mandy Wrench',
-    },
-    {
-      src: '/denim-4517843_1280.jpg',
-      alt: 'Denim',
     },
     {
       src: '/carousel-image.png',
@@ -94,169 +102,122 @@ export function InstagramSection() {
   }, [baseLength, totalImages, isPaused])
 
   return (
-    <div>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem' }}>
-        <div
+    <div style={{ 
+      maxWidth: '1200px', 
+      margin: '0 auto', 
+      width: '100%',
+      boxSizing: 'border-box',
+      paddingBottom: '2rem'
+    }}>
+
+      {/* Section Content */}
+      <div
+        style={{
+          textAlign: 'center',
+        }}
+      >
+        {/* Step Label */}
+        <div style={{
+          fontSize: isMobile ? '1.2rem' : '1.5rem',
+          fontWeight: '700',
+          color: '#0a164d',
+          fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+          letterSpacing: '3px',
+          textAlign: 'center',
+          margin: '0',
+          textTransform: 'uppercase'
+        }}>
+          STEP 4: SHARE IT
+        </div>
+
+        <h1
           style={{
-            background:
-              'linear-gradient(135deg, rgba(240, 200, 250, 0.9) 0%, rgba(250, 190, 255, 0.9) 100%)',
-            border: '3px solid #f91b8f',
-            borderRadius: '24px',
-            
-            backdropFilter: 'blur(20px)',
-            overflow: 'hidden',
-            marginBottom: '0rem',
-            position: 'relative',
+            fontSize: isMobile ? '2rem' : '3.2rem',
+            color: '#0a164d',
+            marginBottom: '1rem',
+            fontWeight: '700',
+            letterSpacing: '2px',
+            lineHeight: '1.3',
+            fontFamily:
+              "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
           }}
         >
-          {/* Enhanced Window Title Bar */}
-          <div
+          BUILD WITH US {" "}
+          <a
+            href="https://www.instagram.com/shopmandytools"
+            target="_blank"
+            rel="noopener noreferrer"
             style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              background:
-                'linear-gradient(135deg, rgba(255, 200, 230, 0.95) 0%, rgba(240, 200, 250, 0.95) 100%)',
-              borderBottom: '3px solid #f91b8f',
-              padding: '16px 24px',
-              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
-              fontSize: '18px',
-              fontWeight: '700',
-              color: '#ff69b4',
-              boxShadow: '0 4px 20px rgba(255, 105, 180, 0.2)',
-            }}
+              color: '#0a164d',
+              textDecoration: 'none',
+             }}
           >
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-                fontWeight: '700',
-                letterSpacing: '2px',
-                textShadow: '0 0 12px rgba(255, 182, 230, 0.6)',
-              }}
-            >
-              <Heart style={{ width: 20, height: 20, color: '#f91b8f' }} />
-              FOLLOW @SHOPMANDYTOOLS
-            </div>
-            <div className="window-controls">
-              <button
-                className="window-buttons"
-                title="Minimize"
-                onClick={handleMinimize}
-              >
-                <span className="window-button-icon">─</span>
-              </button>
-              <button className="window-buttons" title="Maximize">
-                <span className="window-button-icon">□</span>
-              </button>
-              <button className="window-buttons" title="Close">
-                <span className="window-button-icon">×</span>
-              </button>
-            </div>
-          </div>
+            @SHOPMANDYTOOLS
+          </a>
+        </h1>
 
-          {/* Enhanced Section Content */}
-          <div
-            style={{
-              padding: '1rem',
-              textAlign: 'center',
-              display: isMinimized ? 'none' : 'block',
-              transition: 'all 0.3s ease',
-            }}
-          >
-            <h1
-              style={{
-                fontSize: '3.2rem',
-                color: '#f91b8f',
-                marginBottom: '1rem',
-                fontWeight: '700',
-                letterSpacing: '2px',
-                lineHeight: '1.3',
-                fontFamily:
-                  "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
-              }}
-            >
-              BUILD WITH US {" "}
-              <a
-                href="https://www.instagram.com/shopmandytools"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  color: '#f91b8f',
-                  textDecoration: 'none',
-                 }}
-              >
-                @SHOPMANDYTOOLS
-              </a>
-            </h1>
+        <p
+          style={{
+            fontSize: isMobile ? '1rem' : '1.2rem',
+            color: '#0a164d',
+            fontFamily: 'Arial, sans-serif',
+            textAlign: 'center',
+            margin: '0',
+            lineHeight: '1.4'
+          }}
+        >
+          Follow @shopmandytools for DIY inspo, project ideas, and the latest drops.
+        </p>
 
-            <p
-              style={{
-                fontSize: '1.2rem',
-                color: '#f91b8f',
-                marginBottom: '2rem',
-                fontWeight: '600',
-                lineHeight: '1.4',
-                fontFamily: 'Roboto Mono, monospace',
-                textAlign: 'center',
-                opacity: 0.9,
-              }}
-            >
-              Follow @shopmandytools for DIY inspo, project ideas, and the latest drops.
-            </p>
-
-            <div
-              style={{
-                position: 'relative',
-                overflow: 'hidden',
-                borderRadius: '16px',
-                background: 'transparent',
-                padding: '0rem',
-                marginTop: '1rem',
-              }}
-            >
-              <section className={styles.carouselSection}>
-                <div className={styles.carouselHeader}></div>
-                <div className={styles.carouselContainer}>
-                  <div className={styles.carouselWrapper}>
+        <div
+          style={{
+            position: 'relative',
+            overflow: 'hidden',
+            borderRadius: '16px',
+            background: 'transparent',
+            padding: '0rem',
+            marginTop: '0',
+          }}
+        >
+          <section className={styles.carouselSection}>
+            <div className={styles.carouselHeader}></div>
+            <div className={styles.carouselContainer}>
+              <div className={styles.carouselWrapper}>
+                <div
+                  className={styles.carouselTrack}
+                  style={{
+                    transform: `translateX(-${currentImageIndex * slideWidth}px)`,
+                  }}
+                >
+                  {continuousImages.map((image, index) => (
                     <div
-                      className={styles.carouselTrack}
-                      style={{
-                        transform: `translateX(-${currentImageIndex * slideWidth}px)`,
-                      }}
+                      key={index}
+                      className={styles.carouselSlide}
+                      ref={index === 0 ? slideRef : undefined}
                     >
-                      {continuousImages.map((image, index) => (
-                        <div
-                          key={index}
-                          className={styles.carouselSlide}
-                          ref={index === 0 ? slideRef : undefined}
-                        >
-                          <a
-                            href="https://instagram.com/shopmandytools"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <img
-                              onMouseEnter={() => setIsPaused(true)}
-                              onMouseLeave={() => setIsPaused(false)}
-                              src={image.src}
-                              alt={image.alt}
-                              className={styles.carouselImage}
-                              style={{
-                                transition: 'all 0.3s ease',
-                                filter: 'brightness(0.9) contrast(1.1)',
-                              }}
-                            />
-                          </a>
-                        </div>
-                      ))}
+                      <a
+                        href="https://instagram.com/shopmandytools"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img
+                          onMouseEnter={() => setIsPaused(true)}
+                          onMouseLeave={() => setIsPaused(false)}
+                          src={image.src}
+                          alt={image.alt}
+                          className={styles.carouselImage}
+                          style={{
+                            transition: 'all 0.3s ease',
+                            filter: 'brightness(0.9) contrast(1.1)',
+                          }}
+                        />
+                      </a>
                     </div>
-                  </div>
+                  ))}
                 </div>
-              </section>
+              </div>
             </div>
-          </div>
+          </section>
         </div>
       </div>
     </div>

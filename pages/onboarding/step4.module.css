@@ -141,7 +141,7 @@
 .styleButton.selected {
   background: #e11e74;
   color: white;
-  border-color: #e11e74;
+  border-color: #0a164d;
   box-shadow: 0 4px 8px rgba(225, 30, 116, 0.3);
 }
 

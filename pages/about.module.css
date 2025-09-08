@@ -58,7 +58,7 @@
   will-change: transform;
   font-size: 2.5rem;
   font-weight: 800;
-  color: #ff0080;
+  color: #0a164d;
   margin-bottom: 2rem;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   background: rgba(255, 255, 255, 0.95);
@@ -68,7 +68,7 @@
 }
 
 .boldPink {
-  color: #ff0080;
+  color: #0a164d;
   font-weight: bold;
   margin-top: 2.5rem;
   font-size: 1.25rem;
@@ -131,7 +131,7 @@
 
 .founderSection h2 {
   font-family: 'Poppins', 'Montserrat', Arial, sans-serif;
-  color: #ff0080;
+  color: #0a164d;
   font-size: 1.6rem;
   font-weight: bold;
   margin-bottom: 1rem;
@@ -171,7 +171,7 @@
 }
 
 .instagramSection h3 {
-  color: #ff0080;
+  color: #0a164d;
   text-align: center;
   font-size: 1.3rem;
   font-weight: bold;
@@ -352,7 +352,7 @@
 }
 
 .founderSection h3 {
-  color: #ff0080;
+  color: #0a164d;
   font-size: 1.6rem;
   font-weight: bold;
   margin-bottom: 1rem;
@@ -392,7 +392,7 @@
 }
 
 .instagramSection h3 {
-  color: #ff0080;
+  color: #0a164d;
   text-align: center;
   font-size: 1.3rem;
   font-weight: bold;
@@ -430,7 +430,7 @@
 }
 
 .heroMainHeading {
-  color: #ff0080;
+  color: #0a164d;
   font-size: 2.2rem;
   font-weight: 300;
   text-align: left;
@@ -543,7 +543,7 @@
   left: 50%;
   width: 65%;
   transform: translate(-50%, -50%);
-  color: #ff0080;
+  color: #0a164d;
   font-size: 0.8rem;
   font-weight: 400;
   text-align: center;
@@ -697,7 +697,7 @@
 }
 
 .carouselHeaderText {
-  color: #ff0080;
+  color: #0a164d;
   font-weight: 700;
   letter-spacing: 0.5px;
   font-size: 1.35rem;
@@ -714,7 +714,7 @@
 }
 
 .carouselHeaderLink:hover {
-  color: #ff0080;
+  color: #0a164d;
   text-decoration: underline;
 }
 

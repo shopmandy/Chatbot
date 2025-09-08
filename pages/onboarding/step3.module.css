@@ -170,7 +170,7 @@
 
 .priceInput:focus {
   outline: none;
-  border-color: #e11e74;
+  border-color: #0a164d;
   box-shadow: 0 0 0 2px rgba(225, 30, 116, 0.2);
 }
 

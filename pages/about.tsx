@@ -32,10 +32,6 @@ export default function About() {
       alt: 'Mandy Wrench',
     },
     {
-      src: '/denim-4517843_1280.jpg',
-      alt: 'Denim',
-    },
-    {
       src: '/carousel-image.png',
       alt: 'Behind the Scenes',
     },

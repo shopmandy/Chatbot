@@ -31,17 +31,17 @@ const navItems = [
     path: '/chatbot',
   },
   {
-    id: 'profile',
-    label: 'My Profile',
-    icon: User,
-    path: '/profile',
-  },
-  {
     id: 'shop',
     label: 'Shop Toolkits',
     icon: ShoppingBag,
     path: 'https://shopmandy.com/',
     external: true,
+  },
+  {
+    id: 'profile',
+    label: 'My Profile',
+    icon: User,
+    path: '/profile',
   },
 ]
 
@@ -176,8 +176,16 @@ export default function App({ Component, pageProps }: AppProps) {
             </button>
             {/* Brand Header */}
             <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-              <div style={{ fontSize: '2.2rem', marginBottom: '0.5rem' }}>
-                🔧
+              <div style={{ marginBottom: '0.5rem', display: 'flex', justifyContent: 'center' }}>
+                <img 
+                  src="/inflatable hammer.png" 
+                  alt="Inflatable Hammer" 
+                  style={{ 
+                    width: '45px', 
+                    height: 'auto',
+                    imageRendering: 'pixelated'
+                  }} 
+                />
               </div>
               <h2
                 style={{
@@ -221,59 +229,194 @@ export default function App({ Component, pageProps }: AppProps) {
                       href={item.path}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`
-                      relative px-4 py-3 rounded-2xl border-2 font-bold text-xs
-                      transition-transform duration-150 min-h-[60px] max-w-[180px] w-full mx-auto
-                      ${
-                        isActive
-                          ? 'bg-gradient-to-br from-pink-400 via-pink-500 to-pink-600 text-white border-pink-300 transform scale-105'
-                          : 'bg-gradient-to-br from-white via-pink-50 to-pink-100 text-pink-600 border-pink-200 hover:from-pink-100 hover:via-pink-150 hover:to-pink-200'
-                      }
-                      ${isHovered && !isActive ? 'transform scale-102' : ''}
-                    `}
+                      className={`inflatable-button relative px-4 py-3 rounded-2xl border-2 font-bold text-xs
+                      transition-transform duration-150 min-h-[80px] max-w-[200px] w-full mx-auto
+                      ${isActive ? 'transform scale-105' : ''}
+                      ${isHovered && !isActive ? 'transform scale-102' : ''}`}
                       style={{
-                        boxShadow: isActive
-                          ? `
-                      0 8px 16px rgba(236, 72, 153, 0.3),
-                      0 4px 8px rgba(236, 72, 153, 0.2),
-                      inset 0 1px 0 rgba(255, 255, 255, 0.3),
-                      inset 0 -1px 0 rgba(0, 0, 0, 0.1)
-                    `
-                          : `
-                      0 6px 12px rgba(236, 72, 153, 0.15),
-                      0 2px 4px rgba(236, 72, 153, 0.1),
-                      inset 0 1px 0 rgba(255, 255, 255, 0.8),
-                      inset 0 -1px 0 rgba(236, 72, 153, 0.1)
-                    `,
+                        background: 'linear-gradient(135deg, #ff69b4 0%, #ff1493 100%) !important',
+                        border: '3px solid #ff1493 !important',
+                        borderRadius: '20px !important',
+                        color: '#ffffff !important',
+                        fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
+                        textTransform: 'uppercase !important',
+                        letterSpacing: '2px !important',
+                        boxShadow: '0 4px 12px rgba(255, 20, 147, 0.3) !important',
+                        transform: 'none !important',
+                        filter: 'none !important',
+                        textShadow: '1px 1px 2px rgba(0, 0, 0, 0.3) !important',
+                        imageRendering: 'auto !important',
+                        transition: 'all 0.2s ease !important',
                       }}
                     >
-                      {/* Highlight overlay for 3D effect */}
-                      <div
-                        className={`
-                      absolute top-2 left-2 right-2 h-4 rounded-t-2xl
-                      ${
-                        isActive
-                          ? 'bg-gradient-to-r from-white/20 to-white/10'
-                          : 'bg-gradient-to-r from-white/60 to-white/30'
-                      }
-                    `}
-                      />
+                      {/* Removed glossy highlight overlay for matte effect */}
                       {/* Tab Content */}
                       <div className="flex flex-col items-center gap-2 relative z-10">
-                        <Icon
-                          className={`w-6 h-6 ${isActive ? 'text-white drop-shadow-sm' : 'text-pink-600'}`}
-                        />
-                        <span
-                          className={`text-xs leading-tight text-center font-bold ${isActive ? 'text-white drop-shadow-sm' : 'text-pink-600'}`}
-                          style={{ fontFamily: 'Roboto Mono, monospace' }}
-                        >
-                          {item.label}
-                        </span>
+                        {item.id === 'room' ? (
+                          // Special case for Room Makeover button with inflatable bed image
+                          <>
+                            <img 
+                              src="/inflatable bed button.png" 
+                              alt="Inflatable Bed" 
+                              style={{ 
+                                width: '30px', 
+                                height: '30px',
+                                objectFit: 'contain',
+                                filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
+                              }} 
+                            />
+                            <span
+                              className="text-xs leading-tight text-center text-white drop-shadow-sm"
+                              style={{ 
+                                fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important", 
+                                fontWeight: 700,
+                                color: '#ffffff !important',
+                                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
+                                textTransform: 'uppercase',
+                                letterSpacing: '1px',
+                                fontSize: '1.4rem !important'
+                              }}
+                            >
+                              ROOM MAKEOVER
+                            </span>
+                          </>
+                        ) : item.id === 'chatbot' ? (
+                          // Special case for DIY Chatbot button with inflatable chat image
+                          <>
+                            <img 
+                              src="/inflatable chat button.png" 
+                              alt="Inflatable Chat" 
+                              style={{ 
+                                width: '30px', 
+                                height: '30px',
+                                objectFit: 'contain',
+                                filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
+                              }} 
+                            />
+                            <span
+                              className="text-xs leading-tight text-center text-white drop-shadow-sm"
+                              style={{ 
+                                fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important", 
+                                fontWeight: 700,
+                                color: '#ffffff !important',
+                                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
+                                textTransform: 'uppercase',
+                                letterSpacing: '1px',
+                                fontSize: '1.4rem !important'
+                              }}
+                            >
+                              DIY CHATBOT
+                            </span>
+                          </>
+                        ) : item.id === 'shop' ? (
+                          // Special case for Shop Toolkits button with inflatable shop tools image
+                          <>
+                            <img 
+                              src="/inflatable shop tools button.png" 
+                              alt="Inflatable Shop Tools" 
+                              style={{ 
+                                width: '30px', 
+                                height: '30px',
+                                objectFit: 'contain',
+                                filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
+                              }} 
+                            />
+                            <span
+                              className="text-xs leading-tight text-center text-white drop-shadow-sm"
+                              style={{ 
+                                fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important", 
+                                fontWeight: 700,
+                                color: '#ffffff !important',
+                                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
+                                textTransform: 'uppercase',
+                                letterSpacing: '1px',
+                                fontSize: '1.4rem !important'
+                              }}
+                            >
+                              SHOP TOOLKITS
+                            </span>
+                          </>
+                        ) : item.id === 'home' ? (
+                          // Special case for Home button with inflatable home image
+                          <>
+                            <img 
+                              src="/inflatable home.png" 
+                              alt="Inflatable Home" 
+                              style={{ 
+                                width: '28px', 
+                                height: '28px',
+                                objectFit: 'contain',
+                                filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
+                              }} 
+                            />
+                            <span
+                              className="text-xs leading-tight text-center text-white drop-shadow-sm"
+                              style={{ 
+                                fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important", 
+                                fontWeight: 700,
+                                color: '#ffffff !important',
+                                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
+                                textTransform: 'uppercase',
+                                letterSpacing: '1px',
+                                fontSize: '1.4rem !important'
+                              }}
+                            >
+                              HOME
+                            </span>
+                          </>
+                        ) : item.id === 'profile' ? (
+                          // Special case for Profile button with inflatable profile image
+                          <>
+                            <img 
+                              src="/inflateable profile.png" 
+                              alt="Inflatable Profile" 
+                              style={{ 
+                                width: '28px', 
+                                height: '28px',
+                                objectFit: 'contain',
+                                filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
+                              }} 
+                            />
+                            <span
+                              className="text-xs leading-tight text-center text-white drop-shadow-sm"
+                              style={{ 
+                                fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important", 
+                                fontWeight: 700,
+                                color: '#ffffff !important',
+                                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
+                                textTransform: 'uppercase',
+                                letterSpacing: '1px',
+                                fontSize: '1.4rem !important'
+                              }}
+                            >
+                              PROFILE
+                            </span>
+                          </>
+                        ) : (
+                          // Default button content for other buttons
+                          <>
+                            <Icon
+                              className="w-6 h-6 text-white drop-shadow-sm"
+                              style={{ color: '#ffffff !important', filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))' }}
+                            />
+                            <span
+                              className="text-xs leading-tight text-center text-white drop-shadow-sm"
+                              style={{ 
+                                fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important", 
+                                fontWeight: 700,
+                                color: '#ffffff !important',
+                                textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)',
+                                textTransform: 'uppercase',
+                                letterSpacing: '1px',
+                                fontSize: '1.4rem !important'
+                              }}
+                            >
+                              {item.label}
+                            </span>
+                          </>
+                        )}
                       </div>
-                      {/* Inner glow for active state */}
-                      {isActive && (
-                        <div className="absolute inset-3 rounded-2xl bg-white/5 animate-pulse pointer-events-none" />
-                      )}
+                      {/* Removed inner glow for matte effect */}
                     </a>
                   )
                 }
@@ -281,59 +424,193 @@ export default function App({ Component, pageProps }: AppProps) {
                   <Link
                     key={item.id}
                     href={item.path}
-                    className={`
-                    relative px-4 py-3 rounded-2xl border-2 font-bold text-xs
-                    transition-transform duration-150 min-h-[60px] max-w-[180px] w-full mx-auto
-                    ${
-                      isActive
-                        ? 'bg-gradient-to-br from-pink-400 via-pink-500 to-pink-600 text-white border-pink-300 transform scale-105'
-                        : 'bg-gradient-to-br from-white via-pink-50 to-pink-100 text-pink-600 border-pink-200 hover:from-pink-100 hover:via-pink-150 hover:to-pink-200'
-                    }
-                    ${isHovered && !isActive ? 'transform scale-102' : ''}
-                  `}
+                    className={`inflatable-button relative px-4 py-3 rounded-2xl border-2 font-bold text-xs
+                    transition-transform duration-150 min-h-[80px] max-w-[200px] w-full mx-auto
+                    ${isActive ? 'transform scale-105' : ''}
+                    ${isHovered && !isActive ? 'transform scale-102' : ''}`}
                     style={{
-                      boxShadow: isActive
-                        ? `
-                    0 8px 16px rgba(236, 72, 153, 0.3),
-                    0 4px 8px rgba(236, 72, 153, 0.2),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.3),
-                    inset 0 -1px 0 rgba(0, 0, 0, 0.1)
-                  `
-                        : `
-                    0 6px 12px rgba(236, 72, 153, 0.15),
-                    0 2px 4px rgba(236, 72, 153, 0.1),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.8),
-                    inset 0 -1px 0 rgba(236, 72, 153, 0.1)
-                  `,
+                      background: 'linear-gradient(135deg, #ff69b4 0%, #ff1493 100%) !important',
+                      border: '3px solid #ff1493 !important',
+                      borderRadius: '20px !important',
+                      color: '#ffffff !important',
+                      fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
+                      textTransform: 'uppercase !important',
+                      letterSpacing: '2px !important',
+                      boxShadow: '0 4px 12px rgba(255, 20, 147, 0.3) !important',
+                      transform: 'none !important',
+                      filter: 'none !important',
+                      textShadow: '1px 1px 2px rgba(0, 0, 0, 0.3) !important',
+                      imageRendering: 'auto !important',
+                      transition: 'all 0.2s ease !important',
                     }}
                   >
-                    {/* Highlight overlay for 3D effect */}
-                    <div
-                      className={`
-                    absolute top-2 left-2 right-2 h-4 rounded-t-2xl
-                    ${
-                      isActive
-                        ? 'bg-gradient-to-r from-white/20 to-white/10'
-                        : 'bg-gradient-to-r from-white/60 to-white/30'
-                    }
-                  `}
-                    />
+                    {/* Removed glossy highlight overlay for matte effect */}
                     {/* Tab Content */}
                     <div className="flex flex-col items-center gap-2 relative z-10">
-                      <Icon
-                        className={`w-6 h-6 ${isActive ? 'text-white drop-shadow-sm' : 'text-pink-600'}`}
-                      />
-                      <span
-                        className={`text-xs leading-tight text-center font-bold ${isActive ? 'text-white drop-shadow-sm' : 'text-pink-600'}`}
-                        style={{ fontFamily: 'Roboto Mono, monospace' }}
-                      >
-                        {item.label}
-                      </span>
+                      {item.id === 'room' ? (
+                        // Special case for Room Makeover button with inflatable bed image
+                        <>
+                          <img 
+                            src="/inflatable bed button.png" 
+                            alt="Inflatable Bed" 
+                            style={{ 
+                              width: '40px', 
+                              height: '40px',
+                              objectFit: 'contain',
+                              filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
+                            }} 
+                          />
+                          <span
+                            className="text-xs leading-tight text-center text-white drop-shadow-sm"
+                            style={{ 
+                              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important", 
+                              fontWeight: 700,
+                              color: '#ffffff !important',
+                              textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
+                              textTransform: 'uppercase',
+                              letterSpacing: '1px',
+                              fontSize: '1.4rem !important'
+                            }}
+                          >
+                            ROOM MAKEOVER
+                          </span>
+                        </>
+                      ) : item.id === 'chatbot' ? (
+                        // Special case for DIY Chatbot button with inflatable chat image
+                        <>
+                          <img 
+                            src="/inflatable chat button.png" 
+                            alt="Inflatable Chat" 
+                            style={{ 
+                              width: '40px', 
+                              height: '40px',
+                              objectFit: 'contain',
+                              filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
+                            }} 
+                          />
+                          <span
+                            className="text-xs leading-tight text-center text-white drop-shadow-sm"
+                            style={{ 
+                              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important", 
+                              fontWeight: 700,
+                              color: '#ffffff !important',
+                              textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
+                              textTransform: 'uppercase',
+                              letterSpacing: '1px',
+                              fontSize: '1.4rem !important'
+                            }}
+                          >
+                            DIY CHATBOT
+                          </span>
+                        </>
+                      ) : item.id === 'shop' ? (
+                        // Special case for Shop Toolkits button with inflatable shop tools image
+                        <>
+                          <img 
+                            src="/inflatable shop tools button.png" 
+                            alt="Inflatable Shop Tools" 
+                            style={{ 
+                              width: '40px', 
+                              height: '40px',
+                              objectFit: 'contain',
+                              filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
+                            }} 
+                          />
+                          <span
+                            className="text-xs leading-tight text-center text-white drop-shadow-sm"
+                            style={{ 
+                              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important", 
+                              fontWeight: 700,
+                              color: '#ffffff !important',
+                              textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
+                              textTransform: 'uppercase',
+                              letterSpacing: '1px',
+                              fontSize: '1.4rem !important'
+                            }}
+                          >
+                            SHOP TOOLKITS
+                          </span>
+                        </>
+                      ) : item.id === 'home' ? (
+                        // Special case for Home button with inflatable home image
+                        <>
+                            <img 
+                              src="/inflatable home.png" 
+                              alt="Inflatable Home" 
+                              style={{ 
+                                width: '28px', 
+                                height: '28px',
+                                objectFit: 'contain',
+                                filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
+                              }} 
+                            />
+                          <span
+                            className="text-xs leading-tight text-center text-white drop-shadow-sm"
+                            style={{ 
+                              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important", 
+                              fontWeight: 700,
+                              color: '#ffffff !important',
+                              textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
+                              textTransform: 'uppercase',
+                              letterSpacing: '1px',
+                              fontSize: '1.4rem !important'
+                            }}
+                          >
+                            HOME
+                          </span>
+                        </>
+                      ) : item.id === 'profile' ? (
+                        // Special case for Profile button with inflatable profile image
+                        <>
+                            <img 
+                              src="/inflateable profile.png" 
+                              alt="Inflatable Profile" 
+                              style={{ 
+                                width: '28px', 
+                                height: '28px',
+                                objectFit: 'contain',
+                                filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
+                              }} 
+                            />
+                          <span
+                            className="text-xs leading-tight text-center text-white drop-shadow-sm"
+                            style={{ 
+                              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important", 
+                              fontWeight: 700,
+                              color: '#ffffff !important',
+                              textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
+                              textTransform: 'uppercase',
+                              letterSpacing: '1px',
+                              fontSize: '1.4rem !important'
+                            }}
+                          >
+                            PROFILE
+                          </span>
+                        </>
+                      ) : (
+                        // Default button content for other buttons
+                        <>
+                          <Icon
+                            className="w-6 h-6 text-white drop-shadow-sm"
+                            style={{ color: '#ffffff !important', filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))' }}
+                          />
+                          <span
+                            className="text-xs leading-tight text-center text-white drop-shadow-sm"
+                            style={{ 
+                              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important", 
+                              fontWeight: 700,
+                              color: '#ffffff !important',
+                              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)',
+                              textTransform: 'uppercase',
+                              letterSpacing: '1px'
+                            }}
+                          >
+                            {item.label}
+                          </span>
+                        </>
+                      )}
                     </div>
-                    {/* Inner glow for active state */}
-                    {isActive && (
-                      <div className="absolute inset-3 rounded-2xl bg-white/5 animate-pulse pointer-events-none" />
-                    )}
+                    {/* Removed inner glow for matte effect */}
                   </Link>
                 )
               })}
@@ -357,7 +634,7 @@ export default function App({ Component, pageProps }: AppProps) {
                     }}
                   >
                     <LogIn style={{ width: 20, height: 20 }} />
-                    <span style={{ fontFamily: 'Roboto Mono, monospace' }}>
+                    <span className="sign-in-text" style={{ fontFamily: '"Roboto Mono", monospace' }}>
                       SIGN IN
                     </span>
                   </a>

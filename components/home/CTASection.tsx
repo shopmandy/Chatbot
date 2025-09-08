@@ -1,5 +1,5 @@
-import { Mail, Sparkles } from 'lucide-react'
-import { useCallback, useState } from 'react'
+import { Mail, Star } from 'lucide-react'
+import { useCallback, useState, useEffect } from 'react'
 
 interface SubscriptionStatus {
   type: 'idle' | 'loading' | 'success' | 'error'
@@ -11,6 +11,18 @@ export function CTASection() {
   const [email, setEmail] = useState('')
   const [subscriptionStatus, setSubscriptionStatus] =
     useState<SubscriptionStatus>({ type: 'idle' })
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const handleMinimize = () => {
     setIsMinimized(!isMinimized)
@@ -66,20 +78,26 @@ export function CTASection() {
   )
 
   return (
-    <div>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem' }}>
+    <div style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
+      <div style={{ 
+        maxWidth: '1200px', 
+        margin: '0 auto', 
+        width: '100%',
+        boxSizing: 'border-box'
+      }}>
         <div
           style={{
-            background:
-              'linear-gradient(135deg, rgba(255, 224, 242, 0.9) 0%, rgba(250, 238, 246, 0.9) 100%)',
-            border: '3px solid #f91b8f',
-            borderRadius: '24px',
-            boxShadow:
-              '0 20px 60px rgba(255, 105, 180, 0.25), 0 8px 32px rgba(0,0,0,0.1)',
-            backdropFilter: 'blur(20px)',
+            background: '#ffffff',
+            border: '3px solid #ff69b4',
+            borderRadius: '12px',
+            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.1)',
             overflow: 'hidden',
-            marginBottom: '0rem',
+            marginBottom: isMobile ? '4rem' : '6rem',
             position: 'relative',
+            maxWidth: isMobile ? '95%' : '836px',
+            margin: '0 auto',
+            display: 'flex',
+            flexDirection: 'column',
           }}
         >
           {/* Enhanced Window Title Bar */}
@@ -88,15 +106,14 @@ export function CTASection() {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              background:
-                'linear-gradient(135deg, rgba(255, 200, 230, 0.95) 0%, rgba(255, 220, 174, 0.95) 100%)',
-              borderBottom: '3px solid #f91b8f',
-              padding: '16px 24px',
+              background: '#e4f6ff',
+              borderBottom: '2px solid #808080',
+              padding: '8px 12px',
               fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
-              fontSize: '18px',
+              fontSize: '14px',
               fontWeight: '700',
-              color: '#ff69b4',
-              boxShadow: '0 4px 20px rgba(255, 105, 180, 0.2)',
+              color: '#000000',
+              boxShadow: 'inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080',
             }}
           >
             <div
@@ -109,22 +126,58 @@ export function CTASection() {
                 textShadow: '0 0 12px rgba(255, 182, 230, 0.6)',
               }}
             >
-              <Sparkles style={{ width: 20, height: 20, color: '#f91b8f' }} />
-              READY TO START BUILDING?
+              <Star style={{ width: 20, height: 20, color: '#0a164d' }} />
+              YOUR DIY BFF
             </div>
-            <div className="window-controls">
+            <div style={{ display: 'flex', gap: '4px' }}>
               <button
-                className="window-buttons"
+                style={{
+                  width: '16px',
+                  height: '14px',
+                  background: '#c0c0c0',
+                  border: '1px solid #808080',
+                  borderRadius: '2px',
+                  fontSize: '10px',
+                  color: '#000000',
+                  cursor: 'pointer',
+                  boxShadow: 'inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080',
+                }}
                 title="Minimize"
                 onClick={handleMinimize}
               >
-                <span className="window-button-icon">─</span>
+                ─
               </button>
-              <button className="window-buttons" title="Maximize">
-                <span className="window-button-icon">□</span>
+              <button 
+                style={{
+                  width: '16px',
+                  height: '14px',
+                  background: '#c0c0c0',
+                  border: '1px solid #808080',
+                  borderRadius: '2px',
+                  fontSize: '10px',
+                  color: '#000000',
+                  cursor: 'pointer',
+                  boxShadow: 'inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080',
+                }}
+                title="Maximize"
+              >
+                □
               </button>
-              <button className="window-buttons" title="Close">
-                <span className="window-button-icon">×</span>
+              <button 
+                style={{
+                  width: '16px',
+                  height: '14px',
+                  background: '#c0c0c0',
+                  border: '1px solid #808080',
+                  borderRadius: '2px',
+                  fontSize: '10px',
+                  color: '#000000',
+                  cursor: 'pointer',
+                  boxShadow: 'inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080',
+                }}
+                title="Close"
+              >
+                ×
               </button>
             </div>
           </div>
@@ -140,8 +193,8 @@ export function CTASection() {
           >
             <h1
               style={{
-                fontSize: '3.2rem',
-                color: '#f91b8f',
+                fontSize: isMobile ? '2rem' : '3.2rem',
+                color: '#0a164d',
                 marginBottom: '1rem',
                 fontWeight: '700',
                 letterSpacing: '2px',
@@ -149,7 +202,7 @@ export function CTASection() {
                 fontFamily:
                   "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
                 textAlign: 'center',
-                textShadow: '0 4px 16px rgba(255, 105, 180, 0.3)',
+                textShadow: '1px 1px 0px rgba(10, 22, 77, 0.5)',
               }}
             >
               JOIN THE MANDY WORKSHOP
@@ -157,12 +210,12 @@ export function CTASection() {
 
             <p
               style={{
-                fontSize: '1.25rem',
-                color: '#f91b8f',
+                fontSize: isMobile ? '1rem' : '1.25rem',
+                color: '#0a164d',
                 marginBottom: '1rem',
                 fontWeight: '600',
                 lineHeight: '1.5',
-                fontFamily: 'Roboto Mono, monospace',
+                fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
                 textAlign: 'center',
                 opacity: 0.9,
               }}
@@ -228,11 +281,11 @@ export function CTASection() {
                       width: '160px',
                       textAlign: 'center',
                       fontSize: '1rem',
-                      fontFamily: 'Roboto Mono, monospace',
+                      fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
                       fontWeight: '700',
-                      letterSpacing: '1px',
-                      borderRadius: '24px',
-                      border: 'none',
+                      letterSpacing: '2px !important',
+                      borderRadius: '20px !important',
+                      border: '3px solid #ff1493 !important',
                       padding: '16px 20px',
                       cursor:
                         subscriptionStatus.type === 'loading'
@@ -240,21 +293,20 @@ export function CTASection() {
                           : 'pointer',
                       margin: '0',
                       background: subscriptionStatus.type === 'loading'
-                        ? 'linear-gradient(to bottom right, #fdd4e2, #fce7f3, #fdf2f8)'
-                        : 'linear-gradient(to bottom right, #ffffff, #fdf2f8, #fce7f3)',
-                      color: '#ec4899',
+                        ? 'linear-gradient(135deg, #ff69b4 0%, #ff1493 100%) !important'
+                        : 'linear-gradient(135deg, #ff69b4 0%, #ff1493 100%) !important',
+                      color: '#ffffff !important',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       gap: '10px',
-                      transition: 'all 0.3s ease',
+                      transition: 'all 0.2s ease !important',
                       opacity: subscriptionStatus.type === 'loading' ? 0.7 : 1,
-                      boxShadow: `
-                        0 6px 12px rgba(236, 72, 153, 0.15),
-                        0 2px 4px rgba(236, 72, 153, 0.1),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.8),
-                        inset 0 -1px 0 rgba(236, 72, 153, 0.1)
-                      `,
+                      boxShadow: '0 4px 12px rgba(255, 20, 147, 0.3) !important',
+                      transform: 'none !important',
+                      filter: 'none !important',
+                      textShadow: '1px 1px 2px rgba(0, 0, 0, 0.3) !important',
+                      imageRendering: 'auto !important',
                     }}
                   >
                     <span>
@@ -270,7 +322,7 @@ export function CTASection() {
               <p
                 style={{
                   fontSize: '0.9rem',
-                  color: '#f91b8f',
+                  color: '#0a164d',
                   opacity: 0.8,
                   fontFamily: 'Roboto Mono, monospace',
                   fontWeight: '500',

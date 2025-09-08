@@ -59,7 +59,7 @@
 .logoText {
   font-size: 2.2rem;
   font-weight: 900;
-  color: var(--button-text, #ff69b4);
+  color: var(--button-text, #0a164d);
   text-shadow:
     0 0 12px #ffb6e6,
     0 0 2px #fff;
@@ -140,7 +140,7 @@
   font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace;
   font-size: 16px;
   font-weight: 600;
-  color: var(--button-text, #ff69b4);
+  color: var(--button-text, #0a164d);
   box-shadow: none;
   border-radius: 16px 16px 0 0;
   backdrop-filter: none;
@@ -179,7 +179,7 @@
   font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace;
   font-size: 14px;
   font-weight: bold;
-  color: var(--button-text, #ff69b4);
+  color: var(--button-text, #0a164d);
   box-shadow: 0 2px 8px rgba(255, 105, 180, 0.2);
 }
 
@@ -220,7 +220,7 @@
 
 .heroTitle {
   font-size: 4.8rem;
-  color: #f91b8f;
+  color: #0a164d;
   margin: 0;
   letter-spacing: 2px;
   font-weight: 900;
@@ -236,7 +236,7 @@
 
 .heroSubtitle {
   font-size: 1.2rem;
-  color: #ff69b4;
+  color: #0a164d;
   margin: 0 0 1.4rem 0;
   line-height: 1.4;
   max-width: 1000px;
@@ -286,7 +286,7 @@
 .feature span:last-child {
   font-size: 1.2rem;
   font-weight: 600;
-  color: var(--chat-text, #b8005c);
+  color: var(--chat-text, #0a164d);
 }
 
 /* Chat Interface */
@@ -379,7 +379,7 @@
 }
 
 .messageLabel {
-  color: var(--button-text, #ff69b4);
+  color: var(--button-text, #0a164d);
   text-shadow: 0 0 2px rgba(255, 182, 230, 0.3);
   font-size: 1.4rem;
 }
@@ -396,7 +396,7 @@
   padding: 1.2rem 1.5rem;
   border-radius: 20px 20px 20px 8px;
   background: var(--chat-bubble, #ffe0f2);
-  color: var(--chat-text, #f91b8f);
+  color: var(--chat-text, #0a164d);
   border: 2px solid var(--chat-border, #ff69b4);
   font-size: 1.3rem;
   text-shadow: 0 0 1px #fff;
@@ -477,7 +477,7 @@
   gap: 1rem;
   padding: 1rem 1.5rem;
   background: var(--chat-bubble, #ffe0f2);
-  color: var(--chat-text, #f91b8f);
+  color: var(--chat-text, #0a164d);
   border: 2px solid var(--button-border, #ff69b4);
   border-radius: 20px;
   box-shadow: 0 4px 16px rgba(255, 105, 180, 0.15);
@@ -535,7 +535,7 @@
   padding: 1rem 1.5rem;
   background: rgba(255, 255, 255, 0.1);
   border: 2px solid var(--button-border, #ff69b4);
-  color: var(--chat-text, #f91b8f);
+  color: var(--chat-text, #0a164d);
   border-radius: 16px;
   outline: none;
   font-size: 1.3rem;
@@ -651,7 +651,7 @@
 
 .quickStartTitle {
   font-size: 1.8rem;
-  color: var(--button-text, #ff69b4);
+  color: var(--button-text, #0a164d);
   text-align: center;
   margin: 0 0 1.5rem 0;
   font-weight: 700;
@@ -762,7 +762,7 @@
   .heroSubtitle {
     font-size: 1.4rem;
     font-family: 'Roboto Mono', monospace;
-    color: #ff69b4;
+    color: #0a164d;
     margin-top: 0.05rem;
     margin-bottom: 1rem;
     font-weight: 900;
@@ -815,7 +815,7 @@
   margin: 1em 0 0.5em 0;
   font-size: 1.15em;
   font-weight: bold;
-  color: var(--button-text, #ff69b4);
+  color: var(--button-text, #0a164d);
   text-shadow: 0 0 4px #fff;
 }
 
@@ -847,7 +847,7 @@
 /* chatbot.module.css */
 
 .chatButton {
-  background-color: #ff0080;
+  background-color: #0a164d;
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 999px;
@@ -859,7 +859,7 @@
 }
 
 .chatButton:hover {
-  background-color: #e60073;
+  background-color: #0a164d;
 }
 
 .chatDropdown {
@@ -877,7 +877,7 @@
 
 .chatDropdownHeader {
   margin-bottom: 0.5rem;
-  color: #ff0080;
+  color: #0a164d;
   font-weight: bold;
 }
 
@@ -921,7 +921,7 @@
   font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace;
   font-size: 16px;
   font-weight: 600;
-  color: var(--button-text, #ff69b4);
+  color: var(--button-text, #0a164d);
   box-shadow: 0 2px 12px rgba(255, 105, 180, 0.15);
   border-radius: 16px 16px 0 0;
   backdrop-filter: blur(10px);
@@ -971,7 +971,7 @@
   font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace;
   font-size: 14px;
   font-weight: bold;
-  color: var(--button-text, #ff69b4);
+  color: var(--button-text, #0a164d);
   box-shadow: 0 2px 8px rgba(255, 105, 180, 0.2);
 }
 
@@ -1062,7 +1062,7 @@
   text-align: left;
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--button-text, #ff69b4);
+  color: var(--button-text, #0a164d);
   cursor: pointer;
   transition: all 0.2s ease;
   border-bottom: 1px solid rgba(255, 105, 180, 0.1);
@@ -1074,7 +1074,7 @@
 
 .mobileMenuItem:hover {
   background: var(--chat-bubble, #ffe0f2);
-  color: var(--button-text, #ff69b4);
+  color: var(--button-text, #0a164d);
 }
 
 /* Hide desktop actions and show mobile menu on small screens */

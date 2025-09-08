@@ -1,87 +1,58 @@
 import { Users } from 'lucide-react'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export function FounderSection() {
   const [isMinimized, setIsMinimized] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const handleMinimize = () => {
     setIsMinimized(!isMinimized)
   }
 
   return (
-    <div>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem' }}>
-        <div
-          style={{
-            background:
-              'linear-gradient(135deg, rgba(255, 224, 242, 0.9) 0%, rgba(228, 246, 255, 0.9) 50%, rgba(228, 246, 255, 0.9) 100%)',
-            border: '3px solid #f91b8f',
-            borderRadius: '24px',
-            boxShadow:
-              '0 20px 60px rgba(255, 105, 180, 0.25), 0 8px 32px rgba(0,0,0,0.1)',
-            backdropFilter: 'blur(20px)',
-            overflow: 'hidden',
-            marginBottom: '0rem',
-            position: 'relative',
-          }}
-        >
-          {/* Enhanced Window Title Bar */}
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              background:
-                'linear-gradient(135deg, rgba(255, 200, 230, 0.95) 0%, rgba(228, 246, 255, 0.95) 100%)',
-              borderBottom: '3px solid #f91b8f',
-              padding: '16px 24px',
-              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
-              fontSize: '18px',
-              fontWeight: '700',
-              color: '#ff69b4',
-              boxShadow: '0 4px 20px rgba(255, 105, 180, 0.2)',
-            }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-                fontWeight: '700',
-                letterSpacing: '2px',
-                textShadow: '0 0 12px rgba(255, 182, 230, 0.6)',
-              }}
-            >
-              <Users style={{ width: 20, height: 20, color: '#f91b8f' }} />
-              WHO IS MANDY?
-            </div>
-            <div className="window-controls">
-              <button
-                className="window-buttons"
-                title="Minimize"
-                onClick={handleMinimize}
-              >
-                <span className="window-button-icon">─</span>
-              </button>
-              <button className="window-buttons" title="Maximize">
-                <span className="window-button-icon">□</span>
-              </button>
-              <button className="window-buttons" title="Close">
-                <span className="window-button-icon">×</span>
-              </button>
-            </div>
-          </div>
+    <div style={{ 
+      maxWidth: '1200px', 
+      margin: '0 auto', 
+      padding: isMobile ? '1rem' : '2rem',
+      width: '100%',
+      boxSizing: 'border-box'
+    }}>
+      {/* Section Header */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px',
+          marginBottom: '2rem',
+          fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+          fontSize: '18px',
+          fontWeight: '700',
+          color: '#ff69b4',
+          textShadow: '0 0 12px rgba(255, 182, 230, 0.6)',
+        }}
+      >
+        <Users style={{ width: 20, height: 20, color: '#f91b8f' }} />
+        WHO IS MANDY?
+      </div>
 
-          {/* Enhanced Section Content */}
-          <div
-            style={{
-              padding: '1.25rem',
-              textAlign: 'left',
-              display: isMinimized ? 'none' : 'block',
-              transition: 'all 0.3s ease',
-            }}
-          >
+      {/* Section Content */}
+      <div
+        style={{
+          textAlign: 'left',
+        }}
+      >
             {/* Mobile-only image above the header (mirror About section) */}
             <div className="founder-mobile-image" style={{ marginBottom: '1rem' }}>
               <Image
@@ -104,9 +75,10 @@ export function FounderSection() {
               className="founder-grid"
               style={{
                 display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
+                gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
                 alignItems: 'start',
-                columnGap: '1.5rem',
+                columnGap: isMobile ? '0' : '1.5rem',
+                rowGap: isMobile ? '1rem' : '0',
                 marginBottom: '1rem',
               }}
             >
@@ -134,10 +106,10 @@ export function FounderSection() {
               </div>
 
               {/* Right-side text container (header + all paragraphs) */}
-              <div className="founder-text-content" style={{ gridColumn: 2, gridRow: 1 }}>
+              <div className="founder-text-content" style={{ gridColumn: isMobile ? 1 : 2, gridRow: 1 }}>
                 <h1
                   style={{
-                    fontSize: '3.2rem',
+                    fontSize: isMobile ? '2rem' : '3.2rem',
                     color: '#f91b8f',
                     fontWeight: '700',
                     letterSpacing: '2px',
@@ -159,7 +131,7 @@ export function FounderSection() {
                   <p
                     key={index}
                     style={{
-                      fontSize: '1.25rem',
+                      fontSize: isMobile ? '1rem' : '1.25rem',
                       color: '#f91b8f',
                       lineHeight: '1.5',
                       fontFamily: 'Roboto Mono, monospace',
@@ -173,26 +145,24 @@ export function FounderSection() {
               </div>
             </div>
 
-            {/* Remaining paragraphs under the grid (right column content) */}
-            {/* No additional text below; all content is now in the right column */}
-            <style jsx>{`
-              .founder-mobile-image { display: none; }
-              @media (max-width: 768px) {
-                .founder-mobile-image { display: block; }
-                .founder-desktop-image { display: none; }
-                /* Make text span full width on mobile */
-                .founder-text { width: 100% !important; }
-                /* Make the grid single column and text full width on mobile */
-                .founder-grid {
-                  grid-template-columns: 1fr !important;
-                }
-                .founder-text-content {
-                  grid-column: 1 !important;
-                }
-              }
-            `}</style>
-          </div>
-        </div>
+        {/* Remaining paragraphs under the grid (right column content) */}
+        {/* No additional text below; all content is now in the right column */}
+        <style jsx>{`
+          .founder-mobile-image { display: none; }
+          @media (max-width: 768px) {
+            .founder-mobile-image { display: block; }
+            .founder-desktop-image { display: none; }
+            /* Make text span full width on mobile */
+            .founder-text { width: 100% !important; }
+            /* Make the grid single column and text full width on mobile */
+            .founder-grid {
+              grid-template-columns: 1fr !important;
+            }
+            .founder-text-content {
+              grid-column: 1 !important;
+            }
+          }
+        `}</style>
       </div>
     </div>
   )

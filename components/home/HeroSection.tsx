@@ -1,10 +1,23 @@
 import { MessageCircle, ShoppingBag, Sparkles, Star } from 'lucide-react'
 import { useRouter } from 'next/router'
-import { useCallback, useState } from 'react'
+import { useCallback, useState, useEffect } from 'react'
+import { MagicalBackground } from './MagicalBackground'
 
 export function HeroSection() {
   const router = useRouter()
   const [isMinimized, setIsMinimized] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   // Optimized click handler using Next.js router
   const handleButtonClick = useCallback(
@@ -41,20 +54,38 @@ export function HeroSection() {
   ]
 
   return (
-    <div>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem' }}>
+    <div className="hero-section-container" style={{ 
+      height: '100vh', 
+      display: 'flex', 
+      alignItems: 'center', 
+      justifyContent: 'center', 
+      position: 'relative',
+      background: 'transparent'
+    }}>
+      <MagicalBackground />
+      <div style={{ width: '100%', maxWidth: '1200px', position: 'relative', zIndex: 2, background: 'transparent', display: 'flex', justifyContent: 'center' }}>
         <div
+          className="hero-box"
           style={{
-            background:
-              'linear-gradient(135deg, rgba(255, 224, 242, 0.9) 0%, rgba(224, 234, 255, 0.9) 100%)',
-            border: '3px solid #f91b8f',
+            background: 'transparent',
+            border: '4px solid #ff69b4',
             borderRadius: '24px',
-            boxShadow:
-              '0 20px 60px rgba(255, 105, 180, 0.25), 0 8px 32px rgba(0,0,0,0.1)',
-            backdropFilter: 'blur(20px)',
+            boxShadow: `
+              0 20px 40px rgba(0, 0, 0, 0.1),
+              0 10px 20px rgba(0, 0, 0, 0.05),
+              0 4px 8px rgba(0, 0, 0, 0.03),
+              inset 0 1px 0 rgba(255, 255, 255, 0.8),
+              inset 0 -1px 0 rgba(0, 0, 0, 0.05)
+            `,
             overflow: 'hidden',
             marginBottom: '0rem',
             position: 'relative',
+            maxWidth: isMobile ? '95%' : '836px',
+            margin: '0 auto',
+            aspectRatio: isMobile ? '1.3' : '1.4',
+            display: 'flex',
+            flexDirection: 'column',
+            minHeight: isMobile ? '600px' : 'auto',
           }}
         >
           {/* Enhanced Window Title Bar */}
@@ -63,15 +94,14 @@ export function HeroSection() {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              background:
-                'linear-gradient(135deg, rgba(255, 200, 230, 0.95) 0%, #c8d2f0 100%)',
-              borderBottom: '3px solid #f91b8f',
-              padding: '16px 24px',
+              background: 'linear-gradient(90deg, #ffe0f2 0%, #ffe4e1 100%)',
+              borderBottom: '2px solid #808080',
+              padding: '8px 12px',
               fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
-              fontSize: '18px',
+              fontSize: '14px',
               fontWeight: '700',
-              color: '#ff69b4',
-              boxShadow: '0 4px 20px rgba(255, 105, 180, 0.2)',
+              color: '#0a164d',
+              boxShadow: 'inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080',
             }}
           >
             <div
@@ -81,25 +111,62 @@ export function HeroSection() {
                 gap: '12px',
                 fontWeight: '700',
                 letterSpacing: '2px',
+                color: '#0a164d',
                 textShadow: '0 0 12px rgba(255, 182, 230, 0.6)',
               }}
             >
-              <Star style={{ width: 20, height: 20, color: '#f91b8f' }} />
+              <Star style={{ width: 20, height: 20, color: '#0a164d' }} />
               YOUR DIY BFF
             </div>
-            <div className="window-controls">
+            <div style={{ display: 'flex', gap: '4px' }}>
               <button
-                className="window-buttons"
+                style={{
+                  width: '16px',
+                  height: '14px',
+                  background: '#ffffff',
+                  border: '1px solid #f91b8f',
+                  borderRadius: '2px',
+                  fontSize: '10px',
+                  color: '#0a164d',
+                  cursor: 'pointer',
+                  boxShadow: 'none',
+                }}
                 title="Minimize"
                 onClick={handleMinimize}
               >
-                <span className="window-button-icon">─</span>
+                ─
               </button>
-              <button className="window-buttons" title="Maximize">
-                <span className="window-button-icon">□</span>
+              <button 
+                style={{
+                  width: '16px',
+                  height: '14px',
+                  background: '#ffffff',
+                  border: '1px solid #f91b8f',
+                  borderRadius: '2px',
+                  fontSize: '10px',
+                  color: '#0a164d',
+                  cursor: 'pointer',
+                  boxShadow: 'none',
+                }}
+                title="Maximize"
+              >
+                □
               </button>
-              <button className="window-buttons" title="Close">
-                <span className="window-button-icon">×</span>
+              <button 
+                style={{
+                  width: '16px',
+                  height: '14px',
+                  background: '#ffffff',
+                  border: '1px solid #f91b8f',
+                  borderRadius: '2px',
+                  fontSize: '10px',
+                  color: '#0a164d',
+                  cursor: 'pointer',
+                  boxShadow: 'none',
+                }}
+                title="Close"
+              >
+                ×
               </button>
             </div>
           </div>
@@ -107,54 +174,114 @@ export function HeroSection() {
           {/* Enhanced Section Content */}
           <div
             style={{
-              padding: '2andrem',
+              padding: isMobile ? '1rem' : '1.5rem',
               textAlign: 'center',
-              display: isMinimized ? 'none' : 'block',
+              display: isMinimized ? 'none' : 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              flex: 1,
               transition: 'all 0.3s ease',
+              overflow: 'hidden',
             }}
           >
-            <h1
-              style={{
-                fontSize: '3.2rem',
-                color: '#f91b8f',
-                marginBottom: '1.5rem',
-                fontWeight: '700',
-                letterSpacing: '2px',
-                lineHeight: '1.3',
-                fontFamily:
-                  "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
-                textShadow: '0 4px 16px rgba(255, 105, 180, 0.3)',
-              }}
-            >
-              WELCOME TO MANDY&apos;S WORKSHOP
-            </h1>
+            <div style={{ position: 'relative', marginBottom: isMobile ? '0.5rem' : '2rem' }}>
+              <div style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center'
+              }}>
+                {/* Left Hammer */}
+                <img 
+                  src="/pixelated hammer icon.png"
+                  alt="Hammer"
+                  style={{
+                    width: isMobile ? '24px' : '36px',
+                    height: isMobile ? '24px' : '36px',
+                    imageRendering: 'pixelated',
+                    transform: 'rotate(45deg) scaleX(-1)',
+                    transformOrigin: 'center',
+                    marginRight: isMobile ? '1rem' : '1.5rem'
+                  }}
+                />
+                
+                <h2
+                  style={{
+                    fontSize: isMobile ? '1.8rem' : '2.8rem',
+                    color: '#0a164d',
+                    marginBottom: '0',
+                    fontWeight: '700',
+                    letterSpacing: '2px',
+                    lineHeight: '1.1',
+                    fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+                    textShadow: '1px 1px 0px rgba(76, 45, 150, 0.5)',
+                  }}
+                >
+                  WELCOME TO
+                </h2>
+                
+                {/* Right Hammer */}
+                <img 
+                  src="/pixelated hammer icon.png"
+                  alt="Hammer"
+                  style={{
+                    width: isMobile ? '24px' : '36px',
+                    height: isMobile ? '24px' : '36px',
+                    imageRendering: 'pixelated',
+                    transform: 'rotate(-45deg)',
+                    transformOrigin: 'center',
+                    marginLeft: isMobile ? '1rem' : '1.5rem'
+                  }}
+                />
+              </div>
+              
+              <h1
+                className="hero-title"
+                style={{
+                  fontSize: isMobile ? '3.3rem' : '5rem',
+                  color: '#0a164d',
+                  marginBottom: '0',
+                  fontWeight: '700',
+                  letterSpacing: '2px',
+                  lineHeight: '1.1',
+                  fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+                  textShadow: '1px 1px 0px rgba(10, 22, 77, 0.5)',
+                }}
+              >
+                MANDY&apos;S WORKSHOP
+              </h1>
+            </div>
 
             <p
+              className="hero-subtext"
               style={{
-                fontSize: '1.2rem',
-                color: '#f91b8f',
-                marginBottom: '3rem',
+                fontSize: isMobile ? '1.1rem' : '1.5rem',
+                color: '#0a164d',
+                marginBottom: isMobile ? '0.5rem' : '2rem',
                 fontWeight: '600',
-                lineHeight: '1.4',
-                fontFamily: 'Roboto Mono, monospace',
-                opacity: 0.9,
+                lineHeight: isMobile ? '1.3' : '1.6',
+                fontFamily: "'Attila Sans Classic', Arial, sans-serif",
+                letterSpacing: '0.5px',
+                opacity: 1,
+                padding: isMobile ? '0 0.5rem' : '0',
               }}
             >
-              Decorate your room with AI, get expert help from our DIY bot, and
-              shop our tools to bring your project to life.
+              Design with AI. Build with Mandy. Shop the toolkit to make it happen.
             </p>
 
             {/* Enhanced Buttons */}
             <div
+              className="hero-buttons-container"
               style={{
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                gap: '12px',
-                flexWrap: 'wrap',
-                paddingBottom: '2rem',
+                gap: isMobile ? '0.5rem' : '16px',
+                flexWrap: 'nowrap',
+                paddingBottom: isMobile ? '0.5rem' : '2rem',
                 maxWidth: '1000px',
                 margin: '0 auto',
+                flexDirection: isMobile ? 'column' : 'row',
+                padding: isMobile ? '0 0.5rem 0.5rem 0.5rem' : '0',
               }}
             >
               {navItems.map(item => {
@@ -168,41 +295,167 @@ export function HeroSection() {
                   <button
                     key={item.id}
                     onClick={() => handleButtonClick(item.path, item.id)}
-                    className="relative rounded-3xl border-2 font-bold text-sm transition-transform duration-150 bg-gradient-to-br from-white via-pink-50 to-pink-100 text-pink-600 border-pink-200 hover:from-pink-100 hover:via-pink-150 hover:to-pink-200"
+                    className="inflatable-button hero-button"
                     style={{
-                      minHeight: '108px',
-                      maxWidth: '240px',
-                      width: '100%',
+                      height: isMobile ? '100px' : '140px',
+                      width: isMobile ? '100%' : '220px',
                       margin: '0 auto',
-                      padding: '1.25rem',
+                      padding: isMobile ? '1rem' : '1.25rem',
+                      background: 'linear-gradient(135deg, #ff69b4 0%, #ff1493 50%, #ff69b4 100%) !important',
+                      border: '3px solid #ff1493 !important',
+                      borderRadius: '20px !important',
+                      color: '#ffffff !important',
+                      fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
+                      textTransform: 'uppercase !important',
+                      letterSpacing: '2px !important',
                       boxShadow: `
-                        0 6px 12px rgba(236, 72, 153, 0.15),
-                        0 2px 4px rgba(236, 72, 153, 0.1),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.8),
-                        inset 0 -1px 0 rgba(236, 72, 153, 0.1)
+                        0 8px 20px rgba(255, 20, 147, 0.4),
+                        0 4px 8px rgba(255, 20, 147, 0.2),
+                        inset 0 2px 4px rgba(255, 255, 255, 0.3),
+                        inset 0 -2px 4px rgba(255, 20, 147, 0.3)
                       `,
+                      transform: 'perspective(1000px) rotateX(5deg) !important',
+                      filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2)) !important',
+                      textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3) !important',
+                      imageRendering: 'pixelated !important',
+                      transition: 'all 0.2s ease !important',
                     }}
                   >
-                    {/* Highlight overlay for 3D effect */}
-                    <div className="absolute top-2 left-2 right-2 h-4 rounded-t-2xl bg-gradient-to-r from-white/60 to-white/30" />
                     {/* Tab Content */}
-                    <div className="flex flex-col items-center gap-2 relative z-10">
-                      <Icon className="w-6 h-6 text-pink-600" />
-                      <span
-                        className="leading-tight text-center font-bold text-pink-600"
-                        style={{
-                          fontFamily: 'Roboto Mono, monospace',
-                          fontSize: '0.95rem',
-                        }}
-                      >
-                        {item.label}
-                      </span>
-                      <span
-                        className="text-xs text-pink-500 opacity-80 font-medium text-center"
-                        style={{ fontFamily: 'Roboto Mono, monospace' }}
-                      >
-                        {subheadings[item.id as keyof typeof subheadings]}
-                      </span>
+                    <div className="flex flex-col items-center justify-center h-full relative z-20" style={{ gap: isMobile ? '0.5rem' : '0.5rem' }}>
+                      {item.id === 'room' ? (
+                        // Special case for Room Makeover button with inflatable bed image
+                        <>
+                          <img 
+                            src="/inflatable bed button.png" 
+                            alt="Inflatable Bed" 
+                            style={{ 
+                              width: isMobile ? '60px' : '80px',
+                              height: isMobile ? '60px' : '80px',
+                              objectFit: 'contain',
+                              filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
+                            }} 
+                          />
+                          <div
+                            style={{
+                              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
+                              fontSize: isMobile ? '1rem' : '1.4rem',
+                              color: '#ffffff !important',
+                              fontWeight: '700',
+                              textAlign: 'center',
+                              lineHeight: isMobile ? '1' : '1.1',
+                              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)',
+                              textTransform: 'uppercase',
+                              letterSpacing: '1px'
+                            }}
+                          >
+                            ROOM MAKEOVER
+                          </div>
+                        </>
+                      ) : item.id === 'chatbot' ? (
+                        // Special case for DIY Chatbot button with inflatable chat image
+                        <>
+                          <img 
+                            src="/inflatable chat button.png" 
+                            alt="Inflatable Chat" 
+                            style={{ 
+                              width: isMobile ? '60px' : '80px',
+                              height: isMobile ? '60px' : '80px',
+                              objectFit: 'contain',
+                              filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
+                            }} 
+                          />
+                          <div
+                            style={{
+                              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
+                              fontSize: isMobile ? '1rem' : '1.4rem',
+                              color: '#ffffff !important',
+                              fontWeight: '700',
+                              textAlign: 'center',
+                              lineHeight: isMobile ? '1' : '1.1',
+                              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)',
+                              textTransform: 'uppercase',
+                              letterSpacing: '1px'
+                            }}
+                          >
+                            DIY CHATBOT
+                          </div>
+                        </>
+                      ) : item.id === 'shop' ? (
+                        // Special case for Shop Toolkits button with inflatable shop tools image
+                        <>
+                          <img 
+                            src="/inflatable shop tools button.png" 
+                            alt="Inflatable Shop Tools" 
+                            style={{ 
+                              width: isMobile ? '60px' : '80px',
+                              height: isMobile ? '60px' : '80px',
+                              objectFit: 'contain',
+                              filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
+                            }} 
+                          />
+                          <div
+                            style={{
+                              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
+                              fontSize: isMobile ? '1rem' : '1.4rem',
+                              color: '#ffffff !important',
+                              fontWeight: '700',
+                              textAlign: 'center',
+                              lineHeight: isMobile ? '1' : '1.1',
+                              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)',
+                              textTransform: 'uppercase',
+                              letterSpacing: '1px'
+                            }}
+                          >
+                            SHOP TOOLKITS
+                          </div>
+                        </>
+                      ) : (
+                        // Default button content for other buttons
+                        <>
+                          <Icon 
+                            className="text-white" 
+                            style={{ 
+                              width: isMobile ? '1.25rem' : '1.5rem', 
+                              height: isMobile ? '1.25rem' : '1.5rem', 
+                              minWidth: isMobile ? '1.25rem' : '1.5rem', 
+                              minHeight: isMobile ? '1.25rem' : '1.5rem', 
+                              display: 'block', 
+                              color: '#ffffff !important', 
+                              filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))' 
+                            }} 
+                          />
+                          <div
+                            style={{
+                              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
+                              fontSize: isMobile ? '1rem' : '1.4rem',
+                              color: '#ffffff !important',
+                              fontWeight: '700',
+                              textAlign: 'center',
+                              lineHeight: isMobile ? '1' : '1.1',
+                              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)',
+                              textTransform: 'uppercase',
+                              letterSpacing: '1px'
+                            }}
+                          >
+                            {item.label}
+                          </div>
+                          <div
+                            style={{ 
+                              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
+                              color: '#ffffff !important',
+                              fontSize: isMobile ? '1rem' : '1.4rem',
+                              fontWeight: '600',
+                              textAlign: 'center',
+                              lineHeight: isMobile ? '1' : '1.1',
+                              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)',
+                              opacity: 0.9
+                            }}
+                          >
+                            {subheadings[item.id as keyof typeof subheadings]}
+                          </div>
+                        </>
+                      )}
                     </div>
                   </button>
                 )
