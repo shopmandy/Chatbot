@@ -1,5 +1,6 @@
 import { Mail, Star } from 'lucide-react'
 import { useCallback, useState, useEffect } from 'react'
+import styles from './CTASection.module.css'
 
 interface SubscriptionStatus {
   type: 'idle' | 'loading' | 'success' | 'error'
@@ -277,36 +278,9 @@ export function CTASection() {
                   <button
                     type="submit"
                     disabled={subscriptionStatus.type === 'loading'}
+                    className={styles.ctaButton}
                     style={{
-                      width: '160px',
-                      textAlign: 'center',
-                      fontSize: '1rem',
-                      fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
-                      fontWeight: '700',
-                      letterSpacing: '2px !important',
-                      borderRadius: '20px !important',
-                      border: '3px solid #ff1493 !important',
-                      padding: '16px 20px',
-                      cursor:
-                        subscriptionStatus.type === 'loading'
-                          ? 'not-allowed'
-                          : 'pointer',
-                      margin: '0',
-                      background: subscriptionStatus.type === 'loading'
-                        ? 'linear-gradient(135deg, #ff69b4 0%, #ff1493 100%) !important'
-                        : 'linear-gradient(135deg, #ff69b4 0%, #ff1493 100%) !important',
-                      color: '#ffffff !important',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '10px',
-                      transition: 'all 0.2s ease !important',
                       opacity: subscriptionStatus.type === 'loading' ? 0.7 : 1,
-                      boxShadow: '0 4px 12px rgba(255, 20, 147, 0.3) !important',
-                      transform: 'none !important',
-                      filter: 'none !important',
-                      textShadow: '1px 1px 2px rgba(0, 0, 0, 0.3) !important',
-                      imageRendering: 'auto !important',
                     }}
                   >
                     <span>

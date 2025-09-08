@@ -2,6 +2,7 @@ import { MessageCircle, ShoppingBag, Sparkles, Star } from 'lucide-react'
 import { useRouter } from 'next/router'
 import { useCallback, useState, useEffect } from 'react'
 import { MagicalBackground } from './MagicalBackground'
+import styles from './HeroSection.module.css'
 
 export function HeroSection() {
   const router = useRouter()
@@ -295,30 +296,12 @@ export function HeroSection() {
                   <button
                     key={item.id}
                     onClick={() => handleButtonClick(item.path, item.id)}
-                    className="inflatable-button hero-button"
+                    className={`inflatable-button hero-button ${styles.heroButton}`}
                     style={{
                       height: isMobile ? '100px' : '140px',
                       width: isMobile ? '100%' : '220px',
                       margin: '0 auto',
                       padding: isMobile ? '1rem' : '1.25rem',
-                      background: 'linear-gradient(135deg, #ff69b4 0%, #ff1493 50%, #ff69b4 100%) !important',
-                      border: '3px solid #ff1493 !important',
-                      borderRadius: '20px !important',
-                      color: '#ffffff !important',
-                      fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
-                      textTransform: 'uppercase !important',
-                      letterSpacing: '2px !important',
-                      boxShadow: `
-                        0 8px 20px rgba(255, 20, 147, 0.4),
-                        0 4px 8px rgba(255, 20, 147, 0.2),
-                        inset 0 2px 4px rgba(255, 255, 255, 0.3),
-                        inset 0 -2px 4px rgba(255, 20, 147, 0.3)
-                      `,
-                      transform: 'perspective(1000px) rotateX(5deg) !important',
-                      filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2)) !important',
-                      textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3) !important',
-                      imageRendering: 'pixelated !important',
-                      transition: 'all 0.2s ease !important',
                     }}
                   >
                     {/* Tab Content */}

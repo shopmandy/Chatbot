@@ -1,0 +1,26 @@
+/* App Navigation Button Styles */
+.navButton {
+  background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%) !important;
+  border: 3px solid #ff1493 !important;
+  border-radius: 20px !important;
+  color: #ffffff !important;
+  font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace !important;
+  text-transform: uppercase !important;
+  letter-spacing: 2px !important;
+  box-shadow: 0 4px 12px rgba(255, 20, 147, 0.3) !important;
+  transform: none !important;
+  filter: none !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3) !important;
+  image-rendering: auto !important;
+  transition: all 0.2s ease !important;
+}
+
+.navButton:hover {
+  transform: scale(1.02) !important;
+  box-shadow: 0 6px 16px rgba(255, 20, 147, 0.4) !important;
+}
+
+.navButton.active {
+  transform: scale(1.05) !important;
+  box-shadow: 0 8px 20px rgba(255, 20, 147, 0.5) !important;
+}

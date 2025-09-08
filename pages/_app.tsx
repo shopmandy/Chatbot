@@ -1,5 +1,6 @@
 import '@/styles/globals.css'
 import { Analytics } from '@vercel/analytics/next'
+import styles from './App.module.css'
 import {
   ClerkProvider,
   SignedIn,
@@ -231,23 +232,9 @@ export default function App({ Component, pageProps }: AppProps) {
                       rel="noopener noreferrer"
                       className={`inflatable-button relative px-4 py-3 rounded-2xl border-2 font-bold text-xs
                       transition-transform duration-150 min-h-[80px] max-w-[200px] w-full mx-auto
-                      ${isActive ? 'transform scale-105' : ''}
-                      ${isHovered && !isActive ? 'transform scale-102' : ''}`}
-                      style={{
-                        background: 'linear-gradient(135deg, #ff69b4 0%, #ff1493 100%) !important',
-                        border: '3px solid #ff1493 !important',
-                        borderRadius: '20px !important',
-                        color: '#ffffff !important',
-                        fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
-                        textTransform: 'uppercase !important',
-                        letterSpacing: '2px !important',
-                        boxShadow: '0 4px 12px rgba(255, 20, 147, 0.3) !important',
-                        transform: 'none !important',
-                        filter: 'none !important',
-                        textShadow: '1px 1px 2px rgba(0, 0, 0, 0.3) !important',
-                        imageRendering: 'auto !important',
-                        transition: 'all 0.2s ease !important',
-                      }}
+                      ${styles.navButton}
+                      ${isActive ? styles.active : ''}
+                      ${isHovered && !isActive ? 'hover:scale-102' : ''}`}
                     >
                       {/* Removed glossy highlight overlay for matte effect */}
                       {/* Tab Content */}
@@ -426,23 +413,9 @@ export default function App({ Component, pageProps }: AppProps) {
                     href={item.path}
                     className={`inflatable-button relative px-4 py-3 rounded-2xl border-2 font-bold text-xs
                     transition-transform duration-150 min-h-[80px] max-w-[200px] w-full mx-auto
-                    ${isActive ? 'transform scale-105' : ''}
-                    ${isHovered && !isActive ? 'transform scale-102' : ''}`}
-                    style={{
-                      background: 'linear-gradient(135deg, #ff69b4 0%, #ff1493 100%) !important',
-                      border: '3px solid #ff1493 !important',
-                      borderRadius: '20px !important',
-                      color: '#ffffff !important',
-                      fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
-                      textTransform: 'uppercase !important',
-                      letterSpacing: '2px !important',
-                      boxShadow: '0 4px 12px rgba(255, 20, 147, 0.3) !important',
-                      transform: 'none !important',
-                      filter: 'none !important',
-                      textShadow: '1px 1px 2px rgba(0, 0, 0, 0.3) !important',
-                      imageRendering: 'auto !important',
-                      transition: 'all 0.2s ease !important',
-                    }}
+                    ${styles.navButton}
+                    ${isActive ? styles.active : ''}
+                    ${isHovered && !isActive ? 'hover:scale-102' : ''}`}
                   >
                     {/* Removed glossy highlight overlay for matte effect */}
                     {/* Tab Content */}

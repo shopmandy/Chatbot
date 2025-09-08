@@ -3,8 +3,8 @@ import Head from 'next/head'
 import React, { useEffect, useRef, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import styles from './chatbot.module.css'
-import CustomizePanel from './components/CustomizePanel'
-import ChatDropdown from './components/chatDropdown'
+import CustomizePanel from '../components/chatbot/CustomizePanel'
+import ChatDropdown from '../components/chatbot/chatDropdown'
 
 type Message = {
   role: 'system' | 'user' | 'assistant'
