@@ -74,6 +74,11 @@ export default function App({ Component, pageProps }: AppProps) {
     console.log('Sidebar state changed to:', sidebarOpen)
   }, [sidebarOpen])
 
+  // Ensure all pages start at the top when navigating
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [router.pathname])
+
   function OnboardingWrapper({ children }: { children: React.ReactNode }) {
     const { user, isLoaded } = useUser()
     const wrapperRouter = useRouter()
