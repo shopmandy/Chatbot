@@ -260,7 +260,7 @@ export function HeroSection() {
                 marginBottom: isMobile ? '0.5rem' : '2rem',
                 fontWeight: '600',
                 lineHeight: isMobile ? '1.3' : '1.6',
-                fontFamily: "'Attila Sans Classic', Arial, sans-serif",
+                fontFamily: "'Roboto Mono', 'Courier New', monospace",
                 letterSpacing: '0.5px',
                 opacity: 1,
                 padding: isMobile ? '0 0.5rem' : '0',

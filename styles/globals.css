@@ -1,15 +1,5 @@
 @import 'tailwindcss';
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Poppins:wght@200;300;400;500;600;700;900&family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
-
-/* Preload Roboto font */
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu4mxK.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+21D1, U+21D3, U+21E2, U+21E7, U+2212, U+2215, U+FEFF, U+FFFD;
-}
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Poppins:wght@200;300;400;500;600;700;900&family=Roboto+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
 @font-face {
   font-family: 'Attila Sans Classic';
@@ -36,6 +26,11 @@ body {
   border: none;
   outline: none;
   overflow-x: hidden;
+}
+
+/* Force Roboto Mono font for hero subtext */
+.hero-subtext {
+  font-family: 'Roboto Mono', 'Courier New', monospace !important;
 }
 
 html {
@@ -793,6 +788,7 @@ button:hover,
       margin-bottom: 2rem !important;
       padding: 0 1rem !important;
       line-height: 1.4 !important;
+      font-family: 'Roboto Mono', 'Courier New', monospace !important;
     }
     
     div.hero-buttons-container {
@@ -829,6 +825,7 @@ button:hover,
       font-size: 0.9rem !important;
       margin-bottom: 1.5rem !important;
       padding: 0 0.5rem !important;
+      font-family: 'Roboto Mono', 'Courier New', monospace !important;
     }
     
     div.hero-buttons-container {
