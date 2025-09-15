@@ -497,7 +497,7 @@ export default function Room() {
   }>(null)
   const [customRoomType, setCustomRoomType] = useState('')
   const [showCustomInput, setShowCustomInput] = useState(false)
-  const [showAfterImage, setShowAfterImage] = useState(false)
+  const [showAfterImage, setShowAfterImage] = useState(true)
   const [showAllGallery, setShowAllGallery] = useState(false)
   const [amazonProducts, setAmazonProducts] = useState<any[]>([])
   const [isMobile, setIsMobile] = useState(false)
@@ -516,6 +516,7 @@ export default function Room() {
 
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
+
 
   // Progress bar animation
   useEffect(() => {
@@ -845,7 +846,7 @@ export default function Room() {
       <div
         style={{
           width: '100%',
-          padding: '2rem 0 0.5rem 0',
+          padding: 'clamp(1rem, 4vw, 2rem) clamp(1rem, 5vw, 2rem) clamp(0.5rem, 2vw, 0.5rem) clamp(1rem, 5vw, 2rem)',
           textAlign: 'center',
           zIndex: 200,
           position: 'relative',
@@ -869,16 +870,17 @@ export default function Room() {
           style={{
             display: 'flex',
             justifyContent: 'center',
-            gap: '1.5rem',
+            gap: 'clamp(1rem, 3vw, 1.5rem)',
             marginBottom: '1.6rem',
             flexWrap: 'wrap',
+            padding: '0 clamp(1rem, 5vw, 2rem)',
           }}
-          className="px-4"
+          className="hidden md:flex"
         >
           <div
             className="w-full max-w-[320px] md:max-w-[340px]"
             style={{
-              padding: '1rem 1.5rem',
+              padding: 'clamp(0.8rem, 2vw, 1rem) clamp(1rem, 3vw, 1.5rem)',
               background: '#fff',
               borderRadius: '16px',
               border: '3px solid #f91b8f',
@@ -927,7 +929,7 @@ export default function Room() {
           <div
             className="w-full max-w-[320px] md:max-w-[340px]"
             style={{
-              padding: '1rem 1.5rem',
+              padding: 'clamp(0.8rem, 2vw, 1rem) clamp(1rem, 3vw, 1.5rem)',
               background: '#fff',
               borderRadius: '16px',
               border: '3px solid #f91b8f',
@@ -976,7 +978,7 @@ export default function Room() {
           <div
             className="w-full max-w-[320px] md:max-w-[340px]"
             style={{
-              padding: '1rem 1.5rem',
+              padding: 'clamp(0.8rem, 2vw, 1rem) clamp(1rem, 3vw, 1.5rem)',
               background: '#fff',
               borderRadius: '16px',
               border: '3px solid #f91b8f',
@@ -1062,11 +1064,11 @@ export default function Room() {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'stretch',
-            gap: '2rem',
-
+            gap: 'clamp(1rem, 4vw, 2rem)',
             maxWidth: '800px',
             margin: '1.5rem auto',
             flexWrap: 'wrap',
+            padding: '0 clamp(1rem, 5vw, 2rem)',
           }}
         >
           {/* Window */}
@@ -1380,10 +1382,11 @@ export default function Room() {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'stretch',
-            gap: '2rem',
+            gap: 'clamp(1rem, 4vw, 2rem)',
             maxWidth: '1200px',
             margin: '2.5rem auto',
             flexWrap: 'wrap',
+            padding: '0 clamp(1rem, 5vw, 2rem)',
           }}
         >
           {/* Left Window */}
@@ -1449,7 +1452,7 @@ export default function Room() {
               </div>
             </div>
             {/* Window Content */}
-            <div style={{ padding: '2rem', minHeight: '300px' }}>
+            <div style={{ padding: 'clamp(1rem, 4vw, 2rem)', minHeight: '300px' }}>
               <div
                 style={{
                   fontFamily: 'Roboto Mono, monospace',
@@ -1852,7 +1855,7 @@ export default function Room() {
             {/* Window Content */}
             <div
               style={{
-                padding: '2rem',
+                padding: 'clamp(1rem, 4vw, 2rem)',
                 minHeight: '300px',
                 flex: 1,
                 display: 'flex',
@@ -2265,7 +2268,7 @@ export default function Room() {
           <section
             style={{
               margin: '4rem 0',
-              padding: '0 1rem',
+              padding: '0 clamp(1rem, 5vw, 2rem)',
             }}
           >
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
