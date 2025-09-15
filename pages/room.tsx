@@ -868,7 +868,6 @@ export default function Room() {
         {/* Feature Bubbles */}
         <div
           style={{
-            display: 'flex',
             justifyContent: 'center',
             gap: 'clamp(1rem, 3vw, 1.5rem)',
             marginBottom: '1.6rem',

@@ -76,8 +76,34 @@ export default function App({ Component, pageProps }: AppProps) {
 
   // Ensure all pages start at the top when navigating
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [router.pathname])
+    const handleRouteChange = () => {
+      if (typeof window !== 'undefined') {
+        // Use requestAnimationFrame to ensure it happens after render
+        requestAnimationFrame(() => {
+          window.scrollTo(0, 0)
+          // Also try to scroll the document element
+          if (document.documentElement) {
+            document.documentElement.scrollTop = 0
+          }
+          if (document.body) {
+            document.body.scrollTop = 0
+          }
+        })
+      }
+    }
+
+    // Listen to route changes
+    router.events.on('routeChangeComplete', handleRouteChange)
+    
+    // Also handle initial load
+    if (typeof window !== 'undefined') {
+      handleRouteChange()
+    }
+
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }, [router])
 
   function OnboardingWrapper({ children }: { children: React.ReactNode }) {
     const { user, isLoaded } = useUser()
