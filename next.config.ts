@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  experimental: {
+    scrollRestoration: false,
+  },
 }
 
 export default nextConfig

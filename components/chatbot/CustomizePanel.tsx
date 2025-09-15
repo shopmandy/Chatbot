@@ -1,6 +1,18 @@
 import React from 'react'
 
 const themes = {
+  basic: {
+    '--button-bg': 'white',
+    '--button-text': '#333333',
+    '--button-border': '#f91b8f',
+    '--chat-border': '#f91b8f',
+    '--user-bubble': '#f91b8f',
+    '--chat-bubble': '#f8f9fa',
+    '--chat-bg': 'white',
+    '--chat-text': '#333333',
+    '--chat-text-user': 'white',
+  },
+
   mandy: {
     '--button-bg': 'linear-gradient(90deg, #ffe0f2 0%, #ffd6f7 100%)',
     '--button-text': '#f91b8f',
