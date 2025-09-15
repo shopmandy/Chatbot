@@ -216,7 +216,7 @@ export function CTASection() {
                 marginBottom: '1rem',
                 fontWeight: '600',
                 lineHeight: '1.5',
-                fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+                fontFamily: "'Roboto Mono', 'Courier New', monospace",
                 textAlign: 'center',
                 opacity: 0.9,
               }}

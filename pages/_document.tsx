@@ -7,7 +7,7 @@ export default function Document() {
         <link rel="icon" type="image/png" href="/icon.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500;600;700&display=swap&v=3" rel="stylesheet" />
         
         {/* Social Media Meta Tags */}
         <meta property="og:image" content="/inflatable shop tools button.png" />
