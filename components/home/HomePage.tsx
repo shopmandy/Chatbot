@@ -68,7 +68,7 @@ export function HomePage() {
       </div>
       <div style={{ 
         width: '100%', 
-        marginTop: '10rem'
+        marginTop: '1rem'
       }}>
         <InstagramSection />
       </div>

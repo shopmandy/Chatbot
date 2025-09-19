@@ -70,35 +70,35 @@ export function InflatableToolsSection() {
           switch (position) {
             case 'oval-top-left':
               return isMobilePosition 
-                ? { top: '10%', left: '5%' }
+                ? { top: '15%', left: '0%' }
                 : { top: '8%', left: '8%' }
             case 'oval-top':
               return isMobilePosition
-                ? { top: '8%', left: '40%', transform: 'translateX(-50%)' }
+                ? { top: '60%', left: '3%', transform: 'translateY(-50%)' }
                 : { top: '5%', left: '45%', transform: 'translateX(-50%)' }
             case 'oval-top-right':
               return isMobilePosition
-                ? { top: '10%', right: '5%' }
+                ? { top: '8%', right: '2%' }
                 : { top: '8%', right: '8%' }
             case 'oval-left':
               return isMobilePosition
-                ? { top: '50%', left: '5%', transform: 'translateY(-50%)' }
+                ? { bottom: '5%', left: '50%', transform: 'translateX(-50%)' }
                 : { top: '45%', left: '2%', transform: 'translateY(-50%)' }
             case 'oval-right':
               return isMobilePosition
-                ? { top: '50%', right: '5%', transform: 'translateY(-50%)' }
+                ? { bottom: '2%', left: '12%' }
                 : { top: '45%', right: '2%', transform: 'translateY(-50%)' }
             case 'oval-bottom-left':
               return isMobilePosition
-                ? { bottom: '10%', left: '5%' }
+                ? { top: '60%', right: '3%', transform: 'translateY(-50%)' }
                 : { bottom: '8%', left: '8%' }
             case 'oval-bottom':
               return isMobilePosition
-                ? { bottom: '8%', left: '50%', transform: 'translateX(-50%)' }
+                ? { top: '5%', left: '35%', transform: 'translateX(-50%)' }
                 : { bottom: '5%', left: '50%', transform: 'translateX(-50%)' }
             case 'oval-bottom-right':
               return isMobilePosition
-                ? { bottom: '10%', right: '5%' }
+                ? { bottom: '8%', right: '12%' }
                 : { bottom: '8%', right: '8%' }
             default:
               return { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }
@@ -119,10 +119,24 @@ export function InflatableToolsSection() {
               filter: 'drop-shadow(0 8px 16px rgba(0, 0, 0, 0.15))',
               imageRendering: 'pixelated',
               animation: isVisible 
-                ? `popUp ${0.6 + index * 0.1}s ease-out forwards, gentleFloat ${4 + index * 0.3}s ease-in-out infinite ${0.6 + index * 0.1}s`
+                ? (tool.alt === 'Inflatable Pliers' && isMobile 
+                    ? `popUp ${0.6 + index * 0.1}s ease-out forwards, gentleFloatRotated ${4 + index * 0.3}s ease-in-out infinite ${0.6 + index * 0.1}s`
+                    : tool.alt === 'Inflatable Level' && isMobile
+                    ? `popUp ${0.6 + index * 0.1}s ease-out forwards, gentleFloatLevel ${4 + index * 0.3}s ease-in-out infinite ${0.6 + index * 0.1}s`
+                    : `popUp ${0.6 + index * 0.1}s ease-out forwards, gentleFloat ${4 + index * 0.3}s ease-in-out infinite ${0.6 + index * 0.1}s`)
                 : 'none',
               opacity: isVisible ? 1 : 0,
-              transform: isVisible ? 'translateY(0) scale(1)' : 'translateY(50px) scale(0.8)',
+              transform: isVisible 
+                ? (tool.alt === 'Inflatable Pliers' && isMobile 
+                    ? 'translateY(0) scale(1) rotate(45deg)' 
+                    : tool.alt === 'Inflatable Level' && isMobile
+                    ? 'translateY(0) scale(1) rotate(90deg)'
+                    : 'translateY(0) scale(1)')
+                : (tool.alt === 'Inflatable Pliers' && isMobile 
+                    ? 'translateY(50px) scale(0.8) rotate(45deg)' 
+                    : tool.alt === 'Inflatable Level' && isMobile
+                    ? 'translateY(50px) scale(0.8) rotate(90deg)'
+                    : 'translateY(50px) scale(0.8)'),
             }}
           />
         )
@@ -131,17 +145,17 @@ export function InflatableToolsSection() {
       {/* Central Message */}
       <div style={{ 
         position: 'relative', 
-        zIndex: 2, 
+        zIndex: 10, 
         textAlign: 'center',
-        maxWidth: isMobile ? '95%' : '1000px',
-        padding: '0',
+        maxWidth: isMobile ? '85%' : '1000px',
+        padding: isMobile ? '2rem 1rem' : '0',
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
         transition: 'all 0.8s ease-out',
         transitionDelay: isVisible ? '0.3s' : '0s'
       }}>
                         <div style={{
-                  fontSize: isMobile ? '2.25rem' : windowWidth < 1200 ? '3.5rem' : windowWidth < 1600 ? '4rem' : '4.375rem',
+                  fontSize: isMobile ? '50px' : windowWidth < 1200 ? '3.5rem' : windowWidth < 1600 ? '4rem' : '4.375rem',
                   fontWeight: '700',
                   color: '#0a164d',
                   fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
@@ -152,7 +166,8 @@ export function InflatableToolsSection() {
                   wordWrap: 'break-word',
                   maxWidth: '100%'
                 }}>
-                  <div style={{ marginBottom: '0.5rem' }}>HERE, YOU CAN DO IT YOURSELF...</div>
+                  <div style={{ marginBottom: '0.5rem' }}>HERE, YOU CAN</div>
+                  <div style={{ marginBottom: '0.5rem' }}><em style={{ fontStyle: 'italic' }}>DO IT YOURSELF</em>...</div>
                   <div>WITH THE RIGHT TOOLS.</div>
                 </div>
       </div>
@@ -176,6 +191,18 @@ export function InflatableToolsSection() {
           25% { transform: translate(5px, -8px) rotate(2deg); }
           50% { transform: translate(-3px, -12px) rotate(-1deg); }
           75% { transform: translate(-5px, -6px) rotate(1deg); }
+        }
+        @keyframes gentleFloatRotated {
+          0%, 100% { transform: translate(0, 0) rotate(45deg); }
+          25% { transform: translate(5px, -8px) rotate(47deg); }
+          50% { transform: translate(-3px, -12px) rotate(44deg); }
+          75% { transform: translate(-5px, -6px) rotate(46deg); }
+        }
+        @keyframes gentleFloatLevel {
+          0%, 100% { transform: translate(0, 0) rotate(90deg); }
+          25% { transform: translate(5px, -8px) rotate(92deg); }
+          50% { transform: translate(-3px, -12px) rotate(89deg); }
+          75% { transform: translate(-5px, -6px) rotate(91deg); }
         }
       `}</style>
     </div>

@@ -38,7 +38,7 @@ export function HeroSection() {
   }
 
   const navItems = [
-    { id: 'room', label: 'Room Makeover', icon: Sparkles, path: '/room' },
+    { id: 'room', label: 'AI Room Makeover', icon: Sparkles, path: '/room' },
     {
       id: 'chatbot',
       label: 'DIY Chatbot',
@@ -81,12 +81,12 @@ export function HeroSection() {
             overflow: 'hidden',
             marginBottom: '0rem',
             position: 'relative',
-            maxWidth: isMobile ? '95%' : '836px',
+            maxWidth: isMobile ? '98%' : '836px',
             margin: '0 auto',
-            aspectRatio: isMobile ? '1.3' : '1.4',
+            aspectRatio: isMobile ? '1.1' : '1.4',
             display: 'flex',
             flexDirection: 'column',
-            minHeight: isMobile ? '600px' : 'auto',
+            minHeight: isMobile ? '700px' : 'auto',
           }}
         >
           {/* Enhanced Window Title Bar */}
@@ -95,42 +95,46 @@ export function HeroSection() {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              background: 'linear-gradient(90deg, #ffe0f2 0%, #ffe4e1 100%)',
-              borderBottom: '2px solid #808080',
-              padding: '8px 12px',
+              background: 'linear-gradient(90deg, #ff69b4 0%, #ff1493 100%)',
+              borderBottom: '1px solid #ff69b4',
+              borderTopLeftRadius: '20px',
+              borderTopRightRadius: '20px',
+              padding: '12px 16px',
               fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
-              fontSize: '14px',
+              fontSize: '16px',
               fontWeight: '700',
               color: '#0a164d',
-              boxShadow: 'inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080',
+              boxShadow: 'inset 0 1px 0px rgba(255, 255, 255, 0.3)',
             }}
           >
             <div
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '12px',
+                gap: '8px',
                 fontWeight: '700',
-                letterSpacing: '2px',
+                letterSpacing: '1px',
                 color: '#0a164d',
-                textShadow: '0 0 12px rgba(255, 182, 230, 0.6)',
               }}
             >
-              <Star style={{ width: 20, height: 20, color: '#0a164d' }} />
+              <Star style={{ width: 18, height: 18, color: '#0a164d', strokeWidth: 2 }} />
               YOUR DIY BFF
             </div>
-            <div style={{ display: 'flex', gap: '4px' }}>
+            <div style={{ display: 'flex', gap: '6px' }}>
               <button
                 style={{
-                  width: '16px',
-                  height: '14px',
+                  width: '18px',
+                  height: '18px',
                   background: '#ffffff',
-                  border: '1px solid #f91b8f',
-                  borderRadius: '2px',
-                  fontSize: '10px',
+                  border: '1px solid #ff69b4',
+                  borderRadius: '3px',
+                  fontSize: '12px',
                   color: '#0a164d',
                   cursor: 'pointer',
                   boxShadow: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
                 title="Minimize"
                 onClick={handleMinimize}
@@ -139,31 +143,37 @@ export function HeroSection() {
               </button>
               <button 
                 style={{
-                  width: '16px',
-                  height: '14px',
+                  width: '18px',
+                  height: '18px',
                   background: '#ffffff',
-                  border: '1px solid #f91b8f',
-                  borderRadius: '2px',
-                  fontSize: '10px',
+                  border: '1px solid #ff69b4',
+                  borderRadius: '3px',
+                  fontSize: '12px',
                   color: '#0a164d',
                   cursor: 'pointer',
                   boxShadow: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
                 title="Maximize"
               >
                 □
               </button>
-              <button 
+              <button
                 style={{
-                  width: '16px',
-                  height: '14px',
+                  width: '18px',
+                  height: '18px',
                   background: '#ffffff',
-                  border: '1px solid #f91b8f',
-                  borderRadius: '2px',
-                  fontSize: '10px',
+                  border: '1px solid #ff69b4',
+                  borderRadius: '3px',
+                  fontSize: '12px',
                   color: '#0a164d',
                   cursor: 'pointer',
                   boxShadow: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
                 title="Close"
               >
@@ -185,7 +195,7 @@ export function HeroSection() {
               overflow: 'hidden',
             }}
           >
-            <div style={{ position: 'relative', marginBottom: isMobile ? '0.5rem' : '2rem' }}>
+            <div style={{ position: 'relative', marginBottom: isMobile ? '1.5rem' : '2rem' }}>
               <div style={{ 
                 display: 'flex', 
                 alignItems: 'center', 
@@ -207,7 +217,7 @@ export function HeroSection() {
                 
                 <h2
                   style={{
-                    fontSize: isMobile ? '1.8rem' : '2.8rem',
+                    fontSize: isMobile ? '50px !important' : '2.8rem',
                     color: '#0a164d',
                     marginBottom: '0',
                     fontWeight: '700',
@@ -235,17 +245,41 @@ export function HeroSection() {
                 />
               </div>
               
+              {/* Background highlight for headline */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: isMobile ? '90%' : '95%',
+                  height: isMobile ? '60px' : '80px',
+                  background: 'linear-gradient(90deg, rgba(255, 182, 230, 0.15) 0%, rgba(255, 105, 180, 0.1) 50%, rgba(255, 182, 230, 0.15) 100%)',
+                  borderRadius: '12px',
+                  zIndex: -1,
+                  filter: 'blur(1px)',
+                }}
+              />
+              
               <h1
                 className="hero-title"
                 style={{
-                  fontSize: isMobile ? '3.3rem' : '5rem',
+                  fontSize: isMobile ? '50px !important' : '5.2rem',
                   color: '#0a164d',
                   marginBottom: '0',
-                  fontWeight: '700',
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                  fontWeight: '800',
                   letterSpacing: '2px',
                   lineHeight: '1.1',
                   fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
-                  textShadow: '1px 1px 0px rgba(10, 22, 77, 0.5)',
+                  textShadow: 'none',
+                  position: 'relative',
+                  zIndex: 1,
+                  whiteSpace: 'nowrap',
+                  textAlign: 'center',
+                  display: 'block',
+                  width: 'fit-content',
                 }}
               >
                 MANDY&apos;S WORKSHOP
@@ -255,18 +289,21 @@ export function HeroSection() {
             <p
               className="hero-subtext"
               style={{
-                fontSize: isMobile ? '1.1rem' : '1.5rem',
+                fontSize: isMobile ? '1.2rem' : '1.5rem',
                 color: '#0a164d',
-                marginBottom: isMobile ? '0.5rem' : '2rem',
+                marginBottom: isMobile ? '2.5rem' : '2rem',
                 fontWeight: '600',
-                lineHeight: isMobile ? '1.3' : '1.6',
+                lineHeight: isMobile ? '1.5' : '1.6',
                 fontFamily: "'Roboto Mono', 'Courier New', monospace",
                 letterSpacing: '0.5px',
                 opacity: 1,
-                padding: isMobile ? '0 0.5rem' : '0',
+                padding: isMobile ? '0 2rem' : '0',
+                textAlign: 'center',
+                maxWidth: isMobile ? '320px' : 'none',
+                margin: isMobile ? '0 auto 2.5rem auto' : '0 0 2rem 0',
               }}
             >
-              Design with AI. Build with Mandy. Shop the toolkit to make it happen.
+              Design with AI, build with Mandy, and shop the toolkit to make it real.
             </p>
 
             {/* Enhanced Buttons */}
@@ -276,13 +313,13 @@ export function HeroSection() {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                gap: isMobile ? '0.5rem' : '16px',
+                gap: isMobile ? '1.5rem' : '16px',
                 flexWrap: 'nowrap',
-                paddingBottom: isMobile ? '0.5rem' : '2rem',
-                maxWidth: '1000px',
+                paddingBottom: isMobile ? '2rem' : '2rem',
+                maxWidth: isMobile ? '1500px' : '1000px',
                 margin: '0 auto',
                 flexDirection: isMobile ? 'column' : 'row',
-                padding: isMobile ? '0 0.5rem 0.5rem 0.5rem' : '0',
+                padding: isMobile ? '0 1rem 2rem 1rem' : '0',
               }}
             >
               {navItems.map(item => {
@@ -298,14 +335,16 @@ export function HeroSection() {
                     onClick={() => handleButtonClick(item.path, item.id)}
                     className={`inflatable-button hero-button ${styles.heroButton}`}
                     style={{
-                      height: isMobile ? '100px' : '140px',
+                      height: isMobile ? '70px' : '140px',
                       width: isMobile ? '100%' : '220px',
                       margin: '0 auto',
-                      padding: isMobile ? '1rem' : '1.25rem',
+                      padding: isMobile ? '0.75rem 1.5rem' : '1.25rem',
+                      borderRadius: isMobile ? '12px' : '20px',
+                      minWidth: isMobile ? '320px' : '220px',
                     }}
                   >
                     {/* Tab Content */}
-                    <div className="flex flex-col items-center justify-center h-full relative z-20" style={{ gap: isMobile ? '0.5rem' : '0.5rem' }}>
+                    <div className="flex items-center justify-center h-full relative z-20" style={{ gap: isMobile ? '1rem' : '0.5rem', width: '100%', flexDirection: isMobile ? 'row' : 'column' }}>
                       {item.id === 'room' ? (
                         // Special case for Room Makeover button with inflatable bed image
                         <>
@@ -313,26 +352,29 @@ export function HeroSection() {
                             src="/inflatable bed button.png" 
                             alt="Inflatable Bed" 
                             style={{ 
-                              width: isMobile ? '60px' : '80px',
-                              height: isMobile ? '60px' : '80px',
+                              width: isMobile ? '50px' : '80px',
+                              height: isMobile ? '50px' : '80px',
                               objectFit: 'contain',
-                              filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
+                              filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
+                              flexShrink: 0
                             }} 
                           />
                           <div
                             style={{
                               fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
-                              fontSize: isMobile ? '1rem' : '1.4rem',
+                              fontSize: isMobile ? '1.8rem' : '1.4rem',
                               color: '#ffffff !important',
                               fontWeight: '700',
-                              textAlign: 'center',
-                              lineHeight: isMobile ? '1' : '1.1',
+                              textAlign: isMobile ? 'center' : 'center',
+                              lineHeight: isMobile ? '1.1' : '1.1',
                               textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)',
                               textTransform: 'uppercase',
-                              letterSpacing: '1px'
+                              letterSpacing: '1px',
+                              flex: isMobile ? 1 : 'none',
+                              whiteSpace: 'nowrap'
                             }}
                           >
-                            ROOM MAKEOVER
+                            AI ROOM MAKEOVER
                           </div>
                         </>
                       ) : item.id === 'chatbot' ? (
@@ -342,23 +384,26 @@ export function HeroSection() {
                             src="/inflatable chat button.png" 
                             alt="Inflatable Chat" 
                             style={{ 
-                              width: isMobile ? '60px' : '80px',
-                              height: isMobile ? '60px' : '80px',
+                              width: isMobile ? '50px' : '80px',
+                              height: isMobile ? '50px' : '80px',
                               objectFit: 'contain',
-                              filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
+                              filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
+                              flexShrink: 0
                             }} 
                           />
                           <div
                             style={{
                               fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
-                              fontSize: isMobile ? '1rem' : '1.4rem',
+                              fontSize: isMobile ? '1.8rem' : '1.4rem',
                               color: '#ffffff !important',
                               fontWeight: '700',
-                              textAlign: 'center',
-                              lineHeight: isMobile ? '1' : '1.1',
+                              textAlign: isMobile ? 'center' : 'center',
+                              lineHeight: isMobile ? '1.1' : '1.1',
                               textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)',
                               textTransform: 'uppercase',
-                              letterSpacing: '1px'
+                              letterSpacing: '1px',
+                              flex: isMobile ? 1 : 'none',
+                              whiteSpace: 'nowrap'
                             }}
                           >
                             DIY CHATBOT
@@ -371,23 +416,26 @@ export function HeroSection() {
                             src="/inflatable shop tools button.png" 
                             alt="Inflatable Shop Tools" 
                             style={{ 
-                              width: isMobile ? '60px' : '80px',
-                              height: isMobile ? '60px' : '80px',
+                              width: isMobile ? '50px' : '80px',
+                              height: isMobile ? '50px' : '80px',
                               objectFit: 'contain',
-                              filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
+                              filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
+                              flexShrink: 0
                             }} 
                           />
                           <div
                             style={{
                               fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
-                              fontSize: isMobile ? '1rem' : '1.4rem',
+                              fontSize: isMobile ? '1.8rem' : '1.4rem',
                               color: '#ffffff !important',
                               fontWeight: '700',
-                              textAlign: 'center',
-                              lineHeight: isMobile ? '1' : '1.1',
+                              textAlign: isMobile ? 'center' : 'center',
+                              lineHeight: isMobile ? '1.1' : '1.1',
                               textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)',
                               textTransform: 'uppercase',
-                              letterSpacing: '1px'
+                              letterSpacing: '1px',
+                              flex: isMobile ? 1 : 'none',
+                              whiteSpace: 'nowrap'
                             }}
                           >
                             SHOP TOOLKITS
