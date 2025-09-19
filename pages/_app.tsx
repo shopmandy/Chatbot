@@ -149,14 +149,21 @@ export default function App({ Component, pageProps }: AppProps) {
             top: 18,
             left: 18,
             zIndex: 2100,
-            background: 'none',
-            border: 'none',
+            background: 'rgba(255, 255, 255, 0.9)',
+            border: '2px solid #f91b8f',
+            borderRadius: '8px',
             color: '#f91b8f',
             fontSize: '2.2rem',
             display: 'none',
+            padding: '8px 12px',
+            boxShadow: '0 4px 12px rgba(249, 27, 143, 0.3)',
+            fontWeight: 'bold',
           }}
         >
-          <span aria-hidden="true">☰</span>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}>
+            <span aria-hidden="true">☰</span>
+            <span style={{ fontSize: '0.6rem', fontWeight: 'bold', letterSpacing: '0.5px' }}>MENU</span>
+          </div>
         </button>
         <div className="app-layout">
           {/* Backdrop overlay for mobile sidebar */}

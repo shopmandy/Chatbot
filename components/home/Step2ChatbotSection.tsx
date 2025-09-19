@@ -85,7 +85,7 @@ export function Step2ChatbotSection() {
 
         {/* Main Heading */}
         <h2 style={{
-          fontSize: isMobile ? '2.2rem' : '3.5rem',
+          fontSize: isMobile ? '50px' : '3.5rem',
           fontWeight: '700',
           color: '#0a164d',
           fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
@@ -94,7 +94,14 @@ export function Step2ChatbotSection() {
           margin: '0 0 1.5rem 0',
           textAlign: 'center'
         }}>
-          GET EXPERT GUIDANCE INSTANTLY.
+          {isMobile ? (
+            <>
+              <div>GET EXPERT</div>
+              <div>GUIDANCE 24/7.</div>
+            </>
+          ) : (
+            'GET EXPERT GUIDANCE 24/7.'
+          )}
         </h2>
 
         {/* Sub-heading */}

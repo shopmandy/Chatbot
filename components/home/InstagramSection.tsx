@@ -132,7 +132,7 @@ export function InstagramSection() {
 
         <h1
           style={{
-            fontSize: isMobile ? '2rem' : '3.2rem',
+            fontSize: isMobile ? '50px' : '3.2rem',
             color: '#0a164d',
             marginBottom: '1rem',
             fontWeight: '700',

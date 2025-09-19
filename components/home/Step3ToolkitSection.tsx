@@ -108,7 +108,7 @@ export function Step3ToolkitSection() {
 
         {/* Main Heading */}
         <h2 style={{
-          fontSize: isMobile ? '2.2rem' : '3.5rem',
+          fontSize: isMobile ? '50px' : '3.5rem',
           fontWeight: '700',
           color: '#0a164d',
           fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
