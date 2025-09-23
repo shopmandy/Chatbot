@@ -135,36 +135,51 @@ export default function App({ Component, pageProps }: AppProps) {
           href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Poppins:wght@200;300;400;500;600;700;900&display=swap"
           rel="stylesheet"
         />
-        {/* Hamburger menu for mobile */}
-        <button
-          className="mobile-menu"
-          aria-label="Open navigation menu"
-          onClick={e => {
-            e.preventDefault()
-            e.stopPropagation()
-            toggleSidebar()
-          }}
-          style={{
-            position: 'fixed',
-            top: 18,
-            left: 18,
-            zIndex: 2100,
-            background: 'rgba(255, 255, 255, 0.9)',
-            border: '2px solid #f91b8f',
-            borderRadius: '8px',
-            color: '#f91b8f',
-            fontSize: '2.2rem',
-            display: 'none',
-            padding: '8px 12px',
-            boxShadow: '0 4px 12px rgba(249, 27, 143, 0.3)',
-            fontWeight: 'bold',
-          }}
-        >
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}>
-            <span aria-hidden="true">☰</span>
-            <span style={{ fontSize: '0.6rem', fontWeight: 'bold', letterSpacing: '0.5px' }}>MENU</span>
-          </div>
-        </button>
+        {/* Hamburger menu for mobile - hidden when sidebar is open */}
+        {!sidebarOpen && (
+          <button
+            className="mobile-menu"
+            aria-label="Open navigation menu"
+            onClick={e => {
+              e.preventDefault()
+              e.stopPropagation()
+              toggleSidebar()
+            }}
+            style={{
+              position: 'fixed',
+              top: 18,
+              left: 18,
+              zIndex: 2100,
+              background: 'rgba(255, 255, 255, 0.9)',
+              border: '2px solid #f91b8f',
+              borderRadius: '8px',
+              color: '#f91b8f',
+              width: 36,
+              height: 36,
+              padding: 0,
+              boxShadow: '0 4px 12px rgba(249, 27, 143, 0.3)',
+              fontWeight: 'bold',
+              display: 'none',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '1.6rem',
+            }}
+          >
+            <span
+              aria-hidden="true"
+              style={{
+                display: 'inline-block',
+                width: 32,
+                height: 32,
+                lineHeight: '32px',
+                textAlign: 'center',
+                margin: '2px auto',
+              }}
+            >
+              ☰
+            </span>
+          </button>
+        )}
         <div className="app-layout">
           {/* Backdrop overlay for mobile sidebar */}
           {sidebarOpen && (

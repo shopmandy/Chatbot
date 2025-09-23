@@ -29,6 +29,7 @@ export default function Chatbot() {
   const chatBoxRef = useRef<HTMLDivElement>(null)
   const [showChats, setShowChats] = useState<false | 'default' | 'save'>(false)
   const [showMobileMenu, setShowMobileMenu] = useState(false)
+  const [showMobileActions, setShowMobileActions] = useState(false)
   const { isSignedIn } = useUser()
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,10 +47,19 @@ export default function Chatbot() {
     fileInputRef.current?.click()
   }
 
+  // Separate ref for camera capture on mobile
+  const cameraInputRef = useRef<HTMLInputElement>(null)
+  const triggerCameraInput = () => {
+    cameraInputRef.current?.click()
+  }
+
   const removePreview = () => {
     setImagePreview(null)
     if (fileInputRef.current) {
       fileInputRef.current.value = ''
+    }
+    if (cameraInputRef.current) {
+      cameraInputRef.current.value = ''
     }
   }
 
@@ -129,6 +139,14 @@ export default function Chatbot() {
 
   //default colors
   useEffect(() => {
+    // Fix mobile 100vh sizing by setting a CSS var based on innerHeight
+    const setViewportHeightUnit = () => {
+      const vh = window.innerHeight * 0.01
+      document.documentElement.style.setProperty('--vh', `${vh}px`)
+    }
+    setViewportHeightUnit()
+    window.addEventListener('resize', setViewportHeightUnit)
+
     const defaultTheme = {
       '--button-bg': 'white',
       '--button-text': '#333333',
@@ -144,6 +162,10 @@ export default function Chatbot() {
     // Always apply the Basic theme as default
     for (const [key, value] of Object.entries(defaultTheme)) {
       document.documentElement.style.setProperty(key, value)
+    }
+
+    return () => {
+      window.removeEventListener('resize', setViewportHeightUnit)
     }
   }, [])
 
@@ -403,8 +425,8 @@ export default function Chatbot() {
           </div>
         </div>
 
-        {/* Ask Mandy Anything Button */}
-        <div className="flex justify-center mt-8 mb-8">
+        {/* Ask Mandy Anything Button (hidden on mobile) */}
+        <div className="hidden md:flex justify-center mt-8 mb-8">
           <button
             className="relative px-16 py-6 w-full max-w-[280px] md:max-w-md bg-gradient-to-br from-pink-400 via-pink-500 to-pink-600 text-white font-mono text-lg font-extrabold border-2 border-pink-400 rounded-3xl cursor-pointer tracking-wide transition-all duration-150 scale-105 overflow-hidden shadow-lg hover:scale-108 hover:shadow-xl"
             onClick={() => {
@@ -627,7 +649,7 @@ export default function Chatbot() {
                   </div>
                 )}
                 {showHero && (
-                  <div className="border-t-4 border-primary/30 pt-2 mt-14 ">
+                  <div className="border-t-4 border-primary/30 pt-2 md:pt-2 mt-12 md:mt-14">
                     <h3 className="text-center text-pink-600 font-bold text-xl mb-2">
                       Try these popular questions:
                     </h3>
@@ -672,14 +694,63 @@ export default function Chatbot() {
                   accept="image/*"
                   onChange={handleImageUpload}
                 />
+                {/* Hidden input for direct camera capture on mobile */}
+                <input
+                  type="file"
+                  ref={cameraInputRef}
+                  className={styles.fileInput}
+                  accept="image/*"
+                  capture="environment"
+                  onChange={handleImageUpload}
+                />
+                {/* Desktop upload button */}
                 <button
-                  className={styles.uploadButton}
+                  className={`${styles.uploadButton} ${styles.desktopOnly}`}
                   onClick={triggerFileInput}
                   disabled={loading}
                   title="Upload image"
                 >
                   📷
                 </button>
+
+                {/* Mobile left actions: + FAB that reveals upload/camera */}
+                <div className={styles.mobileActions}>
+                  <button
+                    className={styles.actionFab}
+                    onClick={() => setShowMobileActions(v => !v)}
+                    aria-expanded={showMobileActions}
+                    aria-label="More actions"
+                    disabled={loading}
+                  >
+                    +
+                  </button>
+                  {showMobileActions && (
+                    <div className={styles.actionMenu}>
+                      <button
+                        className={styles.actionItem}
+                        onClick={() => {
+                          setShowMobileActions(false)
+                          triggerFileInput()
+                        }}
+                        disabled={loading}
+                        title="Upload from library"
+                      >
+                        🖼
+                      </button>
+                      <button
+                        className={styles.actionItem}
+                        onClick={() => {
+                          setShowMobileActions(false)
+                          triggerCameraInput()
+                        }}
+                        disabled={loading}
+                        title="Take a photo"
+                      >
+                        📷
+                      </button>
+                    </div>
+                  )}
+                </div>
 
                 <input
                   className={styles.inputBox}
@@ -690,12 +761,24 @@ export default function Chatbot() {
                   disabled={loading}
                 />
 
+                {/* Desktop send button */}
                 <button
-                  className={styles.sendButton}
+                  className={`${styles.sendButton} ${styles.desktopOnly}`}
                   onClick={() => sendMessage()}
                   disabled={loading || (!input.trim() && !imagePreview)}
                 >
                   Send
+                </button>
+
+                {/* Mobile circular send button */}
+                <button
+                  className={styles.sendFab}
+                  onClick={() => sendMessage()}
+                  disabled={loading || (!input.trim() && !imagePreview)}
+                  aria-label="Send"
+                  title="Send"
+                >
+                  ↑
                 </button>
               </div>
             </div>
