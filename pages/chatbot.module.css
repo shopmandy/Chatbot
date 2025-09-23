@@ -587,6 +587,117 @@
   transform: none;
 }
 
+/* Desktop-only controls (hidden on small screens) */
+.desktopOnly {
+  display: inline-flex;
+}
+
+@media (max-width: 768px) {
+  .desktopOnly {
+    display: none;
+  }
+}
+
+/* Mobile Actions: + FAB on the left with pop menu */
+.mobileActions {
+  display: none;
+  position: relative;
+}
+
+.actionFab {
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  border: 2px solid var(--button-border, #ff69b4);
+  background: white;
+  color: var(--button-border, #ff69b4);
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(255, 105, 180, 0.2);
+  flex-shrink: 0;
+}
+
+.actionMenu {
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: transparent;
+}
+
+.actionItem {
+  width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  border: 2px solid var(--button-border, #ff69b4);
+  background: white;
+  color: #0a164d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(255, 105, 180, 0.2);
+  font-size: 16px;
+}
+
+/* Mobile circular send button on right */
+.sendFab {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .inputArea {
+    flex-direction: row !important;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.4rem 0.4rem;
+    gap: 0.4rem;
+    width: 100%;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+  }
+
+  .mobileActions {
+    display: flex;
+    order: 0;
+  }
+
+  .inputBox {
+    order: 1;
+    padding: 0.9rem 1rem;
+    font-size: 1.1rem;
+    flex: 1 1 auto;
+    min-width: 0; /* allow shrink to keep in one line */
+  }
+
+  .sendFab {
+    display: inline-flex;
+    order: 2;
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+    border: 2px solid var(--button-border, #ff69b4);
+    background: var(--button-border, #ff69b4);
+    color: white;
+    font-size: 20px;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 18px rgba(255, 105, 180, 0.25);
+    flex-shrink: 0;
+  }
+
+  /* Reduce space between messages and input */
+  .chatBox {
+    margin-bottom: 8px;
+  }
+}
+
 .customizeButton {
   padding: 0.6rem 1rem;
   border-radius: 12px;
@@ -1086,6 +1197,7 @@
   .mobileMenuButton {
     display: block;
     margin-right: 1rem;
+    position: relative;
   }
 }
 
@@ -1116,5 +1228,26 @@
     border: 2px solid var(--chat-border, #ff69b4) !important;
     border-radius: 12px !important;
     box-shadow: 0 8px 32px rgba(0,0,0,0.2) !important;
+  }
+}
+
+/* Mobile full-height chat layout overrides */
+@media (max-width: 768px) {
+  .chatContainer {
+    min-height: calc(var(--vh, 1vh) * 92);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .chatInterface {
+    padding: 0.5rem 0.5rem 0.25rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+  }
+
+  .chatBox {
+    flex: 1 1 auto;
+    height: auto;
   }
 }

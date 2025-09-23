@@ -895,6 +895,11 @@ button:hover,
     border: none;
     color: #0a164d;
     font-size: 2.2rem;
+    width: 36px !important;
+    height: 36px !important;
+    padding: 0 !important;
+    line-height: 36px !important;
+    text-align: center !important;
   }
   .close-sidebar {
     display: block !important;
