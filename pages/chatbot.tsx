@@ -1,5 +1,6 @@
 import { useUser } from '@clerk/nextjs'
 import Head from 'next/head'
+import Image from 'next/image'
 import React, { useEffect, useRef, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import styles from './chatbot.module.css'
@@ -671,9 +672,11 @@ export default function Chatbot() {
               {/* Image Preview */}
               {imagePreview && (
                 <div className={styles.previewContainer}>
-                  <img
+                  <Image
                     src={imagePreview}
                     alt="Preview"
+                    width={300}
+                    height={200}
                     className={styles.imagePreview}
                   />
                   <button

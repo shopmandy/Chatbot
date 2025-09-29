@@ -18,6 +18,7 @@ import {
   User,
 } from 'lucide-react'
 import type { AppProps } from 'next/app'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -94,7 +95,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
     // Listen to route changes
     router.events.on('routeChangeComplete', handleRouteChange)
-    
+
     // Also handle initial load
     if (typeof window !== 'undefined') {
       handleRouteChange()
@@ -230,15 +231,23 @@ export default function App({ Component, pageProps }: AppProps) {
             </button>
             {/* Brand Header */}
             <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-              <div style={{ marginBottom: '0.5rem', display: 'flex', justifyContent: 'center' }}>
-                <img 
-                  src="/inflatable hammer.png" 
-                  alt="Inflatable Hammer" 
-                  style={{ 
-                    width: '45px', 
+              <div
+                style={{
+                  marginBottom: '0.5rem',
+                  display: 'flex',
+                  justifyContent: 'center',
+                }}
+              >
+                <Image
+                  src="/inflatable hammer.png"
+                  alt="Inflatable Hammer"
+                  width={45}
+                  height={45}
+                  style={{
+                    width: '45px',
                     height: 'auto',
-                    imageRendering: 'pixelated'
-                  }} 
+                    imageRendering: 'pixelated',
+                  }}
                 />
               </div>
               <h2
@@ -295,26 +304,30 @@ export default function App({ Component, pageProps }: AppProps) {
                         {item.id === 'room' ? (
                           // Special case for Room Makeover button with inflatable bed image
                           <>
-                            <img 
-                              src="/inflatable bed button.png" 
-                              alt="Inflatable Bed" 
-                              style={{ 
-                                width: '30px', 
+                            <Image
+                              src="/inflatable bed button.png"
+                              alt="Inflatable Bed"
+                              width={30}
+                              height={30}
+                              style={{
+                                width: '30px',
                                 height: '30px',
                                 objectFit: 'contain',
-                                filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
-                              }} 
+                                filter:
+                                  'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
+                              }}
                             />
                             <span
                               className="text-xs leading-tight text-center text-white drop-shadow-sm"
-                              style={{ 
-                                fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important", 
+                              style={{
+                                fontFamily:
+                                  "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
                                 fontWeight: 700,
                                 color: '#ffffff !important',
                                 textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
                                 textTransform: 'uppercase',
                                 letterSpacing: '1px',
-                                fontSize: '1.4rem !important'
+                                fontSize: '1.4rem !important',
                               }}
                             >
                               ROOM MAKEOVER
@@ -323,26 +336,30 @@ export default function App({ Component, pageProps }: AppProps) {
                         ) : item.id === 'chatbot' ? (
                           // Special case for DIY Chatbot button with inflatable chat image
                           <>
-                            <img 
-                              src="/inflatable chat button.png" 
-                              alt="Inflatable Chat" 
-                              style={{ 
-                                width: '30px', 
+                            <Image
+                              src="/inflatable chat button.png"
+                              alt="Inflatable Chat"
+                              width={30}
+                              height={30}
+                              style={{
+                                width: '30px',
                                 height: '30px',
                                 objectFit: 'contain',
-                                filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
-                              }} 
+                                filter:
+                                  'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
+                              }}
                             />
                             <span
                               className="text-xs leading-tight text-center text-white drop-shadow-sm"
-                              style={{ 
-                                fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important", 
+                              style={{
+                                fontFamily:
+                                  "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
                                 fontWeight: 700,
                                 color: '#ffffff !important',
                                 textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
                                 textTransform: 'uppercase',
                                 letterSpacing: '1px',
-                                fontSize: '1.4rem !important'
+                                fontSize: '1.4rem !important',
                               }}
                             >
                               DIY CHATBOT
@@ -351,26 +368,30 @@ export default function App({ Component, pageProps }: AppProps) {
                         ) : item.id === 'shop' ? (
                           // Special case for Shop Toolkits button with inflatable shop tools image
                           <>
-                            <img 
-                              src="/inflatable shop tools button.png" 
-                              alt="Inflatable Shop Tools" 
-                              style={{ 
-                                width: '30px', 
+                            <Image
+                              src="/inflatable shop tools button.png"
+                              alt="Inflatable Shop Tools"
+                              width={30}
+                              height={30}
+                              style={{
+                                width: '30px',
                                 height: '30px',
                                 objectFit: 'contain',
-                                filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
-                              }} 
+                                filter:
+                                  'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
+                              }}
                             />
                             <span
                               className="text-xs leading-tight text-center text-white drop-shadow-sm"
-                              style={{ 
-                                fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important", 
+                              style={{
+                                fontFamily:
+                                  "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
                                 fontWeight: 700,
                                 color: '#ffffff !important',
                                 textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
                                 textTransform: 'uppercase',
                                 letterSpacing: '1px',
-                                fontSize: '1.4rem !important'
+                                fontSize: '1.4rem !important',
                               }}
                             >
                               SHOP TOOLKITS
@@ -379,26 +400,30 @@ export default function App({ Component, pageProps }: AppProps) {
                         ) : item.id === 'home' ? (
                           // Special case for Home button with inflatable home image
                           <>
-                            <img 
-                              src="/inflatable home.png" 
-                              alt="Inflatable Home" 
-                              style={{ 
-                                width: '28px', 
+                            <Image
+                              src="/inflatable home.png"
+                              alt="Inflatable Home"
+                              width={28}
+                              height={28}
+                              style={{
+                                width: '28px',
                                 height: '28px',
                                 objectFit: 'contain',
-                                filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
-                              }} 
+                                filter:
+                                  'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
+                              }}
                             />
                             <span
                               className="text-xs leading-tight text-center text-white drop-shadow-sm"
-                              style={{ 
-                                fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important", 
+                              style={{
+                                fontFamily:
+                                  "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
                                 fontWeight: 700,
                                 color: '#ffffff !important',
                                 textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
                                 textTransform: 'uppercase',
                                 letterSpacing: '1px',
-                                fontSize: '1.4rem !important'
+                                fontSize: '1.4rem !important',
                               }}
                             >
                               HOME
@@ -407,26 +432,30 @@ export default function App({ Component, pageProps }: AppProps) {
                         ) : item.id === 'profile' ? (
                           // Special case for Profile button with inflatable profile image
                           <>
-                            <img 
-                              src="/inflateable profile.png" 
-                              alt="Inflatable Profile" 
-                              style={{ 
-                                width: '28px', 
+                            <Image
+                              src="/inflateable profile.png"
+                              alt="Inflatable Profile"
+                              width={28}
+                              height={28}
+                              style={{
+                                width: '28px',
                                 height: '28px',
                                 objectFit: 'contain',
-                                filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
-                              }} 
+                                filter:
+                                  'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
+                              }}
                             />
                             <span
                               className="text-xs leading-tight text-center text-white drop-shadow-sm"
-                              style={{ 
-                                fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important", 
+                              style={{
+                                fontFamily:
+                                  "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
                                 fontWeight: 700,
                                 color: '#ffffff !important',
                                 textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
                                 textTransform: 'uppercase',
                                 letterSpacing: '1px',
-                                fontSize: '1.4rem !important'
+                                fontSize: '1.4rem !important',
                               }}
                             >
                               PROFILE
@@ -437,18 +466,23 @@ export default function App({ Component, pageProps }: AppProps) {
                           <>
                             <Icon
                               className="w-6 h-6 text-white drop-shadow-sm"
-                              style={{ color: '#ffffff !important', filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))' }}
+                              style={{
+                                color: '#ffffff !important',
+                                filter:
+                                  'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
+                              }}
                             />
                             <span
                               className="text-xs leading-tight text-center text-white drop-shadow-sm"
-                              style={{ 
-                                fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important", 
+                              style={{
+                                fontFamily:
+                                  "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
                                 fontWeight: 700,
                                 color: '#ffffff !important',
                                 textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)',
                                 textTransform: 'uppercase',
                                 letterSpacing: '1px',
-                                fontSize: '1.4rem !important'
+                                fontSize: '1.4rem !important',
                               }}
                             >
                               {item.label}
@@ -476,26 +510,30 @@ export default function App({ Component, pageProps }: AppProps) {
                       {item.id === 'room' ? (
                         // Special case for Room Makeover button with inflatable bed image
                         <>
-                          <img 
-                            src="/inflatable bed button.png" 
-                            alt="Inflatable Bed" 
-                            style={{ 
-                              width: '40px', 
+                          <Image
+                            src="/inflatable bed button.png"
+                            alt="Inflatable Bed"
+                            width={40}
+                            height={40}
+                            style={{
+                              width: '40px',
                               height: '40px',
                               objectFit: 'contain',
-                              filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
-                            }} 
+                              filter:
+                                'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
+                            }}
                           />
                           <span
                             className="text-xs leading-tight text-center text-white drop-shadow-sm"
-                            style={{ 
-                              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important", 
+                            style={{
+                              fontFamily:
+                                "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
                               fontWeight: 700,
                               color: '#ffffff !important',
                               textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
                               textTransform: 'uppercase',
                               letterSpacing: '1px',
-                              fontSize: '1.4rem !important'
+                              fontSize: '1.4rem !important',
                             }}
                           >
                             ROOM MAKEOVER
@@ -504,26 +542,30 @@ export default function App({ Component, pageProps }: AppProps) {
                       ) : item.id === 'chatbot' ? (
                         // Special case for DIY Chatbot button with inflatable chat image
                         <>
-                          <img 
-                            src="/inflatable chat button.png" 
-                            alt="Inflatable Chat" 
-                            style={{ 
-                              width: '40px', 
+                          <Image
+                            src="/inflatable chat button.png"
+                            alt="Inflatable Chat"
+                            width={40}
+                            height={40}
+                            style={{
+                              width: '40px',
                               height: '40px',
                               objectFit: 'contain',
-                              filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
-                            }} 
+                              filter:
+                                'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
+                            }}
                           />
                           <span
                             className="text-xs leading-tight text-center text-white drop-shadow-sm"
-                            style={{ 
-                              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important", 
+                            style={{
+                              fontFamily:
+                                "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
                               fontWeight: 700,
                               color: '#ffffff !important',
                               textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
                               textTransform: 'uppercase',
                               letterSpacing: '1px',
-                              fontSize: '1.4rem !important'
+                              fontSize: '1.4rem !important',
                             }}
                           >
                             DIY CHATBOT
@@ -532,26 +574,30 @@ export default function App({ Component, pageProps }: AppProps) {
                       ) : item.id === 'shop' ? (
                         // Special case for Shop Toolkits button with inflatable shop tools image
                         <>
-                          <img 
-                            src="/inflatable shop tools button.png" 
-                            alt="Inflatable Shop Tools" 
-                            style={{ 
-                              width: '40px', 
+                          <Image
+                            src="/inflatable shop tools button.png"
+                            alt="Inflatable Shop Tools"
+                            width={40}
+                            height={40}
+                            style={{
+                              width: '40px',
                               height: '40px',
                               objectFit: 'contain',
-                              filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
-                            }} 
+                              filter:
+                                'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
+                            }}
                           />
                           <span
                             className="text-xs leading-tight text-center text-white drop-shadow-sm"
-                            style={{ 
-                              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important", 
+                            style={{
+                              fontFamily:
+                                "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
                               fontWeight: 700,
                               color: '#ffffff !important',
                               textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
                               textTransform: 'uppercase',
                               letterSpacing: '1px',
-                              fontSize: '1.4rem !important'
+                              fontSize: '1.4rem !important',
                             }}
                           >
                             SHOP TOOLKITS
@@ -560,26 +606,30 @@ export default function App({ Component, pageProps }: AppProps) {
                       ) : item.id === 'home' ? (
                         // Special case for Home button with inflatable home image
                         <>
-                            <img 
-                              src="/inflatable home.png" 
-                              alt="Inflatable Home" 
-                              style={{ 
-                                width: '28px', 
-                                height: '28px',
-                                objectFit: 'contain',
-                                filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
-                              }} 
-                            />
+                          <Image
+                            src="/inflatable home.png"
+                            alt="Inflatable Home"
+                            width={28}
+                            height={28}
+                            style={{
+                              width: '28px',
+                              height: '28px',
+                              objectFit: 'contain',
+                              filter:
+                                'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
+                            }}
+                          />
                           <span
                             className="text-xs leading-tight text-center text-white drop-shadow-sm"
-                            style={{ 
-                              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important", 
+                            style={{
+                              fontFamily:
+                                "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
                               fontWeight: 700,
                               color: '#ffffff !important',
                               textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
                               textTransform: 'uppercase',
                               letterSpacing: '1px',
-                              fontSize: '1.4rem !important'
+                              fontSize: '1.4rem !important',
                             }}
                           >
                             HOME
@@ -588,26 +638,30 @@ export default function App({ Component, pageProps }: AppProps) {
                       ) : item.id === 'profile' ? (
                         // Special case for Profile button with inflatable profile image
                         <>
-                            <img 
-                              src="/inflateable profile.png" 
-                              alt="Inflatable Profile" 
-                              style={{ 
-                                width: '28px', 
-                                height: '28px',
-                                objectFit: 'contain',
-                                filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
-                              }} 
-                            />
+                          <Image
+                            src="/inflateable profile.png"
+                            alt="Inflatable Profile"
+                            width={28}
+                            height={28}
+                            style={{
+                              width: '28px',
+                              height: '28px',
+                              objectFit: 'contain',
+                              filter:
+                                'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
+                            }}
+                          />
                           <span
                             className="text-xs leading-tight text-center text-white drop-shadow-sm"
-                            style={{ 
-                              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important", 
+                            style={{
+                              fontFamily:
+                                "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
                               fontWeight: 700,
                               color: '#ffffff !important',
                               textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
                               textTransform: 'uppercase',
                               letterSpacing: '1px',
-                              fontSize: '1.4rem !important'
+                              fontSize: '1.4rem !important',
                             }}
                           >
                             PROFILE
@@ -618,17 +672,22 @@ export default function App({ Component, pageProps }: AppProps) {
                         <>
                           <Icon
                             className="w-6 h-6 text-white drop-shadow-sm"
-                            style={{ color: '#ffffff !important', filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))' }}
+                            style={{
+                              color: '#ffffff !important',
+                              filter:
+                                'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
+                            }}
                           />
                           <span
                             className="text-xs leading-tight text-center text-white drop-shadow-sm"
-                            style={{ 
-                              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important", 
+                            style={{
+                              fontFamily:
+                                "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
                               fontWeight: 700,
                               color: '#ffffff !important',
                               textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)',
                               textTransform: 'uppercase',
-                              letterSpacing: '1px'
+                              letterSpacing: '1px',
                             }}
                           >
                             {item.label}
@@ -660,7 +719,10 @@ export default function App({ Component, pageProps }: AppProps) {
                     }}
                   >
                     <LogIn style={{ width: 20, height: 20 }} />
-                    <span className="sign-in-text" style={{ fontFamily: '"Roboto Mono", monospace' }}>
+                    <span
+                      className="sign-in-text"
+                      style={{ fontFamily: '"Roboto Mono", monospace' }}
+                    >
                       SIGN IN
                     </span>
                   </a>

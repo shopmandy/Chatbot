@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import styles from './room.module.css'
 import Head from 'next/head'
+import Image from 'next/image'
 import { getUserPriceRange } from '../lib/onboardingAPI'
 import '../lib/onboardingCleanup' // Auto-cleanup any invalid data
 import {
@@ -12,6 +13,15 @@ import {
   ToyBrick,
   Search,
 } from 'lucide-react'
+
+interface AmazonProduct {
+  title: string
+  price: string
+  image: string
+  link: string
+  url: string
+  rating?: number
+}
 
 // --- Simple Dino Game Minigame Modal ---
 function DinoGameModal({
@@ -261,9 +271,6 @@ function DinoGameModal({
   }
 
   if (!show) return null
-
-  // Ensure 'After' image is shown by default
-  const [showAfterImage, setShowAfterImage] = React.useState(true)
   return (
     <div
       style={{
@@ -470,12 +477,11 @@ function DinoGameModal({
 }
 
 export default function Room() {
-  const [prompt, setPrompt] = useState('')
   const [image, setImage] = useState<File | null>(null)
   const [beforePreview, setBeforePreview] = useState<string | null>(null)
   const [afterImage, setAfterImage] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
-  const [showMain, setShowMain] = useState(false)
+  // Removed unused showMain state
   const [gallery, setGallery] = useState([
     {
       before: '/before-room-3.png',
@@ -499,11 +505,19 @@ export default function Room() {
   const [showCustomInput, setShowCustomInput] = useState(false)
   const [showAfterImage, setShowAfterImage] = useState(true)
   const [showAllGallery, setShowAllGallery] = useState(false)
-  const [amazonProducts, setAmazonProducts] = useState<any[]>([])
+  const [amazonProducts, setAmazonProducts] = useState<AmazonProduct[]>([])
   const [isMobile, setIsMobile] = useState(false)
   const [loadingMessage, setLoadingMessage] = useState('Mandy is thinking')
   const [messageOpacity, setMessageOpacity] = useState(1)
   const [progress, setProgress] = useState(0)
+
+  // Cache AI analysis results for current makeover
+  const [currentAnalysis, setCurrentAnalysis] = useState<{
+    searchTerms: string[]
+    beforeImageUrl: string
+    afterImageUrl: string
+    roomType: string
+  } | null>(null)
 
   // Check if device is mobile
   useEffect(() => {
@@ -516,7 +530,6 @@ export default function Room() {
 
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
-
 
   // Progress bar animation
   useEffect(() => {
@@ -635,7 +648,7 @@ export default function Room() {
     setShowMinigame(true)
     setLoading(true)
     setAfterImage(null) // Clear the previously generated image
-    setShowMain(false) // Reset the show main state
+    // Reset state for new generation
 
     try {
       const formData = new FormData()
@@ -684,7 +697,7 @@ export default function Room() {
 
       setAfterImage(data.outputUrl)
       setLoading(false)
-      setShowMain(true)
+      // Generation completed successfully
       setGallery(g => [
         {
           before: beforePreview || '/before-room.png',
@@ -695,7 +708,7 @@ export default function Room() {
         ...g,
       ])
 
-      // Search for Amazon products
+      // Search for Amazon products with AI-powered image analysis
       try {
         // Get user's price range from onboarding if available
         const rawPriceRange = getUserPriceRange()
@@ -710,6 +723,46 @@ export default function Room() {
 
         console.log('Using price range for search:', priceRange)
 
+        // Step 1: Analyze the before/after images to extract specific products
+        let searchTerms: string[] = []
+        try {
+          console.log(
+            '🔍 Analyzing room transformation for product extraction...'
+          )
+          const analysisResponse = await fetch('/api/analyze-room-changes', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              beforeImageUrl: imageUrl, // Original uploaded image
+              afterImageUrl: data.outputUrl, // Generated transformation
+              roomType: showCustomInput ? customRoomType : roomType,
+            }),
+          })
+
+          if (analysisResponse.ok) {
+            const analysisData = await analysisResponse.json()
+            if (analysisData.success && analysisData.searchTerms) {
+              searchTerms = analysisData.searchTerms
+              console.log('✅ Extracted search terms from images:', searchTerms)
+
+              // Cache the analysis results for reuse
+              setCurrentAnalysis({
+                searchTerms: searchTerms,
+                beforeImageUrl: imageUrl,
+                afterImageUrl: data.outputUrl,
+                roomType: showCustomInput ? customRoomType : roomType,
+              })
+            }
+          } else {
+            console.warn(
+              'Image analysis failed, falling back to prompt-based search'
+            )
+          }
+        } catch (analysisError) {
+          console.warn('Image analysis error:', analysisError)
+        }
+
+        // Step 2: Search for products using AI-extracted terms + fallback to original prompt
         const productResponse = await fetch('/api/amazon-products', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -717,6 +770,9 @@ export default function Room() {
             prompt: vision,
             roomType: showCustomInput ? customRoomType : roomType,
             priceRange: priceRange,
+            beforeImageUrl: imageUrl,
+            afterImageUrl: data.outputUrl,
+            searchTerms: searchTerms,
           }),
         })
 
@@ -813,14 +869,7 @@ export default function Room() {
     }
   }
 
-  //subheader before/after example
-  const [imageIndex, setImageIndex] = useState(0)
-  const images = ['/before-room-3.jpg', '/after-room-3.png'] // will change
-  const toggleImage = () => {
-    setImageIndex(prev => (prev + 1) % images.length)
-  }
-  const [isToggled, setIsToggled] = useState(false)
-  const handleToggle = () => setIsToggled(!isToggled)
+  // Removed unused image toggle functionality
   // Lightbox modal for enlarged image
   useEffect(() => {
     if (!enlargedImage) return
@@ -846,7 +895,8 @@ export default function Room() {
       <div
         style={{
           width: '100%',
-          padding: 'clamp(1rem, 4vw, 2rem) clamp(1rem, 5vw, 2rem) clamp(0.5rem, 2vw, 0.5rem) clamp(1rem, 5vw, 2rem)',
+          padding:
+            'clamp(1rem, 4vw, 2rem) clamp(1rem, 5vw, 2rem) clamp(0.5rem, 2vw, 0.5rem) clamp(1rem, 5vw, 2rem)',
           textAlign: 'center',
           zIndex: 200,
           position: 'relative',
@@ -1163,9 +1213,11 @@ export default function Room() {
                       position: 'relative',
                     }}
                   >
-                    <img
+                    <Image
                       src="/before-room-3.png"
                       alt="Before"
+                      width={400}
+                      height={220}
                       className={styles.rightImage}
                       style={{
                         margin: 0,
@@ -1207,9 +1259,11 @@ export default function Room() {
                       position: 'relative',
                     }}
                   >
-                    <img
+                    <Image
                       src="/after-room-3.png"
                       alt="After"
+                      width={400}
+                      height={220}
                       className={styles.rightImage}
                       style={{
                         margin: 0,
@@ -1451,7 +1505,9 @@ export default function Room() {
               </div>
             </div>
             {/* Window Content */}
-            <div style={{ padding: 'clamp(1rem, 4vw, 2rem)', minHeight: '300px' }}>
+            <div
+              style={{ padding: 'clamp(1rem, 4vw, 2rem)', minHeight: '300px' }}
+            >
               <div
                 style={{
                   fontFamily: 'Roboto Mono, monospace',
@@ -1896,9 +1952,11 @@ export default function Room() {
                           boxShadow: '0 4px 16px #ffd6f7',
                         }}
                       >
-                        <img
+                        <Image
                           src={beforePreview}
                           alt="Uploaded room"
+                          width={500}
+                          height={300}
                           style={{
                             width: '100%',
                             height: '100%',
@@ -2034,9 +2092,11 @@ export default function Room() {
                     }}
                   >
                     {/* Before Image (Background) */}
-                    <img
+                    <Image
                       src={beforePreview || '/before-room.png'}
                       alt="Before"
+                      width={400}
+                      height={300}
                       style={{
                         position: 'absolute',
                         top: 0,
@@ -2151,16 +2211,8 @@ export default function Room() {
                     (e.currentTarget.style.transform = 'scale(1)')
                   }
                   onClick={async () => {
-                    // Combine room type and vision into a single prompt string
-                    const currentRoomType = showCustomInput
-                      ? customRoomType
-                      : roomType
-                    const currentVision = vision
-                    const combinedPrompt = `${currentRoomType || 'Living Room'}: ${currentVision || 'home decor'}`
-                    console.log('Sending to Amazon API:', {
-                      prompt: combinedPrompt,
-                    })
-                    // Manually trigger Amazon product search
+                    console.log('🔍 Manual product search triggered')
+
                     try {
                       // Get user's price range from onboarding if available
                       const rawPriceRange = getUserPriceRange()
@@ -2178,15 +2230,45 @@ export default function Room() {
                         priceRange
                       )
 
+                      // Use cached AI analysis if available, otherwise fallback to prompt
+                      let searchPayload
+                      if (
+                        currentAnalysis &&
+                        currentAnalysis.searchTerms.length > 0
+                      ) {
+                        console.log(
+                          '🎯 Using cached AI analysis for manual search:',
+                          currentAnalysis.searchTerms
+                        )
+                        searchPayload = {
+                          prompt: vision,
+                          roomType: currentAnalysis.roomType,
+                          priceRange: priceRange,
+                          beforeImageUrl: currentAnalysis.beforeImageUrl,
+                          afterImageUrl: currentAnalysis.afterImageUrl,
+                          searchTerms: currentAnalysis.searchTerms,
+                        }
+                      } else {
+                        console.log(
+                          '⚠️ No cached AI analysis, using fallback prompt'
+                        )
+                        const currentRoomType = showCustomInput
+                          ? customRoomType
+                          : roomType
+                        const combinedPrompt = `${currentRoomType || 'Living Room'}: ${vision || 'home decor'}`
+                        searchPayload = {
+                          prompt: combinedPrompt,
+                          roomType: currentRoomType,
+                          priceRange: priceRange,
+                        }
+                      }
+
                       const productResponse = await fetch(
                         '/api/amazon-products',
                         {
                           method: 'POST',
                           headers: { 'Content-Type': 'application/json' },
-                          body: JSON.stringify({
-                            prompt: combinedPrompt,
-                            priceRange: priceRange,
-                          }),
+                          body: JSON.stringify(searchPayload),
                         }
                       )
 
@@ -2325,9 +2407,11 @@ export default function Room() {
                   >
                     {product.image &&
                       product.image !== '/placeholder-image.jpg' && (
-                        <img
+                        <Image
                           src={product.image}
                           alt={product.title || 'Product'}
+                          width={150}
+                          height={150}
                           style={{
                             width: '100%',
                             height: '160px',
@@ -2529,9 +2613,11 @@ export default function Room() {
                   BEFORE
                 </div>
                 {/* Before image */}
-                <img
+                <Image
                   src={g.before}
                   alt="Before"
+                  width={300}
+                  height={200}
                   style={{
                     width: 200,
                     height: 200,
@@ -2597,9 +2683,11 @@ export default function Room() {
                   AFTER
                 </div>
                 {/* After image */}
-                <img
+                <Image
                   src={g.after}
                   alt="After"
+                  width={300}
+                  height={200}
                   style={{
                     width: 200,
                     height: 200,
@@ -2676,9 +2764,11 @@ export default function Room() {
           }}
           onClick={() => setEnlargedImage(null)}
         >
-          <img
+          <Image
             src={enlargedImage.src}
             alt={enlargedImage.alt}
+            width={800}
+            height={600}
             style={{
               maxWidth: '90vw',
               maxHeight: '90vh',

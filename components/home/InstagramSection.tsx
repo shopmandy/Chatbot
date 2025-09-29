@@ -1,4 +1,5 @@
 import { Heart } from 'lucide-react'
+import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import styles from '../../pages/about.module.css'
 
@@ -12,10 +13,10 @@ export function InstagramSection() {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768)
     }
-    
+
     checkMobile()
     window.addEventListener('resize', checkMobile)
-    
+
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
@@ -102,14 +103,15 @@ export function InstagramSection() {
   }, [baseLength, totalImages, isPaused])
 
   return (
-    <div style={{ 
-      maxWidth: '1200px', 
-      margin: '0 auto', 
-      width: '100%',
-      boxSizing: 'border-box',
-      paddingBottom: '2rem'
-    }}>
-
+    <div
+      style={{
+        maxWidth: '1200px',
+        margin: '0 auto',
+        width: '100%',
+        boxSizing: 'border-box',
+        paddingBottom: '2rem',
+      }}
+    >
       {/* Section Content */}
       <div
         style={{
@@ -117,16 +119,18 @@ export function InstagramSection() {
         }}
       >
         {/* Step Label */}
-        <div style={{
-          fontSize: isMobile ? '1.2rem' : '1.5rem',
-          fontWeight: '700',
-          color: '#0a164d',
-          fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
-          letterSpacing: '3px',
-          textAlign: 'center',
-          margin: '0',
-          textTransform: 'uppercase'
-        }}>
+        <div
+          style={{
+            fontSize: isMobile ? '1.2rem' : '1.5rem',
+            fontWeight: '700',
+            color: '#0a164d',
+            fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+            letterSpacing: '3px',
+            textAlign: 'center',
+            margin: '0',
+            textTransform: 'uppercase',
+          }}
+        >
           STEP 4: SHARE IT
         </div>
 
@@ -138,11 +142,10 @@ export function InstagramSection() {
             fontWeight: '700',
             letterSpacing: '2px',
             lineHeight: '1.3',
-            fontFamily:
-              "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+            fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
           }}
         >
-          BUILD WITH US {" "}
+          BUILD WITH US{' '}
           <a
             href="https://www.instagram.com/shopmandytools"
             target="_blank"
@@ -150,7 +153,7 @@ export function InstagramSection() {
             style={{
               color: '#0a164d',
               textDecoration: 'none',
-             }}
+            }}
           >
             @SHOPMANDYTOOLS
           </a>
@@ -163,10 +166,11 @@ export function InstagramSection() {
             fontFamily: 'Arial, sans-serif',
             textAlign: 'center',
             margin: '0',
-            lineHeight: '1.4'
+            lineHeight: '1.4',
           }}
         >
-          Follow @shopmandytools for DIY inspo, project ideas, and the latest drops.
+          Follow @shopmandytools for DIY inspo, project ideas, and the latest
+          drops.
         </p>
 
         <div
@@ -200,11 +204,13 @@ export function InstagramSection() {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <img
+                        <Image
                           onMouseEnter={() => setIsPaused(true)}
                           onMouseLeave={() => setIsPaused(false)}
                           src={image.src}
                           alt={image.alt}
+                          width={300}
+                          height={300}
                           className={styles.carouselImage}
                           style={{
                             transition: 'all 0.3s ease',

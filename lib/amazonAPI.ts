@@ -1,10 +1,11 @@
 import * as ProductAdvertisingAPIv1 from 'amazon-pa-api5-node-ts'
+import type { AmazonSearchResult, PriceRange, SearchCategory } from '../types'
 
 export async function searchAmazonProducts(
   keywords: string,
-  category: string = 'All',
-  priceRange?: { min: number; max: number }
-) {
+  category: SearchCategory = 'All',
+  priceRange?: PriceRange
+): Promise<AmazonSearchResult> {
   try {
     // Validate environment variables
     const accessKey = process.env.AMAZON_ACCESS_KEY_ID
@@ -89,20 +90,26 @@ export async function searchAmazonProducts(
     console.log('Amazon API Response received:', response)
 
     // Process the response - return in format expected by the API route
-    if (!response || !response['SearchResult'] || !response['SearchResult']['Items']) {
+    if (
+      !response ||
+      !response['SearchResult'] ||
+      !response['SearchResult']['Items']
+    ) {
       console.log('No items found in search result')
       return { Items: [], TotalResultCount: 0 }
     }
 
     // Transform the results to our format
     const items = response['SearchResult']['Items']
-    const products = items.map((item: any) => ({
+    const products = items.map(item => ({
       id: item['ASIN'],
       title: item['ItemInfo']?.['Title']?.['DisplayValue'] || 'No title',
       price:
         item['Offers']?.['Listings']?.[0]?.['Price']?.['DisplayAmount'] ||
         'Price not available',
-      image: item['Images']?.['Primary']?.['Medium']?.['URL'] || '/placeholder-image.jpg',
+      image:
+        item['Images']?.['Primary']?.['Medium']?.['URL'] ||
+        '/placeholder-image.jpg',
       url: item['DetailPageURL'] || '#',
       features: item['ItemInfo']?.['Features'] || [],
     }))
