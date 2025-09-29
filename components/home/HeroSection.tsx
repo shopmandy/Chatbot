@@ -59,12 +59,13 @@ export function HeroSection() {
     <div
       className="hero-section-container"
       style={{
-        height: '100vh',
+        height: '100dvh',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         position: 'relative',
         background: 'transparent',
+        paddingBottom: 'env(safe-area-inset-bottom)',
       }}
     >
       <MagicalBackground />
@@ -92,15 +93,15 @@ export function HeroSection() {
               inset 0 1px 0 rgba(255, 255, 255, 0.8),
               inset 0 -1px 0 rgba(0, 0, 0, 0.05)
             `,
-            overflow: 'hidden',
+            overflow: 'visible',
             marginBottom: '0rem',
             position: 'relative',
-            maxWidth: isMobile ? '98%' : '836px',
+            maxWidth: isMobile ? '98%' : 'min(95%, 836px)',
             margin: '0 auto',
-            aspectRatio: isMobile ? '1.1' : '1.4',
+            aspectRatio: isMobile ? '1.1' : 'auto',
             display: 'flex',
             flexDirection: 'column',
-            minHeight: isMobile ? '700px' : 'auto',
+            minHeight: isMobile ? '700px' : '700px',
           }}
         >
           {/* Enhanced Window Title Bar */}
@@ -220,6 +221,8 @@ export function HeroSection() {
               style={{
                 position: 'relative',
                 marginBottom: isMobile ? '1.5rem' : '2rem',
+                marginTop: 0,
+                transform: isMobile ? 'translateY(16px)' : 'none',
               }}
             >
               <div
@@ -247,7 +250,7 @@ export function HeroSection() {
 
                 <h2
                   style={{
-                    fontSize: isMobile ? '50px !important' : '2.8rem',
+                    fontSize: isMobile ? 'clamp(28px, 8vw, 50px)' : '2.8rem',
                     color: '#0a164d',
                     marginBottom: '0',
                     fontWeight: '700',
@@ -278,27 +281,12 @@ export function HeroSection() {
                 />
               </div>
 
-              {/* Background highlight for headline */}
-              <div
-                style={{
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  width: isMobile ? '90%' : '95%',
-                  height: isMobile ? '60px' : '80px',
-                  background:
-                    'linear-gradient(90deg, rgba(255, 182, 230, 0.15) 0%, rgba(255, 105, 180, 0.1) 50%, rgba(255, 182, 230, 0.15) 100%)',
-                  borderRadius: '12px',
-                  zIndex: -1,
-                  filter: 'blur(1px)',
-                }}
-              />
+              {/* Background highlight removed per request */}
 
               <h1
                 className="hero-title"
                 style={{
-                  fontSize: isMobile ? '50px !important' : '5.2rem',
+                  fontSize: isMobile ? 'clamp(36px, 10vw, 50px)' : '5.2rem',
                   color: '#0a164d',
                   marginBottom: '0',
                   marginLeft: 'auto',
@@ -311,10 +299,13 @@ export function HeroSection() {
                   textShadow: 'none',
                   position: 'relative',
                   zIndex: 1,
-                  whiteSpace: 'nowrap',
+                  whiteSpace: 'normal',
+                  overflowWrap: 'anywhere',
+                  wordBreak: 'break-word',
                   textAlign: 'center',
                   display: 'block',
-                  width: 'fit-content',
+                  width: '100%',
+                  maxWidth: '100%',
                 }}
               >
                 MANDY&apos;S WORKSHOP
@@ -376,7 +367,7 @@ export function HeroSection() {
                       margin: '0 auto',
                       padding: isMobile ? '0.75rem 1.5rem' : '1.25rem',
                       borderRadius: isMobile ? '12px' : '20px',
-                      minWidth: isMobile ? '320px' : '220px',
+                      minWidth: isMobile ? '0' : '220px',
                     }}
                   >
                     {/* Tab Content */}
@@ -418,7 +409,7 @@ export function HeroSection() {
                               textTransform: 'uppercase',
                               letterSpacing: '1px',
                               flex: isMobile ? 1 : 'none',
-                              whiteSpace: 'nowrap',
+                              whiteSpace: isMobile ? 'normal' : 'nowrap',
                             }}
                           >
                             AI ROOM MAKEOVER
@@ -454,7 +445,7 @@ export function HeroSection() {
                               textTransform: 'uppercase',
                               letterSpacing: '1px',
                               flex: isMobile ? 1 : 'none',
-                              whiteSpace: 'nowrap',
+                              whiteSpace: isMobile ? 'normal' : 'nowrap',
                             }}
                           >
                             DIY CHATBOT
@@ -490,7 +481,7 @@ export function HeroSection() {
                               textTransform: 'uppercase',
                               letterSpacing: '1px',
                               flex: isMobile ? 1 : 'none',
-                              whiteSpace: 'nowrap',
+                              whiteSpace: isMobile ? 'normal' : 'nowrap',
                             }}
                           >
                             SHOP TOOLKITS

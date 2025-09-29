@@ -760,6 +760,19 @@ button:hover,
     pointer-events: none;
     overflow-y: auto;
   }
+
+  /* Tablet/small-desktop: allow hero box to grow in height and avoid clipping */
+  @media (min-width: 769px) and (max-width: 1023px) {
+    div.hero-section-container { padding: 1rem !important; }
+    div.hero-box {
+      max-width: 95% !important;
+      width: 100% !important;
+      height: auto !important;
+      aspect-ratio: auto !important; /* remove fixed ratio so content can flow */
+      min-height: 700px !important;
+      overflow: visible !important;
+    }
+  }
   .sidebar.open {
     transform: translateX(0);
     pointer-events: auto;
@@ -779,7 +792,7 @@ button:hover,
     }
     
     h1.hero-title {
-      font-size: 50px !important;
+      font-size: 75px !important; /* larger on mobile only */
       margin-bottom: 2rem !important;
       line-height: 1.1 !important;
     }
@@ -810,7 +823,14 @@ button:hover,
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
       border-radius: 12px !important;
       padding: 0.75rem 1.5rem !important;
-      min-width: 320px !important;
+      min-width: 0 !important; /* prevent overflow on narrow iPhones */
+      max-width: 100% !important;
+    }
+
+    /* Ensure hero buttons are not limited by generic mobile inflatable-button styles */
+    div.hero-buttons-container .inflatable-button {
+      max-width: 100% !important;
+      width: 100% !important;
     }
     
     button.hero-button:hover {
@@ -844,7 +864,7 @@ button:hover,
     }
     
     h1.hero-title {
-      font-size: 50px !important;
+      font-size: 75px !important;
       margin-bottom: 1.5rem !important;
     }
     
