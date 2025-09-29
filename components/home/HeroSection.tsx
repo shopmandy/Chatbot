@@ -298,23 +298,25 @@ export function HeroSection() {
               <h1
                 className="hero-title"
                 style={{
-                  fontSize: isMobile ? '50px !important' : '5.2rem',
+                  fontSize: isMobile ? '1.6rem' : '2.2rem',
                   color: '#0a164d',
                   marginBottom: '0',
                   marginLeft: 'auto',
                   marginRight: 'auto',
                   fontWeight: '800',
-                  letterSpacing: '2px',
-                  lineHeight: '1.1',
+                  letterSpacing: isMobile ? '1px' : '2px',
+                  lineHeight: isMobile ? '1.2' : '1.1',
                   fontFamily:
                     "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
                   textShadow: 'none',
                   position: 'relative',
                   zIndex: 1,
-                  whiteSpace: 'nowrap',
+                  whiteSpace: isMobile ? 'normal' : 'nowrap',
                   textAlign: 'center',
                   display: 'block',
-                  width: 'fit-content',
+                  width: '100%',
+                  maxWidth: isMobile ? '280px' : 'fit-content',
+                  wordBreak: isMobile ? 'break-word' : 'normal',
                 }}
               >
                 MANDY&apos;S WORKSHOP
@@ -324,7 +326,7 @@ export function HeroSection() {
             <p
               className="hero-subtext"
               style={{
-                fontSize: isMobile ? '1.2rem' : '1.5rem',
+                fontSize: isMobile ? '0.6rem' : '1.5rem',
                 color: '#0a164d',
                 marginBottom: isMobile ? '2.5rem' : '2rem',
                 fontWeight: '600',
@@ -349,10 +351,10 @@ export function HeroSection() {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                gap: isMobile ? '1.5rem' : '16px',
+                gap: isMobile ? '1rem' : '16px',
                 flexWrap: 'nowrap',
                 paddingBottom: isMobile ? '2rem' : '2rem',
-                maxWidth: isMobile ? '1500px' : '1000px',
+                maxWidth: isMobile ? '320px' : '1000px',
                 margin: '0 auto',
                 flexDirection: isMobile ? 'column' : 'row',
                 padding: isMobile ? '0 1rem 2rem 1rem' : '0',
@@ -371,19 +373,20 @@ export function HeroSection() {
                     onClick={() => handleButtonClick(item.path)}
                     className={`inflatable-button hero-button ${styles.heroButton}`}
                     style={{
-                      height: isMobile ? '70px' : '140px',
+                      height: isMobile ? '60px' : '140px',
                       width: isMobile ? '100%' : '220px',
                       margin: '0 auto',
-                      padding: isMobile ? '0.75rem 1.5rem' : '1.25rem',
+                      padding: isMobile ? '0.5rem 1rem' : '1.25rem',
                       borderRadius: isMobile ? '12px' : '20px',
-                      minWidth: isMobile ? '320px' : '220px',
+                      minWidth: isMobile ? '200px' : '220px',
+                      maxWidth: isMobile ? '280px' : 'none',
                     }}
                   >
                     {/* Tab Content */}
                     <div
                       className="flex items-center justify-center h-full relative z-20"
                       style={{
-                        gap: isMobile ? '1rem' : '0.5rem',
+                        gap: isMobile ? '0.75rem' : '0.5rem',
                         width: '100%',
                         flexDirection: isMobile ? 'row' : 'column',
                       }}
@@ -397,8 +400,8 @@ export function HeroSection() {
                             width={80}
                             height={80}
                             style={{
-                              width: isMobile ? '50px' : '80px',
-                              height: isMobile ? '50px' : '80px',
+                              width: isMobile ? '36px' : '80px',
+                              height: isMobile ? '36px' : '80px',
                               objectFit: 'contain',
                               filter:
                                 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
@@ -409,7 +412,7 @@ export function HeroSection() {
                             style={{
                               fontFamily:
                                 "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
-                              fontSize: isMobile ? '1.8rem' : '1.4rem',
+                              fontSize: isMobile ? '1.1rem' : '1.4rem',
                               color: '#ffffff !important',
                               fontWeight: '700',
                               textAlign: isMobile ? 'center' : 'center',
@@ -433,8 +436,8 @@ export function HeroSection() {
                             width={80}
                             height={80}
                             style={{
-                              width: isMobile ? '50px' : '80px',
-                              height: isMobile ? '50px' : '80px',
+                              width: isMobile ? '36px' : '80px',
+                              height: isMobile ? '36px' : '80px',
                               objectFit: 'contain',
                               filter:
                                 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
@@ -445,7 +448,7 @@ export function HeroSection() {
                             style={{
                               fontFamily:
                                 "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
-                              fontSize: isMobile ? '1.8rem' : '1.4rem',
+                              fontSize: isMobile ? '1.1rem' : '1.4rem',
                               color: '#ffffff !important',
                               fontWeight: '700',
                               textAlign: isMobile ? 'center' : 'center',
@@ -469,8 +472,8 @@ export function HeroSection() {
                             width={80}
                             height={80}
                             style={{
-                              width: isMobile ? '50px' : '80px',
-                              height: isMobile ? '50px' : '80px',
+                              width: isMobile ? '36px' : '80px',
+                              height: isMobile ? '36px' : '80px',
                               objectFit: 'contain',
                               filter:
                                 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
@@ -481,7 +484,7 @@ export function HeroSection() {
                             style={{
                               fontFamily:
                                 "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
-                              fontSize: isMobile ? '1.8rem' : '1.4rem',
+                              fontSize: isMobile ? '1.1rem' : '1.4rem',
                               color: '#ffffff !important',
                               fontWeight: '700',
                               textAlign: isMobile ? 'center' : 'center',
