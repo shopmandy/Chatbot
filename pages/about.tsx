@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Head from 'next/head'
+import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import styles from './about.module.css'
 
@@ -114,9 +115,11 @@ export default function About() {
             <div className={styles.heroVisuals}>
               {/* Camera with photo */}
               <div className={styles.cameraFrame}>
-                <img
+                <Image
                   src="/about page inspo 1.png"
                   alt="Camera with woman and Jeep"
+                  width={600}
+                  height={400}
                   className={styles.cameraImg}
                 />
                 {/* Top right starburst with circular image - SVG mask */}
@@ -215,9 +218,11 @@ export default function About() {
                     styles.tornPaperWrapper + ' ' + styles.tornPaperAbsolute
                   }
                 >
-                  <img
+                  <Image
                     src="/3 3545895.png"
                     alt="Torn paper"
+                    width={300}
+                    height={200}
                     className={styles.tornPaperImg}
                   />
                   <span className={styles.tornPaperText}>
@@ -278,9 +283,11 @@ export default function About() {
                     elegance of its user.
                   </p>
                 </div>
-                <img
+                <Image
                   src="/founder.png"
                   alt="Caroline, founder of Mandy Tools"
+                  width={400}
+                  height={400}
                   className={styles.founderImg}
                 />
               </div>
@@ -318,11 +325,13 @@ export default function About() {
                       ref={index === 0 ? slideRef : undefined}
                     >
                       <a href="https://instagram.com/shopmandytools">
-                        <img
+                        <Image
                           onMouseEnter={() => setIsPaused(true)}
                           onMouseLeave={() => setIsPaused(false)}
                           src={image.src}
                           alt={image.alt}
+                          width={300}
+                          height={300}
                           className={styles.carouselImage}
                         />
                       </a>

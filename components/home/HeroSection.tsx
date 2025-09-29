@@ -1,4 +1,5 @@
 import { MessageCircle, ShoppingBag, Sparkles, Star } from 'lucide-react'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useCallback, useState, useEffect } from 'react'
 import { MagicalBackground } from './MagicalBackground'
@@ -13,16 +14,16 @@ export function HeroSection() {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768)
     }
-    
+
     checkMobile()
     window.addEventListener('resize', checkMobile)
-    
+
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
   // Optimized click handler using Next.js router
   const handleButtonClick = useCallback(
-    (url: string, itemId?: string) => {
+    (url: string) => {
       // Let profile page handle authentication - no special logic needed here
       if (url.startsWith('http')) {
         window.open(url, '_blank')
@@ -55,16 +56,29 @@ export function HeroSection() {
   ]
 
   return (
-    <div className="hero-section-container" style={{ 
-      height: '100vh', 
-      display: 'flex', 
-      alignItems: 'center', 
-      justifyContent: 'center', 
-      position: 'relative',
-      background: 'transparent'
-    }}>
+    <div
+      className="hero-section-container"
+      style={{
+        height: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'relative',
+        background: 'transparent',
+      }}
+    >
       <MagicalBackground />
-      <div style={{ width: '100%', maxWidth: '1200px', position: 'relative', zIndex: 2, background: 'transparent', display: 'flex', justifyContent: 'center' }}>
+      <div
+        style={{
+          width: '100%',
+          maxWidth: '1200px',
+          position: 'relative',
+          zIndex: 2,
+          background: 'transparent',
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      >
         <div
           className="hero-box"
           style={{
@@ -117,7 +131,14 @@ export function HeroSection() {
                 color: '#0a164d',
               }}
             >
-              <Star style={{ width: 18, height: 18, color: '#0a164d', strokeWidth: 2 }} />
+              <Star
+                style={{
+                  width: 18,
+                  height: 18,
+                  color: '#0a164d',
+                  strokeWidth: 2,
+                }}
+              />
               YOUR DIY BFF
             </div>
             <div style={{ display: 'flex', gap: '6px' }}>
@@ -141,7 +162,7 @@ export function HeroSection() {
               >
                 ─
               </button>
-              <button 
+              <button
                 style={{
                   width: '18px',
                   height: '18px',
@@ -195,26 +216,35 @@ export function HeroSection() {
               overflow: 'hidden',
             }}
           >
-            <div style={{ position: 'relative', marginBottom: isMobile ? '1.5rem' : '2rem' }}>
-              <div style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center'
-              }}>
+            <div
+              style={{
+                position: 'relative',
+                marginBottom: isMobile ? '1.5rem' : '2rem',
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
                 {/* Left Hammer */}
-                <img 
+                <Image
                   src="/pixelated hammer icon.png"
                   alt="Hammer"
+                  width={36}
+                  height={36}
                   style={{
                     width: isMobile ? '24px' : '36px',
                     height: isMobile ? '24px' : '36px',
                     imageRendering: 'pixelated',
                     transform: 'rotate(45deg) scaleX(-1)',
                     transformOrigin: 'center',
-                    marginRight: isMobile ? '1rem' : '1.5rem'
+                    marginRight: isMobile ? '1rem' : '1.5rem',
                   }}
                 />
-                
+
                 <h2
                   style={{
                     fontSize: isMobile ? '50px !important' : '2.8rem',
@@ -223,28 +253,31 @@ export function HeroSection() {
                     fontWeight: '700',
                     letterSpacing: '2px',
                     lineHeight: '1.1',
-                    fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+                    fontFamily:
+                      "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
                     textShadow: '1px 1px 0px rgba(76, 45, 150, 0.5)',
                   }}
                 >
                   WELCOME TO
                 </h2>
-                
+
                 {/* Right Hammer */}
-                <img 
+                <Image
                   src="/pixelated hammer icon.png"
                   alt="Hammer"
+                  width={36}
+                  height={36}
                   style={{
                     width: isMobile ? '24px' : '36px',
                     height: isMobile ? '24px' : '36px',
                     imageRendering: 'pixelated',
                     transform: 'rotate(-45deg)',
                     transformOrigin: 'center',
-                    marginLeft: isMobile ? '1rem' : '1.5rem'
+                    marginLeft: isMobile ? '1rem' : '1.5rem',
                   }}
                 />
               </div>
-              
+
               {/* Background highlight for headline */}
               <div
                 style={{
@@ -254,13 +287,14 @@ export function HeroSection() {
                   transform: 'translate(-50%, -50%)',
                   width: isMobile ? '90%' : '95%',
                   height: isMobile ? '60px' : '80px',
-                  background: 'linear-gradient(90deg, rgba(255, 182, 230, 0.15) 0%, rgba(255, 105, 180, 0.1) 50%, rgba(255, 182, 230, 0.15) 100%)',
+                  background:
+                    'linear-gradient(90deg, rgba(255, 182, 230, 0.15) 0%, rgba(255, 105, 180, 0.1) 50%, rgba(255, 182, 230, 0.15) 100%)',
                   borderRadius: '12px',
                   zIndex: -1,
                   filter: 'blur(1px)',
                 }}
               />
-              
+
               <h1
                 className="hero-title"
                 style={{
@@ -272,7 +306,8 @@ export function HeroSection() {
                   fontWeight: '800',
                   letterSpacing: '2px',
                   lineHeight: '1.1',
-                  fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+                  fontFamily:
+                    "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
                   textShadow: 'none',
                   position: 'relative',
                   zIndex: 1,
@@ -303,7 +338,8 @@ export function HeroSection() {
                 margin: isMobile ? '0 auto 2.5rem auto' : '0 0 2rem 0',
               }}
             >
-              Design with AI, build with Mandy, and shop the toolkit to make it real.
+              Design with AI, build with Mandy, and shop the toolkit to make it
+              real.
             </p>
 
             {/* Enhanced Buttons */}
@@ -332,7 +368,7 @@ export function HeroSection() {
                 return (
                   <button
                     key={item.id}
-                    onClick={() => handleButtonClick(item.path, item.id)}
+                    onClick={() => handleButtonClick(item.path)}
                     className={`inflatable-button hero-button ${styles.heroButton}`}
                     style={{
                       height: isMobile ? '70px' : '140px',
@@ -344,24 +380,35 @@ export function HeroSection() {
                     }}
                   >
                     {/* Tab Content */}
-                    <div className="flex items-center justify-center h-full relative z-20" style={{ gap: isMobile ? '1rem' : '0.5rem', width: '100%', flexDirection: isMobile ? 'row' : 'column' }}>
+                    <div
+                      className="flex items-center justify-center h-full relative z-20"
+                      style={{
+                        gap: isMobile ? '1rem' : '0.5rem',
+                        width: '100%',
+                        flexDirection: isMobile ? 'row' : 'column',
+                      }}
+                    >
                       {item.id === 'room' ? (
                         // Special case for Room Makeover button with inflatable bed image
                         <>
-                          <img 
-                            src="/inflatable bed button.png" 
-                            alt="Inflatable Bed" 
-                            style={{ 
+                          <Image
+                            src="/inflatable bed button.png"
+                            alt="Inflatable Bed"
+                            width={80}
+                            height={80}
+                            style={{
                               width: isMobile ? '50px' : '80px',
                               height: isMobile ? '50px' : '80px',
                               objectFit: 'contain',
-                              filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
-                              flexShrink: 0
-                            }} 
+                              filter:
+                                'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
+                              flexShrink: 0,
+                            }}
                           />
                           <div
                             style={{
-                              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
+                              fontFamily:
+                                "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
                               fontSize: isMobile ? '1.8rem' : '1.4rem',
                               color: '#ffffff !important',
                               fontWeight: '700',
@@ -371,7 +418,7 @@ export function HeroSection() {
                               textTransform: 'uppercase',
                               letterSpacing: '1px',
                               flex: isMobile ? 1 : 'none',
-                              whiteSpace: 'nowrap'
+                              whiteSpace: 'nowrap',
                             }}
                           >
                             AI ROOM MAKEOVER
@@ -380,20 +427,24 @@ export function HeroSection() {
                       ) : item.id === 'chatbot' ? (
                         // Special case for DIY Chatbot button with inflatable chat image
                         <>
-                          <img 
-                            src="/inflatable chat button.png" 
-                            alt="Inflatable Chat" 
-                            style={{ 
+                          <Image
+                            src="/inflatable chat button.png"
+                            alt="Inflatable Chat"
+                            width={80}
+                            height={80}
+                            style={{
                               width: isMobile ? '50px' : '80px',
                               height: isMobile ? '50px' : '80px',
                               objectFit: 'contain',
-                              filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
-                              flexShrink: 0
-                            }} 
+                              filter:
+                                'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
+                              flexShrink: 0,
+                            }}
                           />
                           <div
                             style={{
-                              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
+                              fontFamily:
+                                "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
                               fontSize: isMobile ? '1.8rem' : '1.4rem',
                               color: '#ffffff !important',
                               fontWeight: '700',
@@ -403,7 +454,7 @@ export function HeroSection() {
                               textTransform: 'uppercase',
                               letterSpacing: '1px',
                               flex: isMobile ? 1 : 'none',
-                              whiteSpace: 'nowrap'
+                              whiteSpace: 'nowrap',
                             }}
                           >
                             DIY CHATBOT
@@ -412,20 +463,24 @@ export function HeroSection() {
                       ) : item.id === 'shop' ? (
                         // Special case for Shop Toolkits button with inflatable shop tools image
                         <>
-                          <img 
-                            src="/inflatable shop tools button.png" 
-                            alt="Inflatable Shop Tools" 
-                            style={{ 
+                          <Image
+                            src="/inflatable shop tools button.png"
+                            alt="Inflatable Shop Tools"
+                            width={80}
+                            height={80}
+                            style={{
                               width: isMobile ? '50px' : '80px',
                               height: isMobile ? '50px' : '80px',
                               objectFit: 'contain',
-                              filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
-                              flexShrink: 0
-                            }} 
+                              filter:
+                                'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
+                              flexShrink: 0,
+                            }}
                           />
                           <div
                             style={{
-                              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
+                              fontFamily:
+                                "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
                               fontSize: isMobile ? '1.8rem' : '1.4rem',
                               color: '#ffffff !important',
                               fontWeight: '700',
@@ -435,7 +490,7 @@ export function HeroSection() {
                               textTransform: 'uppercase',
                               letterSpacing: '1px',
                               flex: isMobile ? 1 : 'none',
-                              whiteSpace: 'nowrap'
+                              whiteSpace: 'nowrap',
                             }}
                           >
                             SHOP TOOLKITS
@@ -444,21 +499,23 @@ export function HeroSection() {
                       ) : (
                         // Default button content for other buttons
                         <>
-                          <Icon 
-                            className="text-white" 
-                            style={{ 
-                              width: isMobile ? '1.25rem' : '1.5rem', 
-                              height: isMobile ? '1.25rem' : '1.5rem', 
-                              minWidth: isMobile ? '1.25rem' : '1.5rem', 
-                              minHeight: isMobile ? '1.25rem' : '1.5rem', 
-                              display: 'block', 
-                              color: '#ffffff !important', 
-                              filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))' 
-                            }} 
+                          <Icon
+                            className="text-white"
+                            style={{
+                              width: isMobile ? '1.25rem' : '1.5rem',
+                              height: isMobile ? '1.25rem' : '1.5rem',
+                              minWidth: isMobile ? '1.25rem' : '1.5rem',
+                              minHeight: isMobile ? '1.25rem' : '1.5rem',
+                              display: 'block',
+                              color: '#ffffff !important',
+                              filter:
+                                'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))',
+                            }}
                           />
                           <div
                             style={{
-                              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
+                              fontFamily:
+                                "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
                               fontSize: isMobile ? '1rem' : '1.4rem',
                               color: '#ffffff !important',
                               fontWeight: '700',
@@ -466,21 +523,22 @@ export function HeroSection() {
                               lineHeight: isMobile ? '1' : '1.1',
                               textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)',
                               textTransform: 'uppercase',
-                              letterSpacing: '1px'
+                              letterSpacing: '1px',
                             }}
                           >
                             {item.label}
                           </div>
                           <div
-                            style={{ 
-                              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
+                            style={{
+                              fontFamily:
+                                "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
                               color: '#ffffff !important',
                               fontSize: isMobile ? '1rem' : '1.4rem',
                               fontWeight: '600',
                               textAlign: 'center',
                               lineHeight: isMobile ? '1' : '1.1',
                               textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)',
-                              opacity: 0.9
+                              opacity: 0.9,
                             }}
                           >
                             {subheadings[item.id as keyof typeof subheadings]}
