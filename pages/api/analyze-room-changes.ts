@@ -105,7 +105,7 @@ Be very specific about what you actually see - colors, textures, materials, styl
     let searchTerms: string[] = []
     try {
       // Look for JSON array in the response
-      const jsonMatch = analysisResult.match(/\[.*\]/s)
+      const jsonMatch = analysisResult.match(/\[[\s\S]*\]/)
       if (jsonMatch) {
         searchTerms = JSON.parse(jsonMatch[0])
       } else {

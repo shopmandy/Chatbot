@@ -11,7 +11,9 @@ import type { UseRoomGenerationReturn } from '../types'
 export const useRoomGeneration = (): UseRoomGenerationReturn => {
   const [loading, setLoading] = useState(false)
   const [progress, setProgress] = useState(0)
-  const [loadingMessage, setLoadingMessage] = useState(LOADING_MESSAGES[0])
+  const [loadingMessage, setLoadingMessage] = useState<string>(
+    LOADING_MESSAGES[0]
+  )
   const [messageOpacity, setMessageOpacity] = useState(1)
 
   const progressIntervalRef = useRef<NodeJS.Timeout | null>(null)

@@ -15,7 +15,8 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
       if (!file) return
 
       // Validate file type
-      if (!UI_CONFIG.ACCEPTED_IMAGE_TYPES.includes(file.type)) {
+      const acceptedTypes = UI_CONFIG.ACCEPTED_IMAGE_TYPES as readonly string[]
+      if (!acceptedTypes.includes(file.type)) {
         alert(ERROR_MESSAGES.INVALID_FILE_TYPE)
         return
       }
