@@ -701,81 +701,31 @@ export default function App({ Component, pageProps }: AppProps) {
               })}
             </nav>
             {/* Sign In/Up for logged out users */}
+            {/* Animated dots and EST. 2024 section */}
             <div
-              className="sidebar-auth"
-              style={{ marginTop: '0', width: '100%' }}
+              className="mt-6 text-center"
+              style={{ marginTop: 'auto', width: '100%' }}
             >
-              <SignedOut>
-                <SignInButton mode="modal">
-                  <a
-                    className="nav-link"
-                    style={{
-                      cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '0.5em',
-                      fontWeight: 700,
-                    }}
-                  >
-                    <LogIn style={{ width: 20, height: 20 }} />
-                    <span
-                      className="sign-in-text"
-                      style={{ fontFamily: '"Roboto Mono", monospace' }}
-                    >
-                      SIGN IN
-                    </span>
-                  </a>
-                </SignInButton>
-              </SignedOut>
-
-              {/* Profile picture for signed in users */}
-              <SignedIn>
+              <div className="flex justify-center gap-2 mb-4">
                 <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginBottom: '1rem',
-                  }}
-                >
-                  <UserButton
-                    afterSignOutUrl="/"
-                    appearance={{
-                      elements: {
-                        avatarBox: 'w-12 h-12 border-2 border-pink-500',
-                        userButtonPopoverCard: 'shadow-lg',
-                        userButtonPopoverActionButton:
-                          'text-pink-600 hover:bg-pink-50',
-                      },
-                    }}
-                  />
-                </div>
-              </SignedIn>
-
-              {/* Animated dots and EST. 2024 section */}
-              <div className="mt-6 text-center">
-                <div className="flex justify-center gap-2 mb-4">
-                  <div
-                    className="w-3 h-3 rounded-full animate-pulse"
-                    style={{ background: 'hsl(320, 100%, 50%)' }}
-                  />
-                  <div
-                    className="w-3 h-3 rounded-full animate-pulse delay-150"
-                    style={{ background: 'hsl(320, 100%, 85%)' }}
-                  />
-                  <div
-                    className="w-3 h-3 rounded-full animate-pulse delay-300"
-                    style={{ background: 'hsl(320, 100%, 50%)' }}
-                  />
-                </div>
-                <p
-                  className="text-xs font-semibold"
-                  style={{ color: 'hsl(320, 100%, 50%)', opacity: 0.5 }}
-                >
-                  EST. 2024
-                </p>
+                  className="w-3 h-3 rounded-full animate-pulse"
+                  style={{ background: 'hsl(320, 100%, 50%)' }}
+                />
+                <div
+                  className="w-3 h-3 rounded-full animate-pulse delay-150"
+                  style={{ background: 'hsl(320, 100%, 85%)' }}
+                />
+                <div
+                  className="w-3 h-3 rounded-full animate-pulse delay-300"
+                  style={{ background: 'hsl(320, 100%, 50%)' }}
+                />
               </div>
+              <p
+                className="text-xs font-semibold"
+                style={{ color: 'hsl(320, 100%, 50%)', opacity: 0.5 }}
+              >
+                EST. 2024
+              </p>
             </div>
           </aside>
           <div className="main-content">

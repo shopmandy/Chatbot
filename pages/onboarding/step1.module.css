@@ -92,22 +92,6 @@
   text-align: center;
 }
 
-.sparkleIcon {
-  font-size: 48px;
-  margin-bottom: 20px;
-  animation: sparkle 2s ease-in-out infinite;
-}
-
-@keyframes sparkle {
-  0%,
-  100% {
-    transform: scale(1) rotate(0deg);
-  }
-  50% {
-    transform: scale(1.1) rotate(180deg);
-  }
-}
-
 .mainTitle {
   font-size: 32px;
   font-weight: bold;

@@ -1,4 +1,3 @@
-import { Heart } from 'lucide-react'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import styles from '../../pages/about.module.css'
@@ -6,23 +5,6 @@ import styles from '../../pages/about.module.css'
 export function InstagramSection() {
   const [slideWidth, setSlideWidth] = useState(300)
   const slideRef = useRef<HTMLDivElement>(null)
-  const [isMinimized, setIsMinimized] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768)
-    }
-
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-
-  const handleMinimize = () => {
-    setIsMinimized(!isMinimized)
-  }
 
   // Sample images for the carousel - replace with your actual images
   const carouselImages = [
@@ -118,25 +100,9 @@ export function InstagramSection() {
           textAlign: 'center',
         }}
       >
-        {/* Step Label */}
-        <div
-          style={{
-            fontSize: isMobile ? '1.2rem' : '1.5rem',
-            fontWeight: '700',
-            color: '#0a164d',
-            fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
-            letterSpacing: '3px',
-            textAlign: 'center',
-            margin: '0',
-            textTransform: 'uppercase',
-          }}
-        >
-          STEP 4: SHARE IT
-        </div>
-
         <h1
           style={{
-            fontSize: isMobile ? '50px' : '3.2rem',
+            fontSize: 'clamp(50px, 8vw, 3.2rem)',
             color: '#0a164d',
             marginBottom: '1rem',
             fontWeight: '700',
@@ -145,6 +111,7 @@ export function InstagramSection() {
             fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
           }}
         >
+          STEP 4: SHARE IT <br />
           BUILD WITH US{' '}
           <a
             href="https://www.instagram.com/shopmandytools"
@@ -161,9 +128,10 @@ export function InstagramSection() {
 
         <p
           style={{
-            fontSize: isMobile ? '1rem' : '1.2rem',
+            fontSize: 'clamp(1rem, 2vw, 1.2rem)',
             color: '#0a164d',
-            fontFamily: 'Arial, sans-serif',
+            fontFamily: "'Roboto Mono', 'Courier New', monospace",
+            fontWeight: '600',
             textAlign: 'center',
             margin: '0',
             lineHeight: '1.4',

@@ -67,7 +67,6 @@ export default function OnboardingStep1() {
 
         {/* Main content */}
         <div className={styles.content}>
-          <div className={styles.sparkleIcon}>✨</div>
           <h1 className={styles.mainTitle}>WELCOME TO YOUR DIY JOURNEY! 🏡</h1>
           <p className={styles.description}>
             Let's build your home style profile so I can give you personalized

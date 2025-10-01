@@ -617,17 +617,6 @@
 .y2kLogoIcon {
   font-size: 2.5rem;
   filter: drop-shadow(0 0 10px #b6b6ff);
-  animation: sparkle 2.5s infinite linear;
-}
-
-@keyframes sparkle {
-  0%,
-  100% {
-    filter: drop-shadow(0 0 10px #b6b6ff);
-  }
-  50% {
-    filter: drop-shadow(0 0 20px #ff69b4);
-  }
 }
 
 .y2kGalleryBtn {

@@ -3,22 +3,10 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 export function Step2ChatbotSection() {
-  const [isMobile, setIsMobile] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const [visibleBubbles, setVisibleBubbles] = useState<string[]>([])
   const sectionRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768)
-    }
-
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -61,10 +49,11 @@ export function Step2ChatbotSection() {
     >
       {/* Content Area */}
       <div
+        className="step2-content"
         style={{
           position: 'relative',
           zIndex: 2,
-          width: isMobile ? '95%' : '800px',
+          width: '800px',
           maxWidth: '900px',
           opacity: isVisible ? 1 : 0,
           transform: isVisible
@@ -74,26 +63,11 @@ export function Step2ChatbotSection() {
           textAlign: 'center',
         }}
       >
-        {/* Step Label */}
-        <div
-          style={{
-            fontSize: isMobile ? '1.2rem' : '1.5rem',
-            fontWeight: '700',
-            color: '#0a164d',
-            fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
-            letterSpacing: '3px',
-            textAlign: 'center',
-            margin: '0 0 1.5rem 0',
-            textTransform: 'uppercase',
-          }}
-        >
-          STEP 2: LEARN IT
-        </div>
-
         {/* Main Heading */}
         <h2
+          className="main-heading"
           style={{
-            fontSize: isMobile ? '50px' : '3.5rem',
+            fontSize: '3.5rem',
             fontWeight: '700',
             color: '#0a164d',
             fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
@@ -103,28 +77,23 @@ export function Step2ChatbotSection() {
             textAlign: 'center',
           }}
         >
-          {isMobile ? (
-            <>
-              <div>GET EXPERT</div>
-              <div>GUIDANCE 24/7.</div>
-            </>
-          ) : (
-            'GET EXPERT GUIDANCE 24/7.'
-          )}
+          STEP 2: GET STEP BY STEP GUIDANCE
         </h2>
 
         {/* Sub-heading */}
         <p
+          className="sub-heading"
           style={{
-            fontSize: isMobile ? '1rem' : '1.2rem',
+            fontSize: '1.2rem',
             color: '#000000',
-            fontFamily: 'Arial, sans-serif',
+            fontFamily: "'Roboto Mono', 'Courier New', monospace",
+            fontWeight: '600',
             textAlign: 'center',
             margin: '0 0 3rem 0',
             lineHeight: '1.4',
           }}
         >
-          Our chatbot walks you through every step, big or small.
+          Share any DIY idea with Mandy chatbot and get step by step guidance.
         </p>
 
         {/* Retro Chat Window */}
@@ -405,8 +374,8 @@ export function Step2ChatbotSection() {
               >
                 Grab your Hot Girl Toolkit: use the hammer to gently tap a nail
                 into the wall where you want your picture, and the level to make
-                sure it's straight. Hang your artwork, step back, and enjoy your
-                newly decorated wall! 🖼️🔨✨
+                sure it&apos;s straight. Hang your artwork, step back, and enjoy
+                your newly decorated wall! 🖼️🔨✨
               </div>
             </div>
           </div>
@@ -481,6 +450,23 @@ export function Step2ChatbotSection() {
           </button>
         </div>
       </div>
+
+      <style jsx>{`
+        @media (max-width: 768px) {
+          .step2-content {
+            width: 95% !important;
+          }
+          .step-label {
+            font-size: 1.2rem !important;
+          }
+          .main-heading {
+            font-size: 50px !important;
+          }
+          .sub-heading {
+            font-size: 1rem !important;
+          }
+        }
+      `}</style>
     </div>
   )
 }
