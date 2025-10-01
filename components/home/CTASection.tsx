@@ -12,18 +12,6 @@ export function CTASection() {
   const [email, setEmail] = useState('')
   const [subscriptionStatus, setSubscriptionStatus] =
     useState<SubscriptionStatus>({ type: 'idle' })
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768)
-    }
-    
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
 
   const handleMinimize = () => {
     setIsMinimized(!isMinimized)
@@ -80,22 +68,23 @@ export function CTASection() {
 
   return (
     <div style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
-      <div style={{ 
-        maxWidth: '1200px', 
-        margin: '0 auto', 
-        width: '100%',
-        boxSizing: 'border-box'
-      }}>
+      <div
+        style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          width: '100%',
+          boxSizing: 'border-box',
+        }}
+      >
         <div
+          className="mb-16 md:mb-24 max-w-[95%] md:max-w-[836px]"
           style={{
             background: '#ffffff',
             border: '3px solid #ff69b4',
             borderRadius: '12px',
             boxShadow: '0 8px 24px rgba(0, 0, 0, 0.1)',
             overflow: 'hidden',
-            marginBottom: isMobile ? '4rem' : '6rem',
             position: 'relative',
-            maxWidth: isMobile ? '95%' : '836px',
             margin: '0 auto',
             display: 'flex',
             flexDirection: 'column',
@@ -114,7 +103,8 @@ export function CTASection() {
               fontSize: '14px',
               fontWeight: '700',
               color: '#000000',
-              boxShadow: 'inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080',
+              boxShadow:
+                'inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080',
             }}
           >
             <div
@@ -141,14 +131,15 @@ export function CTASection() {
                   fontSize: '10px',
                   color: '#000000',
                   cursor: 'pointer',
-                  boxShadow: 'inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080',
+                  boxShadow:
+                    'inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080',
                 }}
                 title="Minimize"
                 onClick={handleMinimize}
               >
                 ─
               </button>
-              <button 
+              <button
                 style={{
                   width: '16px',
                   height: '14px',
@@ -158,13 +149,14 @@ export function CTASection() {
                   fontSize: '10px',
                   color: '#000000',
                   cursor: 'pointer',
-                  boxShadow: 'inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080',
+                  boxShadow:
+                    'inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080',
                 }}
                 title="Maximize"
               >
                 □
               </button>
-              <button 
+              <button
                 style={{
                   width: '16px',
                   height: '14px',
@@ -174,7 +166,8 @@ export function CTASection() {
                   fontSize: '10px',
                   color: '#000000',
                   cursor: 'pointer',
-                  boxShadow: 'inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080',
+                  boxShadow:
+                    'inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080',
                 }}
                 title="Close"
               >
@@ -193,8 +186,8 @@ export function CTASection() {
             }}
           >
             <h1
+              className="text-[50px] md:text-[3.2rem]"
               style={{
-                fontSize: isMobile ? '50px' : '3.2rem',
                 color: '#0a164d',
                 marginBottom: '1rem',
                 fontWeight: '700',
@@ -210,8 +203,8 @@ export function CTASection() {
             </h1>
 
             <p
+              className="text-base md:text-xl"
               style={{
-                fontSize: isMobile ? '1rem' : '1.25rem',
                 color: '#0a164d',
                 marginBottom: '1rem',
                 fontWeight: '600',
@@ -221,7 +214,8 @@ export function CTASection() {
                 opacity: 0.9,
               }}
             >
-              Get 15% off your first toolkit, early access to our AI design tools, and DIY inspo you won't find anywhere else.
+              Get 15% off your first toolkit, early access to our AI design
+              tools, and DIY inspo you won't find anywhere else.
             </p>
 
             {/* Email Signup Form */}

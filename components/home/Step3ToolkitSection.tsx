@@ -1,23 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 
 export function Step3ToolkitSection() {
-  const [isMobile, setIsMobile] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLDivElement>(null)
-  const router = useRouter()
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768)
-    }
-
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -54,42 +40,12 @@ export function Step3ToolkitSection() {
         paddingBottom: '1rem',
       }}
     >
-      {/* Pixelated Stars Background */}
-      <div
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          background: 'transparent',
-          zIndex: 1,
-        }}
-      >
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            style={{
-              position: 'absolute',
-              width: '4px',
-              height: '4px',
-              background: 'white',
-              imageRendering: 'pixelated',
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              opacity: 0.6,
-              animation: `sparkle ${2 + Math.random() * 3}s infinite ease-in-out`,
-            }}
-          />
-        ))}
-      </div>
-
       {/* Content Area */}
       <div
+        className="w-[95%] md:w-[700px]"
         style={{
           position: 'relative',
           zIndex: 2,
-          width: isMobile ? '95%' : '700px',
           maxWidth: '800px',
           opacity: isVisible ? 1 : 0,
           transform: isVisible
@@ -99,26 +55,10 @@ export function Step3ToolkitSection() {
           textAlign: 'center',
         }}
       >
-        {/* Step Label */}
-        <div
-          style={{
-            fontSize: 'clamp(1rem, 4vw, 1.5rem)',
-            fontWeight: '700',
-            color: '#0a164d',
-            fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
-            letterSpacing: '3px',
-            textAlign: 'center',
-            margin: '0 0 1rem 0',
-            textTransform: 'uppercase',
-          }}
-        >
-          STEP 3: BUILD IT
-        </div>
-
         {/* Main Heading */}
         <h2
+          className="text-[50px] md:text-[3.5rem]"
           style={{
-            fontSize: isMobile ? '50px' : '3.5rem',
             fontWeight: '700',
             color: '#0a164d',
             fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
@@ -126,41 +66,32 @@ export function Step3ToolkitSection() {
             lineHeight: '1.2',
             margin: '0 0 0.5rem 0',
             textAlign: 'center',
-            whiteSpace: isMobile ? 'normal' : 'nowrap',
           }}
         >
-          {isMobile ? (
-            <>
-              SHOP TOOLS TO
-              <br />
-              MAKE IT HAPPEN.
-            </>
-          ) : (
-            'SHOP TOOLS TO MAKE IT HAPPEN.'
-          )}
+          Step 3: BUILD IT WITH OUR TOOLKITS
         </h2>
 
         {/* Sub-heading */}
         <p
+          className="whitespace-normal md:whitespace-nowrap"
           style={{
             fontSize: 'clamp(0.9rem, 3vw, 1.2rem)',
             color: '#0a164d',
-            fontFamily: 'Arial, sans-serif',
+            fontFamily: "'Roboto Mono', 'Courier New', monospace",
+            fontWeight: '600',
             textAlign: 'center',
             margin: '0 0 3rem 0',
             lineHeight: '1.4',
-            whiteSpace: isMobile ? 'normal' : 'nowrap',
           }}
         >
-          {isMobile ? (
-            <>
-              Stylish, functional, and ready to
-              <br />
-              go—everything you need in one kit.
-            </>
-          ) : (
-            'Stylish, functional, and ready to go—everything you need in one kit.'
-          )}
+          <span className="md:hidden">
+            Stylish, functional, and ready to
+            <br />
+            go—everything you need in one kit.
+          </span>
+          <span className="hidden md:inline">
+            Stylish, functional, and ready to go—everything you need in one kit.
+          </span>
         </p>
 
         {/* Toolkit Image */}
@@ -177,8 +108,8 @@ export function Step3ToolkitSection() {
             alt="Hot Girl Toolkit"
             width={600}
             height={400}
+            className="w-full md:w-[600px]"
             style={{
-              width: isMobile ? '100%' : '600px',
               maxWidth: '100%',
               height: 'auto',
               borderRadius: '16px',
@@ -263,20 +194,6 @@ export function Step3ToolkitSection() {
           </button>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes sparkle {
-          0%,
-          100% {
-            opacity: 0.3;
-            transform: scale(1);
-          }
-          50% {
-            opacity: 0.8;
-            transform: scale(1.2);
-          }
-        }
-      `}</style>
     </div>
   )
 }

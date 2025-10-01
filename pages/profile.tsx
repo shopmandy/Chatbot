@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { useUser, SignInButton, UserButton } from '@clerk/nextjs'
-import { useRouter } from 'next/router'
 import Head from 'next/head'
 import PriceRangeSlider from '../components/PriceRangeSlider'
 import { getUserPriceRange } from '../lib/onboardingAPI'
@@ -10,7 +9,6 @@ interface PriceRange {
   min: number
   max: number
 }
-
 interface UserPreferences {
   name: string
   age: string
@@ -23,7 +21,6 @@ interface UserPreferences {
 
 export default function Profile() {
   const { user, isLoaded } = useUser()
-  const router = useRouter()
   const [preferences, setPreferences] = useState<UserPreferences>({
     name: '',
     age: '',
@@ -239,44 +236,58 @@ export default function Profile() {
         </div>
 
         <div className={styles.content}>
-          {/* User Info Card */}
+          {/* Account Management Card */}
           <div className={styles.card}>
             <div className={styles.cardHeader}>
-              <h2 className={styles.cardTitle}>Account Information</h2>
+              <h2 className={styles.cardTitle}>Manage Account</h2>
+              <p className={styles.cardDescription}>
+                Manage your account settings
+              </p>
             </div>
             <div className={styles.cardContent}>
-              <div className={styles.userInfo}>
-                <div className={styles.userButtonSection}>
-                  <div className={styles.userButtonContainer}>
-                    <UserButton
-                      afterSignOutUrl="/"
-                      appearance={{
-                        elements: {
-                          avatarBox: 'w-20 h-20 border-4 border-pink-500',
-                          userButtonPopoverCard: 'shadow-lg',
-                          userButtonPopoverActionButton:
-                            'text-pink-600 hover:bg-pink-50',
-                        },
-                      }}
-                    />
-                    <span className={styles.userButtonLabel}>
-                      Manage Account
+              <div className={styles.accountManagement}>
+                <div
+                  className={styles.userButtonWrapper}
+                  onClick={e => {
+                    // Find the UserButton element and trigger its click
+                    // Try multiple selectors to ensure compatibility
+                    const userButton =
+                      e.currentTarget.querySelector(
+                        '[data-clerk-element="userButton"]'
+                      ) ||
+                      e.currentTarget.querySelector('.cl-userButtonBox') ||
+                      e.currentTarget.querySelector(
+                        'button[aria-label*="user"]'
+                      ) ||
+                      e.currentTarget.querySelector('button')
+
+                    if (userButton) {
+                      ;(userButton as HTMLElement).click()
+                    }
+                  }}
+                >
+                  <UserButton
+                    afterSignOutUrl="/"
+                    appearance={{
+                      elements: {
+                        avatarBox:
+                          'w-20 h-20 border-3 border-pink-500 shadow-lg',
+                        userButtonPopoverCard:
+                          'shadow-xl border-2 border-pink-200 bg-white',
+                        userButtonPopoverActionButton:
+                          'text-pink-600 hover:bg-pink-50 font-medium',
+                        userButtonPopoverActionButtonText: 'font-semibold',
+                      },
+                    }}
+                  />
+                  <div className={styles.accountHint}>
+                    <span className={styles.hintText}>
+                      Click to manage account
+                    </span>
+                    <span className={styles.hintSubtext}>
+                      Email • Password • Security
                     </span>
                   </div>
-                </div>
-                <div className={styles.userDetails}>
-                  <h3 className={styles.userName}>
-                    {user.firstName && user.lastName
-                      ? `${user.firstName} ${user.lastName}`
-                      : user.firstName || 'User'}
-                  </h3>
-                  <p className={styles.userEmail}>
-                    {user.emailAddresses[0]?.emailAddress}
-                  </p>
-                  <p className={styles.memberSince}>
-                    Member since{' '}
-                    {new Date(user.createdAt!).toLocaleDateString()}
-                  </p>
                 </div>
               </div>
             </div>
@@ -456,38 +467,6 @@ export default function Profile() {
               <span>Saving...</span>
             </div>
           )}
-
-          {/* Quick Actions Card */}
-          <div className={styles.card}>
-            <div className={styles.cardHeader}>
-              <h2 className={styles.cardTitle}>Quick Actions</h2>
-            </div>
-            <div className={styles.cardContent}>
-              <div className={styles.actionButtons}>
-                <button
-                  className={styles.actionButton}
-                  onClick={() => router.push('/room')}
-                >
-                  <span className={styles.actionIcon}>🏠</span>
-                  <span>Design a Room</span>
-                </button>
-                <button
-                  className={styles.actionButton}
-                  onClick={() => router.push('/chatbot')}
-                >
-                  <span className={styles.actionIcon}>💬</span>
-                  <span>Chat with Mandy</span>
-                </button>
-                <button
-                  className={styles.actionButton}
-                  onClick={() => router.push('/recommendations')}
-                >
-                  <span className={styles.actionIcon}>✨</span>
-                  <span>Get Recommendations</span>
-                </button>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </>

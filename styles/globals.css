@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Poppins:wght@200;300;400;500;600;700;900&family=Roboto+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+/* Font imports are now handled in _document.tsx for better stability */
 
 @font-face {
   font-family: 'Attila Sans Classic';
@@ -48,8 +48,8 @@ html {
 .main-content,
 .app-layout,
 #__next,
-div[class*="main-content"],
-div[class*="app-layout"] {
+div[class*='main-content'],
+div[class*='app-layout'] {
   background: #e4f6ff !important;
 }
 
@@ -80,7 +80,11 @@ html {
 }
 
 /* Target specific elements that might have white backgrounds */
-body, html, #__next, .main-content, .app-layout {
+body,
+html,
+#__next,
+.main-content,
+.app-layout {
   background: #e4f6ff !important;
 }
 
@@ -93,7 +97,7 @@ body, html, #__next, .main-content, .app-layout {
 .hero-box {
   background: #ffffff !important;
   border: 4px solid #ff69b4 !important;
-  box-shadow: 
+  box-shadow:
     0 20px 40px rgba(0, 0, 0, 0.1),
     0 10px 20px rgba(0, 0, 0, 0.05),
     0 4px 8px rgba(0, 0, 0, 0.03),
@@ -176,7 +180,7 @@ body, html, #__next, .main-content, .app-layout {
     0 6px 16px rgba(184, 111, 166, 0.25),
     0 1px 8px #fff6fa,
     inset 0 2px 8px #fff6fa;
-  transform: translateY(-2px) scale(1.03);
+  transform: translateY(-2px);
   background: linear-gradient(90deg, #fbc6e7 0%, #f5f5f5 100%);
 }
 
@@ -258,14 +262,14 @@ body, html, #__next, .main-content, .app-layout {
   box-shadow: 2px 0 16px 0 rgba(249, 27, 143, 0.07);
 }
 
-  .sidebar-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    width: 100%;
-    align-items: center;
-    margin-bottom: 2rem;
-  }
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 2rem;
+}
 
 .sidebar-auth {
   margin-top: auto;
@@ -294,8 +298,9 @@ body, html, #__next, .main-content, .app-layout {
   width: 220px;
   margin: 0 0 1.2rem 0;
   text-align: center;
-  font-size: 0.8rem;
-  font-family: 'Press Start 2P', VT323, Poppins, Montserrat, Arial, sans-serif;
+  font-size: 1rem; /* Increased from 0.8rem */
+  font-family:
+    'VT323', 'Press Start 2P', 'Courier New', monospace; /* Simplified and more stable font stack */
   font-weight: 700;
   letter-spacing: 2px;
   border-radius: 24px;
@@ -311,18 +316,23 @@ body, html, #__next, .main-content, .app-layout {
     transform 0.1s ease;
 }
 
-/* Make main navigation buttons smaller */
+/* Make main navigation buttons with larger text and stable fonts */
 .sidebar-nav a {
   width: 200px !important;
   min-height: 80px !important;
   max-width: 200px !important;
-  font-size: 1.4rem !important;
+  font-size: 1.6rem !important; /* Increased from 1.4rem */
   color: #ffffff !important;
   text-transform: uppercase !important;
-  background: linear-gradient(135deg, #ff69b4 0%, #ff1493 50%, #ff69b4 100%) !important;
+  background: linear-gradient(
+    135deg,
+    #ff69b4 0%,
+    #ff1493 50%,
+    #ff69b4 100%
+  ) !important;
   border: 3px solid #ff1493 !important;
   border-radius: 20px !important;
-  box-shadow: 
+  box-shadow:
     0 8px 20px rgba(255, 20, 147, 0.4),
     0 4px 8px rgba(255, 20, 147, 0.2),
     inset 0 2px 4px rgba(255, 255, 255, 0.3),
@@ -332,7 +342,8 @@ body, html, #__next, .main-content, .app-layout {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
   image-rendering: pixelated !important;
   transition: all 0.2s ease !important;
-  font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace !important;
+  font-family:
+    'VT323', 'Press Start 2P', 'Courier New', monospace !important; /* Simplified and more stable font stack */
   font-weight: 700 !important;
   letter-spacing: 2px !important;
   display: flex !important;
@@ -346,11 +357,16 @@ body, html, #__next, .main-content, .app-layout {
 /* Ultra-specific override for main nav buttons */
 .sidebar .sidebar-nav a.nav-link,
 .sidebar .sidebar-nav a {
-  background: linear-gradient(135deg, #ff69b4 0%, #ff1493 50%, #ff69b4 100%) !important;
+  background: linear-gradient(
+    135deg,
+    #ff69b4 0%,
+    #ff1493 50%,
+    #ff69b4 100%
+  ) !important;
   border: 3px solid #ff1493 !important;
   border-radius: 20px !important;
   color: #ffffff !important;
-  box-shadow: 
+  box-shadow:
     0 8px 20px rgba(255, 20, 147, 0.4),
     0 4px 8px rgba(255, 20, 147, 0.2),
     inset 0 2px 4px rgba(255, 255, 255, 0.3),
@@ -386,7 +402,7 @@ body, html, #__next, .main-content, .app-layout {
     0 6px 16px rgba(184, 111, 166, 0.18),
     0 1px 8px #fff6fa,
     inset 0 2px 8px #fff6fa;
-  transform: translateY(-2px) scale(1.03);
+  transform: translateY(-2px);
   background: #ffe0f2;
   color: #0a164d;
 }
@@ -403,10 +419,15 @@ body, html, #__next, .main-content, .app-layout {
   max-width: 200px !important;
   color: #ffffff !important;
   text-transform: uppercase !important;
-  background: linear-gradient(135deg, #ff69b4 0%, #ff1493 50%, #ff69b4 100%) !important;
+  background: linear-gradient(
+    135deg,
+    #ff69b4 0%,
+    #ff1493 50%,
+    #ff69b4 100%
+  ) !important;
   border: 3px solid #ff1493 !important;
   border-radius: 20px !important;
-  box-shadow: 
+  box-shadow:
     0 8px 20px rgba(255, 20, 147, 0.4),
     0 4px 8px rgba(255, 20, 147, 0.2),
     inset 0 2px 4px rgba(255, 255, 255, 0.3),
@@ -436,10 +457,15 @@ div.sidebar-auth a.nav-link {
   max-width: 200px !important;
   color: #ffffff !important;
   text-transform: uppercase !important;
-  background: linear-gradient(135deg, #ff69b4 0%, #ff1493 50%, #ff69b4 100%) !important;
+  background: linear-gradient(
+    135deg,
+    #ff69b4 0%,
+    #ff1493 50%,
+    #ff69b4 100%
+  ) !important;
   border: 3px solid #ff1493 !important;
   border-radius: 20px !important;
-  box-shadow: 
+  box-shadow:
     0 8px 20px rgba(255, 20, 147, 0.4),
     0 4px 8px rgba(255, 20, 147, 0.2),
     inset 0 2px 4px rgba(255, 255, 255, 0.3),
@@ -465,19 +491,19 @@ div.sidebar-auth a.nav-link span {
 
 /* Specific class for sign-in text */
 .sign-in-text {
-  font-family: "Roboto Mono", monospace !important;
+  font-family: 'Roboto Mono', monospace !important;
   font-weight: 700 !important;
 }
 
 /* Force Roboto Mono for sign-in button */
 .sidebar-auth .nav-link .sign-in-text {
-  font-family: "Roboto Mono", monospace !important;
+  font-family: 'Roboto Mono', monospace !important;
   font-weight: 700 !important;
 }
 
 /* Ultra-specific rule for sign-in button */
 div.sidebar-auth a.nav-link span.sign-in-text {
-  font-family: "Roboto Mono", monospace !important;
+  font-family: 'Roboto Mono', monospace !important;
   font-weight: 700 !important;
   font-size: inherit !important;
 }
@@ -494,7 +520,7 @@ div.sidebar-auth a.nav-link span.sign-in-text {
 }
 
 /* Ultra-specific selector for room transformation text */
-div[style*="background: linear-gradient(180deg, #e4f6ff 0%, #f0e6ff 100%)"] p {
+div[style*='background: linear-gradient(180deg, #e4f6ff 0%, #f0e6ff 100%)'] p {
   font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif !important;
 }
 
@@ -531,13 +557,13 @@ div[style*="background: linear-gradient(180deg, #e4f6ff 0%, #f0e6ff 100%)"] p {
   .section {
     padding: 48px 0;
   }
-  
+
   .section h1,
   .section h2,
   .section h3 {
     margin-bottom: 16px;
   }
-  
+
   .section p {
     margin-bottom: 24px;
   }
@@ -556,7 +582,12 @@ div[style*="background: linear-gradient(180deg, #e4f6ff 0%, #f0e6ff 100%)"] p {
 
 /* Inflatable-style buttons */
 .inflatable-button {
-  background: linear-gradient(135deg, #ff69b4 0%, #ff1493 50%, #ff69b4 100%) !important;
+  background: linear-gradient(
+    135deg,
+    #ff69b4 0%,
+    #ff1493 50%,
+    #ff69b4 100%
+  ) !important;
   border: 3px solid #ff1493 !important;
   border-radius: 20px !important;
   padding: 20px 40px !important;
@@ -566,7 +597,7 @@ div[style*="background: linear-gradient(180deg, #e4f6ff 0%, #f0e6ff 100%)"] p {
   font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace !important;
   text-transform: uppercase !important;
   letter-spacing: 3px !important;
-  box-shadow: 
+  box-shadow:
     0 8px 20px rgba(255, 20, 147, 0.4),
     0 4px 8px rgba(255, 20, 147, 0.2),
     inset 0 2px 4px rgba(255, 255, 255, 0.3),
@@ -579,13 +610,18 @@ div[style*="background: linear-gradient(180deg, #e4f6ff 0%, #f0e6ff 100%)"] p {
 }
 
 .inflatable-button:hover {
-  box-shadow: 
+  box-shadow:
     0 12px 30px rgba(255, 20, 147, 0.6),
     0 6px 12px rgba(255, 20, 147, 0.4),
     inset 0 3px 6px rgba(255, 255, 255, 0.4),
     inset 0 -3px 6px rgba(255, 20, 147, 0.4) !important;
-  transform: perspective(1000px) rotateX(8deg) translateY(-4px) scale(1.05) !important;
-  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 50%, #ff1493 100%) !important;
+  transform: perspective(1000px) rotateX(8deg) translateY(-4px) !important;
+  background: linear-gradient(
+    135deg,
+    #ff1493 0%,
+    #ff69b4 50%,
+    #ff1493 100%
+  ) !important;
   filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.3)) !important;
 }
 
@@ -598,7 +634,7 @@ div[style*="background: linear-gradient(180deg, #e4f6ff 0%, #f0e6ff 100%)"] p {
     padding: 0.4rem 0.2rem !important;
     line-height: 1.2 !important;
   }
-  
+
   .inflatable-button span {
     font-size: 1rem !important;
     line-height: 1.2 !important;
@@ -616,7 +652,7 @@ div[style*="background: linear-gradient(180deg, #e4f6ff 0%, #f0e6ff 100%)"] p {
     0 6px 16px rgba(184, 111, 166, 0.25),
     0 1px 8px #fff6fa,
     inset 0 2px 8px #fff6fa !important;
-  transform: translateY(-2px) scale(1.03) !important;
+  transform: translateY(-2px) !important;
 }
 
 .window-controls {
@@ -688,10 +724,7 @@ div[style*="background: linear-gradient(180deg, #e4f6ff 0%, #f0e6ff 100%)"] p {
 button:hover,
 .nav-link:hover,
 .home-button:hover {
-  cursor:
-    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><text y="24" font-size="24" font-family="Arial" fill="hotpink">❤</text></svg>')
-      16 16,
-    pointer;
+  cursor: pointer;
 }
 
 @keyframes sidebar-dot-pulse {
@@ -763,7 +796,9 @@ button:hover,
 
   /* Tablet/small-desktop: allow hero box to grow in height and avoid clipping */
   @media (min-width: 769px) and (max-width: 1023px) {
-    div.hero-section-container { padding: 1rem !important; }
+    div.hero-section-container {
+      padding: 1rem !important;
+    }
     div.hero-box {
       max-width: 95% !important;
       width: 100% !important;
@@ -783,20 +818,20 @@ button:hover,
     div.hero-section-container {
       padding: 1rem 1rem 1rem 1rem !important;
     }
-    
+
     div.hero-box {
       max-width: 98% !important;
       aspect-ratio: 1.1 !important;
       height: auto !important;
       min-height: 700px !important;
     }
-    
+
     h1.hero-title {
       font-size: 75px !important; /* larger on mobile only */
       margin-bottom: 2rem !important;
       line-height: 1.1 !important;
     }
-    
+
     p.hero-subtext {
       font-size: 1.2rem !important;
       margin-bottom: 2.5rem !important;
@@ -807,7 +842,7 @@ button:hover,
       margin-left: auto !important;
       margin-right: auto !important;
     }
-    
+
     div.hero-buttons-container {
       flex-direction: column !important;
       gap: 1.5rem !important;
@@ -815,7 +850,7 @@ button:hover,
       align-items: stretch !important;
       max-width: 1500px !important;
     }
-    
+
     button.hero-button {
       width: 100% !important;
       height: 70px !important;
@@ -832,19 +867,19 @@ button:hover,
       max-width: 100% !important;
       width: 100% !important;
     }
-    
+
     button.hero-button:hover {
-      transform: translateY(-2px) scale(1.01) !important;
-      box-shadow: 
+      transform: translateY(-2px) !important;
+      box-shadow:
         0 8px 20px rgba(255, 20, 147, 0.4),
         0 4px 8px rgba(255, 20, 147, 0.2),
         inset 0 2px 4px rgba(255, 255, 255, 0.3),
         inset 0 -2px 4px rgba(255, 20, 147, 0.3) !important;
     }
-    
+
     button.hero-button:active {
       transform: translateY(0px) scale(0.99) !important;
-      box-shadow: 
+      box-shadow:
         0 2px 4px rgba(255, 20, 147, 0.3),
         0 1px 2px rgba(255, 20, 147, 0.1),
         inset 0 1px 2px rgba(255, 255, 255, 0.2),
@@ -857,28 +892,28 @@ button:hover,
     div.hero-section-container {
       padding: 0.5rem 0.5rem 0.5rem 0.5rem !important;
     }
-    
+
     div.hero-box {
       max-width: 98% !important;
-      aspect-ratio: 1.0 !important;
+      aspect-ratio: 1 !important;
     }
-    
+
     h1.hero-title {
       font-size: 75px !important;
       margin-bottom: 1.5rem !important;
     }
-    
+
     p.hero-subtext {
       font-size: 0.9rem !important;
       margin-bottom: 1.5rem !important;
       padding: 0 0.5rem !important;
       font-family: 'Roboto Mono', 'Courier New', monospace !important;
     }
-    
+
     div.hero-buttons-container {
       padding: 0 0.5rem 0.5rem 0.5rem !important;
     }
-    
+
     button.hero-button {
       height: 70px !important;
     }
@@ -894,7 +929,8 @@ button:hover,
     box-sizing: border-box;
   }
 
-  html, body {
+  html,
+  body {
     overflow-x: hidden;
     width: 100%;
   }
@@ -958,7 +994,6 @@ button:hover,
     font-size: 0.7rem !important;
   }
 
-
   /* Mobile navigation buttons */
   .sidebar .nav-link {
     width: 200px !important;
@@ -988,10 +1023,15 @@ button:hover,
     align-items: center !important;
     justify-content: center !important;
     text-align: center !important;
-    background: linear-gradient(135deg, #ff69b4 0%, #ff1493 50%, #ff69b4 100%) !important;
+    background: linear-gradient(
+      135deg,
+      #ff69b4 0%,
+      #ff1493 50%,
+      #ff69b4 100%
+    ) !important;
     border: 3px solid #ff1493 !important;
     border-radius: 20px !important;
-    box-shadow: 
+    box-shadow:
       0 8px 20px rgba(255, 20, 147, 0.4),
       0 4px 8px rgba(255, 20, 147, 0.2),
       inset 0 2px 4px rgba(255, 255, 255, 0.3),
@@ -1009,11 +1049,16 @@ button:hover,
   /* Ultra-specific mobile override for main nav buttons */
   .sidebar .sidebar-nav a.nav-link,
   .sidebar .sidebar-nav a {
-    background: linear-gradient(135deg, #ff69b4 0%, #ff1493 50%, #ff69b4 100%) !important;
+    background: linear-gradient(
+      135deg,
+      #ff69b4 0%,
+      #ff1493 50%,
+      #ff69b4 100%
+    ) !important;
     border: 3px solid #ff1493 !important;
     border-radius: 20px !important;
     color: #ffffff !important;
-    box-shadow: 
+    box-shadow:
       0 8px 20px rgba(255, 20, 147, 0.4),
       0 4px 8px rgba(255, 20, 147, 0.2),
       inset 0 2px 4px rgba(255, 255, 255, 0.3),
@@ -1022,7 +1067,8 @@ button:hover,
     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2)) !important;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
     image-rendering: pixelated !important;
-    font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace !important;
+    font-family:
+      'VT323', 'Press Start 2P', 'Courier New', monospace !important; /* Simplified and more stable font stack */
     font-weight: 700 !important;
     letter-spacing: 2px !important;
     text-transform: uppercase !important;
@@ -1049,7 +1095,7 @@ button:hover,
 
   /* Mobile button text */
   .sidebar .nav-link span {
-    font-size: 1rem !important;
+    font-size: 1.2rem !important; /* Increased from 1rem */
     line-height: 1.2 !important;
     word-wrap: break-word !important;
     text-align: center !important;
@@ -1060,7 +1106,8 @@ button:hover,
     white-space: nowrap !important;
     color: #ffffff !important;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
-    font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace !important;
+    font-family:
+      'VT323', 'Press Start 2P', 'Courier New', monospace !important; /* Simplified and more stable font stack */
     font-weight: 700 !important;
     text-transform: uppercase !important;
     letter-spacing: 2px !important;
@@ -1076,9 +1123,14 @@ button:hover,
     padding: 0.5rem 1rem !important;
     color: #ffffff !important;
     text-transform: uppercase !important;
-    background: linear-gradient(135deg, #ff69b4 0%, #ff1493 50%, #ff69b4 100%) !important;
+    background: linear-gradient(
+      135deg,
+      #ff69b4 0%,
+      #ff1493 50%,
+      #ff69b4 100%
+    ) !important;
     border: 3px solid #ff1493 !important;
-    box-shadow: 
+    box-shadow:
       0 8px 20px rgba(255, 20, 147, 0.4),
       0 4px 8px rgba(255, 20, 147, 0.2),
       inset 0 2px 4px rgba(255, 255, 255, 0.3),
@@ -1112,8 +1164,6 @@ button:hover,
   }
 }
 
-
-
 @media (min-width: 1024px) {
   .header-auth-mobile {
     display: none !important;
@@ -1130,11 +1180,16 @@ button:hover,
 .sidebar .sidebar-nav a.nav-link,
 .sidebar .sidebar-nav a:visited,
 .sidebar .sidebar-nav a:link {
-  background: linear-gradient(135deg, #ff69b4 0%, #ff1493 50%, #ff69b4 100%) !important;
+  background: linear-gradient(
+    135deg,
+    #ff69b4 0%,
+    #ff1493 50%,
+    #ff69b4 100%
+  ) !important;
   border: 3px solid #ff1493 !important;
   border-radius: 20px !important;
   color: #ffffff !important;
-  box-shadow: 
+  box-shadow:
     0 8px 20px rgba(255, 20, 147, 0.4),
     0 4px 8px rgba(255, 20, 147, 0.2),
     inset 0 2px 4px rgba(255, 255, 255, 0.3),
@@ -1175,10 +1230,6 @@ button:hover,
     padding-right: 16px;
     overflow: visible;
   }
-
-
-
-
 
   /* Safety: prevent clipping on iOS home indicator phones */
   .hero,
