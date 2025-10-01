@@ -101,18 +101,24 @@ export async function searchAmazonProducts(
 
     // Transform the results to our format
     const items = response['SearchResult']['Items']
-    const products = items.map(item => ({
-      id: item['ASIN'],
-      title: item['ItemInfo']?.['Title']?.['DisplayValue'] || 'No title',
-      price:
-        item['Offers']?.['Listings']?.[0]?.['Price']?.['DisplayAmount'] ||
-        'Price not available',
-      image:
-        item['Images']?.['Primary']?.['Medium']?.['URL'] ||
-        '/placeholder-image.jpg',
-      url: item['DetailPageURL'] || '#',
-      features: item['ItemInfo']?.['Features'] || [],
-    }))
+    const products = items
+      .filter(item => item['ASIN']) // Filter out items without ASIN
+      .map(item => ({
+        id: item['ASIN'] as string,
+        title: item['ItemInfo']?.['Title']?.['DisplayValue'] || 'No title',
+        price:
+          item['Offers']?.['Listings']?.[0]?.['Price']?.['DisplayAmount'] ||
+          'Price not available',
+        image:
+          item['Images']?.['Primary']?.['Medium']?.['URL'] ||
+          '/placeholder-image.jpg',
+        url: item['DetailPageURL'] || '#',
+        features: {
+          DisplayValues: item['ItemInfo']?.['Features']?.DisplayValues || [],
+          Label: item['ItemInfo']?.['Features']?.Label || 'Features',
+          Locale: item['ItemInfo']?.['Features']?.Locale || 'en_US',
+        },
+      }))
 
     console.log(`Successfully processed ${products.length} products`)
     return {
