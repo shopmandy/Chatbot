@@ -34,6 +34,11 @@ const config: Config = {
         'mandy-card': '0 20px 60px rgba(255, 105, 180, 0.25), 0 8px 32px rgba(0,0,0,0.1)',
         'mandy-button': '0 8px 24px rgba(255, 105, 180, 0.2)',
         'mandy-text': '0 4px 16px rgba(255, 105, 180, 0.3)',
+        // Bubble button shadows
+        'bubble-rim': '0 0 0 1px rgba(255, 255, 255, 0.6), 0 0 0 2px rgba(255, 255, 255, 0.2)',
+        'bubble-glow': '0 4px 12px rgba(255, 154, 209, 0.3), 0 8px 24px rgba(212, 183, 255, 0.2)',
+        'bubble-inner': 'inset 0 1px 0 rgba(255, 255, 255, 0.8), inset 0 -1px 0 rgba(255, 255, 255, 0.2)',
+        'bubble-focus': '0 0 0 4px #ffffff, 0 0 0 6px #FF6FB4',
       },
     },
   },

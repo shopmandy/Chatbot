@@ -1,0 +1,153 @@
+/* Bubble Button Component - Reusable Holographic Button */
+
+.bubbleButton {
+  /* Core button properties */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center;
+  color: #ffffff;
+  white-space: nowrap;
+  user-select: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Responsive sizing */
+  height: 64px;
+  padding: 0 32px;
+  font-size: 16px;
+  line-height: 1;
+  
+  /* Pill shape */
+  border-radius: 9999px;
+  
+  /* Background gradient */
+  background: 
+    radial-gradient(120% 120% at 70% 0%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 40%, transparent 70%),
+    linear-gradient(135deg, #FF9AD1 0%, #F078C5 50%, #D4B7FF 100%);
+  
+  /* Outer rim glow */
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.6),
+    0 0 0 2px rgba(255, 255, 255, 0.2),
+    0 4px 12px rgba(255, 154, 209, 0.3),
+    0 8px 24px rgba(212, 183, 255, 0.2),
+    /* Inner glow for inflated look */
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.2);
+  
+  /* Specular highlight */
+  position: relative;
+  overflow: hidden;
+}
+
+.bubbleButton::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  width: 24px;
+  height: 16px;
+  background: radial-gradient(ellipse 24px 16px at center, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Hover state */
+.bubbleButton:hover:not(:disabled) {
+  transform: scale(1.02);
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.7),
+    0 0 0 2px rgba(255, 255, 255, 0.3),
+    0 6px 16px rgba(255, 154, 209, 0.4),
+    0 12px 32px rgba(212, 183, 255, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Active state */
+.bubbleButton:active:not(:disabled) {
+  transform: scale(0.99);
+}
+
+/* Focus state - accessible focus ring */
+.bubbleButton:focus-visible {
+  outline: none;
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.6),
+    0 0 0 2px rgba(255, 255, 255, 0.2),
+    0 0 0 4px #ffffff,
+    0 0 0 6px #FF6FB4,
+    0 4px 12px rgba(255, 154, 209, 0.3),
+    0 8px 24px rgba(212, 183, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Disabled state */
+.bubbleButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.3),
+    0 2px 8px rgba(255, 154, 209, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .bubbleButton {
+    height: 56px;
+    padding: 0 24px;
+    font-size: 14px;
+  }
+  
+  .bubbleButton::before {
+    top: 6px;
+    right: 10px;
+    width: 20px;
+    height: 12px;
+  }
+}
+
+/* Motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .bubbleButton {
+    transition: none;
+  }
+  
+  .bubbleButton:hover:not(:disabled) {
+    transform: none;
+  }
+  
+  .bubbleButton:active:not(:disabled) {
+    transform: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .bubbleButton {
+    border: 2px solid #ffffff;
+    box-shadow: 
+      0 0 0 1px #000000,
+      0 4px 12px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  }
+  
+  .bubbleButton:focus-visible {
+    box-shadow: 
+      0 0 0 1px #000000,
+      0 0 0 4px #ffffff,
+      0 0 0 6px #000000,
+      0 4px 12px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  }
+}

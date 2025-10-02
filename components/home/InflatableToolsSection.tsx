@@ -200,22 +200,18 @@ export function InflatableToolsSection() {
       >
         <div
           style={{
-            fontSize: isMobile
-              ? '50px'
-              : windowWidth < 1200
-                ? '3.5rem'
-                : windowWidth < 1600
-                  ? '4rem'
-                  : '4.375rem',
-            fontWeight: '700',
+            fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
+            fontWeight: '900',
             color: '#0a164d',
-            fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
-            letterSpacing: isMobile ? '1px' : '2px',
-            lineHeight: isMobile ? '1.1' : '1.2',
+            fontFamily: "'Druk', 'Druk Wide Web Bold', 'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+            letterSpacing: '2px',
+            lineHeight: '1.2',
             margin: 0,
             textAlign: 'center',
             wordWrap: 'break-word',
             maxWidth: '100%',
+            textShadow: 
+              '0 2px 8px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.2), 0 0 20px rgba(255, 255, 255, 0.1)',
           }}
         >
           <div style={{ marginBottom: '0.5rem' }}>HERE, YOU CAN</div>

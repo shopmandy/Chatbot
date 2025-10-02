@@ -186,15 +186,14 @@ export function CTASection() {
             }}
           >
             <h1
-              className="text-[50px] md:text-[3.2rem]"
+              className="text-[30px] md:text-[2rem]"
               style={{
                 color: '#0a164d',
                 marginBottom: '1rem',
                 fontWeight: '700',
                 letterSpacing: '2px',
                 lineHeight: '1.2',
-                fontFamily:
-                  "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+                fontFamily: "'Attila Sans Classic', 'Arial', 'Helvetica', sans-serif",
                 textAlign: 'center',
                 textShadow: '1px 1px 0px rgba(10, 22, 77, 0.5)',
               }}
@@ -203,13 +202,13 @@ export function CTASection() {
             </h1>
 
             <p
-              className="text-base md:text-xl"
+              className="text-sm md:text-base"
               style={{
                 color: '#0a164d',
                 marginBottom: '1rem',
                 fontWeight: '600',
                 lineHeight: '1.5',
-                fontFamily: "'Roboto Mono', 'Courier New', monospace",
+                fontFamily: "'Attila Sans Classic', 'Arial', 'Helvetica', sans-serif",
                 textAlign: 'center',
                 opacity: 0.9,
               }}
@@ -254,7 +253,7 @@ export function CTASection() {
                       width: '100%',
                       padding: '16px 20px',
                       fontSize: '1rem',
-                      fontFamily: 'Roboto Mono, monospace',
+                      fontFamily: "'Attila Sans Classic', 'Arial', 'Helvetica', sans-serif",
                       fontWeight: '600',
                       border: '3px solid #f91b8f',
                       borderRadius: '12px',
@@ -279,8 +278,8 @@ export function CTASection() {
                   >
                     <span>
                       {subscriptionStatus.type === 'loading'
-                        ? 'Signing Up...'
-                        : 'Get 15% Off'}
+                        ? 'signing up...'
+                        : 'get 15% off'}
                     </span>
                   </button>
                 </div>
@@ -292,7 +291,7 @@ export function CTASection() {
                   fontSize: '0.9rem',
                   color: '#0a164d',
                   opacity: 0.8,
-                  fontFamily: 'Roboto Mono, monospace',
+                  fontFamily: "'Attila Sans Classic', 'Arial', 'Helvetica', sans-serif",
                   fontWeight: '500',
                   textAlign: 'center',
                   marginTop: '0.5rem',

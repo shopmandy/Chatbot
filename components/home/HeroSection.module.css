@@ -1,55 +1,166 @@
-/* Hero Button Styles */
-.heroButton {
-  background: linear-gradient(
-    135deg,
-    #ff69b4 0%,
-    #ff1493 50%,
-    #ff69b4 100%
-  ) !important;
-  border: 3px solid #ff1493 !important;
-  border-radius: 20px !important;
-  color: #ffffff !important;
-  font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace !important;
-  text-transform: uppercase !important;
-  letter-spacing: 2px !important;
-  box-shadow:
-    0 8px 20px rgba(255, 20, 147, 0.4),
-    0 4px 8px rgba(255, 20, 147, 0.2),
-    inset 0 2px 4px rgba(255, 255, 255, 0.3),
-    inset 0 -2px 4px rgba(255, 20, 147, 0.3);
-  transform: perspective(1000px) rotateX(5deg) !important;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2)) !important;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
-  image-rendering: auto !important;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  cursor: pointer;
+/* Header Styles */
+.headerContainer {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(90deg, 
+    #B894E6 0%, 
+    #C894E6 25%, 
+    #D894E6 50%, 
+    #E694D6 75%, 
+    #E694C6 100%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  padding: 8px 12px;
+  font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+  box-shadow: inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080;
+  min-height: 40px;
+  width: 100%;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.headerRight {
+  display: flex;
+  gap: 4px;
+}
+
+.windowButton {
+  width: 16px;
+  height: 16px;
+  background: #ffffff;
+  border: 1px solid #808080;
+  border-radius: 2px;
+  font-size: 10px;
+  color: #0a164d;
+  cursor: pointer;
+  box-shadow: none;
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  white-space: normal;
-  overflow: visible;
-  position: relative;
-  z-index: 20;
+  flex-shrink: 0;
 }
 
-.heroButton:hover {
-  transform: perspective(1000px) rotateX(0deg) translateY(-6px) !important;
-  box-shadow:
-    0 16px 32px rgba(255, 20, 147, 0.6),
-    0 8px 16px rgba(255, 20, 147, 0.4),
-    inset 0 2px 4px rgba(255, 255, 255, 0.5),
-    inset 0 -2px 4px rgba(255, 20, 147, 0.5) !important;
-  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3)) brightness(1.1) !important;
+.starIcon {
+  width: 16px;
+  height: 16px;
+  color: #ffffff;
+  stroke-width: 2;
+  flex-shrink: 0;
 }
 
-.heroButton:active {
-  transform: perspective(1000px) rotateX(2deg) translateY(-1px) scale(0.98) !important;
-  box-shadow:
-    0 4px 8px rgba(255, 20, 147, 0.5),
-    0 2px 4px rgba(255, 20, 147, 0.3),
-    inset 0 1px 2px rgba(255, 255, 255, 0.4),
-    inset 0 -1px 2px rgba(255, 20, 147, 0.4) !important;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2)) brightness(0.95) !important;
+.headerText {
+  white-space: nowrap;
+}
+
+/* Mobile styles - Force mobile layout */
+@media screen and (max-width: 768px) {
+  .headerContainer {
+    padding: 6px 8px !important;
+    font-size: 11px !important;
+    min-height: 36px !important;
+    flex-wrap: nowrap !important;
+  }
+  
+  .headerLeft {
+    gap: 4px !important;
+    font-size: 10px !important;
+    min-width: 0 !important;
+    flex-shrink: 1 !important;
+  }
+  
+  .headerRight {
+    gap: 2px !important;
+    flex-shrink: 0 !important;
+  }
+  
+  .windowButton {
+    width: 14px !important;
+    height: 14px !important;
+    font-size: 8px !important;
+    min-width: 14px !important;
+  }
+  
+  .starIcon {
+    width: 14px !important;
+    height: 14px !important;
+    flex-shrink: 0 !important;
+  }
+  
+  .headerText {
+    font-size: 10px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+}
+
+/* Very small mobile screens */
+@media screen and (max-width: 480px) {
+  .headerContainer {
+    padding: 4px 6px !important;
+    font-size: 10px !important;
+    min-height: 32px !important;
+  }
+  
+  .headerLeft {
+    gap: 3px !important;
+    font-size: 9px !important;
+  }
+  
+  .headerText {
+    font-size: 9px !important;
+  }
+  
+  .windowButton {
+    width: 12px !important;
+    height: 12px !important;
+    font-size: 7px !important;
+    min-width: 12px !important;
+  }
+  
+  .starIcon {
+    width: 12px !important;
+    height: 12px !important;
+  }
+}
+
+/* Mobile title fixes removed - using inline styles instead */
+
+/* Desktop styles */
+@media (min-width: 1200px) {
+  .headerContainer {
+    padding: 12px 16px;
+    font-size: 16px;
+    min-height: 50px;
+  }
+  
+  .headerLeft {
+    gap: 8px;
+    font-size: 14px;
+  }
+  
+  .windowButton {
+    width: 18px;
+    height: 18px;
+    font-size: 12px;
+  }
+  
+  .starIcon {
+    width: 18px;
+    height: 18px;
+  }
 }

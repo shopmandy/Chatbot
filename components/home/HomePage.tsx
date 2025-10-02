@@ -2,7 +2,7 @@ import { CTASection } from './CTASection'
 import { HeroSection } from './HeroSection'
 import { InflatableToolsSection } from './InflatableToolsSection'
 import { InstagramSection } from './InstagramSection'
-import { RoomTransformationSection } from './RoomTransformationSection'
+import { RoomMakeoverHero } from './RoomMakeoverHero'
 import { Step2ChatbotSection } from './Step2ChatbotSection'
 import { Step3ToolkitSection } from './Step3ToolkitSection'
 
@@ -30,7 +30,12 @@ export function HomePage() {
         <InflatableToolsSection />
       </div>
       <div style={{ width: '100%', marginTop: '3rem' }}>
-        <RoomTransformationSection />
+        <RoomMakeoverHero 
+          onGetStarted={() => {
+            window.location.href = '/room'
+          }}
+          showSubheadline={false}
+        />
       </div>
       <div style={{ width: '100%', marginTop: '3rem' }}>
         <Step2ChatbotSection />

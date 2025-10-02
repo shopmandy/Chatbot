@@ -6,6 +6,7 @@ import ReactMarkdown from 'react-markdown'
 import styles from './chatbot.module.css'
 import CustomizePanel from '../components/chatbot/CustomizePanel'
 import ChatDropdown from '../components/chatbot/chatDropdown'
+import { BubbleHamburger } from '../components/BubbleHamburger'
 
 type Message = {
   role: 'system' | 'user' | 'assistant'
@@ -257,202 +258,26 @@ export default function Chatbot() {
           <div className={styles.headerContent}>
             {/* Hero Section */}
             <div className={styles.heroContent}>
-              <h2 className={styles.heroTitle}>
+              <h2 className={styles.heroTitle} style={{ 
+                fontFamily: 'Druk Wide Web Bold, Druk, Arial Black, sans-serif !important',
+                fontSize: '40px !important'
+              }}>
                 Ask Handy Mandy
               </h2>
-              <p className={`${styles.heroSubtitle} text-xs md:text-lg`} style={{ fontFamily: 'Roboto Mono, monospace' }}>
+              <p className={`${styles.heroSubtitle} text-sm md:text-lg`} style={{ 
+                fontFamily: 'Attila Sans Classic, Playfair Display, Georgia, Times New Roman, serif',
+                color: '#0a164d',
+                textAlign: 'center',
+                lineHeight: '1.4',
+                margin: '0',
+                fontWeight: '400'
+              }}>
                 Our Mandy toolbot can tackle any DIY, decor, or life Qs you throw its way.
               </p>
             </div>
           </div>
         </header>
 
-        {/* Feature Bubbles */}
-        <div
-          style={{
-            justifyContent: 'center',
-            gap: 'clamp(1rem, 3vw, 1.5rem)',
-            marginBottom: '1.6rem',
-            flexWrap: 'wrap',
-            padding: '0 clamp(1rem, 5vw, 2rem)',
-          }}
-              className="hidden md:flex"
-        >
-          <div
-            className="w-full max-w-[320px] md:max-w-[340px]"
-            style={{
-              padding: 'clamp(0.8rem, 2vw, 1rem) clamp(1rem, 3vw, 1.5rem)',
-              background: '#fff',
-              borderRadius: '16px',
-              border: '3px solid #f91b8f',
-              boxShadow: '0 4px 16px rgba(255, 105, 180, 0.15)',
-              transition: 'all 0.3s ease',
-              cursor: 'pointer',
-              transform: 'translateY(0) scale(1)',
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.transform = 'translateY(-8px) scale(1.05)'
-              e.currentTarget.style.boxShadow =
-                '0 12px 32px rgba(255, 105, 180, 0.3)'
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.transform = 'translateY(0) scale(1)'
-              e.currentTarget.style.boxShadow =
-                '0 4px 16px rgba(255, 105, 180, 0.15)'
-            }}
-          >
-            <div
-              style={{
-                fontFamily: 'VT323, Tiny5, Courier, monospace',
-                fontSize: '1.6rem',
-                color: '#0a164d',
-                fontWeight: 700,
-                marginBottom: '0.5rem',
-                lineHeight: '1.4',
-                textAlign: 'center',
-              }}
-            >
-              💬 INSTANT ANSWERS
-            </div>
-            <div
-              className="text-xs md:text-xs"
-              style={{
-                fontFamily: 'Roboto Mono, monospace',
-                color: '#0a164d',
-                lineHeight: '1.4',
-                textAlign: 'center',
-              }}
-            >
-              Get step-by-step DIY help anytime
-            </div>
-          </div>
-
-          <div
-            className="w-full max-w-[320px] md:max-w-[340px]"
-            style={{
-              padding: 'clamp(0.8rem, 2vw, 1rem) clamp(1rem, 3vw, 1.5rem)',
-              background: '#fff',
-              borderRadius: '16px',
-              border: '3px solid #f91b8f',
-              boxShadow: '0 4px 16px rgba(255, 105, 180, 0.15)',
-              transition: 'all 0.3s ease',
-              cursor: 'pointer',
-              transform: 'translateY(0) scale(1)',
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.transform = 'translateY(-8px) scale(1.05)'
-              e.currentTarget.style.boxShadow =
-                '0 12px 32px rgba(255, 105, 180, 0.3)'
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.transform = 'translateY(0) scale(1)'
-              e.currentTarget.style.boxShadow =
-                '0 4px 16px rgba(255, 105, 180, 0.15)'
-            }}
-          >
-            <div
-              style={{
-                fontFamily: 'VT323, Tiny5, Courier, monospace',
-                fontSize: '1.6rem',
-                color: '#0a164d',
-                fontWeight: 700,
-                marginBottom: '0.5rem',
-                lineHeight: '1.4',
-                textAlign: 'center',
-              }}
-            >
-              🛠 TOOL TIPS
-            </div>
-            <div
-              className="text-xs md:text-xs"
-              style={{
-                fontFamily: 'Roboto Mono, monospace',
-                color: '#0a164d',
-                lineHeight: '1.4',
-                textAlign: 'center',
-              }}
-            >
-              Learn how to use every tool with ease
-            </div>
-          </div>
-
-          <div
-            className="w-full max-w-[320px] md:max-w-[340px]"
-            style={{
-              padding: 'clamp(0.8rem, 2vw, 1rem) clamp(1rem, 3vw, 1.5rem)',
-              background: '#fff',
-              borderRadius: '16px',
-              border: '3px solid #f91b8f',
-              boxShadow: '0 4px 16px rgba(255, 105, 180, 0.15)',
-              transition: 'all 0.3s ease',
-              cursor: 'pointer',
-              transform: 'translateY(0) scale(1)',
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.transform = 'translateY(-8px) scale(1.05)'
-              e.currentTarget.style.boxShadow =
-                '0 12px 32px rgba(255, 105, 180, 0.3)'
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.transform = 'translateY(0) scale(1)'
-              e.currentTarget.style.boxShadow =
-                '0 4px 16px rgba(255, 105, 180, 0.15)'
-            }}
-          >
-            <div
-              style={{
-                fontFamily: 'VT323, Tiny5, Courier, monospace',
-                fontSize: '1.6rem',
-                color: '#0a164d',
-                fontWeight: 700,
-                marginBottom: '0.5rem',
-                lineHeight: '1.4',
-                textAlign: 'center',
-              }}
-            >
-              ✨ PROJECT CONFIDENCE
-            </div>
-            <div
-              className="text-xs md:text-xs"
-              style={{
-                fontFamily: 'Roboto Mono, monospace',
-                color: '#0a164d',
-                lineHeight: '1.4',
-                textAlign: 'center',
-              }}
-            >
-              Follow clear guidance to do it right
-            </div>
-          </div>
-        </div>
-
-        {/* Ask Mandy Anything Button (hidden on mobile) */}
-        <div className="hidden md:flex justify-center mt-8 mb-8">
-          <button
-            className="relative px-16 py-6 w-full max-w-[280px] md:max-w-md bg-gradient-to-br from-pink-400 via-pink-500 to-pink-600 text-white font-mono text-lg font-extrabold border-2 border-pink-400 rounded-3xl cursor-pointer tracking-wide transition-all duration-150 scale-105 overflow-hidden shadow-lg hover:scale-108 hover:shadow-xl"
-            onClick={() => {
-              // Scroll to the chat interface
-              const chatInterface = document.querySelector(`.${styles.chatInterface}`)
-              if (chatInterface) {
-                chatInterface.scrollIntoView({
-                  behavior: 'smooth',
-                  block: 'start',
-                })
-              }
-            }}
-          >
-            {/* Highlight overlay for 3D effect */}
-            <div className="absolute top-2 left-2 right-2 h-4 rounded-t-2xl bg-gradient-to-r from-white/20 to-white/10 pointer-events-none" />
-
-            {/* Inner glow for active state */}
-            <div className="absolute inset-3 rounded-2xl bg-white/5 animate-pulse pointer-events-none" />
-
-            {/* Button text */}
-            <span className="relative z-10 text-shadow-sm">
-              Ask Mandy Anything
-            </span>
-          </button>
-        </div>
 
         {/* Main Content */}
         <main className={styles.mainContent}>
@@ -461,12 +286,11 @@ export default function Chatbot() {
             <div className={styles.windowTitleBar}>
               {/* Mobile Menu Button - Left Side */}
               <div className={styles.mobileMenuButton}>
-                <button
-                  className={styles.mobileMenuToggle}
+                <BubbleHamburger
                   onClick={() => setShowMobileMenu(!showMobileMenu)}
-                >
-                  ☰
-                </button>
+                  isOpen={showMobileMenu}
+                  aria-label="Toggle mobile menu"
+                />
                 {showMobileMenu && (
                   <div className={styles.mobileMenuDropdown}>
                     <button
