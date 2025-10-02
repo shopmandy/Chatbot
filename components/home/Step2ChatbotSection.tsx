@@ -63,6 +63,7 @@ export function Step2ChatbotSection() {
           textAlign: 'center',
         }}
       >
+
         {/* Main Heading */}
         <h2
           className="main-heading"
@@ -88,28 +89,50 @@ export function Step2ChatbotSection() {
           style={{
             position: 'relative',
             margin: '0',
-            borderRadius: '12px',
-            overflow: 'hidden',
-            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.1)',
+            borderRadius: '24px',
+            overflow: 'visible',
             background: '#ffffff',
-            border: '3px solid #ff69b4',
+            border: '2px solid transparent',
+            backgroundClip: 'padding-box',
+            boxShadow: `
+              0 0 0 1px rgba(255, 255, 255, 0.2),
+              0 0 20px rgba(255, 154, 209, 0.4),
+              0 0 40px rgba(240, 120, 197, 0.3),
+              0 0 60px rgba(212, 183, 255, 0.2),
+              0 8px 32px rgba(255, 105, 180, 0.2),
+              0 4px 16px rgba(212, 183, 255, 0.15),
+              inset 0 1px 0 rgba(255, 255, 255, 0.3),
+              inset 0 -1px 0 rgba(0, 0, 0, 0.05)
+            `,
           }}
         >
+          {/* Holographic border ring */}
+          <div
+            style={{
+              position: 'absolute',
+              inset: '-2px',
+              borderRadius: '26px',
+              background: 'linear-gradient(135deg, #ff9ad1, #f078c5, #d4b7ff)',
+              zIndex: -1,
+              filter: 'blur(0.5px)',
+            }}
+          />
           {/* Title Bar */}
           <div
             style={{
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              background: '#e4f6ff',
-              borderBottom: '2px solid #808080',
+              background: 'linear-gradient(90deg, #B894E6 0%, #C894E6 25%, #D894E6 50%, #E694D6 75%, #E694C6 100%)',
+              borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
               padding: '8px 12px',
-              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
-              fontSize: '14px',
+              fontFamily: "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif",
+              fontSize: '17px',
               fontWeight: '700',
-              color: '#000000',
-              boxShadow:
-                'inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080',
+              color: '#ffffff',
+              boxShadow: 'inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080',
+              borderTopLeftRadius: '24px',
+              borderTopRightRadius: '24px',
             }}
           >
             <div
@@ -119,7 +142,7 @@ export function Step2ChatbotSection() {
                 gap: '12px',
                 fontWeight: '700',
                 letterSpacing: '2px',
-                color: '#0a164d',
+                color: '#ffffff',
                 textShadow: '0 0 12px rgba(255, 182, 230, 0.6)',
               }}
             >
@@ -133,59 +156,75 @@ export function Step2ChatbotSection() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   color: 'white',
-                  fontSize: '12px',
+                  fontSize: '15px',
                   fontWeight: 'bold',
+                  fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
                 }}
               >
                 M
               </span>
-              MANDY AI
+              <span style={{ 
+                fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+                fontSize: '15px',
+                fontWeight: '700',
+                letterSpacing: '0.5px',
+                color: '#ffffff',
+                whiteSpace: 'nowrap'
+              }}>
+                MANDY AI
+              </span>
             </div>
             <div style={{ display: 'flex', gap: '4px' }}>
               <div
                 style={{
-                  width: '12px',
-                  height: '12px',
-                  background: '#c0c0c0',
+                  width: '16px',
+                  height: '16px',
+                  background: '#ffffff',
                   border: '1px solid #808080',
                   borderRadius: '2px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: '8px',
-                  color: '#000000',
+                  fontSize: '10px',
+                  color: '#0a164d',
+                  cursor: 'pointer',
+                  boxShadow: 'none',
                 }}
               >
                 −
               </div>
               <div
                 style={{
-                  width: '12px',
-                  height: '12px',
-                  background: '#c0c0c0',
+                  width: '16px',
+                  height: '16px',
+                  background: '#ffffff',
                   border: '1px solid #808080',
                   borderRadius: '2px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: '8px',
-                  color: '#000000',
+                  fontSize: '10px',
+                  color: '#0a164d',
+                  cursor: 'pointer',
+                  boxShadow: 'none',
                 }}
               >
                 □
               </div>
               <div
                 style={{
-                  width: '12px',
-                  height: '12px',
-                  background: '#c0c0c0',
+                  width: '16px',
+                  height: '16px',
+                  background: '#ffffff',
                   border: '1px solid #808080',
                   borderRadius: '2px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: '8px',
-                  color: '#000000',
+                  fontSize: '10px',
+                  color: '#0a164d',
+                  cursor: 'pointer',
+                  boxShadow: 'none',
                 }}
               >
                 ×
@@ -199,6 +238,8 @@ export function Step2ChatbotSection() {
               padding: '1.5rem',
               background: '#ffffff',
               minHeight: '200px',
+              borderBottomLeftRadius: '24px',
+              borderBottomRightRadius: '24px',
             }}
           >
             {/* Mandy's First Message */}
@@ -241,7 +282,7 @@ export function Step2ChatbotSection() {
                   padding: '12px 16px',
                   borderRadius: '20px 20px 20px 8px',
                   border: '2px solid #ff69b4',
-                  fontSize: '14px',
+                  fontSize: '17px',
                   fontFamily: "'VT323', monospace",
                   maxWidth: '70%',
                   boxShadow: '0 4px 16px rgba(255, 105, 180, 0.15)',
@@ -273,7 +314,7 @@ export function Step2ChatbotSection() {
                   padding: '12px 16px',
                   borderRadius: '20px 20px 8px 20px',
                   border: '2px solid #ff69b4',
-                  fontSize: '14px',
+                  fontSize: '17px',
                   fontFamily: "'VT323', monospace",
                   fontWeight: '700',
                   maxWidth: '70%',
@@ -353,7 +394,7 @@ export function Step2ChatbotSection() {
                   padding: '12px 16px',
                   borderRadius: '20px 20px 20px 8px',
                   border: '2px solid #ff69b4',
-                  fontSize: '14px',
+                  fontSize: '17px',
                   fontFamily: "'VT323', monospace",
                   maxWidth: '70%',
                   boxShadow: '0 4px 16px rgba(255, 105, 180, 0.15)',

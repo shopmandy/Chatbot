@@ -218,14 +218,13 @@ export default function App({ Component, pageProps }: AppProps) {
                 />
               </div>
               <h2
+                className="brand-heading"
                 style={{
                   fontSize: '1.8rem',
                   fontWeight: 600,
                   color: '#f91b8f',
                   lineHeight: 1,
                   margin: 0,
-                  fontFamily:
-                    "'Press Start 2P', VT323, Poppins, Montserrat, Arial, sans-serif",
                   letterSpacing: '0.18em',
                 }}
               >
@@ -288,13 +287,13 @@ export default function App({ Component, pageProps }: AppProps) {
                               className="text-xs leading-tight text-center text-white drop-shadow-sm"
                               style={{
                                 fontFamily:
-                                  "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
+                                  "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif",
                                 fontWeight: 700,
-                                color: '#ffffff !important',
+                                color: '#ffffff',
                                 textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
                                 textTransform: 'uppercase',
-                                letterSpacing: '1px',
-                                fontSize: '1.4rem !important',
+                                letterSpacing: '2px',
+                                fontSize: '1.4rem',
                               }}
                             >
                               ROOM MAKEOVER
@@ -320,13 +319,13 @@ export default function App({ Component, pageProps }: AppProps) {
                               className="text-xs leading-tight text-center text-white drop-shadow-sm"
                               style={{
                                 fontFamily:
-                                  "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
+                                  "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif",
                                 fontWeight: 700,
-                                color: '#ffffff !important',
+                                color: '#ffffff',
                                 textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
                                 textTransform: 'uppercase',
-                                letterSpacing: '1px',
-                                fontSize: '1.4rem !important',
+                                letterSpacing: '2px',
+                                fontSize: '1.4rem',
                               }}
                             >
                               DIY CHATBOT
@@ -691,7 +690,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 className="text-xs font-semibold"
                 style={{ color: 'hsl(320, 100%, 50%)', opacity: 0.5 }}
               >
-                EST. 2024
+                EST. 2025
               </p>
             </div>
           </aside>

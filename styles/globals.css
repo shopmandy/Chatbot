@@ -91,6 +91,16 @@ body::after {
   filter: blur(3px);
 }
 
+/* Home page solid background: remove global cloud overlays to prevent pixelation */
+body.home-solid {
+  background: #f4ebff !important;
+}
+body.home-solid::before,
+body.home-solid::after {
+  background: none !important;
+  content: none !important;
+}
+
 /* Force Attila Sans Classic font for hero subtext */
 .hero-subtext {
   font-family: 'Attila Sans Classic', 'Arial', 'Helvetica', sans-serif !important;
@@ -1367,5 +1377,35 @@ html, body, #__next, .main-content, .app-layout {
   .hero,
   .hero-window {
     padding-bottom: max(24px, env(safe-area-inset-bottom));
+  }
+}
+
+/* Global NAV typography - force Druk across all navs */
+.nav-link,
+.sidebar-nav a,
+.sidebar-nav a span,
+.header-nav,
+.header-nav a,
+nav a,
+nav button,
+.mobile-menu a,
+.mobile-menu button {
+  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
+  font-weight: 700 !important;
+}
+
+/* Pixelated brand heading for MANDY'S */
+.brand-heading {
+  font-family: 'Press Start 2P', 'Tiny5', 'VT323', 'Courier New', Courier, monospace !important;
+  text-transform: uppercase;
+}
+
+@keyframes shimmer {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
   }
 }
