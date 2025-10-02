@@ -11,6 +11,8 @@ const themes = {
     '--chat-bg': 'white',
     '--chat-text': '#333333',
     '--chat-text-user': 'white',
+    // Header matches home page (pastel purple gradient)
+    '--header-bg': 'linear-gradient(90deg, #B894E6 0%, #C894E6 25%, #D894E6 50%, #E694D6 75%, #E694C6 100%)',
   },
 
   mandy: {
@@ -23,6 +25,8 @@ const themes = {
     '--chat-bg': 'linear-gradient(135deg, #ffe0f2 0%, #e0eaff 100%)',
     '--chat-text': '#f91b8f',
     '--chat-text-user': 'white',
+    // Pink header to match Mandy theme buttons
+    '--header-bg': 'linear-gradient(90deg, #ff69b4 0%, #ff1493 50%, #ff69b4 100%)',
   },
 
   sparkle: {
@@ -31,10 +35,13 @@ const themes = {
     '--button-border': '#f91b8f',
     '--chat-border': '#f91b8f',
     '--user-bubble': '#ffdcae',
-    '--chat-bubble': '#ffe0f2',
+    /* Mandy (assistant) bubbles should be yellow in sparkle theme */
+    '--chat-bubble': '#fff3a3',
     '--chat-bg': 'linear-gradient(135deg, #ffdcae 0%, #ffe0f2 100%)',
-    '--chat-text': '#f91b8f',
+    '--chat-text': '#0a164d',
     '--chat-text-user': '#f91b8f',
+    /* Header strip uses same yellow ombre */
+    '--header-bg': 'linear-gradient(90deg, #ffdcae 0%, #fff3a3 50%, #ffe0f2 100%)',
   },
 
   dream: {
@@ -47,6 +54,8 @@ const themes = {
     '--chat-bg': 'linear-gradient(135deg, #cabcf7 0%, #e0eaff 100%)',
     '--chat-text': '#f91b8f',
     '--chat-text-user': '#f91b8f',
+    // Purple header for Dream
+    '--header-bg': 'linear-gradient(90deg, #a98eea 0%, #c1b0ff 50%, #e0eaff 100%)',
   },
 
   sky: {
@@ -59,6 +68,8 @@ const themes = {
     '--chat-bg': 'linear-gradient(135deg, #8ebbeb 0%, #b6eaff 100%)',
     '--chat-text': '#1d37f5',
     '--chat-text-user': 'white',
+    // Blue header for Sky theme
+    '--header-bg': 'linear-gradient(90deg, #8ebeeb 0%, #a7dcff 50%, #b6eaff 100%)',
   },
 }
 

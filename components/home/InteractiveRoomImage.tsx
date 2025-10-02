@@ -345,7 +345,7 @@ export function InteractiveRoomImage() {
                       textDecoration: 'none',
                       fontSize: '12px',
                       fontWeight: '700',
-                      fontFamily: "'VT323', monospace",
+                      fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
                       marginTop: '6px',
                       pointerEvents: 'auto',
                       width: '100%',

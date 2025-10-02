@@ -80,31 +80,40 @@ export function CTASection() {
           className="mb-16 md:mb-24 max-w-[95%] md:max-w-[836px]"
           style={{
             background: '#ffffff',
-            border: '3px solid #ff69b4',
-            borderRadius: '12px',
-            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.1)',
-            overflow: 'hidden',
+            border: '2px solid transparent',
+            borderRadius: '20px',
+            boxShadow: `
+              0 0 0 1px rgba(255, 255, 255, 0.4),
+              0 0 20px rgba(255, 154, 209, 0.5),
+              0 0 40px rgba(240, 120, 197, 0.4),
+              0 0 60px rgba(212, 183, 255, 0.3),
+              0 8px 32px rgba(255, 105, 180, 0.25),
+              0 4px 16px rgba(212, 183, 255, 0.2),
+              inset 0 1px 0 rgba(255, 255, 255, 0.5),
+              inset 0 -1px 0 rgba(0, 0, 0, 0.08)
+            `,
+            overflow: 'visible',
             position: 'relative',
             margin: '0 auto',
             display: 'flex',
             flexDirection: 'column',
           }}
         >
-          {/* Enhanced Window Title Bar */}
+          {/* Holographic header strip like hero box */}
           <div
             style={{
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              background: '#e4f6ff',
-              borderBottom: '2px solid #808080',
+              background:
+                'linear-gradient(90deg, #B894E6 0%, #C894E6 25%, #D894E6 50%, #E694D6 75%, #E694C6 100%)',
+              borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
               padding: '8px 12px',
-              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
-              fontSize: '14px',
-              fontWeight: '700',
-              color: '#000000',
+              color: '#ffffff',
               boxShadow:
                 'inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080',
+              borderTopLeftRadius: '20px',
+              borderTopRightRadius: '20px',
             }}
           >
             <div
@@ -115,24 +124,36 @@ export function CTASection() {
                 fontWeight: '700',
                 letterSpacing: '2px',
                 textShadow: '0 0 12px rgba(255, 182, 230, 0.6)',
+                fontFamily: "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif",
               }}
             >
               <Star style={{ width: 20, height: 20, color: '#0a164d' }} />
-              YOUR DIY BFF
+              <span style={{ 
+                fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+                fontSize: '12px',
+                fontWeight: '700',
+                letterSpacing: '0.5px',
+                color: '#ffffff',
+                whiteSpace: 'nowrap'
+              }}>
+                WELCOME TO THE FAM
+              </span>
             </div>
             <div style={{ display: 'flex', gap: '4px' }}>
               <button
                 style={{
                   width: '16px',
-                  height: '14px',
-                  background: '#c0c0c0',
+                  height: '16px',
+                  background: '#ffffff',
                   border: '1px solid #808080',
                   borderRadius: '2px',
                   fontSize: '10px',
-                  color: '#000000',
+                  color: '#0a164d',
                   cursor: 'pointer',
-                  boxShadow:
-                    'inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080',
+                  boxShadow: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
                 title="Minimize"
                 onClick={handleMinimize}
@@ -142,15 +163,17 @@ export function CTASection() {
               <button
                 style={{
                   width: '16px',
-                  height: '14px',
-                  background: '#c0c0c0',
+                  height: '16px',
+                  background: '#ffffff',
                   border: '1px solid #808080',
                   borderRadius: '2px',
                   fontSize: '10px',
-                  color: '#000000',
+                  color: '#0a164d',
                   cursor: 'pointer',
-                  boxShadow:
-                    'inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080',
+                  boxShadow: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
                 title="Maximize"
               >
@@ -159,15 +182,17 @@ export function CTASection() {
               <button
                 style={{
                   width: '16px',
-                  height: '14px',
-                  background: '#c0c0c0',
+                  height: '16px',
+                  background: '#ffffff',
                   border: '1px solid #808080',
                   borderRadius: '2px',
                   fontSize: '10px',
-                  color: '#000000',
+                  color: '#0a164d',
                   cursor: 'pointer',
-                  boxShadow:
-                    'inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080',
+                  boxShadow: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
                 title="Close"
               >
@@ -286,19 +311,6 @@ export function CTASection() {
               </form>
 
               {/* Trust line */}
-              <p
-                style={{
-                  fontSize: '0.9rem',
-                  color: '#0a164d',
-                  opacity: 0.8,
-                  fontFamily: "'Attila Sans Classic', 'Arial', 'Helvetica', sans-serif",
-                  fontWeight: '500',
-                  textAlign: 'center',
-                  marginTop: '0.5rem',
-                }}
-              >
-                No spam, just tools, tips, and early drops.
-              </p>
 
               {/* Status Messages */}
               {subscriptionStatus.message && (

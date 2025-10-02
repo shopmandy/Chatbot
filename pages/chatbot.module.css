@@ -37,12 +37,12 @@
 }
 
 .headerContent {
+  width: 1000px;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 0;
+  display: block;
+  text-align: center;
 }
 
 .logo {
@@ -76,6 +76,7 @@
   text-align: center;
   width: 100%;
   background: transparent;
+  margin: 0;
 }
 
 /* Main Content */
@@ -89,34 +90,35 @@
 }
 
 /* Chat Container */
+
+/* Chat container – match hero box (white card with holographic rim glow) */
 .chatContainer {
-  background: var(--chat-bg, transparent);
-  border: 3px solid var(--chat-border, #ff69b4);
+  background: #ffffff !important;
+  border: 2px solid transparent;
   border-radius: 24px;
-  box-shadow:
-    0 8px 32px rgba(255, 105, 180, 0.2),
-    0 0 0 1px rgba(255, 105, 180, 0.1);
-  backdrop-filter: none;
-  overflow: hidden;
+  background-clip: padding-box;
   position: relative;
+  overflow: visible;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.4),
+    0 0 20px rgba(255, 154, 209, 0.5),
+    0 0 40px rgba(240, 120, 197, 0.4),
+    0 0 60px rgba(212, 183, 255, 0.3),
+    0 8px 32px rgba(255, 105, 180, 0.25),
+    0 4px 16px rgba(212, 183, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.08);
 }
 
+/* Holographic border ring */
 .chatContainer::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(
-    90deg,
-    var(--button-border, #ff69b4),
-    #b6b6ff,
-    #00ffe7,
-    var(--button-border, #ff69b4)
-  );
-  background-size: 200% 100%;
-  animation: shimmer 3s ease-in-out infinite;
+  inset: -2px;
+  border-radius: 26px;
+  background: linear-gradient(135deg, #ff9ad1, #f078c5, #d4b7ff);
+  z-index: -1;
+  filter: blur(0.2px);
 }
 
 @keyframes shimmer {
@@ -130,20 +132,64 @@
 }
 
 /* Window Title Bar */
+/* Title bar – match hero header strip */
 .windowTitleBar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: transparent;
-  border-bottom: 2px solid var(--button-border, #ff69b4);
-  padding: 12px 20px;
-  font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace;
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--button-text, #0a164d);
-  box-shadow: none;
-  border-radius: 16px 16px 0 0;
-  backdrop-filter: none;
+  background: var(--header-bg, linear-gradient(90deg,
+    #B894E6 0%,
+    #C894E6 25%,
+    #D894E6 50%,
+    #E694D6 75%,
+    #E694C6 100%)) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 12px;
+  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+  box-shadow: inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+/* Top Capsule Styles */
+.windowTopCapsule {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  right: 0;
+  background: linear-gradient(90deg, #B894E6 0%, #C894E6 25%, #D894E6 50%, #E694D6 75%, #E694C6 100%);
+  border-radius: 20px 20px 0 0;
+  padding: 8px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080;
+  z-index: 1;
+}
+
+.windowTopCapsuleLabel {
+  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.windowTopCapsuleDots {
+  display: flex;
+  gap: 4px;
+}
+
+.windowTopCapsuleDots span {
+  width: 6px;
+  height: 6px;
+  background: #ffffff;
+  border-radius: 50%;
+  opacity: 0.8;
 }
 
 .windowTitle {
@@ -153,6 +199,7 @@
   font-weight: 700;
   letter-spacing: 1px;
   text-shadow: 0 0 8px rgba(255, 182, 230, 0.5);
+  font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace;
 }
 
 .windowIcon {
@@ -219,36 +266,38 @@
 }
 
 .heroTitle {
-  font-size: clamp(2rem, 6vw, 4rem) !important;
-  font-weight: 900 !important;
-  color: #0a164d !important;
-  margin: 0 0 1.5rem 0 !important;
-  letter-spacing: 3px !important;
-  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
-  text-transform: uppercase !important;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2) !important;
-  line-height: 1.1 !important;
-  text-align: center !important;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 900;
+  color: #0a164d;
+  margin: 0 0 1rem 0;
+  letter-spacing: 2px;
+  font-family: 'Druk', 'Druk Wide Web Bold', 'VT323', 'Tiny5', 'Courier New', Courier, monospace;
+  text-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.3),
+    0 4px 16px rgba(0, 0, 0, 0.2),
+    0 0 20px rgba(255, 255, 255, 0.1);
+  text-align: center;
 }
 
 @media (max-width: 768px) {
   .heroTitle {
-    font-size: 3rem;
+    font-size: clamp(1.5rem, 6vw, 2rem);
     margin-bottom: 0.4rem;
     margin-top: 1rem;
   }
 }
 
 .heroSubtitle {
-  font-size: 1.2rem;
+  font-size: 24px;
   color: #0a164d;
   margin: 0 0 0.8rem 0;
   line-height: 1.4;
   max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
-  font-weight: 500;
+  font-weight: 700; /* bold */
   letter-spacing: 0.5px;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
   font-family: 'Attila Sans Classic', 'Arial', 'Helvetica', sans-serif;
 }
 
@@ -934,6 +983,7 @@
   font-weight: bold;
   color: var(--button-text, #0a164d);
   text-shadow: 0 0 4px #fff;
+  font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace !important;
 }
 
 .bubble h1 {
@@ -948,6 +998,11 @@
   font-size: 1em;
 }
 
+/* Ensure question bubble header uses the retro VT323 font (not global Druk headers) */
+.questionBubble h2 {
+  font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace !important;
+}
+
 /* Ensure consistent font family */
 .pageContainer,
 .bubble,
@@ -957,7 +1012,6 @@
 .uploadButton,
 .customizeButton,
 .logoText,
-.heroTitle,
 .quickStartTitle {
   font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace !important;
 }
@@ -1025,21 +1079,6 @@
   color: #999;
 }
 
-.windowTitleBar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: var(--chat-bg, linear-gradient(135deg, #ff69b4 0%, #ff1493 100%));
-  border-bottom: 2px solid var(--button-border, #ff69b4);
-  padding: 12px 20px;
-  font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace;
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--button-text, #0a164d);
-  box-shadow: 0 2px 12px rgba(255, 105, 180, 0.15);
-  border-radius: 16px 16px 0 0;
-  backdrop-filter: blur(10px);
-}
 
 .windowTitle {
   display: flex;

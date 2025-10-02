@@ -258,12 +258,9 @@ export default function Chatbot() {
           <div className={styles.headerContent}>
             {/* Hero Section */}
             <div className={styles.heroContent}>
-              <h2 className={styles.heroTitle} style={{ 
-                fontFamily: 'Druk Wide Web Bold, Druk, Arial Black, sans-serif !important',
-                fontSize: '40px !important'
-              }}>
+              <h1 className={styles.heroTitle}>
                 Ask Handy Mandy
-              </h2>
+              </h1>
               <p className={`${styles.heroSubtitle} text-sm md:text-lg`} style={{ 
                 fontFamily: 'Attila Sans Classic, Playfair Display, Georgia, Times New Roman, serif',
                 color: '#0a164d',

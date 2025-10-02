@@ -5,13 +5,25 @@ import { InstagramSection } from './InstagramSection'
 import { RoomMakeoverHero } from './RoomMakeoverHero'
 import { Step2ChatbotSection } from './Step2ChatbotSection'
 import { Step3ToolkitSection } from './Step3ToolkitSection'
+import { useEffect } from 'react'
 
 export function HomePage() {
+  // Force solid background on home page; disable global overlays that can look pixelated
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.body.classList.add('home-solid')
+    }
+    return () => {
+      if (typeof document !== 'undefined') {
+        document.body.classList.remove('home-solid')
+      }
+    }
+  }, [])
+
   return (
     <div
       style={{
-        background:
-          'linear-gradient(180deg, #e4f6ff 0%, #e6d7ff 15%, #f0e6ff 30%, #ffe0f2 45%, #f0e6ff 60%, #e6d7ff 75%, #e4f6ff 90%, #e4f6ff 100%)',
+        background: '#f4ebff',
         fontFamily: "'Helvetica Neue', Arial, sans-serif",
         color: '#ff0080',
         minHeight: '100vh',

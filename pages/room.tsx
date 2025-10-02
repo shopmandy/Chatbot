@@ -319,7 +319,7 @@ function DinoGameModal({
           textAlign: 'center',
           marginBottom: '1rem',
           padding: '0 1rem',
-          fontFamily: 'Roboto Mono, monospace',
+          fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
           fontWeight: 600,
         }}
       >
@@ -408,7 +408,7 @@ function DinoGameModal({
               alignItems: 'center',
               justifyContent: 'center',
               flexDirection: 'column',
-              fontFamily: 'Roboto Mono, monospace',
+              fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
               zIndex: 2,
             }}
           >
@@ -436,7 +436,7 @@ function DinoGameModal({
           color: '#888',
           marginTop: 4,
           padding: '0 1rem',
-          fontFamily: 'Roboto Mono, monospace',
+          fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
         }}
       >
         Press Space to Jump
@@ -447,7 +447,7 @@ function DinoGameModal({
           justifyContent: 'center',
           display: 'flex',
           padding: '0 1rem',
-          fontFamily: 'Roboto Mono, monospace',
+          fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
         }}
       >
         <div
@@ -935,15 +935,22 @@ export default function Room() {
             style={{
               flex: 1,
               minWidth: '340px',
-              background: '#fff',
-              border: '2.5px solid #f91b8f',
-              borderRadius: '18px',
-              boxShadow:
-                '0 4px 24px #ffb6e6, 0 8px 32px rgba(182,182,255,0.13)',
-              outlineOffset: '-6px',
+              background: '#ffffff',
+              border: '2px solid transparent',
+              borderRadius: '24px',
+              backgroundClip: 'padding-box',
               position: 'relative',
-              transition: 'box-shadow 0.2s',
-              overflow: 'hidden',
+              overflow: 'visible',
+              boxShadow: `
+                0 0 0 1px rgba(255, 255, 255, 0.4),
+                0 0 20px rgba(255, 154, 209, 0.5),
+                0 0 40px rgba(240, 120, 197, 0.4),
+                0 0 60px rgba(212, 183, 255, 0.3),
+                0 8px 32px rgba(255, 105, 180, 0.25),
+                0 4px 16px rgba(212, 183, 255, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.08)
+              `,
               marginBottom: '2rem',
               display: 'flex',
               flexDirection: 'column',
@@ -951,21 +958,33 @@ export default function Room() {
               height: '100%',
             }}
           >
+            {/* Holographic border ring */}
+            <div
+              style={{
+                position: 'absolute',
+                inset: '-2px',
+                borderRadius: '26px',
+                background: 'linear-gradient(135deg, #ff9ad1, #f078c5, #d4b7ff)',
+                zIndex: -1,
+                filter: 'blur(0.5px)',
+              }}
+            />
             {/* Window Title Bar */}
             <div
               style={{
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                background:
-                  'linear-gradient(135deg, rgba(255, 200, 230, 0.95) 0%, #ffdcae 100%)',
-                borderBottom: '2px solid #f91b8f',
-                padding: '8px 20px',
-                fontFamily: 'Roboto Mono, monospace',
-                fontSize: '16px',
-                fontWeight: 600,
-                color: '#0a164d',
-                boxShadow: '0 2px 12px rgba(255, 105, 180, 0.15)',
+                background: 'linear-gradient(90deg, #B894E6 0%, #C894E6 25%, #D894E6 50%, #E694D6 75%, #E694C6 100%)',
+                borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
+                padding: '8px 12px',
+                fontFamily: "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif",
+                fontSize: '14px',
+                fontWeight: '700',
+                color: '#ffffff',
+                boxShadow: 'inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080',
+                borderTopLeftRadius: '24px',
+                borderTopRightRadius: '24px',
               }}
             >
               <div
@@ -973,9 +992,9 @@ export default function Room() {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '10px',
-                  fontWeight: 700,
-                  letterSpacing: '1px',
-                  textShadow: '0 0 8px rgba(255, 182, 230, 0.5)',
+                  fontWeight: '700',
+                  letterSpacing: '0.5px',
+                  color: '#ffffff',
                 }}
               >
                 DESIGN YOUR DREAM ROOM
@@ -998,7 +1017,7 @@ export default function Room() {
             >
               <div
                 style={{
-                  fontFamily: 'Roboto Mono, monospace',
+                  fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
                   fontSize: '1.2rem',
                   color: '#0a164d',
                   fontWeight: 600,
@@ -1030,7 +1049,7 @@ export default function Room() {
                 />
                 <span
                   style={{
-                    fontFamily: 'Roboto Mono, monospace',
+                    fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
                     fontSize: '1rem',
                     color: '#0a164d',
                     fontWeight: 600,
@@ -1050,7 +1069,7 @@ export default function Room() {
                     borderRadius: '8px',
                     background: chooseFileHover ? '#ff69b4' : '#f91b8f',
                     color: '#fff',
-                    fontFamily: 'Roboto Mono, monospace',
+                    fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
                     fontSize: '0.95rem',
                     fontWeight: 600,
                     border: 'none',
@@ -1073,7 +1092,7 @@ export default function Room() {
               </div>
               <div
                 style={{
-                  fontFamily: 'Roboto Mono, monospace',
+                  fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
                   fontSize: '1.2rem',
                   color: '#0a164d',
                   fontWeight: 600,
@@ -1095,7 +1114,7 @@ export default function Room() {
                   border: '2px solid #ffd6f7',
                   background: '#fff6fa',
                   color: '#0a164d',
-                  fontFamily: 'Roboto Mono, monospace',
+                  fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
                   fontSize: '1rem',
                   fontWeight: 500,
                   outline: 'none',
@@ -1118,7 +1137,7 @@ export default function Room() {
               {showCustomInput && (
                 <div
                   style={{
-                    fontFamily: 'Roboto Mono, monospace',
+                    fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
                     fontSize: '1.2rem',
                     color: '#0a164d',
                     fontWeight: 600,
@@ -1146,7 +1165,7 @@ export default function Room() {
                       : '2px solid #ffd6f7',
                     background: '#fff6fa',
                     color: '#0a164d',
-                    fontFamily: 'Roboto Mono, monospace',
+                    fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
                     fontSize: '1rem',
                     fontWeight: 500,
                     outline: 'none',
@@ -1159,7 +1178,7 @@ export default function Room() {
               )}
               <div
                 style={{
-                  fontFamily: 'Roboto Mono, monospace',
+                  fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
                   fontSize: '1.2rem',
                   color: '#0a164d',
                   fontWeight: 600,
@@ -1186,7 +1205,7 @@ export default function Room() {
                     : '2px solid #ffd6f7',
                   background: '#fff6fa',
                   color: '#0a164d',
-                  fontFamily: 'Roboto Mono, monospace',
+                  fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
                   fontSize: '1rem',
                   fontWeight: 500,
                   outline: 'none',
@@ -1198,7 +1217,7 @@ export default function Room() {
               />
               <div
                 style={{
-                  fontFamily: 'Roboto Mono, monospace',
+                  fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
                   fontSize: '1rem',
                   color: '#0a164d',
                   fontWeight: 600,
@@ -1237,7 +1256,7 @@ export default function Room() {
                       borderRadius: '999px',
                       background: hoveredBubble === i ? '#ffd6f7' : '#ffe0f2',
                       color: '#0a164d',
-                      fontFamily: 'Roboto Mono, monospace',
+                      fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
                       fontSize: '0.75rem',
                       fontWeight: 600,
                       border:
@@ -1256,26 +1275,10 @@ export default function Room() {
               </div>
               <div className="flex justify-center mt-8 mb-8">
                 <button
-                  className="relative px-12 py-6 w-full max-w-md bg-gradient-to-br from-pink-400 via-pink-500 to-pink-600 text-white font-mono text-xl font-extrabold border-2 border-pink-400 rounded-3xl cursor-pointer tracking-wide transition-all duration-150 scale-105 overflow-hidden shadow-lg hover:scale-108 hover:shadow-xl"
-                  onMouseEnter={e =>
-                    (e.currentTarget.style.transform = 'scale(1.07)')
-                  }
-                  onMouseLeave={e =>
-                    (e.currentTarget.style.transform = 'scale(1)')
-                  }
+                  className="inflatable-button"
                   onClick={handleGenerate}
                   disabled={loading}
                 >
-                  {/* Highlight overlay for 3D effect */}
-                  <div className="absolute top-2 left-2 right-2 h-4 rounded-t-2xl bg-gradient-to-r from-white/20 to-white/10 pointer-events-none" />
-
-                  {/* Inner glow for active state */}
-                  <div className="absolute inset-3 rounded-2xl bg-white/5 animate-pulse pointer-events-none" />
-
-                  {/* Sparkles icon */}
-                  <span className="absolute top-2.5 left-4 z-10 flex items-center">
-                    <Sparkles className="w-7 h-7 text-white drop-shadow-sm" />
-                  </span>
                   {loading ? (
                     <span>
                       Transforming
@@ -1338,15 +1341,22 @@ export default function Room() {
             style={{
               flex: 1,
               minWidth: '340px',
-              background: '#fff',
-              border: '2.5px solid #f91b8f',
-              borderRadius: '18px',
-              boxShadow:
-                '0 4px 24px #ffb6e6, 0 8px 32px rgba(182,182,255,0.13)',
-              outlineOffset: '-6px',
+              background: '#ffffff',
+              border: '2px solid transparent',
+              borderRadius: '24px',
+              backgroundClip: 'padding-box',
               position: 'relative',
-              transition: 'box-shadow 0.2s',
-              overflow: 'hidden',
+              overflow: 'visible',
+              boxShadow: `
+                0 0 0 1px rgba(255, 255, 255, 0.4),
+                0 0 20px rgba(255, 154, 209, 0.5),
+                0 0 40px rgba(240, 120, 197, 0.4),
+                0 0 60px rgba(212, 183, 255, 0.3),
+                0 8px 32px rgba(255, 105, 180, 0.25),
+                0 4px 16px rgba(212, 183, 255, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.08)
+              `,
               marginBottom: '2rem',
               display: 'flex',
               flexDirection: 'column',
@@ -1354,21 +1364,33 @@ export default function Room() {
               height: '100%',
             }}
           >
+            {/* Holographic border ring */}
+            <div
+              style={{
+                position: 'absolute',
+                inset: '-2px',
+                borderRadius: '26px',
+                background: 'linear-gradient(135deg, #ff9ad1, #f078c5, #d4b7ff)',
+                zIndex: -1,
+                filter: 'blur(0.5px)',
+              }}
+            />
             {/* Window Title Bar */}
             <div
               style={{
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                background:
-                  'linear-gradient(135deg, rgba(255, 200, 230, 0.95) 0%, #ffdcae 100%)',
-                borderBottom: '2px solid #f91b8f',
-                padding: '8px 20px',
-                fontFamily: 'Roboto Mono, monospace',
-                fontSize: '16px',
-                fontWeight: 600,
-                color: '#0a164d',
-                boxShadow: '0 2px 12px rgba(255, 105, 180, 0.15)',
+                background: 'linear-gradient(90deg, #B894E6 0%, #C894E6 25%, #D894E6 50%, #E694D6 75%, #E694C6 100%)',
+                borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
+                padding: '8px 12px',
+                fontFamily: "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif",
+                fontSize: '14px',
+                fontWeight: '700',
+                color: '#ffffff',
+                boxShadow: 'inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080',
+                borderTopLeftRadius: '24px',
+                borderTopRightRadius: '24px',
               }}
             >
               <div
@@ -1376,9 +1398,9 @@ export default function Room() {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '10px',
-                  fontWeight: 700,
-                  letterSpacing: '1px',
-                  textShadow: '0 0 8px rgba(255, 182, 230, 0.5)',
+                  fontWeight: '700',
+                  letterSpacing: '0.5px',
+                  color: '#ffffff',
                 }}
               >
                 YOUR GENERATED ROOM
@@ -1454,7 +1476,7 @@ export default function Room() {
                       </div>
                       <div
                         style={{
-                          fontFamily: 'Roboto Mono, monospace',
+                          fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
                           fontSize: '1.1rem',
                           color: '#0a164d',
                           fontWeight: 700,
@@ -1524,7 +1546,7 @@ export default function Room() {
                       </div>
                       <div
                         style={{
-                          fontFamily: 'Roboto Mono, monospace',
+                          fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
                           fontSize: '1.3rem',
                           color: '#0a164d',
                           fontWeight: 700,
@@ -1537,7 +1559,7 @@ export default function Room() {
                       </div>
                       <div
                         style={{
-                          fontFamily: 'Roboto Mono, monospace',
+                          fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
                           fontSize: '0.8rem',
                           color: '#0a164d',
                           fontWeight: 600,
@@ -1623,7 +1645,7 @@ export default function Room() {
                       style={{
                         fontSize: '0.9rem',
                         color: '#0a164d',
-                        fontFamily: 'Roboto Mono, monospace',
+                        fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
                         fontWeight: 600,
                       }}
                     >
@@ -1645,7 +1667,7 @@ export default function Room() {
                   </div>
                   <div
                     style={{
-                      fontFamily: 'Roboto Mono, monospace',
+                      fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
                       fontSize: '0.9rem',
                       color: '#0a164d',
                       fontWeight: 600,
@@ -1659,24 +1681,12 @@ export default function Room() {
               )}
               <div className="flex justify-center mt-8 mb-8">
                 <button
-                  className="relative px-12 py-6 w-full max-w-md bg-gradient-to-br from-pink-400 via-pink-500 to-pink-600 text-white font-mono text-xl font-extrabold border-2 border-pink-400 rounded-3xl cursor-pointer tracking-wide transition-all duration-150 scale-105 overflow-hidden shadow-lg hover:scale-108 hover:shadow-xl"
-                  onMouseEnter={e =>
-                    (e.currentTarget.style.transform = 'scale(1.07)')
-                  }
-                  onMouseLeave={e =>
-                    (e.currentTarget.style.transform = 'scale(1)')
-                  }
+                  className="inflatable-button"
                   onClick={handleDownload}
                   disabled={!afterImage}
+                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                 >
-                  {/* Highlight overlay for 3D effect */}
-                  <div className="absolute top-2 left-2 right-2 h-4 rounded-t-2xl bg-gradient-to-r from-white/20 to-white/10 pointer-events-none" />
-                  {/* Inner glow for active state */}
-                  <div className="absolute inset-3 rounded-2xl bg-white/5 animate-pulse pointer-events-none" />
-                  {/* Download icon */}
-                  <span className="absolute top-2.5 left-4 z-10 flex items-center">
-                    <Download className="w-7 h-7 text-white drop-shadow-sm" />
-                  </span>
+                  <Download className="w-5 h-5 mr-2" />
                   Download
                 </button>
               </div>
@@ -1691,15 +1701,23 @@ export default function Room() {
                 }}
               >
                 <button
-                  className="relative px-16 py-6 w-full max-w-md bg-gradient-to-br from-[#ffdcae] via-[#ffd4a0] to-[#ffc890] text-[#f91b8f] font-mono text-xl font-extrabold rounded-3xl cursor-pointer tracking-wide transition-all duration-150 scale-105 overflow-hidden shadow-lg hover:scale-108 hover:shadow-xl"
-                  onMouseEnter={e =>
-                    (e.currentTarget.style.transform = 'scale(1.07)')
-                  }
-                  onMouseLeave={e =>
-                    (e.currentTarget.style.transform = 'scale(1)')
-                  }
+                  className="inflatable-button"
+                  style={{
+                    background: 'linear-gradient(135deg, #ffdcae 0%, #ffd4a0 50%, #ffc890 100%) !important',
+                    border: '3px solid #ffc890 !important',
+                    color: '#f91b8f !important',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
                   onClick={async () => {
                     console.log('🔍 Manual product search triggered')
+
+                    // Scroll to the shop section
+                    const shopSection = document.getElementById('shop-the-look')
+                    if (shopSection) {
+                      shopSection.scrollIntoView({ behavior: 'smooth' })
+                    }
 
                     try {
                       // Get user's price range from onboarding if available
@@ -1811,21 +1829,8 @@ export default function Room() {
                     }
                   }}
                 >
-                  {/* Highlight overlay for 3D effect */}
-                  <div className="absolute top-2 left-2 right-2 h-4 rounded-t-2xl bg-gradient-to-r from-white/20 to-white/10 pointer-events-none" />
-
-                  {/* Inner glow for active state */}
-                  <div className="absolute inset-3 rounded-2xl bg-white/5 animate-pulse pointer-events-none" />
-
-                  {/* Search icon */}
-                  <span className="absolute top-2.5 left-4 z-10 flex items-center">
-                    <Search className="w-7 h-7 text-[#f91b8f] drop-shadow-sm" />
-                  </span>
-
-                  {/* Button text */}
-                  <span className="relative z-10 text-shadow-sm">
-                    Find Products
-                  </span>
+                  <Search className="w-5 h-5 mr-2" />
+                  Find Products
                 </button>
               </div>
             </div>
@@ -1835,6 +1840,7 @@ export default function Room() {
         {/* SHOP THE LOOK Section - Separate Section */}
         {amazonProducts.length > 0 && (
           <section
+            id="shop-the-look"
             style={{
               margin: '4rem 0',
               padding: '0 clamp(1rem, 5vw, 2rem)',
@@ -1845,7 +1851,7 @@ export default function Room() {
                 <h2
                   className="text-3xl md:text-4xl font-black mb-4"
                   style={{
-                    fontFamily: 'Roboto Mono, monospace',
+                    fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
                     color: '#0a164d',
                     textShadow: '0 0 8px #fff0f8',
                   }}
@@ -1855,7 +1861,7 @@ export default function Room() {
                 <p
                   className="text-lg font-semibold"
                   style={{
-                    fontFamily: 'Roboto Mono, monospace',
+                    fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
                     color: '#0a164d',
                     opacity: 0.8,
                   }}
@@ -1914,7 +1920,7 @@ export default function Room() {
                     <div style={{ marginBottom: '0.5rem' }}>
                       <h3
                         style={{
-                          fontFamily: 'Roboto Mono, monospace',
+                          fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
                           fontSize: '1rem',
                           color: '#0a164d',
                           fontWeight: 700,
@@ -1942,7 +1948,7 @@ export default function Room() {
                           >
                             <span
                               style={{
-                                fontFamily: 'Roboto Mono, monospace',
+                                fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
                                 fontSize: '1.25rem',
                                 color: '#0a164d',
                                 fontWeight: 800,
@@ -1964,6 +1970,7 @@ export default function Room() {
                                 alignItems: 'center',
                                 gap: '0.25rem',
                                 transition: 'background 0.2s',
+                                fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
                               }}
                               onMouseEnter={e => {
                                 e.currentTarget.style.background = '#e1186d'
@@ -2000,7 +2007,7 @@ export default function Room() {
                           fontWeight: 600,
                           cursor: 'pointer',
                           transition: 'color 0.2s',
-                          fontFamily: 'Roboto Mono, monospace',
+                          fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
                         }}
                         onMouseEnter={e => {
                           e.currentTarget.style.color = '#0a164d'
@@ -2027,25 +2034,32 @@ export default function Room() {
         {/* Glow Up Gallery Wall */}
         <section className={styles.gallerySection}>
           <div
-            className="text-4xl md:text-6xl"
             style={{
+              fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
+              fontWeight: 900,
               color: '#0a164d',
-              margin: '0 0 0.4rem 0',
-              fontWeight: 800,
+              margin: '0 0 1rem 0',
               letterSpacing: '2px',
-              fontFamily: "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif",
+              fontFamily: "'Druk', 'Druk Wide Web Bold', 'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+              textShadow: 
+                '0 2px 8px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.2), 0 0 20px rgba(255, 255, 255, 0.1)',
+              textAlign: 'center',
             }}
           >
             GLOW UP GALLERY
           </div>
           <div
-            className="text-sm md:text-lg"
             style={{
-              fontFamily: 'Roboto Mono, monospace',
+              fontSize: 'clamp(1.1rem, 2.5vw, 1.5rem)',
               color: '#0a164d',
+              margin: '0',
               fontWeight: 600,
-              opacity: 0.9,
-              letterSpacing: '0.5px',
+              maxWidth: '600px',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              lineHeight: '1.4',
+              fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
+              textAlign: 'center',
             }}
           >
             See the magic happen - real room transformations
@@ -2059,9 +2073,9 @@ export default function Room() {
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
-                  minWidth: 280,
-                  maxWidth: 340,
-                  padding: '2.2rem 2.2rem 3.2rem 2.2rem',
+                  minWidth: 400,
+                  maxWidth: 500,
+                  padding: '1rem',
                   position: 'relative',
                   border: '2.5px solid #f91b8f',
                   borderRadius: 18,
@@ -2071,7 +2085,7 @@ export default function Room() {
                 {/* Title */}
                 <div
                   style={{
-                    fontFamily: 'VT323',
+                    fontFamily: "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif",
                     fontSize: '1.5rem',
                     fontWeight: 700,
                     color: '#0a164d',
@@ -2084,112 +2098,140 @@ export default function Room() {
                 >
                   {g.roomType || 'Room'} Makeover
                 </div>
-                {/* Before label */}
+                {/* Before and After Images Side by Side */}
                 <div
                   style={{
-                    color: '#0a164d',
-                    fontSize: '0.7rem',
-                    fontWeight: 700,
-                    padding: '0.2rem 0.5rem',
-                    borderRadius: '16px',
-                    fontFamily: 'Roboto Mono, monospace',
-                    letterSpacing: '0.5px',
-                    alignSelf: 'flex-start',
-                    marginBottom: '0.2rem',
-                  }}
-                >
-                  BEFORE
-                </div>
-                {/* Before image */}
-                <Image
-                  src={g.before}
-                  alt="Before"
-                  width={300}
-                  height={200}
-                  style={{
-                    width: 200,
-                    height: 200,
-                    objectFit: 'cover',
-                    borderRadius: 16,
-                    border: '2.5px solid #ff69b4',
-                    marginBottom: 16,
-                    boxShadow: '0 2px 12px #ffd6f7',
-                    cursor: 'pointer',
-                  }}
-                  onClick={() =>
-                    setEnlargedImage({ src: g.before, alt: 'Before' })
-                  }
-                />
-                <div
-                  style={{
-                    color: '#0a164d',
-                    fontSize: '0.9rem',
-                    fontWeight: 700,
-                    padding: '0.1rem 0.5rem',
-                    fontFamily: 'Roboto Mono, monospace',
-                    letterSpacing: '0.5px',
-                    textShadow: '0 0 8px rgba(249, 27, 143, 0.6)',
-                  }}
-                >
-                  AI MAGIC
-                </div>
-                {/* Animated arrow */}
-                <div
-                  style={{
-                    width: '100%',
                     display: 'flex',
-                    justifyContent: 'center',
+                    flexDirection: 'row',
+                    gap: '0.5rem',
                     alignItems: 'center',
-                    margin: '0.1rem 0',
+                    justifyContent: 'center',
+                    width: '100%',
                   }}
                 >
-                  <span
+                  {/* Before Section */}
+                  <div
                     style={{
-                      display: 'inline-block',
-                      fontSize: '2.4rem',
-                      animation: 'arrowBounce 1s infinite',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      flex: 1,
                     }}
                   >
-                    ↓
-                  </span>
-                  <style>{`@keyframes arrowBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(12px); } }`}</style>
+                    <div
+                      style={{
+                        color: '#0a164d',
+                        fontSize: '0.7rem',
+                        fontWeight: 700,
+                        padding: '0.2rem 0.5rem',
+                        borderRadius: '16px',
+                        fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
+                        letterSpacing: '0.5px',
+                        marginBottom: '0.5rem',
+                      }}
+                    >
+                      BEFORE
+                    </div>
+              <Image
+                src={g.before}
+                alt="Before"
+                width={220}
+                height={220}
+                style={{
+                  width: 220,
+                  height: 220,
+                        objectFit: 'cover',
+                        borderRadius: 16,
+                        border: '2.5px solid #ff69b4',
+                        boxShadow: '0 2px 12px #ffd6f7',
+                        cursor: 'pointer',
+                      }}
+                      onClick={() =>
+                        setEnlargedImage({ src: g.before, alt: 'Before' })
+                      }
+                    />
+                  </div>
+
+                  {/* AI Magic Arrow */}
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      margin: '0 0.25rem',
+                    }}
+                  >
+                    <div
+                      style={{
+                        color: '#0a164d',
+                        fontSize: '0.8rem',
+                        fontWeight: 700,
+                        padding: '0.1rem 0.5rem',
+                        fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
+                        letterSpacing: '0.5px',
+                        textShadow: '0 0 8px rgba(249, 27, 143, 0.6)',
+                        marginBottom: '0.5rem',
+                      }}
+                    >
+                      AI MAGIC
+                    </div>
+                    <span
+                      style={{
+                        display: 'inline-block',
+                        fontSize: '2rem',
+                        animation: 'arrowBounce 1s infinite',
+                        transform: 'rotate(0deg)',
+                      }}
+                    >
+                      →
+                    </span>
+                    <style>{`@keyframes arrowBounce { 0%, 100% { transform: rotate(0deg) translateX(0); } 50% { transform: rotate(0deg) translateX(8px); } }`}</style>
+                  </div>
+
+                  {/* After Section */}
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      flex: 1,
+                    }}
+                  >
+                    <div
+                      style={{
+                        color: '#0a164d',
+                        fontSize: '0.7rem',
+                        fontWeight: 700,
+                        padding: '0.2rem 0.5rem',
+                        borderRadius: '16px',
+                        fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
+                        letterSpacing: '0.5px',
+                        marginBottom: '0.5rem',
+                      }}
+                    >
+                      AFTER
+                    </div>
+              <Image
+                src={g.after}
+                alt="After"
+                width={220}
+                height={220}
+                style={{
+                  width: 220,
+                  height: 220,
+                        objectFit: 'cover',
+                        borderRadius: 16,
+                        border: '2.5px solid #ff69b4',
+                        boxShadow: '0 2px 12px #ffd6f7',
+                        cursor: 'pointer',
+                      }}
+                      onClick={() =>
+                        setEnlargedImage({ src: g.after, alt: 'After' })
+                      }
+                    />
+                  </div>
                 </div>
-                {/* After label */}
-                <div
-                  style={{
-                    color: '#0a164d',
-                    fontSize: '0.7rem',
-                    fontWeight: 700,
-                    padding: '0.2rem 0.5rem',
-                    borderRadius: '16px',
-                    fontFamily: 'Roboto Mono, monospace',
-                    letterSpacing: '0.5px',
-                    alignSelf: 'flex-start',
-                    marginBottom: '0.2rem',
-                  }}
-                >
-                  AFTER
-                </div>
-                {/* After image */}
-                <Image
-                  src={g.after}
-                  alt="After"
-                  width={300}
-                  height={200}
-                  style={{
-                    width: 200,
-                    height: 200,
-                    objectFit: 'cover',
-                    borderRadius: 16,
-                    border: '2.5px solid #ff69b4',
-                    marginTop: 4,
-                    boxShadow: '0 2px 12px #ffd6f7',
-                    cursor: 'pointer',
-                  }}
-                  onClick={() =>
-                    setEnlargedImage({ src: g.after, alt: 'After' })
-                  }
-                />
               </div>
             ))}
           </div>
@@ -2210,7 +2252,7 @@ export default function Room() {
                     'linear-gradient(135deg,#ffc9ea 0%, #ffe0f2 100%)',
                   border: '2px solid #f91b8f',
                   color: '#0a164d',
-                  fontFamily: 'Roboto Mono, monospace',
+                  fontFamily: "'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif",
                   fontSize: '1rem',
                   fontWeight: 600,
                   cursor: 'pointer',
