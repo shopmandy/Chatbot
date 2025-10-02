@@ -15,8 +15,32 @@
   font-style: normal;
 }
 
+/* Druk Wide Bold */
+@font-face {
+  font-family: 'Druk';
+  src: url('/fonts/DrukWideBold.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 body {
-  background: #e4f6ff !important;
+  background: 
+    radial-gradient(ellipse 20vw 8vw at 20% 20%, rgba(255, 255, 255, 0.6) 0%, transparent 70%),
+    radial-gradient(ellipse 15vw 6vw at 80% 15%, rgba(255, 255, 255, 0.5) 0%, transparent 65%),
+    radial-gradient(ellipse 18vw 7vw at 10% 60%, rgba(255, 255, 255, 0.45) 0%, transparent 75%),
+    radial-gradient(ellipse 16vw 5vw at 70% 80%, rgba(255, 255, 255, 0.4) 0%, transparent 60%),
+    radial-gradient(ellipse 14vw 4.5vw at 50% 10%, rgba(255, 255, 255, 0.35) 0%, transparent 55%),
+    radial-gradient(ellipse 12vw 4vw at 90% 70%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse 10vw 3.5vw at 30% 90%, rgba(255, 255, 255, 0.3) 0%, transparent 45%),
+    radial-gradient(circle at 15% 25%, rgba(255, 154, 209, 0.08) 0%, transparent 70%),
+    radial-gradient(circle at 85% 15%, rgba(240, 120, 197, 0.06) 0%, transparent 65%),
+    radial-gradient(circle at 25% 75%, rgba(212, 183, 255, 0.07) 0%, transparent 75%),
+    radial-gradient(circle at 75% 85%, rgba(255, 111, 180, 0.05) 0%, transparent 60%),
+    radial-gradient(circle at 50% 10%, rgba(200, 150, 255, 0.04) 0%, transparent 55%),
+    radial-gradient(circle at 90% 60%, rgba(255, 200, 255, 0.06) 0%, transparent 65%),
+    radial-gradient(circle at 10% 50%, rgba(180, 120, 255, 0.05) 0%, transparent 60%),
+    linear-gradient(180deg, #f8f6ff 0%, #faf9ff 30%, #fcfbff 70%, #ffffff 100%) !important;
   color: #0a164d;
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
@@ -26,15 +50,71 @@ body {
   border: none;
   outline: none;
   overflow-x: hidden;
+  position: relative;
 }
 
-/* Force Roboto Mono font for hero subtext */
-.hero-subtext {
-  font-family: 'Roboto Mono', 'Courier New', monospace !important;
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(ellipse 300px 150px at 20% 15%, rgba(255, 255, 255, 0.4) 0%, transparent 60%),
+    radial-gradient(ellipse 250px 120px at 80% 25%, rgba(255, 255, 255, 0.35) 0%, transparent 65%),
+    radial-gradient(ellipse 200px 100px at 15% 40%, rgba(255, 255, 255, 0.3) 0%, transparent 70%),
+    radial-gradient(ellipse 180px 90px at 75% 35%, rgba(255, 255, 255, 0.25) 0%, transparent 75%),
+    radial-gradient(ellipse 150px 80px at 90% 15%, rgba(255, 255, 255, 0.2) 0%, transparent 80%),
+    radial-gradient(ellipse 220px 110px at 5% 60%, rgba(255, 255, 255, 0.15) 0%, transparent 85%),
+    radial-gradient(ellipse 160px 85px at 60% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 90%);
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(2px);
 }
+
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(ellipse 400px 200px at 25% 20%, rgba(255, 255, 255, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse 350px 180px at 85% 30%, rgba(255, 255, 255, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 300px 150px at 10% 70%, rgba(255, 255, 255, 0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 250px 125px at 70% 10%, rgba(255, 255, 255, 0.05) 0%, transparent 80%),
+    radial-gradient(ellipse 200px 100px at 40% 80%, rgba(255, 255, 255, 0.04) 0%, transparent 85%);
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(3px);
+}
+
+/* Force Attila Sans Classic font for hero subtext */
+.hero-subtext {
+  font-family: 'Attila Sans Classic', 'Arial', 'Helvetica', sans-serif !important;
+}
+
+/* Mobile font size handled with inline styles */
 
 html {
-  background: #e4f6ff !important;
+  background: 
+    radial-gradient(ellipse 20vw 8vw at 20% 20%, rgba(255, 255, 255, 0.6) 0%, transparent 70%),
+    radial-gradient(ellipse 15vw 6vw at 80% 15%, rgba(255, 255, 255, 0.5) 0%, transparent 65%),
+    radial-gradient(ellipse 18vw 7vw at 10% 60%, rgba(255, 255, 255, 0.45) 0%, transparent 75%),
+    radial-gradient(ellipse 16vw 5vw at 70% 80%, rgba(255, 255, 255, 0.4) 0%, transparent 60%),
+    radial-gradient(ellipse 14vw 4.5vw at 50% 10%, rgba(255, 255, 255, 0.35) 0%, transparent 55%),
+    radial-gradient(ellipse 12vw 4vw at 90% 70%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse 10vw 3.5vw at 30% 90%, rgba(255, 255, 255, 0.3) 0%, transparent 45%),
+    radial-gradient(circle at 15% 25%, rgba(255, 154, 209, 0.08) 0%, transparent 70%),
+    radial-gradient(circle at 85% 15%, rgba(240, 120, 197, 0.06) 0%, transparent 65%),
+    radial-gradient(circle at 25% 75%, rgba(212, 183, 255, 0.07) 0%, transparent 75%),
+    radial-gradient(circle at 75% 85%, rgba(255, 111, 180, 0.05) 0%, transparent 60%),
+    radial-gradient(circle at 50% 10%, rgba(200, 150, 255, 0.04) 0%, transparent 55%),
+    radial-gradient(circle at 90% 60%, rgba(255, 200, 255, 0.06) 0%, transparent 65%),
+    radial-gradient(circle at 10% 50%, rgba(180, 120, 255, 0.05) 0%, transparent 60%),
+    linear-gradient(180deg, #f8f6ff 0%, #faf9ff 30%, #fcfbff 70%, #ffffff 100%) !important;
   height: 100%;
   margin: 0;
   padding: 0;
@@ -50,7 +130,9 @@ html {
 #__next,
 div[class*='main-content'],
 div[class*='app-layout'] {
-  background: #e4f6ff !important;
+  background: transparent !important;
+  position: relative;
+  z-index: 1;
 }
 
 /* Only remove scrollbar styling that might cause blue lines */
@@ -76,7 +158,7 @@ html {
 
 /* Force background on main content but preserve hero box */
 .main-content > div:not(.hero-section-container) {
-  background: #e4f6ff !important;
+  background: transparent !important;
 }
 
 /* Target specific elements that might have white backgrounds */
@@ -85,24 +167,20 @@ html,
 #__next,
 .main-content,
 .app-layout {
-  background: #e4f6ff !important;
+  background: transparent !important;
 }
 
 /* Ensure the hero section container has the right background */
 .hero-section-container {
-  background: #e4f6ff !important;
+  background: transparent !important;
 }
 
 /* But preserve the hero box background and styling */
-.hero-box {
+/* Force white background for hero container */
+div[style*="background: #ffffff"] {
   background: #ffffff !important;
-  border: 4px solid #ff69b4 !important;
-  box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.1),
-    0 10px 20px rgba(0, 0, 0, 0.05),
-    0 4px 8px rgba(0, 0, 0, 0.03),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.05) !important;
+  background-color: #ffffff !important;
+  background-image: none !important;
 }
 
 .nav-link {
@@ -121,8 +199,8 @@ html,
   border-radius: 999px;
   text-decoration: none;
   font-size: 1rem;
-  font-family: 'VT323', 'Poppins', 'Montserrat', Arial, sans-serif;
-  font-weight: 300 !important;
+  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif;
+  font-weight: 700 !important;
   color: #181818;
   letter-spacing: 0.5px;
   position: relative;
@@ -241,6 +319,14 @@ html,
   transition: background-color 0.1s ease;
 }
 
+.mobile-hamburger-container {
+  display: none;
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 2100;
+}
+
 .app-layout {
   display: flex;
   min-height: 100vh;
@@ -288,7 +374,9 @@ html,
   width: calc(100% - 280px);
   padding: 0;
   min-height: 100vh;
-  background: #e4f6ff !important;
+  background: transparent !important;
+  position: relative;
+  z-index: 1;
   box-sizing: border-box;
   overflow-x: hidden;
 }
@@ -343,7 +431,7 @@ html,
   image-rendering: pixelated !important;
   transition: all 0.2s ease !important;
   font-family:
-    'VT323', 'Press Start 2P', 'Courier New', monospace !important; /* Simplified and more stable font stack */
+    'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
   font-weight: 700 !important;
   letter-spacing: 2px !important;
   display: flex !important;
@@ -375,7 +463,7 @@ html,
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2)) !important;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
   image-rendering: pixelated !important;
-  font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace !important;
+  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
   font-weight: 700 !important;
   letter-spacing: 2px !important;
   text-transform: uppercase !important;
@@ -385,7 +473,7 @@ html,
 .sidebar .sidebar-nav a span {
   color: #ffffff !important;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
-  font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace !important;
+  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
   font-weight: 700 !important;
   text-transform: uppercase !important;
   letter-spacing: 2px !important;
@@ -410,7 +498,7 @@ html,
 .sidebar .nav-link,
 .sidebar .nav-link.active,
 .sidebar .nav-link span {
-  font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace !important;
+  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
 }
 
 /* Override for sign-in button to match other nav buttons */
@@ -437,13 +525,13 @@ html,
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
   image-rendering: pixelated !important;
   transition: all 0.2s ease !important;
-  font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace !important;
+  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
   font-weight: 700 !important;
   letter-spacing: 2px !important;
 }
 
 .sidebar-auth .nav-link span {
-  font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace !important;
+  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
   color: #ffffff !important;
   font-weight: 700 !important;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
@@ -475,13 +563,13 @@ div.sidebar-auth a.nav-link {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
   image-rendering: pixelated !important;
   transition: all 0.2s ease !important;
-  font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace !important;
+  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
   font-weight: 700 !important;
   letter-spacing: 2px !important;
 }
 
 div.sidebar-auth a.nav-link span {
-  font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace !important;
+  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
   font-weight: 700 !important;
   color: #ffffff !important;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
@@ -544,6 +632,24 @@ div[style*='background: linear-gradient(180deg, #e4f6ff 0%, #f0e6ff 100%)'] p {
   margin-bottom: 24px;
 }
 
+/* Global header styling - Druk Wide Bold */
+h1, h2, h3, h4, h5, h6,
+.headerTitle,
+.heroTitle,
+.title,
+.mainHeadline {
+  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
+}
+
+/* Global subheader styling - Attila Sans Classic */
+.subHeadline,
+.heroSubtitle,
+.subtitle,
+.headerText,
+.subheaderText {
+  font-family: 'Attila Sans Classic', 'Arial', 'Helvetica', sans-serif !important;
+}
+
 .section p {
   margin-bottom: 40px;
 }
@@ -591,12 +697,12 @@ div[style*='background: linear-gradient(180deg, #e4f6ff 0%, #f0e6ff 100%)'] p {
   border: 3px solid #ff1493 !important;
   border-radius: 20px !important;
   padding: 20px 40px !important;
-  font-size: 18px !important;
+  font-size: 11px !important;
   font-weight: 700 !important;
   color: #ffffff !important;
-  font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace !important;
+  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
   text-transform: uppercase !important;
-  letter-spacing: 3px !important;
+  letter-spacing: 1px !important;
   box-shadow:
     0 8px 20px rgba(255, 20, 147, 0.4),
     0 4px 8px rgba(255, 20, 147, 0.2),
@@ -952,6 +1058,12 @@ button:hover,
     color: #0a164d;
     font-size: 2.2rem;
     width: 36px !important;
+  }
+  
+  .mobile-hamburger-container {
+    display: block !important;
+    top: 8px !important;
+    left: 8px !important;
     height: 36px !important;
     padding: 0 !important;
     line-height: 36px !important;
@@ -1041,7 +1153,7 @@ button:hover,
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
     image-rendering: pixelated !important;
     transition: all 0.2s ease !important;
-    font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace !important;
+    font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
     font-weight: 700 !important;
     letter-spacing: 2px !important;
   }
@@ -1140,7 +1252,7 @@ button:hover,
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
     image-rendering: pixelated !important;
     transition: all 0.2s ease !important;
-    font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace !important;
+    font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
     font-weight: 700 !important;
     letter-spacing: 2px !important;
   }
@@ -1158,7 +1270,7 @@ button:hover,
     color: #ffffff !important;
     font-weight: 700 !important;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
-    font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace !important;
+    font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
     text-transform: uppercase !important;
     letter-spacing: 2px !important;
   }
@@ -1198,7 +1310,7 @@ button:hover,
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2)) !important;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
   image-rendering: pixelated !important;
-  font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace !important;
+  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
   font-weight: 700 !important;
   letter-spacing: 2px !important;
   text-transform: uppercase !important;
@@ -1208,7 +1320,7 @@ button:hover,
 .sidebar .sidebar-nav a.nav-link span {
   color: #ffffff !important;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
-  font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace !important;
+  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
   font-weight: 700 !important;
   text-transform: uppercase !important;
   letter-spacing: 2px !important;
@@ -1218,6 +1330,26 @@ button:hover,
 .sidebar .sidebar-nav a.nav-link svg {
   color: #ffffff !important;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3)) !important;
+}
+
+/* FINAL OVERRIDE - Force the new background - CACHE BUST 2024 */
+html, body, #__next, .main-content, .app-layout {
+  background: 
+    radial-gradient(ellipse 20vw 8vw at 20% 20%, rgba(255, 255, 255, 0.6) 0%, transparent 70%),
+    radial-gradient(ellipse 15vw 6vw at 80% 15%, rgba(255, 255, 255, 0.5) 0%, transparent 65%),
+    radial-gradient(ellipse 18vw 7vw at 10% 60%, rgba(255, 255, 255, 0.45) 0%, transparent 75%),
+    radial-gradient(ellipse 16vw 5vw at 70% 80%, rgba(255, 255, 255, 0.4) 0%, transparent 60%),
+    radial-gradient(ellipse 14vw 4.5vw at 50% 10%, rgba(255, 255, 255, 0.35) 0%, transparent 55%),
+    radial-gradient(ellipse 12vw 4vw at 90% 70%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse 10vw 3.5vw at 30% 90%, rgba(255, 255, 255, 0.3) 0%, transparent 45%),
+    radial-gradient(circle at 15% 25%, rgba(255, 154, 209, 0.08) 0%, transparent 70%),
+    radial-gradient(circle at 85% 15%, rgba(240, 120, 197, 0.06) 0%, transparent 65%),
+    radial-gradient(circle at 25% 75%, rgba(212, 183, 255, 0.07) 0%, transparent 75%),
+    radial-gradient(circle at 75% 85%, rgba(255, 111, 180, 0.05) 0%, transparent 60%),
+    radial-gradient(circle at 50% 10%, rgba(200, 150, 255, 0.04) 0%, transparent 55%),
+    radial-gradient(circle at 90% 60%, rgba(255, 200, 255, 0.06) 0%, transparent 65%),
+    radial-gradient(circle at 10% 50%, rgba(180, 120, 255, 0.05) 0%, transparent 60%),
+    linear-gradient(180deg, #f8f6ff 0%, #faf9ff 30%, #fcfbff 70%, #ffffff 100%) !important;
 }
 
 /* ===== Mobile-only fixes for hero CTAs ===== */

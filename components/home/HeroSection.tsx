@@ -2,7 +2,6 @@ import { MessageCircle, ShoppingBag, Sparkles, Star } from 'lucide-react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useCallback, useState } from 'react'
-import { MagicalBackground } from './MagicalBackground'
 import styles from './HeroSection.module.css'
 
 export function HeroSection() {
@@ -56,7 +55,6 @@ export function HeroSection() {
         paddingBottom: 'env(safe-area-inset-bottom)',
       }}
     >
-      <MagicalBackground />
       <div
         style={{
           width: '100%',
@@ -64,22 +62,28 @@ export function HeroSection() {
           position: 'relative',
           zIndex: 2,
           background: 'transparent',
+          backgroundImage: 'none',
           display: 'flex',
           justifyContent: 'center',
         }}
       >
         <div
-          className="hero-box w-[98%] md:w-[min(95%,836px)] aspect-[1.1] md:aspect-auto"
+          className="w-[95%] md:w-[min(95%,836px)]"
           style={{
-            background: 'transparent',
-            border: '4px solid #ff69b4',
+            backgroundColor: '#ffffff',
+            background: '#ffffff',
+            backgroundImage: 'none',
+            border: '2px solid transparent',
             borderRadius: '24px',
             boxShadow: `
-              0 20px 40px rgba(0, 0, 0, 0.1),
-              0 10px 20px rgba(0, 0, 0, 0.05),
-              0 4px 8px rgba(0, 0, 0, 0.03),
-              inset 0 1px 0 rgba(255, 255, 255, 0.8),
-              inset 0 -1px 0 rgba(0, 0, 0, 0.05)
+              0 0 0 1px rgba(255, 255, 255, 0.4),
+              0 0 20px rgba(255, 154, 209, 0.5),
+              0 0 40px rgba(240, 120, 197, 0.4),
+              0 0 60px rgba(212, 183, 255, 0.3),
+              0 8px 32px rgba(255, 105, 180, 0.25),
+              0 4px 16px rgba(212, 183, 255, 0.2),
+              inset 0 1px 0 rgba(255, 255, 255, 0.5),
+              inset 0 -1px 0 rgba(0, 0, 0, 0.1)
             `,
             overflow: 'visible',
             marginBottom: '0rem',
@@ -87,103 +91,46 @@ export function HeroSection() {
             margin: '0 auto',
             display: 'flex',
             flexDirection: 'column',
-            minHeight: '700px',
+            minHeight: 'clamp(500px, 80vh, 700px)',
           }}
         >
-          {/* Enhanced Window Title Bar */}
+          {/* Holographic Border Effect */}
           <div
             style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              background: '#e4f6ff',
-              borderBottom: '2px solid #808080',
-              borderTopLeftRadius: '20px',
-              borderTopRightRadius: '20px',
-              padding: '12px 16px',
-              fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
-              fontSize: '16px',
-              fontWeight: '700',
-              color: '#0a164d',
-              boxShadow:
-                'inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080',
+              position: 'absolute',
+              top: '-2px',
+              left: '-2px',
+              right: '-2px',
+              bottom: '-2px',
+              background: 'linear-gradient(45deg, #FF9AD1, #F078C5, #D4B7FF, #FF6FB4, #C896FF)',
+              borderRadius: '26px',
+              zIndex: -1,
+              opacity: 0.9,
+              filter: 'blur(2px)',
             }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                fontWeight: '700',
-                letterSpacing: '1px',
-                color: '#0a164d',
-              }}
-            >
-              <Star
-                style={{
-                  width: 18,
-                  height: 18,
-                  color: '#0a164d',
-                  strokeWidth: 2,
-                }}
-              />
-              YOUR DIY BFF
+          />
+          {/* Enhanced Window Title Bar */}
+          <div className={styles.headerContainer}>
+            <div className={styles.headerLeft}>
+              <Star className={styles.starIcon} />
+              <span className={styles.headerText}>YOUR DIY BFF</span>
             </div>
-            <div style={{ display: 'flex', gap: '6px' }}>
+            <div className={styles.headerRight}>
               <button
-                style={{
-                  width: '18px',
-                  height: '18px',
-                  background: '#ffffff',
-                  border: '1px solid #808080',
-                  borderRadius: '3px',
-                  fontSize: '12px',
-                  color: '#0a164d',
-                  cursor: 'pointer',
-                  boxShadow: 'none',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
+                className={styles.windowButton}
                 title="Minimize"
                 onClick={handleMinimize}
               >
                 ─
               </button>
               <button
-                style={{
-                  width: '18px',
-                  height: '18px',
-                  background: '#ffffff',
-                  border: '1px solid #808080',
-                  borderRadius: '3px',
-                  fontSize: '12px',
-                  color: '#0a164d',
-                  cursor: 'pointer',
-                  boxShadow: 'none',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
+                className={styles.windowButton}
                 title="Maximize"
               >
                 □
               </button>
               <button
-                style={{
-                  width: '18px',
-                  height: '18px',
-                  background: '#ffffff',
-                  border: '1px solid #808080',
-                  borderRadius: '3px',
-                  fontSize: '12px',
-                  color: '#0a164d',
-                  cursor: 'pointer',
-                  boxShadow: 'none',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
+                className={styles.windowButton}
                 title="Close"
               >
                 ×
@@ -193,7 +140,7 @@ export function HeroSection() {
 
           {/* Enhanced Section Content */}
           <div
-            className="p-4 md:p-6"
+            className="p-3 md:p-6"
             style={{
               textAlign: 'center',
               display: isMinimized ? 'none' : 'flex',
@@ -202,6 +149,7 @@ export function HeroSection() {
               flex: 1,
               transition: 'all 0.3s ease',
               overflow: 'hidden',
+              minHeight: 'clamp(400px, 60vh, 600px)',
             }}
           >
             <div
@@ -233,7 +181,7 @@ export function HeroSection() {
                 />
 
                 <h2
-                  className="text-[clamp(28px,8vw,50px)] md:text-[2.8rem]"
+                  className="text-[clamp(20px,6vw,35px)] md:text-[2rem]"
                   style={{
                     color: '#0a164d',
                     marginBottom: '0',
@@ -266,9 +214,10 @@ export function HeroSection() {
               {/* Background highlight removed per request */}
 
               <h1
-                className="hero-title text-[1.8rem] md:text-[3.5rem] tracking-[1px] md:tracking-[2px] leading-[1.2] md:leading-[1.1] whitespace-normal md:whitespace-nowrap max-w-[280px] md:max-w-fit break-words md:break-normal"
+                className="hero-title text-[1.4rem] md:text-[2.5rem] tracking-[1px] md:tracking-[2px] leading-[1.1] md:leading-[1.1]"
                 style={{
                   color: '#0a164d',
+                  marginTop: '0.5rem',
                   marginBottom: '0',
                   marginLeft: 'auto',
                   marginRight: 'auto',
@@ -281,6 +230,9 @@ export function HeroSection() {
                   textAlign: 'center',
                   display: 'block',
                   width: '100%',
+                  wordBreak: 'break-word',
+                  hyphens: 'auto',
+                  fontSize: 'clamp(40px, 2.5rem, 2.5rem)',
                 }}
               >
                 MANDY&apos;S WORKSHOP
@@ -288,11 +240,11 @@ export function HeroSection() {
             </div>
 
             <p
-              className="hero-subtext text-[0.6rem] md:text-2xl mb-10 md:mb-8 leading-[1.5] md:leading-[1.6] px-8 md:px-0 max-w-80 md:max-w-none mx-auto md:mx-0"
+              className="hero-subtext text-[0.7rem] md:text-2xl mb-6 md:mb-8 leading-[1.4] md:leading-[1.6] px-4 md:px-0 max-w-90 md:max-w-none mx-auto md:mx-0"
               style={{
                 color: '#0a164d',
                 fontWeight: '600',
-                fontFamily: "'Roboto Mono', 'Courier New', monospace",
+                fontFamily: "'Attila Sans Classic', 'Arial', 'Helvetica', sans-serif",
                 letterSpacing: '0.5px',
                 opacity: 1,
                 textAlign: 'center',
@@ -304,7 +256,7 @@ export function HeroSection() {
 
             {/* Enhanced Buttons */}
             <div
-              className="hero-buttons-container flex justify-center items-center gap-4 md:gap-4 flex-col md:flex-row max-w-80 md:max-w-none mx-auto px-4 pb-10 md:px-0 md:pb-8"
+              className="hero-buttons-container flex justify-center items-center gap-3 md:gap-4 flex-col md:flex-row max-w-90 md:max-w-none mx-auto px-2 pb-6 md:px-0 md:pb-8"
               style={{
                 flexWrap: 'nowrap',
               }}
@@ -320,13 +272,13 @@ export function HeroSection() {
                   <button
                     key={item.id}
                     onClick={() => handleButtonClick(item.path)}
-                    className={`inflatable-button hero-button ${styles.heroButton} h-[60px] md:h-[140px] w-full md:w-[220px] p-2 md:p-5 rounded-xl md:rounded-[20px] min-w-[200px] md:min-w-[220px] max-w-[280px] md:max-w-none`}
+                    className="inflatable-button hero-button h-[50px] md:h-[140px] w-full md:w-[220px] p-2 md:p-5 rounded-xl md:rounded-[20px] min-w-[180px] md:min-w-[220px] max-w-[260px] md:max-w-none"
                     style={{
                       margin: '0 auto',
                     }}
                   >
                     {/* Tab Content */}
-                    <div className="flex items-center justify-center h-full relative z-20 gap-3 md:gap-2 w-full flex-row md:flex-col">
+                    <div className="flex items-center justify-center h-full relative z-20 gap-2 md:gap-2 w-full flex-row md:flex-col">
                       {item.id === 'room' ? (
                         // Special case for Room Makeover button with inflatable bed image
                         <>
@@ -335,7 +287,7 @@ export function HeroSection() {
                             alt="Inflatable Bed"
                             width={80}
                             height={80}
-                            className="w-9 h-9 md:w-20 md:h-20 flex-shrink-0"
+                            className="w-8 h-8 md:w-20 md:h-20 flex-shrink-0"
                             style={{
                               objectFit: 'contain',
                               filter:
@@ -343,10 +295,10 @@ export function HeroSection() {
                             }}
                           />
                           <div
-                            className="text-[1.1rem] md:text-[1.4rem] text-center leading-[1.1] uppercase tracking-[1px] flex-1 md:flex-none whitespace-normal md:whitespace-nowrap"
+                            className="text-[0.5rem] md:text-[0.8rem] text-center leading-[1.1] uppercase tracking-[1px] flex-1 md:flex-none whitespace-normal md:whitespace-nowrap"
                             style={{
                               fontFamily:
-                                "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
+                                "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important",
                               color: '#ffffff !important',
                               fontWeight: '700',
                               textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)',
@@ -371,10 +323,10 @@ export function HeroSection() {
                             }}
                           />
                           <div
-                            className="text-[1.1rem] md:text-[1.4rem] text-center leading-[1.1] uppercase tracking-[1px] flex-1 md:flex-none whitespace-normal md:whitespace-nowrap"
+                            className="text-[0.5rem] md:text-[0.8rem] text-center leading-[1.1] uppercase tracking-[1px] flex-1 md:flex-none whitespace-normal md:whitespace-nowrap"
                             style={{
                               fontFamily:
-                                "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
+                                "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important",
                               color: '#ffffff !important',
                               fontWeight: '700',
                               textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)',
@@ -399,10 +351,10 @@ export function HeroSection() {
                             }}
                           />
                           <div
-                            className="text-[1.1rem] md:text-[1.4rem] text-center leading-[1.1] uppercase tracking-[1px] flex-1 md:flex-none whitespace-normal md:whitespace-nowrap"
+                            className="text-[0.5rem] md:text-[0.8rem] text-center leading-[1.1] uppercase tracking-[1px] flex-1 md:flex-none whitespace-normal md:whitespace-nowrap"
                             style={{
                               fontFamily:
-                                "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
+                                "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important",
                               color: '#ffffff !important',
                               fontWeight: '700',
                               textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)',
@@ -426,7 +378,7 @@ export function HeroSection() {
                             className="text-4 md:text-[1.4rem] text-center leading-4 md:leading-[1.1] uppercase tracking-[1px]"
                             style={{
                               fontFamily:
-                                "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
+                                "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important",
                               color: '#ffffff !important',
                               fontWeight: '700',
                               textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)',
@@ -438,7 +390,7 @@ export function HeroSection() {
                             className="text-4 md:text-[1.4rem] text-center leading-4 md:leading-[1.1] opacity-90"
                             style={{
                               fontFamily:
-                                "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
+                                "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important",
                               color: '#ffffff !important',
                               fontWeight: '600',
                               textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)',

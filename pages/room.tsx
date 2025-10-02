@@ -4,7 +4,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { getUserPriceRange } from '../lib/onboardingAPI'
 import '../lib/onboardingCleanup' // Auto-cleanup any invalid data
-import { RoomTransformationSection } from '../components/home/RoomTransformationSection'
+import { RoomMakeoverHero } from '../components/home/RoomMakeoverHero'
 import {
   Upload,
   Download,
@@ -512,6 +512,14 @@ export default function Room() {
   const [messageOpacity, setMessageOpacity] = useState(1)
   const [progress, setProgress] = useState(0)
 
+  // Scroll to upload section
+  const scrollToUpload = () => {
+    const uploadSection = document.getElementById('upload-section')
+    if (uploadSection) {
+      uploadSection.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
   // Cache AI analysis results for current makeover
   const [currentAnalysis, setCurrentAnalysis] = useState<{
     searchTerms: string[]
@@ -903,7 +911,10 @@ export default function Room() {
           position: 'relative',
         }}
       >
-        <RoomTransformationSection />
+        <RoomMakeoverHero 
+          onGetStarted={scrollToUpload} 
+          headline="DESIGN SMARTER. BUILD BETTER."
+        />
       </div>
       <div>
         <div
@@ -2022,7 +2033,7 @@ export default function Room() {
               margin: '0 0 0.4rem 0',
               fontWeight: 800,
               letterSpacing: '2px',
-              fontFamily: "VT323, 'Tiny5', 'Courier New', Courier, monospace",
+              fontFamily: "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif",
             }}
           >
             GLOW UP GALLERY

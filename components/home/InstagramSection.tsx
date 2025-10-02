@@ -64,12 +64,12 @@ export function InstagramSection() {
 
     let animationId: number
     let lastTime = 0
-    const targetFPS = 16 // Target ~16 FPS for smooth but not too fast animation
+    const targetFPS = 12 // Slower FPS for more visible images
 
     const animate = (currentTime: number) => {
       if (currentTime - lastTime >= 1000 / targetFPS) {
         setCurrentImageIndex(prev => {
-          const next = prev + 0.012 // back to original speed since we're throttling
+          const next = prev + 0.008 // slower speed for more visible images
           if (next > totalImages - baseLength * 2) {
             return baseLength * Math.floor(repeatCount / 2)
           }
@@ -87,9 +87,9 @@ export function InstagramSection() {
   return (
     <div
       style={{
+        width: '1000px',
         maxWidth: '1200px',
         margin: '0 auto',
-        width: '100%',
         boxSizing: 'border-box',
         paddingBottom: '2rem',
       }}
@@ -102,13 +102,15 @@ export function InstagramSection() {
       >
         <h1
           style={{
-            fontSize: 'clamp(50px, 8vw, 3.2rem)',
+            fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
             color: '#0a164d',
             marginBottom: '1rem',
-            fontWeight: '700',
+            fontWeight: '900',
             letterSpacing: '2px',
-            lineHeight: '1.3',
-            fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+            lineHeight: '1.2',
+            fontFamily: "'Druk', 'Druk Wide Web Bold', 'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+            textShadow: 
+              '0 2px 8px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.2), 0 0 20px rgba(255, 255, 255, 0.1)',
           }}
         >
           STEP 4: SHARE IT <br />
@@ -126,20 +128,6 @@ export function InstagramSection() {
           </a>
         </h1>
 
-        <p
-          style={{
-            fontSize: 'clamp(1rem, 2vw, 1.2rem)',
-            color: '#0a164d',
-            fontFamily: "'Roboto Mono', 'Courier New', monospace",
-            fontWeight: '600',
-            textAlign: 'center',
-            margin: '0',
-            lineHeight: '1.4',
-          }}
-        >
-          Follow @shopmandytools for DIY inspo, project ideas, and the latest
-          drops.
-        </p>
 
         <div
           style={{

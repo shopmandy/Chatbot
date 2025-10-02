@@ -219,11 +219,16 @@
 }
 
 .heroTitle {
-  font-size: 4.8rem;
-  color: #0a164d;
-  margin: 0;
-  letter-spacing: 2px;
-  font-weight: 900;
+  font-size: clamp(2rem, 6vw, 4rem) !important;
+  font-weight: 900 !important;
+  color: #0a164d !important;
+  margin: 0 0 1.5rem 0 !important;
+  letter-spacing: 3px !important;
+  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
+  text-transform: uppercase !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2) !important;
+  line-height: 1.1 !important;
+  text-align: center !important;
 }
 
 @media (max-width: 768px) {
@@ -242,8 +247,9 @@
   max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
-  font-weight: 900;
+  font-weight: 500;
   letter-spacing: 0.5px;
+  font-family: 'Attila Sans Classic', 'Arial', 'Helvetica', sans-serif;
 }
 
 @media (max-width: 768px) {
@@ -1210,6 +1216,7 @@
     display: none;
   }
 }
+
 
 /* Mobile positioning for chat dropdown */
 @media (max-width: 768px) {

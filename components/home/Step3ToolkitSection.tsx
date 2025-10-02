@@ -46,7 +46,8 @@ export function Step3ToolkitSection() {
         style={{
           position: 'relative',
           zIndex: 2,
-          maxWidth: '800px',
+          width: '1000px',
+          maxWidth: '1200px',
           opacity: isVisible ? 1 : 0,
           transform: isVisible
             ? 'translateY(0) scale(1)'
@@ -59,40 +60,21 @@ export function Step3ToolkitSection() {
         <h2
           className="text-[50px] md:text-[3.5rem]"
           style={{
-            fontWeight: '700',
+            fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
+            fontWeight: '900',
             color: '#0a164d',
-            fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+            fontFamily: "'Druk', 'Druk Wide Web Bold', 'VT323', 'Tiny5', 'Courier New', Courier, monospace",
             letterSpacing: '2px',
             lineHeight: '1.2',
-            margin: '0 0 0.5rem 0',
+            margin: '0 0 1rem 0',
             textAlign: 'center',
+            textShadow: 
+              '0 2px 8px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.2), 0 0 20px rgba(255, 255, 255, 0.1)',
           }}
         >
-          Step 3: BUILD IT WITH OUR TOOLKITS
+          STEP 3: BUILD IT WITH OUR TOOLKITS.
         </h2>
 
-        {/* Sub-heading */}
-        <p
-          className="whitespace-normal md:whitespace-nowrap"
-          style={{
-            fontSize: 'clamp(0.9rem, 3vw, 1.2rem)',
-            color: '#0a164d',
-            fontFamily: "'Roboto Mono', 'Courier New', monospace",
-            fontWeight: '600',
-            textAlign: 'center',
-            margin: '0 0 3rem 0',
-            lineHeight: '1.4',
-          }}
-        >
-          <span className="md:hidden">
-            Stylish, functional, and ready to
-            <br />
-            go—everything you need in one kit.
-          </span>
-          <span className="hidden md:inline">
-            Stylish, functional, and ready to go—everything you need in one kit.
-          </span>
-        </p>
 
         {/* Toolkit Image */}
         <div

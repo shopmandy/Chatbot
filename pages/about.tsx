@@ -71,13 +71,13 @@ export default function About() {
     if (isPaused) return
     const interval = setInterval(() => {
       setCurrentImageIndex(prev => {
-        const next = prev + 0.012 // slightly faster for pixel-based
+        const next = prev + 0.008 // slower for more visible images
         if (next > totalImages - baseLength * 2) {
           return baseLength * Math.floor(repeatCount / 2)
         }
         return next
       })
-    }, 60)
+    }, 80) // slower interval
     return () => clearInterval(interval)
   }, [baseLength, totalImages, isPaused])
 

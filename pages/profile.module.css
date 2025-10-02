@@ -68,7 +68,7 @@
   font-weight: 700;
   margin: 0;
   color: #0a164d;
-  font-family: 'VT323', 'Press Start 2P', 'Courier New', monospace;
+  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif;
   letter-spacing: 2px;
   text-align: center;
 }
@@ -148,7 +148,7 @@
   color: #0a164d;
   margin-bottom: 20px;
   font-weight: 700;
-  font-family: 'VT323', 'Press Start 2P', 'Courier New', monospace;
+  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif;
 }
 
 .signInButton {

@@ -1,11 +1,11 @@
 /* CTA Button Styles */
 .ctaButton {
-  width: 160px;
+  width: 200px;
   text-align: center;
-  font-size: 1rem;
-  font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace !important;
+  font-size: 0.9rem;
+  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
   font-weight: 700;
-  letter-spacing: 2px !important;
+  letter-spacing: 1px !important;
   border-radius: 20px !important;
   border: 3px solid #ff1493 !important;
   padding: 16px 20px;

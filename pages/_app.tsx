@@ -22,6 +22,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { BubbleHamburger } from '../components/BubbleHamburger'
 
 const navItems = [
   { id: 'home', label: 'Home', icon: Home, path: '/' },
@@ -138,48 +139,14 @@ export default function App({ Component, pageProps }: AppProps) {
         />
         {/* Hamburger menu for mobile - hidden when sidebar is open */}
         {!sidebarOpen && (
-          <button
-            className="mobile-menu"
-            aria-label="Open navigation menu"
-            onClick={e => {
-              e.preventDefault()
-              e.stopPropagation()
-              toggleSidebar()
-            }}
-            style={{
-              position: 'fixed',
-              top: 18,
-              left: 18,
-              zIndex: 2100,
-              background: 'rgba(255, 255, 255, 0.9)',
-              border: '2px solid #f91b8f',
-              borderRadius: '8px',
-              color: '#f91b8f',
-              width: 36,
-              height: 36,
-              padding: 0,
-              boxShadow: '0 4px 12px rgba(249, 27, 143, 0.3)',
-              fontWeight: 'bold',
-              display: 'none',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '1.6rem',
-            }}
-          >
-            <span
-              aria-hidden="true"
-              style={{
-                display: 'inline-block',
-                width: 32,
-                height: 32,
-                lineHeight: '32px',
-                textAlign: 'center',
-                margin: '2px auto',
+          <div className="mobile-hamburger-container">
+            <BubbleHamburger
+              onClick={() => {
+                toggleSidebar()
               }}
-            >
-              ☰
-            </span>
-          </button>
+              aria-label="Open navigation menu"
+            />
+          </div>
         )}
         <div className="app-layout">
           {/* Backdrop overlay for mobile sidebar */}

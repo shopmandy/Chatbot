@@ -1,0 +1,195 @@
+/* Bubble Hamburger Component - Matches BubbleButton Style */
+
+.bubbleHamburger {
+  /* Core button properties */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+  user-select: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Square sizing for hamburger */
+  width: 48px;
+  height: 48px;
+  
+  /* Pill shape - more rounded for hamburger */
+  border-radius: 16px;
+  
+  /* Background gradient - same as bubble button */
+  background: 
+    radial-gradient(120% 120% at 70% 0%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 40%, transparent 70%),
+    linear-gradient(135deg, #FF9AD1 0%, #F078C5 50%, #D4B7FF 100%);
+  
+  /* Outer rim glow and inner glow */
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.6),
+    0 0 0 2px rgba(255, 255, 255, 0.2),
+    0 4px 12px rgba(255, 154, 209, 0.3),
+    0 8px 24px rgba(212, 183, 255, 0.2),
+    /* Inner glow for inflated look */
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.2);
+  
+  /* Specular highlight */
+  position: relative;
+  overflow: hidden;
+}
+
+.bubbleHamburger::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  width: 16px;
+  height: 12px;
+  background: radial-gradient(ellipse 16px 12px at center, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Hamburger icon lines */
+.hamburgerIcon {
+  position: relative;
+  width: 20px;
+  height: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.line {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 1px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+/* Animation for open state */
+.line1Open {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.line2Open {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.line3Open {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Hover state */
+.bubbleHamburger:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.7),
+    0 0 0 2px rgba(255, 255, 255, 0.3),
+    0 6px 16px rgba(255, 154, 209, 0.4),
+    0 12px 32px rgba(212, 183, 255, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Active state */
+.bubbleHamburger:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+/* Focus state - accessible focus ring */
+.bubbleHamburger:focus-visible {
+  outline: none;
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.6),
+    0 0 0 2px rgba(255, 255, 255, 0.2),
+    0 0 0 4px #ffffff,
+    0 0 0 6px #FF6FB4,
+    0 4px 12px rgba(255, 154, 209, 0.3),
+    0 8px 24px rgba(212, 183, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Disabled state */
+.bubbleHamburger:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.3),
+    0 2px 8px rgba(255, 154, 209, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .bubbleHamburger {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+  }
+  
+  .hamburgerIcon {
+    width: 18px;
+    height: 14px;
+  }
+  
+  .bubbleHamburger::before {
+    top: 5px;
+    right: 7px;
+    width: 14px;
+    height: 10px;
+  }
+}
+
+/* Motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .bubbleHamburger {
+    transition: none;
+  }
+  
+  .bubbleHamburger:hover:not(:disabled) {
+    transform: none;
+  }
+  
+  .bubbleHamburger:active:not(:disabled) {
+    transform: none;
+  }
+  
+  .line {
+    transition: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .bubbleHamburger {
+    border: 2px solid #ffffff;
+    box-shadow: 
+      0 0 0 1px #000000,
+      0 4px 12px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  }
+  
+  .bubbleHamburger:focus-visible {
+    box-shadow: 
+      0 0 0 1px #000000,
+      0 0 0 4px #ffffff,
+      0 0 0 6px #000000,
+      0 4px 12px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  }
+  
+  .line {
+    background-color: #000000;
+  }
+}

@@ -53,8 +53,8 @@ export function Step2ChatbotSection() {
         style={{
           position: 'relative',
           zIndex: 2,
-          width: '800px',
-          maxWidth: '900px',
+          width: '1000px',
+          maxWidth: '1200px',
           opacity: isVisible ? 1 : 0,
           transform: isVisible
             ? 'translateY(0) scale(1)'
@@ -67,34 +67,21 @@ export function Step2ChatbotSection() {
         <h2
           className="main-heading"
           style={{
-            fontSize: '3.5rem',
-            fontWeight: '700',
+            fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
+            fontWeight: '900',
             color: '#0a164d',
-            fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+            fontFamily: "'Druk', 'Druk Wide Web Bold', 'VT323', 'Tiny5', 'Courier New', Courier, monospace",
             letterSpacing: '2px',
             lineHeight: '1.2',
-            margin: '0 0 1.5rem 0',
+            margin: '0 0 1rem 0',
             textAlign: 'center',
+            textShadow: 
+              '0 2px 8px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.2), 0 0 20px rgba(255, 255, 255, 0.1)',
           }}
         >
-          STEP 2: GET STEP BY STEP GUIDANCE
+          STEP 2: GET STEP BY STEP GUIDANCE.
         </h2>
 
-        {/* Sub-heading */}
-        <p
-          className="sub-heading"
-          style={{
-            fontSize: '1.2rem',
-            color: '#000000',
-            fontFamily: "'Roboto Mono', 'Courier New', monospace",
-            fontWeight: '600',
-            textAlign: 'center',
-            margin: '0 0 3rem 0',
-            lineHeight: '1.4',
-          }}
-        >
-          Share any DIY idea with Mandy chatbot and get step by step guidance.
-        </p>
 
         {/* Retro Chat Window */}
         <div
