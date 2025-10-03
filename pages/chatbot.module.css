@@ -37,10 +37,10 @@
 }
 
 .headerContent {
-  width: 1000px;
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0;
+  padding: 0 1rem;
   display: block;
   text-align: center;
 }
@@ -262,15 +262,16 @@
     rgba(255, 224, 242, 0.8) 0%,
     rgba(224, 234, 255, 0.8) 100%
   );
-  border-bottom: 2px solid rgba(255, 105, 180, 0.2);
+  border-bottom: 0.5px solid rgba(255, 105, 180, 0.2);
 }
 
 .heroTitle {
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-size: 24px !important;
   font-weight: 900;
   color: #0a164d;
   margin: 0 0 1rem 0;
   letter-spacing: 2px;
+  line-height: 1.3;
   font-family: 'Druk', 'Druk Wide Web Bold', 'VT323', 'Tiny5', 'Courier New', Courier, monospace;
   text-shadow:
     0 2px 8px rgba(0, 0, 0, 0.3),
@@ -281,29 +282,29 @@
 
 @media (max-width: 768px) {
   .heroTitle {
-    font-size: clamp(1.5rem, 6vw, 2rem);
-    margin-bottom: 0.4rem;
-    margin-top: 1rem;
+    padding: 0 0.5rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 }
 
 .heroSubtitle {
-  font-size: 24px;
+  font-size: 17.6px !important;
   color: #0a164d;
-  margin: 0 0 0.8rem 0;
-  line-height: 1.4;
-  max-width: 1000px;
+  margin: 0;
+  font-weight: normal;
+  max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-  font-weight: 700; /* bold */
-  letter-spacing: 0.5px;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
-  font-family: 'Attila Sans Classic', 'Arial', 'Helvetica', sans-serif;
+  line-height: 1.4;
+  font-family: 'Attila Sans Classic Medium', 'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif !important;
 }
 
 @media (max-width: 768px) {
   .heroSubtitle {
-    font-size: 0.75rem !important;
+    padding: 0 0.5rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 }
 
@@ -354,7 +355,7 @@
   padding: 1.5rem;
   overflow-y: auto;
   background: transparent;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0rem;
   scroll-behavior: smooth;
   display: flex;
   flex-direction: column;
@@ -749,7 +750,7 @@
 
   /* Reduce space between messages and input */
   .chatBox {
-    margin-bottom: 8px;
+    margin-bottom: 0px;
   }
 }
 
@@ -812,7 +813,7 @@
     rgba(255, 224, 242, 0.6) 0%,
     rgba(224, 234, 255, 0.6) 100%
   );
-  border-top: 2px solid rgba(255, 105, 180, 0.2);
+  border-top: 0.5px solid rgba(255, 105, 180, 0.2);
 }
 
 .quickStartTitle {
@@ -941,7 +942,8 @@
   }
 
   .chatBox {
-    height: 400px;
+    height: auto;
+    min-height: 0px;
   }
 
   .inputArea {
@@ -1167,6 +1169,64 @@
   margin-right: 0;
 }
 
+/* Override hamburger button style when in window title bar - completely flat 2D */
+.mobileMenuButton button,
+.mobileMenuButton .bubbleHamburger,
+.windowTitleBar .mobileMenuButton .bubbleHamburger,
+div.mobileMenuButton .bubbleHamburger,
+div.mobileMenuButton button {
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 6px !important;
+  background: rgba(255, 255, 255, 0.8) !important;
+  border: 2px solid #ff69b4 !important;
+  box-shadow: none !important;
+  position: static !important;
+  overflow: visible !important;
+  /* Remove all 3D effects */
+  transform: none !important;
+  transition: all 0.3s ease !important;
+  /* Override any gradient backgrounds */
+  background-image: none !important;
+  /* Remove any inset shadows */
+  box-shadow: none !important;
+  /* Remove any pseudo-elements */
+  position: static !important;
+  /* Ensure no 3D effects */
+  perspective: none !important;
+  transform-style: flat !important;
+}
+
+.mobileMenuButton .bubbleHamburger::before,
+.mobileMenuButton button::before,
+.windowTitleBar .mobileMenuButton .bubbleHamburger::before,
+.windowTitleBar .mobileMenuButton button::before,
+div.mobileMenuButton .bubbleHamburger::before,
+div.mobileMenuButton button::before {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+  box-shadow: none !important;
+}
+
+.mobileMenuButton button:hover:not(:disabled),
+.mobileMenuButton .bubbleHamburger:hover:not(:disabled),
+.windowTitleBar .mobileMenuButton .bubbleHamburger:hover:not(:disabled),
+div.mobileMenuButton .bubbleHamburger:hover:not(:disabled),
+div.mobileMenuButton button:hover:not(:disabled) {
+  background: linear-gradient(90deg, #ffe0f2 0%, #ffd6f7 100%) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(255, 105, 180, 0.3) !important;
+}
+
+.mobileMenuButton button:active:not(:disabled),
+.mobileMenuButton .bubbleHamburger:active:not(:disabled),
+.windowTitleBar .mobileMenuButton .bubbleHamburger:active:not(:disabled),
+div.mobileMenuButton .bubbleHamburger:active:not(:disabled),
+div.mobileMenuButton button:active:not(:disabled) {
+  transform: translateY(0) !important;
+}
+
 .mobileMenuToggle {
   background: var(
     --button-bg,
@@ -1283,13 +1343,13 @@
 /* Mobile full-height chat layout overrides */
 @media (max-width: 768px) {
   .chatContainer {
-    min-height: calc(var(--vh, 1vh) * 92);
+    min-height: auto;
     display: flex;
     flex-direction: column;
   }
 
   .chatInterface {
-    padding: 0.5rem 0.5rem 0.25rem;
+    padding: 0.1rem 0.1rem 0.05rem;
     display: flex;
     flex-direction: column;
     flex: 1 1 auto;
@@ -1298,5 +1358,6 @@
   .chatBox {
     flex: 1 1 auto;
     height: auto;
+    padding: 0.1rem 1rem !important;
   }
 }

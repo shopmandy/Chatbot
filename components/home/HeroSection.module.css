@@ -18,7 +18,6 @@
   font-weight: 700;
   color: #ffffff;
   box-shadow: inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080;
-  min-height: 40px;
   width: 100%;
 }
 
@@ -64,6 +63,19 @@
 
 .headerText {
   white-space: nowrap;
+  font-size: 15px !important;
+}
+
+/* Hero title sizing control */
+.heroTitle {
+  --heroTitleSize: clamp(28px, 7.2vw, 75px);
+}
+
+@media (max-width: 768px) {
+  .heroTitle {
+    /* Increase mobile size by ~5px while preserving responsiveness */
+    --heroTitleSize: calc(clamp(28px, 7.2vw, 75px) + 5px);
+  }
 }
 
 /* Mobile styles - Force mobile layout */
@@ -71,8 +83,8 @@
   .headerContainer {
     padding: 6px 8px !important;
     font-size: 11px !important;
-    min-height: 36px !important;
     flex-wrap: nowrap !important;
+    height: 39.5px !important;
   }
   
   .headerLeft {
@@ -101,7 +113,7 @@
   }
   
   .headerText {
-    font-size: 10px !important;
+    font-size: 15px !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     white-space: nowrap !important;
@@ -113,7 +125,6 @@
   .headerContainer {
     padding: 4px 6px !important;
     font-size: 10px !important;
-    min-height: 32px !important;
   }
   
   .headerLeft {
@@ -122,7 +133,7 @@
   }
   
   .headerText {
-    font-size: 9px !important;
+    font-size: 15px !important;
   }
   
   .windowButton {
@@ -145,7 +156,6 @@
   .headerContainer {
     padding: 12px 16px;
     font-size: 16px;
-    min-height: 50px;
   }
   
   .headerLeft {

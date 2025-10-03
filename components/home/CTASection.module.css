@@ -2,7 +2,7 @@
 .ctaButton {
   width: 200px;
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 11px !important;
   font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
   font-weight: 700;
   letter-spacing: 1px !important;
@@ -36,4 +36,11 @@
 .ctaButton:hover:not(:disabled) {
   transform: translateY(-2px) !important;
   box-shadow: 0 6px 16px rgba(255, 20, 147, 0.4) !important;
+}
+
+/* Mobile responsive font sizing to match inflatable buttons */
+@media (max-width: 1023px) {
+  .ctaButton {
+    font-size: clamp(0.7rem, 2vw, 1.4rem) !important;
+  }
 }

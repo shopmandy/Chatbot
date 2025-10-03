@@ -136,6 +136,14 @@
     width: 44px;
     height: 44px;
     border-radius: 14px;
+    /* Reduced border opacity by ~12% and increased blur by 3px */
+    box-shadow: 
+      0 0 0 1px rgba(255, 255, 255, 0.48), /* Reduced from 0.6 to 0.48 */
+      0 0 0 2px rgba(255, 255, 255, 0.16), /* Reduced from 0.2 to 0.16 */
+      0 4px 15px rgba(255, 154, 209, 0.3), /* Increased blur from 12px to 15px */
+      0 8px 27px rgba(212, 183, 255, 0.2), /* Increased blur from 24px to 27px */
+      inset 0 1px 0 rgba(255, 255, 255, 0.8),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.2);
   }
   
   .hamburgerIcon {
@@ -148,6 +156,17 @@
     right: 7px;
     width: 14px;
     height: 10px;
+  }
+  
+  /* Updated hover state for mobile */
+  .bubbleHamburger:hover:not(:disabled) {
+    box-shadow: 
+      0 0 0 1px rgba(255, 255, 255, 0.56), /* Reduced from 0.7 to 0.56 */
+      0 0 0 2px rgba(255, 255, 255, 0.24), /* Reduced from 0.3 to 0.24 */
+      0 6px 19px rgba(255, 154, 209, 0.4), /* Increased blur from 16px to 19px */
+      0 12px 35px rgba(212, 183, 255, 0.3), /* Increased blur from 32px to 35px */
+      inset 0 1px 0 rgba(255, 255, 255, 0.9),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.3);
   }
 }
 

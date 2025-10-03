@@ -9,6 +9,13 @@
 }
 
 @font-face {
+  font-family: 'Attila Sans Classic Medium';
+  src: url('/fonts/Attila Sans Classic Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'Druk Wide Web Bold';
   src: url('/fonts/DrukWideBold.ttf') format('truetype');
   font-weight: bold;
@@ -104,6 +111,15 @@ body.home-solid::after {
 /* Force Attila Sans Classic font for hero subtext */
 .hero-subtext {
   font-family: 'Attila Sans Classic', 'Arial', 'Helvetica', sans-serif !important;
+}
+
+/* Extra specificity: ensure Attila Sans is used inside the hero container */
+.hero-section-container p.hero-subtext,
+div.hero-section-container p.hero-subtext,
+div[class*='hero'] p.hero-subtext {
+  font-family: 'Attila Sans Classic', 'Arial', 'Helvetica', sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Mobile font size handled with inline styles */
@@ -332,10 +348,32 @@ div[style*="background: #ffffff"] {
 .mobile-hamburger-container {
   display: none;
   position: fixed;
-  top: 8px;
+  top: 60px;
   left: 8px;
   z-index: 2100;
 }
+
+/* Logo positioning - responsive centering */
+.top-center-logo {
+  position: fixed;
+  top: 5px;
+  left: calc(280px + (100vw - 280px) / 2);
+  transform: translateX(-50%);
+  z-index: 1000;
+  cursor: pointer;
+  width: 120px;
+  height: 120px;
+}
+
+/* Mobile: center on full page width when sidebar is hidden */
+@media (max-width: 768px) {
+  .top-center-logo {
+    left: 50%;
+    transform: translateX(-50%);
+    top: 5px;
+  }
+}
+
 
 .app-layout {
   display: flex;
@@ -416,10 +454,10 @@ div[style*="background: #ffffff"] {
 
 /* Make main navigation buttons with larger text and stable fonts */
 .sidebar-nav a {
-  width: 200px !important;
-  min-height: 80px !important;
-  max-width: 200px !important;
-  font-size: 1.6rem !important; /* Increased from 1.4rem */
+  width: 240px !important;
+  min-height: 100px !important;
+  max-width: 240px !important;
+  font-size: clamp(0.7rem, 2vw, 1.4rem) !important; /* Responsive font size */
   color: #ffffff !important;
   text-transform: uppercase !important;
   background: linear-gradient(
@@ -450,6 +488,9 @@ div[style*="background: #ffffff"] {
   justify-content: center !important;
   text-align: center !important;
   padding: 1rem !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  hyphens: auto !important;
 }
 
 /* Ultra-specific override for main nav buttons */
@@ -487,6 +528,12 @@ div[style*="background: #ffffff"] {
   font-weight: 700 !important;
   text-transform: uppercase !important;
   letter-spacing: 2px !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  hyphens: auto !important;
+  max-width: 100% !important;
+  white-space: normal !important;
+  text-align: center !important;
 }
 
 .sidebar .sidebar-nav a.nav-link svg,
@@ -723,6 +770,7 @@ h1, h2, h3, h4, h5, h6,
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
   image-rendering: pixelated !important;
   transition: all 0.2s ease !important;
+  overflow: visible !important;
 }
 
 .inflatable-button:hover {
@@ -746,7 +794,7 @@ h1, h2, h3, h4, h5, h6,
   .inflatable-button {
     min-height: 80px !important;
     max-width: 200px !important;
-    font-size: 1.4rem !important;
+    font-size: clamp(0.7rem, 2vw, 1.4rem) !important;
     padding: 0.4rem 0.2rem !important;
     line-height: 1.2 !important;
   }
@@ -755,9 +803,17 @@ h1, h2, h3, h4, h5, h6,
     font-size: 1rem !important;
     line-height: 1.2 !important;
     white-space: nowrap !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     text-overflow: ellipsis !important;
     max-width: 100% !important;
+  }
+
+  /* Hero-specific: mobile button sizing */
+  div.hero-buttons-container .inflatable-button {
+    min-height: 60px !important;
+    height: 60px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
   }
 }
 
@@ -949,7 +1005,7 @@ button:hover,
     }
 
     p.hero-subtext {
-      font-size: 1.2rem !important;
+      font-size: 1.35rem !important;
       margin-bottom: 2.5rem !important;
       padding: 0 2rem !important;
       line-height: 1.5 !important;
@@ -969,7 +1025,7 @@ button:hover,
 
     button.hero-button {
       width: 100% !important;
-      height: 70px !important;
+      height: 60px !important;
       margin: 0 !important;
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
       border-radius: 12px !important;
@@ -1020,7 +1076,7 @@ button:hover,
     }
 
     p.hero-subtext {
-      font-size: 0.9rem !important;
+      font-size: 1.05rem !important;
       margin-bottom: 1.5rem !important;
       padding: 0 0.5rem !important;
       font-family: 'Roboto Mono', 'Courier New', monospace !important;
@@ -1031,7 +1087,7 @@ button:hover,
     }
 
     button.hero-button {
-      height: 70px !important;
+      height: 60px !important;
     }
   }
   .main-content {
@@ -1072,12 +1128,16 @@ button:hover,
   
   .mobile-hamburger-container {
     display: block !important;
-    top: 8px !important;
-    left: 8px !important;
-    height: 36px !important;
+    position: fixed !important;
+    top: 25px !important;
+    left: 12px !important;
+    width: 40px !important;
+    height: 40px !important;
     padding: 0 !important;
-    line-height: 36px !important;
+    line-height: 40px !important;
     text-align: center !important;
+    z-index: 3000 !important;
+    pointer-events: auto !important;
   }
   .close-sidebar {
     display: block !important;
@@ -1131,11 +1191,11 @@ button:hover,
 
   /* Mobile main navigation buttons smaller */
   .sidebar-nav a {
-    width: 200px !important;
-    min-height: 80px !important;
-    max-height: 80px !important;
-    max-width: 200px !important;
-    font-size: 1.4rem !important;
+    width: 240px !important;
+    min-height: 100px !important;
+    max-height: 100px !important;
+    max-width: 240px !important;
+    font-size: clamp(0.7rem, 2vw, 1.4rem) !important;
     color: #ffffff !important;
     text-transform: uppercase !important;
     padding: 0.4rem 0.2rem !important;
@@ -1190,7 +1250,7 @@ button:hover,
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
     image-rendering: pixelated !important;
     font-family:
-      'VT323', 'Press Start 2P', 'Courier New', monospace !important; /* Simplified and more stable font stack */
+      'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
     font-weight: 700 !important;
     letter-spacing: 2px !important;
     text-transform: uppercase !important;
@@ -1217,19 +1277,25 @@ button:hover,
 
   /* Mobile button text */
   .sidebar .nav-link span {
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
+    max-width: 100% !important;
+    white-space: normal !important;
+    text-align: center !important;
     font-size: 1.2rem !important; /* Increased from 1rem */
     line-height: 1.2 !important;
     word-wrap: break-word !important;
     text-align: center !important;
     padding: 0 0.1rem !important;
     max-width: 100% !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     text-overflow: ellipsis !important;
     white-space: nowrap !important;
     color: #ffffff !important;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
     font-family:
-      'VT323', 'Press Start 2P', 'Courier New', monospace !important; /* Simplified and more stable font stack */
+      'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
     font-weight: 700 !important;
     text-transform: uppercase !important;
     letter-spacing: 2px !important;
@@ -1396,7 +1462,7 @@ nav button,
 
 /* Pixelated brand heading for MANDY'S */
 .brand-heading {
-  font-family: 'Press Start 2P', 'Tiny5', 'VT323', 'Courier New', Courier, monospace !important;
+  font-family: 'Press Start 2P', VT323, Poppins, Montserrat, Arial, sans-serif !important;
   text-transform: uppercase;
 }
 

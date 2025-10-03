@@ -261,14 +261,7 @@ export default function Chatbot() {
               <h1 className={styles.heroTitle}>
                 Ask Handy Mandy
               </h1>
-              <p className={`${styles.heroSubtitle} text-sm md:text-lg`} style={{ 
-                fontFamily: 'Attila Sans Classic, Playfair Display, Georgia, Times New Roman, serif',
-                color: '#0a164d',
-                textAlign: 'center',
-                lineHeight: '1.4',
-                margin: '0',
-                fontWeight: '400'
-              }}>
+              <p className={styles.heroSubtitle}>
                 Our Mandy toolbot can tackle any DIY, decor, or life Qs you throw its way.
               </p>
             </div>
@@ -471,8 +464,8 @@ export default function Chatbot() {
                   </div>
                 )}
                 {showHero && (
-                  <div className="border-t-4 border-primary/30 pt-2 md:pt-2 mt-12 md:mt-14">
-                    <h3 className="text-center text-pink-600 font-bold text-xl mb-2">
+                  <div className="border-t border-primary/30 pt-2 md:pt-2 mt-12 md:mt-14">
+                    <h3 className="text-center text-pink-600 font-bold text-base mb-2">
                       Try these popular questions:
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
