@@ -221,8 +221,8 @@ export function HeroSection() {
                 className={`${styles.heroTitle} hero-title tracking-[1px] leading-[1.05]`}
                 style={{
                   color: '#0a164d',
-                  marginTop: '0.9rem',
-                  marginBottom: '0.25rem',
+                  marginTop: '1.5rem',
+                  marginBottom: '1.5rem',
                   marginLeft: 'auto',
                   marginRight: 'auto',
                   fontWeight: '800',
@@ -272,8 +272,8 @@ export function HeroSection() {
                 opacity: 1,
                 textAlign: 'center',
                 fontSize: 'clamp(1.05rem, 2.5vw, 1.75rem)',
-                marginTop: '-0.5rem',
-                marginBottom: '-2rem',
+                marginTop: '0rem',
+                marginBottom: '2rem',
                 lineHeight: '1.1',
               }}
             >

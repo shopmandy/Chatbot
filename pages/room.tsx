@@ -905,7 +905,7 @@ export default function Room() {
         style={{
           width: '100%',
           padding:
-            'clamp(1rem, 4vw, 2rem) clamp(1rem, 5vw, 2rem) clamp(0.5rem, 2vw, 0.5rem) clamp(1rem, 5vw, 2rem)',
+            'clamp(0.5rem, 2vw, 1rem) clamp(1rem, 5vw, 2rem) clamp(0.5rem, 2vw, 0.5rem) clamp(1rem, 5vw, 2rem)',
           textAlign: 'center',
           zIndex: 200,
           position: 'relative',
@@ -913,7 +913,7 @@ export default function Room() {
       >
         <RoomMakeoverHero 
           onGetStarted={scrollToUpload} 
-          headline="DESIGN SMARTER. BUILD BETTER."
+          headline="TRANSFORM YOUR SPACE"
         />
       </div>
       <div>
@@ -1770,6 +1770,23 @@ export default function Room() {
                           priceRange: priceRange,
                         }
                       }
+
+                      // Actually call the search API
+                      const response = await fetch('/api/amazon-products', {
+                        method: 'POST',
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(searchPayload),
+                      })
+
+                      if (!response.ok) {
+                        throw new Error(`Search failed: ${response.statusText}`)
+                      }
+
+                      const data = await response.json()
+                      console.log('✅ Manual search successful:', data)
+                      setAmazonProducts(data.products || [])
                     } catch (error) {
                       console.log('Amazon products search failed:', error)
                       alert('Product search failed. Check console for details.')

@@ -12,7 +12,7 @@ export default function Document() {
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500;600;700&family=VT323:wght@400&family=Press+Start+2P&family=Playfair+Display:wght@400;500;600;700&display=swap&v=4"
+          href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500;600;700&family=VT323:wght@400&family=Press+Start+2P&family=Playfair+Display:wght@400;500;600;700&family=Druk+Wide+Web:wght@400;500;600;700&display=swap&v=4"
           rel="stylesheet"
         />
 
@@ -27,6 +27,13 @@ export default function Document() {
         <link
           rel="preload"
           href="https://fonts.gstatic.com/s/pressstart2p/v14/e3t4euO8T-267oIAQAu6jDQyK3nVivM.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="https://fonts.gstatic.com/s/drukwidweb/v1/3JnySDi-3G-1E4aDDWTKbFw.woff2"
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"

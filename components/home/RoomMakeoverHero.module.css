@@ -8,7 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem 2rem 4rem 2rem;
+  padding: 0.5rem 0.5rem 1rem 0.5rem;
   margin: 0;
 }
 
@@ -627,6 +627,18 @@
   .heroContainer {
     padding: 0.75rem;
     min-height: 80vh;
+  }
+
+  .headlineSection {
+    margin-bottom: 1rem;
+  }
+
+  .mainHeadline {
+    margin: 0 0 0.5rem 0;
+  }
+
+  .subHeadline {
+    margin: 0;
   }
 
   .beforeAfterContainer {
