@@ -213,12 +213,29 @@ export default function Chatbot() {
     return shuffled.slice(0, 4)
   }
 
+  const getMobileQuestions = () => {
+    const shuffled = [...commonQuestions].sort(() => 0.5 - Math.random())
+    return shuffled.slice(0, 3)
+  }
+
   // Initialize with random questions on client side only
   const [questionsToShow, setQuestionsToShow] = useState<string[]>([])
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
-    setQuestionsToShow(getRandomQuestions())
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    
+    return () => window.removeEventListener('resize', checkMobile)
   }, [])
+
+  useEffect(() => {
+    setQuestionsToShow(isMobile ? getMobileQuestions() : getRandomQuestions())
+  }, [isMobile])
 
   const handleSaveChat = async () => {
     if (!isSignedIn) {
@@ -259,10 +276,10 @@ export default function Chatbot() {
             {/* Hero Section */}
             <div className={styles.heroContent}>
               <h1 className={styles.heroTitle}>
-                Ask Handy Mandy
+                ASK HANDY MANDY
               </h1>
               <p className={styles.heroSubtitle}>
-                Our Mandy toolbot can tackle any DIY, decor, or life Qs you throw its way.
+                Mandy can tackle any DIY, decor, or life Qs you throw her way.
               </p>
             </div>
           </div>
