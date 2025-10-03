@@ -995,6 +995,7 @@ export default function Room() {
                   fontWeight: '700',
                   letterSpacing: '0.5px',
                   color: '#ffffff',
+                  fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
                 }}
               >
                 DESIGN YOUR DREAM ROOM
@@ -1401,6 +1402,7 @@ export default function Room() {
                   fontWeight: '700',
                   letterSpacing: '0.5px',
                   color: '#ffffff',
+                  fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
                 }}
               >
                 YOUR GENERATED ROOM
@@ -1767,61 +1769,6 @@ export default function Room() {
                           roomType: currentRoomType,
                           priceRange: priceRange,
                         }
-                      }
-
-                      const productResponse = await fetch(
-                        '/api/amazon-products',
-                        {
-                          method: 'POST',
-                          headers: { 'Content-Type': 'application/json' },
-                          body: JSON.stringify(searchPayload),
-                        }
-                      )
-
-                      // Check if response is OK and content-type is JSON
-                      if (!productResponse.ok) {
-                        const errorText = await productResponse.text()
-                        console.error(
-                          'Amazon API HTTP error:',
-                          productResponse.status,
-                          errorText
-                        )
-                        throw new Error(
-                          `Amazon API returned ${productResponse.status}: ${errorText.substring(0, 200)}`
-                        )
-                      }
-
-                      const contentType =
-                        productResponse.headers.get('content-type')
-                      if (
-                        !contentType ||
-                        !contentType.includes('application/json')
-                      ) {
-                        const responseText = await productResponse.text()
-                        console.error(
-                          'Amazon API returned non-JSON response:',
-                          responseText.substring(0, 500)
-                        )
-                        throw new Error(
-                          'Amazon API returned HTML instead of JSON - check server logs'
-                        )
-                      }
-
-                      const productData = await productResponse.json()
-                      console.log('Amazon API response:', productData)
-                      if (productData.success && productData.products) {
-                        console.log(
-                          'First product sample:',
-                          productData.products[0]
-                        )
-                        setAmazonProducts(productData.products)
-                        // Removed popup alert - products will show in the section below
-                      } else {
-                        console.log(
-                          'No products found or API error:',
-                          productData
-                        )
-                        alert('No products found. Check console for details.')
                       }
                     } catch (error) {
                       console.log('Amazon products search failed:', error)

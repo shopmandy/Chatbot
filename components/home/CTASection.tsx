@@ -79,9 +79,13 @@ export function CTASection() {
         <div
           className="mb-16 md:mb-24 max-w-[95%] md:max-w-[836px]"
           style={{
-            background: '#ffffff',
-            border: '2px solid transparent',
+            backgroundColor: '#ffffff',
+            border: '3px solid transparent',
             borderRadius: '20px',
+            background: `
+              linear-gradient(white, white) padding-box,
+              linear-gradient(135deg, #B894E6 0%, #C894E6 25%, #D894E6 50%, #E694D6 75%, #E694C6 100%) border-box
+            `,
             boxShadow: `
               0 0 0 1px rgba(255, 255, 255, 0.4),
               0 0 20px rgba(255, 154, 209, 0.5),
@@ -90,7 +94,7 @@ export function CTASection() {
               0 8px 32px rgba(255, 105, 180, 0.25),
               0 4px 16px rgba(212, 183, 255, 0.2),
               inset 0 1px 0 rgba(255, 255, 255, 0.5),
-              inset 0 -1px 0 rgba(0, 0, 0, 0.08)
+              inset 0 -1px 0 rgba(0, 0, 0, 0.1)
             `,
             overflow: 'visible',
             position: 'relative',
@@ -130,7 +134,7 @@ export function CTASection() {
               <Star style={{ width: 20, height: 20, color: '#0a164d' }} />
               <span style={{ 
                 fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
-                fontSize: '12px',
+                fontSize: '15px',
                 fontWeight: '700',
                 letterSpacing: '0.5px',
                 color: '#ffffff',
@@ -220,7 +224,7 @@ export function CTASection() {
                 lineHeight: '1.2',
                 fontFamily: "'Attila Sans Classic', 'Arial', 'Helvetica', sans-serif",
                 textAlign: 'center',
-                textShadow: '1px 1px 0px rgba(10, 22, 77, 0.5)',
+                textShadow: 'none',
               }}
             >
               JOIN THE MANDY WORKSHOP
@@ -238,7 +242,7 @@ export function CTASection() {
                 opacity: 0.9,
               }}
             >
-              Get 15% off your first toolkit, early access to our AI design
+              GET 15% OFF your first toolkit, early access to our AI design
               tools, and DIY inspo you won't find anywhere else.
             </p>
 
@@ -304,7 +308,7 @@ export function CTASection() {
                     <span>
                       {subscriptionStatus.type === 'loading'
                         ? 'signing up...'
-                        : 'get 15% off'}
+                        : 'GET 15% OFF'}
                     </span>
                   </button>
                 </div>

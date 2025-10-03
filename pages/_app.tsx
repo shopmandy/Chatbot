@@ -221,11 +221,13 @@ export default function App({ Component, pageProps }: AppProps) {
                 className="brand-heading"
                 style={{
                   fontSize: '1.8rem',
-                  fontWeight: 600,
+                  fontWeight: 700,
                   color: '#f91b8f',
                   lineHeight: 1,
                   margin: 0,
-                  letterSpacing: '0.18em',
+                  letterSpacing: '0.1em',
+                  fontFamily: "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+                  textTransform: 'uppercase',
                 }}
               >
                 MANDY&apos;S
@@ -259,7 +261,8 @@ export default function App({ Component, pageProps }: AppProps) {
                       target="_blank"
                       rel="noopener noreferrer"
                       className={`inflatable-button relative px-4 py-3 rounded-2xl border-2 font-bold text-xs
-                      transition-transform duration-150 min-h-[80px] max-w-[200px] w-full mx-auto
+                      transition-transform duration-150 min-h-[100px] max-w-[240px] w-full mx-auto
+                      flex flex-col items-center justify-center gap-2
                       ${styles.navButton}
                       ${isActive ? styles.active : ''}
                       ${isHovered && !isActive ? 'hover:scale-102' : ''}`}
@@ -292,8 +295,7 @@ export default function App({ Component, pageProps }: AppProps) {
                                 color: '#ffffff',
                                 textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
                                 textTransform: 'uppercase',
-                                letterSpacing: '2px',
-                                fontSize: '1.4rem',
+                                letterSpacing: '2px'
                               }}
                             >
                               ROOM MAKEOVER
@@ -324,8 +326,7 @@ export default function App({ Component, pageProps }: AppProps) {
                                 color: '#ffffff',
                                 textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
                                 textTransform: 'uppercase',
-                                letterSpacing: '2px',
-                                fontSize: '1.4rem',
+                                letterSpacing: '2px'
                               }}
                             >
                               DIY CHATBOT
@@ -351,13 +352,12 @@ export default function App({ Component, pageProps }: AppProps) {
                               className="text-xs leading-tight text-center text-white drop-shadow-sm"
                               style={{
                                 fontFamily:
-                                  "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
+                                  "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important",
                                 fontWeight: 700,
                                 color: '#ffffff !important',
                                 textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
                                 textTransform: 'uppercase',
                                 letterSpacing: '1px',
-                                fontSize: '1.4rem !important',
                               }}
                             >
                               SHOP TOOLKITS
@@ -383,13 +383,12 @@ export default function App({ Component, pageProps }: AppProps) {
                               className="text-xs leading-tight text-center text-white drop-shadow-sm"
                               style={{
                                 fontFamily:
-                                  "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
+                                  "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important",
                                 fontWeight: 700,
                                 color: '#ffffff !important',
                                 textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
                                 textTransform: 'uppercase',
                                 letterSpacing: '1px',
-                                fontSize: '1.4rem !important',
                               }}
                             >
                               HOME
@@ -415,13 +414,12 @@ export default function App({ Component, pageProps }: AppProps) {
                               className="text-xs leading-tight text-center text-white drop-shadow-sm"
                               style={{
                                 fontFamily:
-                                  "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
+                                  "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important",
                                 fontWeight: 700,
                                 color: '#ffffff !important',
                                 textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
                                 textTransform: 'uppercase',
                                 letterSpacing: '1px',
-                                fontSize: '1.4rem !important',
                               }}
                             >
                               PROFILE
@@ -442,13 +440,12 @@ export default function App({ Component, pageProps }: AppProps) {
                               className="text-xs leading-tight text-center text-white drop-shadow-sm"
                               style={{
                                 fontFamily:
-                                  "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
+                                  "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important",
                                 fontWeight: 700,
                                 color: '#ffffff !important',
                                 textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)',
                                 textTransform: 'uppercase',
                                 letterSpacing: '1px',
-                                fontSize: '1.4rem !important',
                               }}
                             >
                               {item.label}
@@ -465,7 +462,8 @@ export default function App({ Component, pageProps }: AppProps) {
                     key={item.id}
                     href={item.path}
                     className={`inflatable-button relative px-4 py-3 rounded-2xl border-2 font-bold text-xs
-                    transition-transform duration-150 min-h-[80px] max-w-[200px] w-full mx-auto
+                    transition-transform duration-150 min-h-[100px] max-w-[240px] w-full mx-auto
+                    flex flex-col items-center justify-center gap-2
                     ${styles.navButton}
                     ${isActive ? styles.active : ''}
                     ${isHovered && !isActive ? 'hover:scale-102' : ''}`}
@@ -695,6 +693,24 @@ export default function App({ Component, pageProps }: AppProps) {
             </div>
           </aside>
           <div className="main-content">
+            {/* Top Center Logo */}
+            <div
+              className="top-center-logo"
+              onClick={() => router.push('/')}
+            >
+              <Image
+                src="/mandy AI logo.png"
+                alt="Mandy AI Logo"
+                width={120}
+                height={120}
+                style={{
+                  width: '120px',
+                  height: '120px',
+                  objectFit: 'contain',
+                  display: 'block',
+                }}
+              />
+            </div>
             <Component {...pageProps} />
             <Analytics />
           </div>

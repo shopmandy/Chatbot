@@ -87,46 +87,47 @@ export function InstagramSection() {
   return (
     <div
       style={{
-        width: '1000px',
-        maxWidth: '1200px',
-        margin: '0 auto',
-        boxSizing: 'border-box',
+        position: 'relative',
+        minHeight: 'calc(100vh - 150px)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: '0',
+        background: 'transparent',
+        overflow: 'hidden',
         paddingBottom: '2rem',
       }}
     >
-      {/* Section Content */}
+      {/* Content Area */}
       <div
+        className="step4-content"
         style={{
+          position: 'relative',
+          zIndex: 2,
+          width: '1000px',
+          maxWidth: '1200px',
+          opacity: 1,
+          transform: 'translateY(0) scale(1)',
+          transition: 'all 0.8s ease-out',
           textAlign: 'center',
         }}
       >
-        <h1
+        <h2
           style={{
             fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
-            color: '#0a164d',
-            marginBottom: '1rem',
             fontWeight: '900',
-            letterSpacing: '2px',
-            lineHeight: '1.2',
+            color: '#0a164d',
             fontFamily: "'Druk', 'Druk Wide Web Bold', 'VT323', 'Tiny5', 'Courier New', Courier, monospace",
+            letterSpacing: '2px',
+            lineHeight: '1.3',
+            margin: '0 0 1rem 0',
+            textAlign: 'center',
             textShadow: 
               '0 2px 8px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.2), 0 0 20px rgba(255, 255, 255, 0.1)',
           }}
         >
-          STEP 4: SHARE IT <br />
-          BUILD WITH US{' '}
-          <a
-            href="https://www.instagram.com/shopmandytools"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              color: '#0a164d',
-              textDecoration: 'none',
-            }}
-          >
-            @SHOPMANDYTOOLS
-          </a>
-        </h1>
+          STEP 4: FOLLOW ALONG FOR DIY INSPO.
+        </h2>
 
 
         <div
@@ -181,7 +182,42 @@ export function InstagramSection() {
             </div>
           </section>
         </div>
-      </div>
+
+          {/* Follow Button */}
+          <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+            <button
+              className="inflatable-button step4-follow-button"
+              onClick={() => window.open('https://www.instagram.com/shopmandytools', '_blank')}
+            >
+              FOLLOW @SHOPMANDYTOOLS
+              <span style={{ fontSize: '14px' }}>→</span>
+            </button>
+          </div>
+        </div>
+
+      <style jsx>{`
+        @media (max-width: 768px) {
+          .step4-content {
+            width: 95% !important;
+            max-width: 420px !important;
+          }
+          .step4-follow-button {
+            max-width: 300px !important;
+            min-width: 280px !important;
+            font-size: clamp(0.6rem, 1.8vw, 1.2rem) !important;
+            padding: 0.5rem 1rem !important;
+          }
+        }
+        
+        /* Remove all shadows from carousel images */
+        .carouselSlide img {
+          box-shadow: none !important;
+        }
+        
+        .carouselSlide a:hover img {
+          box-shadow: none !important;
+        }
+      `}</style>
     </div>
   )
 }

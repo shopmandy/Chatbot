@@ -48,10 +48,11 @@ export function HeroSection() {
       style={{
         height: '100dvh',
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'center',
         position: 'relative',
         background: 'transparent',
+        paddingTop: '140px', // Ensure content starts below the logo (5px + 120px + 15px margin)
         paddingBottom: 'env(safe-area-inset-bottom)',
       }}
     >
@@ -71,10 +72,12 @@ export function HeroSection() {
           className="w-[95%] md:w-[min(95%,836px)]"
           style={{
             backgroundColor: '#ffffff',
-            background: '#ffffff',
-            backgroundImage: 'none',
-            border: '2px solid transparent',
+            border: '3px solid transparent',
             borderRadius: '24px',
+            background: `
+              linear-gradient(white, white) padding-box,
+              linear-gradient(135deg, #B894E6 0%, #C894E6 25%, #D894E6 50%, #E694D6 75%, #E694C6 100%) border-box
+            `,
             boxShadow: `
               0 0 0 1px rgba(255, 255, 255, 0.4),
               0 0 20px rgba(255, 154, 209, 0.5),
@@ -86,12 +89,12 @@ export function HeroSection() {
               inset 0 -1px 0 rgba(0, 0, 0, 0.1)
             `,
             overflow: 'visible',
+            margin: '0 auto',
             marginBottom: '0rem',
             position: 'relative',
-            margin: '0 auto',
             display: 'flex',
             flexDirection: 'column',
-            minHeight: 'clamp(500px, 80vh, 700px)',
+            minHeight: 'clamp(400px, 75vh, 620px)',
           }}
         >
           {/* Holographic Border Effect */}
@@ -140,7 +143,7 @@ export function HeroSection() {
 
           {/* Enhanced Section Content */}
           <div
-            className="p-3 md:p-6"
+            className="pt-8 px-3 md:p-6"
             style={{
               textAlign: 'center',
               display: isMinimized ? 'none' : 'flex',
@@ -148,15 +151,14 @@ export function HeroSection() {
               justifyContent: 'center',
               flex: 1,
               transition: 'all 0.3s ease',
-              overflow: 'hidden',
-              minHeight: 'clamp(400px, 60vh, 600px)',
+              overflow: 'visible',
+              minHeight: 'clamp(440px, 65vh, 660px)',
             }}
           >
             <div
-              className="mb-6 md:mb-8 translate-y-4 md:translate-y-0"
+              className="-mt-10 mb-8 md:mt-0 md:mb-8 translate-y-4 md:translate-y-0"
               style={{
                 position: 'relative',
-                marginTop: 0,
               }}
             >
               <div
@@ -164,15 +166,16 @@ export function HeroSection() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
+                  gap: '8px',
                 }}
               >
                 {/* Left Hammer */}
                 <Image
                   src="/pixelated hammer icon.png"
                   alt="Hammer"
-                  width={36}
-                  height={36}
-                  className="w-6 h-6 md:w-9 md:h-9 mr-4 md:mr-6"
+                  width={48}
+                  height={48}
+                  className="w-8 h-8 md:w-12 md:h-12"
                   style={{
                     imageRendering: 'pixelated',
                     transform: 'rotate(45deg) scaleX(-1)',
@@ -181,16 +184,17 @@ export function HeroSection() {
                 />
 
                 <h2
-                  className="text-[clamp(20px,6vw,35px)] md:text-[2rem]"
                   style={{
                     color: '#0a164d',
-                    marginBottom: '0',
+                    margin: '0',
                     fontWeight: '700',
                     letterSpacing: '2px',
                     lineHeight: '1.1',
                     fontFamily:
                       "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
-                    textShadow: '1px 1px 0px rgba(76, 45, 150, 0.5)',
+                    textShadow: 'none',
+                    whiteSpace: 'nowrap',
+                    fontSize: 'calc(var(--heroTitleSize) / 2)',
                   }}
                 >
                   WELCOME TO
@@ -200,9 +204,9 @@ export function HeroSection() {
                 <Image
                   src="/pixelated hammer icon.png"
                   alt="Hammer"
-                  width={36}
-                  height={36}
-                  className="w-6 h-6 md:w-9 md:h-9 ml-4 md:ml-6"
+                  width={48}
+                  height={48}
+                  className="w-8 h-8 md:w-12 md:h-12"
                   style={{
                     imageRendering: 'pixelated',
                     transform: 'rotate(-45deg)',
@@ -214,11 +218,11 @@ export function HeroSection() {
               {/* Background highlight removed per request */}
 
               <h1
-                className="hero-title text-[1.4rem] md:text-[2.5rem] tracking-[1px] md:tracking-[2px] leading-[1.1] md:leading-[1.1]"
+                className={`${styles.heroTitle} hero-title tracking-[1px] leading-[1.05]`}
                 style={{
                   color: '#0a164d',
-                  marginTop: '0.5rem',
-                  marginBottom: '0',
+                  marginTop: '0.9rem',
+                  marginBottom: '0.25rem',
                   marginLeft: 'auto',
                   marginRight: 'auto',
                   fontWeight: '800',
@@ -232,15 +236,34 @@ export function HeroSection() {
                   width: '100%',
                   wordBreak: 'break-word',
                   hyphens: 'auto',
-                  fontSize: 'clamp(40px, 2.5rem, 2.5rem)',
+                  whiteSpace: 'normal',
                 }}
               >
-                MANDY&apos;S WORKSHOP
+                <span
+                  style={{
+                    display: 'block',
+                    whiteSpace: 'nowrap',
+                    fontSize: 'var(--heroTitleSize)',
+                    lineHeight: 1.05,
+                  }}
+                >
+                  MANDY&apos;S
+                </span>
+                <span
+                  style={{
+                    display: 'block',
+                    whiteSpace: 'nowrap',
+                    fontSize: 'var(--heroTitleSize)',
+                    lineHeight: 1.05,
+                  }}
+                >
+                  WORKSHOP
+                </span>
               </h1>
             </div>
 
             <p
-              className="hero-subtext text-[0.7rem] md:text-2xl mb-6 md:mb-8 leading-[1.4] md:leading-[1.6] px-4 md:px-0 max-w-90 md:max-w-none mx-auto md:mx-0"
+              className="hero-subtext mt-0 md:mt-0 mb-0 md:mb-0 leading-[1.1] md:leading-[1.2] px-1 md:px-0 max-w-90 md:max-w-none mx-auto md:mx-0"
               style={{
                 color: '#0a164d',
                 fontWeight: '600',
@@ -248,6 +271,10 @@ export function HeroSection() {
                 letterSpacing: '0.5px',
                 opacity: 1,
                 textAlign: 'center',
+                fontSize: 'clamp(1.05rem, 2.5vw, 1.75rem)',
+                marginTop: '-0.5rem',
+                marginBottom: '-2rem',
+                lineHeight: '1.1',
               }}
             >
               Design with AI, build with Mandy, and shop the toolkit to make it
@@ -256,9 +283,10 @@ export function HeroSection() {
 
             {/* Enhanced Buttons */}
             <div
-              className="hero-buttons-container flex justify-center items-center gap-3 md:gap-4 flex-col md:flex-row max-w-90 md:max-w-none mx-auto px-2 pb-6 md:px-0 md:pb-8"
+              className="hero-buttons-container mt-8 md:mt-6 flex justify-center items-center gap-4 md:gap-5 flex-col md:flex-row max-w-90 md:max-w-none mx-auto px-2 pb-14 md:px-0 md:pb-10"
               style={{
                 flexWrap: 'nowrap',
+                overflow: 'visible',
               }}
             >
               {navItems.map(item => {
@@ -272,7 +300,7 @@ export function HeroSection() {
                   <button
                     key={item.id}
                     onClick={() => handleButtonClick(item.path)}
-                    className="inflatable-button hero-button h-[50px] md:h-[140px] w-full md:w-[220px] p-2 md:p-5 rounded-xl md:rounded-[20px] min-w-[180px] md:min-w-[220px] max-w-[260px] md:max-w-none"
+                    className="inflatable-button hero-button h-[28px] md:h-[140px] w-full md:w-[220px] py-[2px] px-2 md:p-5 rounded-xl md:rounded-[20px] min-w-[180px] md:min-w-[220px] max-w-[260px] md:max-w-none"
                     style={{
                       margin: '0 auto',
                     }}
@@ -295,7 +323,7 @@ export function HeroSection() {
                             }}
                           />
                           <div
-                            className="text-[0.5rem] md:text-[0.8rem] text-center leading-[1.1] uppercase tracking-[1px] flex-1 md:flex-none whitespace-normal md:whitespace-nowrap"
+                            className="text-[12px] md:text-[0.8rem] text-center leading-[1.1] uppercase tracking-[1px] flex-1 md:flex-none whitespace-nowrap"
                             style={{
                               fontFamily:
                                 "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important",
@@ -323,7 +351,7 @@ export function HeroSection() {
                             }}
                           />
                           <div
-                            className="text-[0.5rem] md:text-[0.8rem] text-center leading-[1.1] uppercase tracking-[1px] flex-1 md:flex-none whitespace-normal md:whitespace-nowrap"
+                            className="text-[12px] md:text-[0.8rem] text-center leading-[1.1] uppercase tracking-[1px] flex-1 md:flex-none whitespace-nowrap"
                             style={{
                               fontFamily:
                                 "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important",
@@ -351,7 +379,7 @@ export function HeroSection() {
                             }}
                           />
                           <div
-                            className="text-[0.5rem] md:text-[0.8rem] text-center leading-[1.1] uppercase tracking-[1px] flex-1 md:flex-none whitespace-normal md:whitespace-nowrap"
+                            className="text-[12px] md:text-[0.8rem] text-center leading-[1.1] uppercase tracking-[1px] flex-1 md:flex-none whitespace-nowrap"
                             style={{
                               fontFamily:
                                 "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important",
