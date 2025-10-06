@@ -115,7 +115,7 @@
   
   .headerText {
     font-size: 15px !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     text-overflow: ellipsis !important;
     white-space: nowrap !important;
   }

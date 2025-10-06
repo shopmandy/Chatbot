@@ -34,6 +34,7 @@
   backdrop-filter: blur(10px);
   top: 0;
   z-index: 100;
+  padding-top: 100px; /* reduced top space to match Room Makeover */
 }
 
 .headerContent {
@@ -281,15 +282,40 @@
 }
 
 @media (max-width: 768px) {
+  .header {
+    padding-top: 70px !important; /* bring header closer to top on mobile */
+  }
   .heroTitle {
     padding: 0 0.5rem;
     word-wrap: break-word;
     overflow-wrap: break-word;
     margin: 0 0 0.5rem 0;
+    font-size: 24px !important; /* explicit 24px on mobile */
+    font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
+    text-transform: uppercase !important;
+    text-shadow: 
+      0 2px 8px rgba(0, 0, 0, 0.3),
+      0 4px 16px rgba(0, 0, 0, 0.2),
+      0 0 20px rgba(255, 255, 255, 0.1) !important; /* match transform header glow */
   }
 
   .heroSubtitle {
     margin: 0;
+  }
+
+  /* Higher-specificity fallback to defeat global overrides */
+  h1.heroTitle.heroTitle {
+    font-size: 24px !important;
+    font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
+    text-transform: uppercase !important;
+    line-height: 1.1 !important;
+    letter-spacing: 1px !important;
+    text-shadow:
+      0 2px 8px rgba(0, 0, 0, 0.3),
+      0 4px 16px rgba(0, 0, 0, 0.2),
+      0 0 20px rgba(255, 255, 255, 0.1) !important;
+    color: #0a164d !important;
+    margin-bottom: 0.75rem !important;
   }
 }
 
@@ -297,12 +323,36 @@
   font-size: clamp(1.1rem, 2.5vw, 1.5rem);
   color: #0a164d;
   margin: 0;
-  font-weight: normal !important;
+  font-weight: 700 !important;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
   line-height: 1.4;
   font-family: 'Attila Sans Classic Medium', 'Attila Sans Classic', 'Playfair Display', 'Georgia', 'Times New Roman', serif !important;
+}
+
+/* Mobile: match Room Makeover hero typography and spacing */
+@media (max-width: 768px) {
+  .heroTitle {
+    font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    font-weight: 900 !important;
+    font-size: clamp(2rem, 8vw, 3.2rem) !important;
+    line-height: 1.1 !important;
+    letter-spacing: 1px !important;
+    margin: 0 0 0.75rem 0 !important;
+    text-shadow: none !important;
+    color: #0a164d !important;
+  }
+
+  .heroSubtitle {
+    font-family: 'Attila Sans Classic', 'Arial', 'Helvetica', sans-serif !important;
+    font-size: clamp(1.05rem, 3.8vw, 1.3rem) !important;
+    font-weight: 600 !important;
+    line-height: 1.2 !important;
+    margin: 0 !important;
+    color: #0a164d !important;
+  }
 }
 
 @media (max-width: 768px) {

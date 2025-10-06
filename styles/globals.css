@@ -199,6 +199,21 @@ html,
 /* Ensure the hero section container has the right background */
 .hero-section-container {
   background: transparent !important;
+  overflow: visible !important;
+}
+
+/* Mobile: allow hero window glow to bleed to edges */
+@media (max-width: 768px) {
+  .hero-section-container {
+    padding-top: max(140px, env(safe-area-inset-top) + 96px) !important; /* mobile-only extra top padding */
+    height: auto !important; /* let content define height on mobile */
+    min-height: 900px !important; /* target mobile hero height */
+    padding-bottom: 0 !important; /* remove extra bottom padding */
+  }
+  /* Ensure no parent clips the glow */
+  html, body, #__next, .app-layout, .main-content {
+    overflow-x: hidden !important;
+  }
 }
 
 /* But preserve the hero box background and styling */
@@ -321,7 +336,7 @@ div[style*="background: #ffffff"] {
   gap: 0.6rem;
   justify-content: flex-start;
   max-width: 100%;
-  overflow: hidden;
+  overflow: visible;
 }
 .header-nav .nav-link:last-child {
   margin-right: 1.5rem; /* adjust as needed */
@@ -1290,8 +1305,8 @@ button:hover,
     padding: 0 0.1rem !important;
     max-width: 100% !important;
     overflow: visible !important;
-    text-overflow: ellipsis !important;
-    white-space: nowrap !important;
+    text-overflow: clip !important;
+    white-space: normal !important;
     color: #ffffff !important;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
     font-family:
@@ -1402,6 +1417,15 @@ button:hover,
   letter-spacing: 2px !important;
 }
 
+/* Desktop: normalize font size for all sidebar nav button labels */
+@media (min-width: 1024px) {
+  .sidebar .sidebar-nav a span,
+  .sidebar .sidebar-nav a.nav-link span {
+    font-size: 0.8rem !important; /* smaller and consistent */
+    line-height: 1.1 !important;
+  }
+}
+
 .sidebar .sidebar-nav a svg,
 .sidebar .sidebar-nav a.nav-link svg {
   color: #ffffff !important;
@@ -1436,13 +1460,14 @@ html, body, #__next, .main-content, .app-layout {
   .hero__content {
     padding-left: 16px;
     padding-right: 16px;
-    overflow: visible;
+    overflow: visible !important;
   }
 
   /* Safety: prevent clipping on iOS home indicator phones */
   .hero,
   .hero-window {
     padding-bottom: max(24px, env(safe-area-inset-bottom));
+    overflow: visible !important;
   }
 }
 
@@ -1465,6 +1490,8 @@ nav button,
   font-family: 'Press Start 2P', VT323, Poppins, Montserrat, Arial, sans-serif !important;
   text-transform: uppercase;
 }
+
+/* (removed) Full-bleed glow helpers */
 
 /* ULTRA SPECIFIC OVERRIDE - Force Druk font on ALL navigation buttons */
 .sidebar .nav-link,

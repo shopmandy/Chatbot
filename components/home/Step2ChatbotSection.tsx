@@ -68,7 +68,7 @@ export function Step2ChatbotSection() {
         <h2
           className="main-heading"
           style={{
-            fontSize: 'clamp(1.5rem, 4vw, 2.5rem) !important',
+            fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
             fontWeight: '900',
             color: '#0a164d',
             fontFamily: "'Druk', 'Druk Wide Web Bold', 'VT323', 'Tiny5', 'Courier New', Courier, monospace",
@@ -88,7 +88,7 @@ export function Step2ChatbotSection() {
         <div
           style={{
             position: 'relative',
-            margin: '0',
+            margin: '12px 0 0 0',
             borderRadius: '24px',
             overflow: 'visible',
             background: '#ffffff',
@@ -429,9 +429,6 @@ export function Step2ChatbotSection() {
           }
           .step-label {
             font-size: 1.2rem !important;
-          }
-          .main-heading {
-            font-size: clamp(1.5rem, 4vw, 2.5rem) !important;
           }
           .sub-heading {
             font-size: 1rem !important;

@@ -52,8 +52,10 @@ export function HeroSection() {
         justifyContent: 'center',
         position: 'relative',
         background: 'transparent',
-        paddingTop: '140px', // Ensure content starts below the logo (5px + 120px + 15px margin)
+        marginTop: '8px',
+        paddingTop: '140px',
         paddingBottom: 'env(safe-area-inset-bottom)',
+        overflow: 'visible',
       }}
     >
       <div
@@ -66,6 +68,7 @@ export function HeroSection() {
           backgroundImage: 'none',
           display: 'flex',
           justifyContent: 'center',
+          overflow: 'visible',
         }}
       >
         <div
@@ -97,21 +100,7 @@ export function HeroSection() {
             minHeight: 'clamp(400px, 75vh, 620px)',
           }}
         >
-          {/* Holographic Border Effect */}
-          <div
-            style={{
-              position: 'absolute',
-              top: '-2px',
-              left: '-2px',
-              right: '-2px',
-              bottom: '-2px',
-              background: 'linear-gradient(45deg, #FF9AD1, #F078C5, #D4B7FF, #FF6FB4, #C896FF)',
-              borderRadius: '26px',
-              zIndex: -1,
-              opacity: 0.9,
-              filter: 'blur(2px)',
-            }}
-          />
+          
           {/* Enhanced Window Title Bar */}
           <div className={styles.headerContainer}>
             <div className={styles.headerLeft}>
@@ -437,5 +426,5 @@ export function HeroSection() {
         </div>
       </div>
     </div>
-  )
+  );
 }
