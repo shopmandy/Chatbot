@@ -40,6 +40,7 @@
   margin-right: auto;
   position: relative;
   z-index: 10;
+  padding-top: 100px; /* align with other pages' header spacing on desktop */
 }
 
 .backButton {
@@ -75,6 +76,7 @@
     0 4px 16px rgba(0, 0, 0, 0.2),
     0 0 20px rgba(255, 255, 255, 0.1);
   text-align: center;
+  text-transform: uppercase; /* all caps like other headers */
 }
 
 .content {
@@ -662,12 +664,15 @@
 
   .header {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center; /* center children on mobile */
     gap: 16px;
+    padding-top: 70px; /* align with other pages' header spacing on mobile */
   }
 
   .title {
-    font-size: 24px;
+    font-size: 24px; /* same mobile size as other headers */
+    text-align: center !important;
+    width: 100%;
   }
 
   .userInfo {
@@ -730,9 +735,7 @@
     padding: 6px 10px;
   }
 
-  .title {
-    font-size: 3rem;
-  }
+  /* remove conflicting large mobile title size */
 
   .userButtonWrapper {
     flex-direction: column;

@@ -491,7 +491,7 @@ export default function App({ Component, pageProps }: AppProps) {
                             className="text-xs leading-tight text-center text-white drop-shadow-sm"
                             style={{
                               fontFamily:
-                                "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
+                                "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important",
                               fontWeight: 700,
                               color: '#ffffff !important',
                               textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
@@ -523,7 +523,7 @@ export default function App({ Component, pageProps }: AppProps) {
                             className="text-xs leading-tight text-center text-white drop-shadow-sm"
                             style={{
                               fontFamily:
-                                "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
+                                "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important",
                               fontWeight: 700,
                               color: '#ffffff !important',
                               textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
@@ -555,7 +555,7 @@ export default function App({ Component, pageProps }: AppProps) {
                             className="text-xs leading-tight text-center text-white drop-shadow-sm"
                             style={{
                               fontFamily:
-                                "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
+                                "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important",
                               fontWeight: 700,
                               color: '#ffffff !important',
                               textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
@@ -587,7 +587,7 @@ export default function App({ Component, pageProps }: AppProps) {
                             className="text-xs leading-tight text-center text-white drop-shadow-sm"
                             style={{
                               fontFamily:
-                                "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
+                                "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important",
                               fontWeight: 700,
                               color: '#ffffff !important',
                               textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
@@ -619,7 +619,7 @@ export default function App({ Component, pageProps }: AppProps) {
                             className="text-xs leading-tight text-center text-white drop-shadow-sm"
                             style={{
                               fontFamily:
-                                "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
+                                "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important",
                               fontWeight: 700,
                               color: '#ffffff !important',
                               textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
@@ -646,7 +646,7 @@ export default function App({ Component, pageProps }: AppProps) {
                             className="text-xs leading-tight text-center text-white drop-shadow-sm"
                             style={{
                               fontFamily:
-                                "'VT323', 'Tiny5', 'Courier New', Courier, monospace !important",
+                                "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important",
                               fontWeight: 700,
                               color: '#ffffff !important',
                               textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)',
