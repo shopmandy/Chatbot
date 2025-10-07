@@ -48,13 +48,12 @@ export function HeroSection() {
       style={{
         height: '100dvh',
         display: 'flex',
-        alignItems: 'flex-start',
+        alignItems: 'center',
         justifyContent: 'center',
         position: 'relative',
         background: 'transparent',
-        marginTop: '8px',
-        paddingTop: '140px',
-        paddingBottom: 'env(safe-area-inset-bottom)',
+        marginTop: '0',
+        padding: '0',
         overflow: 'visible',
       }}
     >
@@ -100,7 +99,6 @@ export function HeroSection() {
             minHeight: 'clamp(400px, 75vh, 620px)',
           }}
         >
-          
           {/* Enhanced Window Title Bar */}
           <div className={styles.headerContainer}>
             <div className={styles.headerLeft}>
@@ -115,16 +113,10 @@ export function HeroSection() {
               >
                 ─
               </button>
-              <button
-                className={styles.windowButton}
-                title="Maximize"
-              >
+              <button className={styles.windowButton} title="Maximize">
                 □
               </button>
-              <button
-                className={styles.windowButton}
-                title="Close"
-              >
+              <button className={styles.windowButton} title="Close">
                 ×
               </button>
             </div>
@@ -183,7 +175,7 @@ export function HeroSection() {
                       "'VT323', 'Tiny5', 'Courier New', Courier, monospace",
                     textShadow: 'none',
                     whiteSpace: 'nowrap',
-                    fontSize: 'calc(var(--heroTitleSize) / 2)',
+                    fontSize: 'calc(var(--heroTitleSize) / 2.2)',
                   }}
                 >
                   WELCOME TO
@@ -232,7 +224,7 @@ export function HeroSection() {
                   style={{
                     display: 'block',
                     whiteSpace: 'nowrap',
-                    fontSize: 'var(--heroTitleSize)',
+                    fontSize: 'calc(var(--heroTitleSize) * 0.9)',
                     lineHeight: 1.05,
                   }}
                 >
@@ -242,7 +234,7 @@ export function HeroSection() {
                   style={{
                     display: 'block',
                     whiteSpace: 'nowrap',
-                    fontSize: 'var(--heroTitleSize)',
+                    fontSize: 'calc(var(--heroTitleSize) * 0.9)',
                     lineHeight: 1.05,
                   }}
                 >
@@ -256,11 +248,12 @@ export function HeroSection() {
               style={{
                 color: '#0a164d',
                 fontWeight: '600',
-                fontFamily: "'Attila Sans Classic', 'Arial', 'Helvetica', sans-serif",
+                fontFamily:
+                  "'Attila Sans Classic', 'Arial', 'Helvetica', sans-serif",
                 letterSpacing: '0.5px',
                 opacity: 1,
                 textAlign: 'center',
-                fontSize: 'clamp(1.05rem, 2.5vw, 1.75rem)',
+                fontSize: 'clamp(0.95rem, 2.2vw, 1.55rem)',
                 marginTop: '0rem',
                 marginBottom: '2rem',
                 lineHeight: '1.1',
@@ -289,9 +282,13 @@ export function HeroSection() {
                   <button
                     key={item.id}
                     onClick={() => handleButtonClick(item.path)}
-                    className="inflatable-button hero-button h-[28px] md:h-[140px] w-full md:w-[220px] py-[2px] px-2 md:p-5 rounded-xl md:rounded-[20px] min-w-[180px] md:min-w-[220px] max-w-[260px] md:max-w-none"
+                    className="inflatable-button hero-button h-[28px] md:h-[140px] w-full md:w-[220px] rounded-xl md:rounded-[20px] min-w-[180px] md:min-w-[220px] max-w-[260px] md:max-w-none"
                     style={{
                       margin: '0 auto',
+                      paddingLeft: '1.5rem',
+                      paddingRight: '1.5rem',
+                      paddingTop: '0.125rem',
+                      paddingBottom: '0.125rem',
                     }}
                   >
                     {/* Tab Content */}
@@ -304,7 +301,7 @@ export function HeroSection() {
                             alt="Inflatable Bed"
                             width={80}
                             height={80}
-                            className="w-8 h-8 md:w-20 md:h-20 flex-shrink-0"
+                            className="w-7 h-7 md:w-16 md:h-16 flex-shrink-0"
                             style={{
                               objectFit: 'contain',
                               filter:
@@ -312,7 +309,7 @@ export function HeroSection() {
                             }}
                           />
                           <div
-                            className="text-[12px] md:text-[0.8rem] text-center leading-[1.1] uppercase tracking-[1px] flex-1 md:flex-none whitespace-nowrap"
+                            className="text-[12px] md:text-[0.8rem] text-center leading-[1.1] uppercase tracking-[1px] whitespace-nowrap"
                             style={{
                               fontFamily:
                                 "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important",
@@ -332,7 +329,7 @@ export function HeroSection() {
                             alt="Inflatable Chat"
                             width={80}
                             height={80}
-                            className="w-9 h-9 md:w-20 md:h-20 flex-shrink-0"
+                            className="w-7 h-7 md:w-16 md:h-16 flex-shrink-0"
                             style={{
                               objectFit: 'contain',
                               filter:
@@ -340,7 +337,7 @@ export function HeroSection() {
                             }}
                           />
                           <div
-                            className="text-[12px] md:text-[0.8rem] text-center leading-[1.1] uppercase tracking-[1px] flex-1 md:flex-none whitespace-nowrap"
+                            className="text-[12px] md:text-[0.8rem] text-center leading-[1.1] uppercase tracking-[1px] whitespace-nowrap"
                             style={{
                               fontFamily:
                                 "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important",
@@ -360,7 +357,7 @@ export function HeroSection() {
                             alt="Inflatable Shop Tools"
                             width={80}
                             height={80}
-                            className="w-9 h-9 md:w-20 md:h-20 flex-shrink-0"
+                            className="w-7 h-7 md:w-16 md:h-16 flex-shrink-0"
                             style={{
                               objectFit: 'contain',
                               filter:
@@ -368,7 +365,7 @@ export function HeroSection() {
                             }}
                           />
                           <div
-                            className="text-[12px] md:text-[0.8rem] text-center leading-[1.1] uppercase tracking-[1px] flex-1 md:flex-none whitespace-nowrap"
+                            className="text-[12px] md:text-[0.8rem] text-center leading-[1.1] uppercase tracking-[1px] whitespace-nowrap"
                             style={{
                               fontFamily:
                                 "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important",
@@ -426,5 +423,5 @@ export function HeroSection() {
         </div>
       </div>
     </div>
-  );
+  )
 }
