@@ -32,21 +32,77 @@
 }
 
 body {
-  background: 
-    radial-gradient(ellipse 20vw 8vw at 20% 20%, rgba(255, 255, 255, 0.6) 0%, transparent 70%),
-    radial-gradient(ellipse 15vw 6vw at 80% 15%, rgba(255, 255, 255, 0.5) 0%, transparent 65%),
-    radial-gradient(ellipse 18vw 7vw at 10% 60%, rgba(255, 255, 255, 0.45) 0%, transparent 75%),
-    radial-gradient(ellipse 16vw 5vw at 70% 80%, rgba(255, 255, 255, 0.4) 0%, transparent 60%),
-    radial-gradient(ellipse 14vw 4.5vw at 50% 10%, rgba(255, 255, 255, 0.35) 0%, transparent 55%),
-    radial-gradient(ellipse 12vw 4vw at 90% 70%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
-    radial-gradient(ellipse 10vw 3.5vw at 30% 90%, rgba(255, 255, 255, 0.3) 0%, transparent 45%),
-    radial-gradient(circle at 15% 25%, rgba(255, 154, 209, 0.08) 0%, transparent 70%),
-    radial-gradient(circle at 85% 15%, rgba(240, 120, 197, 0.06) 0%, transparent 65%),
-    radial-gradient(circle at 25% 75%, rgba(212, 183, 255, 0.07) 0%, transparent 75%),
-    radial-gradient(circle at 75% 85%, rgba(255, 111, 180, 0.05) 0%, transparent 60%),
-    radial-gradient(circle at 50% 10%, rgba(200, 150, 255, 0.04) 0%, transparent 55%),
-    radial-gradient(circle at 90% 60%, rgba(255, 200, 255, 0.06) 0%, transparent 65%),
-    radial-gradient(circle at 10% 50%, rgba(180, 120, 255, 0.05) 0%, transparent 60%),
+  background:
+    radial-gradient(
+      ellipse 20vw 8vw at 20% 20%,
+      rgba(255, 255, 255, 0.6) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 15vw 6vw at 80% 15%,
+      rgba(255, 255, 255, 0.5) 0%,
+      transparent 65%
+    ),
+    radial-gradient(
+      ellipse 18vw 7vw at 10% 60%,
+      rgba(255, 255, 255, 0.45) 0%,
+      transparent 75%
+    ),
+    radial-gradient(
+      ellipse 16vw 5vw at 70% 80%,
+      rgba(255, 255, 255, 0.4) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 14vw 4.5vw at 50% 10%,
+      rgba(255, 255, 255, 0.35) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 12vw 4vw at 90% 70%,
+      rgba(255, 255, 255, 0.4) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse 10vw 3.5vw at 30% 90%,
+      rgba(255, 255, 255, 0.3) 0%,
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 15% 25%,
+      rgba(255, 154, 209, 0.08) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      circle at 85% 15%,
+      rgba(240, 120, 197, 0.06) 0%,
+      transparent 65%
+    ),
+    radial-gradient(
+      circle at 25% 75%,
+      rgba(212, 183, 255, 0.07) 0%,
+      transparent 75%
+    ),
+    radial-gradient(
+      circle at 75% 85%,
+      rgba(255, 111, 180, 0.05) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      circle at 50% 10%,
+      rgba(200, 150, 255, 0.04) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 90% 60%,
+      rgba(255, 200, 255, 0.06) 0%,
+      transparent 65%
+    ),
+    radial-gradient(
+      circle at 10% 50%,
+      rgba(180, 120, 255, 0.05) 0%,
+      transparent 60%
+    ),
     linear-gradient(180deg, #f8f6ff 0%, #faf9ff 30%, #fcfbff 70%, #ffffff 100%) !important;
   color: #0a164d;
   font-family: Arial, Helvetica, sans-serif;
@@ -67,14 +123,42 @@ body::before {
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
-    radial-gradient(ellipse 300px 150px at 20% 15%, rgba(255, 255, 255, 0.4) 0%, transparent 60%),
-    radial-gradient(ellipse 250px 120px at 80% 25%, rgba(255, 255, 255, 0.35) 0%, transparent 65%),
-    radial-gradient(ellipse 200px 100px at 15% 40%, rgba(255, 255, 255, 0.3) 0%, transparent 70%),
-    radial-gradient(ellipse 180px 90px at 75% 35%, rgba(255, 255, 255, 0.25) 0%, transparent 75%),
-    radial-gradient(ellipse 150px 80px at 90% 15%, rgba(255, 255, 255, 0.2) 0%, transparent 80%),
-    radial-gradient(ellipse 220px 110px at 5% 60%, rgba(255, 255, 255, 0.15) 0%, transparent 85%),
-    radial-gradient(ellipse 160px 85px at 60% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 90%);
+  background:
+    radial-gradient(
+      ellipse 300px 150px at 20% 15%,
+      rgba(255, 255, 255, 0.4) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 250px 120px at 80% 25%,
+      rgba(255, 255, 255, 0.35) 0%,
+      transparent 65%
+    ),
+    radial-gradient(
+      ellipse 200px 100px at 15% 40%,
+      rgba(255, 255, 255, 0.3) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 180px 90px at 75% 35%,
+      rgba(255, 255, 255, 0.25) 0%,
+      transparent 75%
+    ),
+    radial-gradient(
+      ellipse 150px 80px at 90% 15%,
+      rgba(255, 255, 255, 0.2) 0%,
+      transparent 80%
+    ),
+    radial-gradient(
+      ellipse 220px 110px at 5% 60%,
+      rgba(255, 255, 255, 0.15) 0%,
+      transparent 85%
+    ),
+    radial-gradient(
+      ellipse 160px 85px at 60% 50%,
+      rgba(255, 255, 255, 0.1) 0%,
+      transparent 90%
+    );
   pointer-events: none;
   z-index: 0;
   filter: blur(2px);
@@ -87,12 +171,32 @@ body::after {
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
-    radial-gradient(ellipse 400px 200px at 25% 20%, rgba(255, 255, 255, 0.12) 0%, transparent 50%),
-    radial-gradient(ellipse 350px 180px at 85% 30%, rgba(255, 255, 255, 0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 300px 150px at 10% 70%, rgba(255, 255, 255, 0.06) 0%, transparent 70%),
-    radial-gradient(ellipse 250px 125px at 70% 10%, rgba(255, 255, 255, 0.05) 0%, transparent 80%),
-    radial-gradient(ellipse 200px 100px at 40% 80%, rgba(255, 255, 255, 0.04) 0%, transparent 85%);
+  background:
+    radial-gradient(
+      ellipse 400px 200px at 25% 20%,
+      rgba(255, 255, 255, 0.12) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse 350px 180px at 85% 30%,
+      rgba(255, 255, 255, 0.08) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 300px 150px at 10% 70%,
+      rgba(255, 255, 255, 0.06) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 250px 125px at 70% 10%,
+      rgba(255, 255, 255, 0.05) 0%,
+      transparent 80%
+    ),
+    radial-gradient(
+      ellipse 200px 100px at 40% 80%,
+      rgba(255, 255, 255, 0.04) 0%,
+      transparent 85%
+    );
   pointer-events: none;
   z-index: 0;
   filter: blur(3px);
@@ -110,14 +214,16 @@ body.home-solid::after {
 
 /* Force Attila Sans Classic font for hero subtext */
 .hero-subtext {
-  font-family: 'Attila Sans Classic', 'Arial', 'Helvetica', sans-serif !important;
+  font-family:
+    'Attila Sans Classic', 'Arial', 'Helvetica', sans-serif !important;
 }
 
 /* Extra specificity: ensure Attila Sans is used inside the hero container */
 .hero-section-container p.hero-subtext,
 div.hero-section-container p.hero-subtext,
 div[class*='hero'] p.hero-subtext {
-  font-family: 'Attila Sans Classic', 'Arial', 'Helvetica', sans-serif !important;
+  font-family:
+    'Attila Sans Classic', 'Arial', 'Helvetica', sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -125,21 +231,77 @@ div[class*='hero'] p.hero-subtext {
 /* Mobile font size handled with inline styles */
 
 html {
-  background: 
-    radial-gradient(ellipse 20vw 8vw at 20% 20%, rgba(255, 255, 255, 0.6) 0%, transparent 70%),
-    radial-gradient(ellipse 15vw 6vw at 80% 15%, rgba(255, 255, 255, 0.5) 0%, transparent 65%),
-    radial-gradient(ellipse 18vw 7vw at 10% 60%, rgba(255, 255, 255, 0.45) 0%, transparent 75%),
-    radial-gradient(ellipse 16vw 5vw at 70% 80%, rgba(255, 255, 255, 0.4) 0%, transparent 60%),
-    radial-gradient(ellipse 14vw 4.5vw at 50% 10%, rgba(255, 255, 255, 0.35) 0%, transparent 55%),
-    radial-gradient(ellipse 12vw 4vw at 90% 70%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
-    radial-gradient(ellipse 10vw 3.5vw at 30% 90%, rgba(255, 255, 255, 0.3) 0%, transparent 45%),
-    radial-gradient(circle at 15% 25%, rgba(255, 154, 209, 0.08) 0%, transparent 70%),
-    radial-gradient(circle at 85% 15%, rgba(240, 120, 197, 0.06) 0%, transparent 65%),
-    radial-gradient(circle at 25% 75%, rgba(212, 183, 255, 0.07) 0%, transparent 75%),
-    radial-gradient(circle at 75% 85%, rgba(255, 111, 180, 0.05) 0%, transparent 60%),
-    radial-gradient(circle at 50% 10%, rgba(200, 150, 255, 0.04) 0%, transparent 55%),
-    radial-gradient(circle at 90% 60%, rgba(255, 200, 255, 0.06) 0%, transparent 65%),
-    radial-gradient(circle at 10% 50%, rgba(180, 120, 255, 0.05) 0%, transparent 60%),
+  background:
+    radial-gradient(
+      ellipse 20vw 8vw at 20% 20%,
+      rgba(255, 255, 255, 0.6) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 15vw 6vw at 80% 15%,
+      rgba(255, 255, 255, 0.5) 0%,
+      transparent 65%
+    ),
+    radial-gradient(
+      ellipse 18vw 7vw at 10% 60%,
+      rgba(255, 255, 255, 0.45) 0%,
+      transparent 75%
+    ),
+    radial-gradient(
+      ellipse 16vw 5vw at 70% 80%,
+      rgba(255, 255, 255, 0.4) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 14vw 4.5vw at 50% 10%,
+      rgba(255, 255, 255, 0.35) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 12vw 4vw at 90% 70%,
+      rgba(255, 255, 255, 0.4) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse 10vw 3.5vw at 30% 90%,
+      rgba(255, 255, 255, 0.3) 0%,
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 15% 25%,
+      rgba(255, 154, 209, 0.08) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      circle at 85% 15%,
+      rgba(240, 120, 197, 0.06) 0%,
+      transparent 65%
+    ),
+    radial-gradient(
+      circle at 25% 75%,
+      rgba(212, 183, 255, 0.07) 0%,
+      transparent 75%
+    ),
+    radial-gradient(
+      circle at 75% 85%,
+      rgba(255, 111, 180, 0.05) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      circle at 50% 10%,
+      rgba(200, 150, 255, 0.04) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 90% 60%,
+      rgba(255, 200, 255, 0.06) 0%,
+      transparent 65%
+    ),
+    radial-gradient(
+      circle at 10% 50%,
+      rgba(180, 120, 255, 0.05) 0%,
+      transparent 60%
+    ),
     linear-gradient(180deg, #f8f6ff 0%, #faf9ff 30%, #fcfbff 70%, #ffffff 100%) !important;
   height: 100%;
   margin: 0;
@@ -205,20 +367,24 @@ html,
 /* Mobile: allow hero window glow to bleed to edges */
 @media (max-width: 768px) {
   .hero-section-container {
-    padding-top: max(140px, env(safe-area-inset-top) + 96px) !important; /* mobile-only extra top padding */
+    padding-top: env(safe-area-inset-top) !important;
     height: auto !important; /* let content define height on mobile */
     min-height: 900px !important; /* target mobile hero height */
     padding-bottom: 0 !important; /* remove extra bottom padding */
   }
   /* Ensure no parent clips the glow */
-  html, body, #__next, .app-layout, .main-content {
+  html,
+  body,
+  #__next,
+  .app-layout,
+  .main-content {
     overflow-x: hidden !important;
   }
 }
 
 /* But preserve the hero box background and styling */
 /* Force white background for hero container */
-div[style*="background: #ffffff"] {
+div[style*='background: #ffffff'] {
   background: #ffffff !important;
   background-color: #ffffff !important;
   background-image: none !important;
@@ -378,17 +544,36 @@ div[style*="background: #ffffff"] {
   cursor: pointer;
   width: 120px;
   height: 120px;
+  display: none; /* Hidden on desktop */
 }
 
 /* Mobile: center on full page width when sidebar is hidden */
 @media (max-width: 768px) {
   .top-center-logo {
-    left: 50%;
-    transform: translateX(-50%);
-    top: 5px;
+    display: flex; /* Show on mobile */
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    right: 0;
+    top: 0;
+    transform: none;
+    width: 100%;
+    height: 70px;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .top-center-logo::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #ffffff;
+    z-index: -1;
   }
 }
-
 
 .app-layout {
   display: flex;
@@ -398,7 +583,6 @@ div[style*="background: #ffffff"] {
 .sidebar {
   width: 280px;
   background: #ffffff;
-  border-right: 2px solid #0a164d;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -435,7 +619,7 @@ div[style*="background: #ffffff"] {
 .main-content {
   margin-left: 280px; /* same as sidebar width */
   width: calc(100% - 280px);
-  padding: 40px 2rem 2rem 2rem; /* Start content below logo */
+  padding: 0;
   min-height: 100vh;
   background: transparent !important;
   position: relative;
@@ -529,7 +713,8 @@ div[style*="background: #ffffff"] {
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2)) !important;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
   image-rendering: pixelated !important;
-  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
+  font-family:
+    'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
   font-weight: 700 !important;
   letter-spacing: 2px !important;
   text-transform: uppercase !important;
@@ -539,7 +724,8 @@ div[style*="background: #ffffff"] {
 .sidebar .sidebar-nav a span {
   color: #ffffff !important;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
-  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
+  font-family:
+    'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
   font-weight: 700 !important;
   text-transform: uppercase !important;
   letter-spacing: 2px !important;
@@ -570,7 +756,8 @@ div[style*="background: #ffffff"] {
 .sidebar .nav-link,
 .sidebar .nav-link.active,
 .sidebar .nav-link span {
-  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
+  font-family:
+    'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
 }
 
 /* Override for sign-in button to match other nav buttons */
@@ -597,13 +784,15 @@ div[style*="background: #ffffff"] {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
   image-rendering: pixelated !important;
   transition: all 0.2s ease !important;
-  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
+  font-family:
+    'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
   font-weight: 700 !important;
   letter-spacing: 2px !important;
 }
 
 .sidebar-auth .nav-link span {
-  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
+  font-family:
+    'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
   color: #ffffff !important;
   font-weight: 700 !important;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
@@ -635,13 +824,15 @@ div.sidebar-auth a.nav-link {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
   image-rendering: pixelated !important;
   transition: all 0.2s ease !important;
-  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
+  font-family:
+    'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
   font-weight: 700 !important;
   letter-spacing: 2px !important;
 }
 
 div.sidebar-auth a.nav-link span {
-  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
+  font-family:
+    'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
   font-weight: 700 !important;
   color: #ffffff !important;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
@@ -705,12 +896,18 @@ div[style*='background: linear-gradient(180deg, #e4f6ff 0%, #f0e6ff 100%)'] p {
 }
 
 /* Global header styling - Druk Wide Bold */
-h1, h2, h3, h4, h5, h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
 .headerTitle,
 .heroTitle,
 .title,
 .mainHeadline {
-  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
+  font-family:
+    'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
 }
 
 /* Global subheader styling - Attila Sans Classic */
@@ -719,7 +916,8 @@ h1, h2, h3, h4, h5, h6,
 .subtitle,
 .headerText,
 .subheaderText {
-  font-family: 'Attila Sans Classic', 'Arial', 'Helvetica', sans-serif !important;
+  font-family:
+    'Attila Sans Classic', 'Arial', 'Helvetica', sans-serif !important;
 }
 
 .section p {
@@ -772,7 +970,8 @@ h1, h2, h3, h4, h5, h6,
   font-size: 11px !important;
   font-weight: 700 !important;
   color: #ffffff !important;
-  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
+  font-family:
+    'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
   text-transform: uppercase !important;
   letter-spacing: 1px !important;
   box-shadow:
@@ -1108,7 +1307,7 @@ button:hover,
   .main-content {
     margin-left: 0 !important;
     width: 100%;
-    padding: 100px 0.5rem 0.5rem 0.5rem; /* Start content below logo */
+    padding: 70px 0.5rem 0.5rem 0.5rem; /* Start content below top bar */
   }
 
   /* Global responsive fixes */
@@ -1140,17 +1339,17 @@ button:hover,
     font-size: 2.2rem;
     width: 36px !important;
   }
-  
+
   .mobile-hamburger-container {
-    display: block !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     position: fixed !important;
-    top: 25px !important;
+    top: 11px !important;
     left: 12px !important;
-    width: 40px !important;
-    height: 40px !important;
+    width: 48px !important;
+    height: 48px !important;
     padding: 0 !important;
-    line-height: 40px !important;
-    text-align: center !important;
     z-index: 3000 !important;
     pointer-events: auto !important;
   }
@@ -1238,7 +1437,8 @@ button:hover,
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
     image-rendering: pixelated !important;
     transition: all 0.2s ease !important;
-    font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
+    font-family:
+      'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
     font-weight: 700 !important;
     letter-spacing: 2px !important;
   }
@@ -1343,7 +1543,8 @@ button:hover,
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
     image-rendering: pixelated !important;
     transition: all 0.2s ease !important;
-    font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
+    font-family:
+      'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
     font-weight: 700 !important;
     letter-spacing: 2px !important;
   }
@@ -1361,7 +1562,8 @@ button:hover,
     color: #ffffff !important;
     font-weight: 700 !important;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
-    font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
+    font-family:
+      'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
     text-transform: uppercase !important;
     letter-spacing: 2px !important;
   }
@@ -1401,7 +1603,8 @@ button:hover,
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2)) !important;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
   image-rendering: pixelated !important;
-  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
+  font-family:
+    'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
   font-weight: 700 !important;
   letter-spacing: 2px !important;
   text-transform: uppercase !important;
@@ -1411,7 +1614,8 @@ button:hover,
 .sidebar .sidebar-nav a.nav-link span {
   color: #ffffff !important;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
-  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
+  font-family:
+    'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
   font-weight: 700 !important;
   text-transform: uppercase !important;
   letter-spacing: 2px !important;
@@ -1433,22 +1637,82 @@ button:hover,
 }
 
 /* FINAL OVERRIDE - Force the new background - CACHE BUST 2024 */
-html, body, #__next, .main-content, .app-layout {
-  background: 
-    radial-gradient(ellipse 20vw 8vw at 20% 20%, rgba(255, 255, 255, 0.6) 0%, transparent 70%),
-    radial-gradient(ellipse 15vw 6vw at 80% 15%, rgba(255, 255, 255, 0.5) 0%, transparent 65%),
-    radial-gradient(ellipse 18vw 7vw at 10% 60%, rgba(255, 255, 255, 0.45) 0%, transparent 75%),
-    radial-gradient(ellipse 16vw 5vw at 70% 80%, rgba(255, 255, 255, 0.4) 0%, transparent 60%),
-    radial-gradient(ellipse 14vw 4.5vw at 50% 10%, rgba(255, 255, 255, 0.35) 0%, transparent 55%),
-    radial-gradient(ellipse 12vw 4vw at 90% 70%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
-    radial-gradient(ellipse 10vw 3.5vw at 30% 90%, rgba(255, 255, 255, 0.3) 0%, transparent 45%),
-    radial-gradient(circle at 15% 25%, rgba(255, 154, 209, 0.08) 0%, transparent 70%),
-    radial-gradient(circle at 85% 15%, rgba(240, 120, 197, 0.06) 0%, transparent 65%),
-    radial-gradient(circle at 25% 75%, rgba(212, 183, 255, 0.07) 0%, transparent 75%),
-    radial-gradient(circle at 75% 85%, rgba(255, 111, 180, 0.05) 0%, transparent 60%),
-    radial-gradient(circle at 50% 10%, rgba(200, 150, 255, 0.04) 0%, transparent 55%),
-    radial-gradient(circle at 90% 60%, rgba(255, 200, 255, 0.06) 0%, transparent 65%),
-    radial-gradient(circle at 10% 50%, rgba(180, 120, 255, 0.05) 0%, transparent 60%),
+html,
+body,
+#__next,
+.main-content,
+.app-layout {
+  background:
+    radial-gradient(
+      ellipse 20vw 8vw at 20% 20%,
+      rgba(255, 255, 255, 0.6) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 15vw 6vw at 80% 15%,
+      rgba(255, 255, 255, 0.5) 0%,
+      transparent 65%
+    ),
+    radial-gradient(
+      ellipse 18vw 7vw at 10% 60%,
+      rgba(255, 255, 255, 0.45) 0%,
+      transparent 75%
+    ),
+    radial-gradient(
+      ellipse 16vw 5vw at 70% 80%,
+      rgba(255, 255, 255, 0.4) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 14vw 4.5vw at 50% 10%,
+      rgba(255, 255, 255, 0.35) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 12vw 4vw at 90% 70%,
+      rgba(255, 255, 255, 0.4) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse 10vw 3.5vw at 30% 90%,
+      rgba(255, 255, 255, 0.3) 0%,
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 15% 25%,
+      rgba(255, 154, 209, 0.08) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      circle at 85% 15%,
+      rgba(240, 120, 197, 0.06) 0%,
+      transparent 65%
+    ),
+    radial-gradient(
+      circle at 25% 75%,
+      rgba(212, 183, 255, 0.07) 0%,
+      transparent 75%
+    ),
+    radial-gradient(
+      circle at 75% 85%,
+      rgba(255, 111, 180, 0.05) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      circle at 50% 10%,
+      rgba(200, 150, 255, 0.04) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 90% 60%,
+      rgba(255, 200, 255, 0.06) 0%,
+      transparent 65%
+    ),
+    radial-gradient(
+      circle at 10% 50%,
+      rgba(180, 120, 255, 0.05) 0%,
+      transparent 60%
+    ),
     linear-gradient(180deg, #f8f6ff 0%, #faf9ff 30%, #fcfbff 70%, #ffffff 100%) !important;
 }
 
@@ -1481,13 +1745,15 @@ nav a,
 nav button,
 .mobile-menu a,
 .mobile-menu button {
-  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
+  font-family:
+    'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
   font-weight: 700 !important;
 }
 
 /* Pixelated brand heading for MANDY'S */
 .brand-heading {
-  font-family: 'Press Start 2P', VT323, Poppins, Montserrat, Arial, sans-serif !important;
+  font-family:
+    'Press Start 2P', VT323, Poppins, Montserrat, Arial, sans-serif !important;
   text-transform: uppercase;
 }
 
@@ -1504,7 +1770,8 @@ nav button,
 .sidebar .sidebar-nav a:visited,
 .sidebar .sidebar-nav a:active,
 .sidebar .sidebar-nav a:hover {
-  font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
+  font-family:
+    'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important;
   font-weight: 700 !important;
   text-transform: uppercase !important;
   letter-spacing: 2px !important;
