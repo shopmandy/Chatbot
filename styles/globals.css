@@ -1615,6 +1615,28 @@ button:hover,
     font-size: 0.8rem !important; /* smaller and consistent */
     line-height: 1.1 !important;
   }
+  
+  /* Desktop: ensure active button is hot pink - ULTRA SPECIFIC */
+  .sidebar .sidebar-nav a.active,
+  .sidebar .sidebar-nav a.nav-link.active,
+  .sidebar .sidebar-nav a[class*="active"],
+  .sidebar .sidebar-nav a.nav-link[class*="active"] {
+    background: linear-gradient(
+      135deg,
+      #ff69b4 0%,
+      #ff1493 50%,
+      #ff69b4 100%
+    ) !important;
+    background-color: #ff1493 !important;
+    border: 3px solid #ff1493 !important;
+    border-color: #ff1493 !important;
+    box-shadow:
+      0 8px 20px rgba(255, 20, 147, 0.4),
+      0 4px 8px rgba(255, 20, 147, 0.2),
+      inset 0 2px 4px rgba(255, 255, 255, 0.3),
+      inset 0 -2px 4px rgba(255, 20, 147, 0.3) !important;
+    color: #ffffff !important;
+  }
 }
 
 .sidebar .sidebar-nav a svg,
