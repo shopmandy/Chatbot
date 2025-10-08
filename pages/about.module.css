@@ -590,6 +590,7 @@
 
 /* Photo Carousel Styles */
 .carouselSection {
+  position: relative;
 }
 
 .carouselContainer {
@@ -612,8 +613,9 @@
 }
 
 .carouselSlide {
-  min-width: 300px;
-  width: 300px;
+  min-width: 320px;
+  width: 320px;
+  height: 400px;
   position: relative;
   display: flex;
   align-items: center;
@@ -670,12 +672,13 @@
 /* Responsive adjustments for carousel */
 @media (max-width: 768px) {
   .carouselContainer {
-    height: 200px;
+    height: 320px;
   }
 
   .carouselSlide {
-    min-width: 200px;
-    width: 200px;
+    min-width: 220px;
+    width: 220px;
+    height: 275px;
     margin-right: 15px;
   }
 

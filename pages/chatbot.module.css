@@ -283,7 +283,7 @@
 
 @media (max-width: 768px) {
   .header {
-    padding-top: 70px !important; /* bring header closer to top on mobile */
+    padding-top: 10px !important; /* bring header very close to top on mobile to match other pages */
   }
   .heroTitle {
     padding: 0 0.5rem;
@@ -515,6 +515,7 @@
   line-height: 1.6;
   align-self: flex-start;
   margin-bottom: 2rem;
+  text-align: left; /* force left alignment */
 }
 
 @media (max-width: 768px) {
@@ -528,6 +529,7 @@
     font-size: 1.1rem;
     margin-bottom: 1rem;
     border-radius: 16px 16px 16px 6px;
+    text-align: left; /* ensure left on mobile */
   }
 }
 
@@ -540,7 +542,7 @@
   border-radius: 20px 20px 8px 20px;
   border: 2px solid var(--button-border, #ff69b4);
   box-shadow: 0 4px 16px rgba(255, 105, 180, 0.15);
-  text-align: right;
+  text-align: left; /* left align user text */
   line-height: 1.4;
   max-width: 80%;
   margin-left: auto;

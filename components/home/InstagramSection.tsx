@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import styles from '../../pages/about.module.css'
 
 export function InstagramSection() {
-  const [slideWidth, setSlideWidth] = useState(300)
+  const [slideWidth, setSlideWidth] = useState(320)
   const slideRef = useRef<HTMLDivElement>(null)
 
   // Sample images for the carousel - replace with your actual images
@@ -56,6 +56,21 @@ export function InstagramSection() {
     updateWidth()
     window.addEventListener('resize', updateWidth)
     return () => window.removeEventListener('resize', updateWidth)
+  }, [])
+
+  // Set responsive slide width based on screen size
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 768) {
+        setSlideWidth(220) // Mobile: 220px width for 4x5 aspect ratio
+      } else {
+        setSlideWidth(320) // Desktop: 320px width for 4x5 aspect ratio
+      }
+    }
+    
+    handleResize() // Set initial value
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
   }, [])
 
   // Continuous smooth scrolling effect with robust reset
@@ -166,8 +181,8 @@ export function InstagramSection() {
                           onMouseLeave={() => setIsPaused(false)}
                           src={image.src}
                           alt={image.alt}
-                          width={300}
-                          height={300}
+                          width={320}
+                          height={400}
                           className={styles.carouselImage}
                           style={{
                             transition: 'all 0.3s ease',
@@ -184,13 +199,12 @@ export function InstagramSection() {
         </div>
 
           {/* Follow Button */}
-          <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+          <div style={{ textAlign: 'center', marginTop: '1rem' }}>
             <button
               className="inflatable-button step4-follow-button"
               onClick={() => window.open('https://www.instagram.com/shopmandytools', '_blank')}
             >
               FOLLOW @SHOPMANDYTOOLS
-              <span style={{ fontSize: '14px' }}>→</span>
             </button>
           </div>
         </div>

@@ -21,36 +21,26 @@
   /* Pill shape - more rounded for hamburger */
   border-radius: 16px;
   
-  /* Background gradient - same as bubble button */
-  background: 
-    radial-gradient(120% 120% at 70% 0%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 40%, transparent 70%),
-    linear-gradient(135deg, #FF9AD1 0%, #F078C5 50%, #D4B7FF 100%);
+  /* Background gradient - same as inactive nav buttons */
+  background: linear-gradient(135deg, #ff9ad1 0%, #f078c5 50%, #d4b7ff 100%);
   
-  /* Outer rim glow and inner glow */
-  box-shadow: 
-    0 0 0 1px rgba(255, 255, 255, 0.6),
-    0 0 0 2px rgba(255, 255, 255, 0.2),
-    0 4px 12px rgba(255, 154, 209, 0.3),
-    0 8px 24px rgba(212, 183, 255, 0.2),
-    /* Inner glow for inflated look */
-    inset 0 1px 0 rgba(255, 255, 255, 0.8),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.2);
+  /* Simple box shadow - no bubble effect */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   
-  /* Specular highlight */
+  /* White border - no 3D effects */
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  transform: none;
+  filter: none;
+  text-shadow: none;
+  image-rendering: auto;
+  
+  /* Simple button styling - no bubble effects */
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .bubbleHamburger::before {
-  content: '';
-  position: absolute;
-  top: 6px;
-  right: 8px;
-  width: 16px;
-  height: 12px;
-  background: radial-gradient(ellipse 16px 12px at center, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%);
-  border-radius: 50%;
-  pointer-events: none;
+  display: none;
 }
 
 /* Hamburger icon lines */
@@ -89,14 +79,8 @@
 
 /* Hover state */
 .bubbleHamburger:hover:not(:disabled) {
-  transform: scale(1.05);
-  box-shadow: 
-    0 0 0 1px rgba(255, 255, 255, 0.7),
-    0 0 0 2px rgba(255, 255, 255, 0.3),
-    0 6px 16px rgba(255, 154, 209, 0.4),
-    0 12px 32px rgba(212, 183, 255, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* Active state */
@@ -160,13 +144,8 @@
   
   /* Updated hover state for mobile */
   .bubbleHamburger:hover:not(:disabled) {
-    box-shadow: 
-      0 0 0 1px rgba(255, 255, 255, 0.56), /* Reduced from 0.7 to 0.56 */
-      0 0 0 2px rgba(255, 255, 255, 0.24), /* Reduced from 0.3 to 0.24 */
-      0 6px 19px rgba(255, 154, 209, 0.4), /* Increased blur from 16px to 19px */
-      0 12px 35px rgba(212, 183, 255, 0.3), /* Increased blur from 32px to 35px */
-      inset 0 1px 0 rgba(255, 255, 255, 0.9),
-      inset 0 -1px 0 rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   }
 }
 
