@@ -115,7 +115,6 @@ export function RoomMakeoverHero({ onGetStarted, showSubheadline = true, headlin
           onClick={onGetStarted}
         >
           design my room
-          <span style={{ fontSize: '14px' }}>→</span>
         </button>
       </div>
     </div>

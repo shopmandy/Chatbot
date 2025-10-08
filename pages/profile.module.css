@@ -159,8 +159,8 @@
 
 .signInButton {
   background: linear-gradient(135deg, #ff9ad1 0%, #f078c5 50%, #d4b7ff 100%);
-  border: 2px solid transparent;
-  border-radius: 50px;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
   color: white;
   font-size: 16px;
   font-weight: 700;
@@ -174,29 +174,25 @@
   margin: 30px auto 0;
   font-family: 'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif;
   box-shadow: 
-    0 0 0 1px rgba(255, 255, 255, 0.4),
-    0 0 20px rgba(255, 154, 209, 0.5),
-    0 0 40px rgba(240, 120, 197, 0.4),
-    0 0 60px rgba(212, 183, 255, 0.3),
-    0 8px 32px rgba(255, 105, 180, 0.25),
-    0 4px 16px rgba(212, 183, 255, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.5),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+    0 8px 20px rgba(255, 154, 209, 0.3),
+    0 4px 8px rgba(240, 120, 197, 0.2),
+    inset 0 2px 8px rgba(255, 255, 255, 0.65),
+    inset 0 -1px 2px rgba(255, 154, 209, 0.35);
   position: relative;
   overflow: visible;
+  transform: perspective(1000px) rotateX(5deg);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  image-rendering: pixelated;
 }
 
 .signInButton:hover {
-  transform: translateY(-2px) scale(1.02);
+  transform: perspective(1000px) rotateX(5deg) translateY(-2px);
   box-shadow: 
-    0 0 0 1px rgba(255, 255, 255, 0.6),
-    0 0 30px rgba(255, 154, 209, 0.7),
-    0 0 50px rgba(240, 120, 197, 0.6),
-    0 0 70px rgba(212, 183, 255, 0.5),
-    0 12px 40px rgba(255, 105, 180, 0.4),
-    0 8px 20px rgba(212, 183, 255, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.7),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+    0 10px 25px rgba(255, 154, 209, 0.4),
+    0 6px 12px rgba(240, 120, 197, 0.3),
+    inset 0 2px 8px rgba(255, 255, 255, 0.7),
+    inset 0 -1px 2px rgba(255, 154, 209, 0.4);
 }
 
 .signInIcon {
@@ -666,7 +662,7 @@
     flex-direction: column;
     align-items: center; /* center children on mobile */
     gap: 16px;
-    padding-top: 70px; /* align with other pages' header spacing on mobile */
+    padding-top: 10px; /* align with other pages' header spacing on mobile */
   }
 
   .title {

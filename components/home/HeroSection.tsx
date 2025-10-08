@@ -1,12 +1,20 @@
 import { MessageCircle, ShoppingBag, Sparkles, Star } from 'lucide-react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useCallback, useState } from 'react'
+import { useCallback, useState, useEffect } from 'react'
 import styles from './HeroSection.module.css'
 
 export function HeroSection() {
   const router = useRouter()
   const [isMinimized, setIsMinimized] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth <= 768)
+    onResize()
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
 
   // Optimized click handler using Next.js router
   const handleButtonClick = useCallback(
@@ -46,14 +54,15 @@ export function HeroSection() {
     <div
       className="hero-section-container"
       style={{
-        height: '100dvh',
+        height: isMobile ? 'auto' : '100dvh',
+        minHeight: isMobile ? 'calc(100dvh - 140px)' : undefined,
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'center',
         position: 'relative',
         background: 'transparent',
-        marginTop: '0',
-        padding: '0',
+        paddingTop: '140px', // Ensure content starts below the logo (5px + 120px + 15px margin)
+        paddingBottom: 0,
         overflow: 'visible',
       }}
     >

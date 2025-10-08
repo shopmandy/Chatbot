@@ -1,7 +1,7 @@
 /* App Navigation Button Styles */
 .navButton {
-  background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%) !important;
-  border: 3px solid #ff1493 !important;
+  background: linear-gradient(135deg, #ff6ab5 0%, #ff5aa8 35%, #d79cff 78%, #c6a9ff 100%) !important;
+  border: 3px solid #be99ff !important;
   border-radius: 20px !important;
   color: #ffffff !important;
   font-family: 'VT323', 'Tiny5', 'Courier New', Courier, monospace !important;
@@ -21,6 +21,8 @@
 }
 
 .navButton.active {
+  background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%) !important;
+  border: 3px solid #ff1493 !important;
   transform: scale(1.05) !important;
   box-shadow: 0 8px 20px rgba(255, 20, 147, 0.5) !important;
 }

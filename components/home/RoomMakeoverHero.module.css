@@ -4,7 +4,7 @@
   min-height: calc(100vh + 40px);
   width: 100%;
   background: transparent;
-  overflow: hidden;
+  overflow: visible; /* allow button shadow to show */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -627,6 +627,8 @@
   .heroContainer {
     padding: 0.75rem;
     min-height: 80vh;
+    overflow: visible; /* ensure shadows are not clipped on mobile */
+    padding-bottom: 1rem; /* breathing room for CTA shadow */
   }
 
   .headlineSection {

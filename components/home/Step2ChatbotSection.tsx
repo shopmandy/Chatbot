@@ -7,6 +7,14 @@ export function Step2ChatbotSection() {
   const [visibleBubbles, setVisibleBubbles] = useState<string[]>([])
   const sectionRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768)
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -235,7 +243,7 @@ export function Step2ChatbotSection() {
           {/* Chat Area */}
           <div
             style={{
-              padding: '1.5rem',
+              padding: isMobile ? '0.8rem' : '1.5rem',
               background: '#ffffff',
               minHeight: '200px',
               borderBottomLeftRadius: '24px',
@@ -247,8 +255,8 @@ export function Step2ChatbotSection() {
               style={{
                 display: 'flex',
                 alignItems: 'flex-start',
-                gap: '12px',
-                marginBottom: '1rem',
+                gap: isMobile ? '8px' : '12px',
+                marginBottom: isMobile ? '0.6rem' : '1rem',
                 opacity: visibleBubbles.includes('mandy1') ? 1 : 0,
                 transform: visibleBubbles.includes('mandy1')
                   ? 'translateY(0) scale(1)'
@@ -258,15 +266,15 @@ export function Step2ChatbotSection() {
             >
               <div
                 style={{
-                  width: '32px',
-                  height: '32px',
+                  width: isMobile ? '28px' : '32px',
+                  height: isMobile ? '28px' : '32px',
                   background: '#ff69b4',
                   borderRadius: '50%',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   color: 'white',
-                  fontSize: '16px',
+                  fontSize: isMobile ? '14px' : '16px',
                   fontWeight: 'bold',
                   fontFamily: "'VT323', monospace",
                   boxShadow: '0 2px 6px rgba(255, 105, 180, 0.3)',
@@ -279,13 +287,14 @@ export function Step2ChatbotSection() {
                 style={{
                   background: '#ffe0f2',
                   color: '#0a164d',
-                  padding: '12px 16px',
+                  padding: isMobile ? '8px 10px' : '12px 16px',
                   borderRadius: '20px 20px 20px 8px',
                   border: '2px solid #ff69b4',
-                  fontSize: '17px',
+                  fontSize: isMobile ? '15px' : '17px',
                   fontFamily: "'VT323', monospace",
                   maxWidth: '70%',
                   boxShadow: '0 4px 16px rgba(255, 105, 180, 0.15)',
+                  textAlign: 'left',
                 }}
               >
                 What are you working on today? 🔨💕
@@ -297,9 +306,9 @@ export function Step2ChatbotSection() {
               style={{
                 display: 'flex',
                 alignItems: 'flex-start',
-                gap: '12px',
+                gap: isMobile ? '8px' : '12px',
                 justifyContent: 'flex-end',
-                marginBottom: '1rem',
+                marginBottom: isMobile ? '0.6rem' : '1rem',
                 opacity: visibleBubbles.includes('user') ? 1 : 0,
                 transform: visibleBubbles.includes('user')
                   ? 'translateY(0) scale(1)'
@@ -311,10 +320,10 @@ export function Step2ChatbotSection() {
                 style={{
                   background: '#f91b8f',
                   color: 'white',
-                  padding: '12px 16px',
+                  padding: isMobile ? '8px 10px' : '12px 16px',
                   borderRadius: '20px 20px 8px 20px',
                   border: '2px solid #ff69b4',
-                  fontSize: '17px',
+                  fontSize: isMobile ? '15px' : '17px',
                   fontFamily: "'VT323', monospace",
                   fontWeight: '700',
                   maxWidth: '70%',
@@ -325,15 +334,15 @@ export function Step2ChatbotSection() {
               </div>
               <div
                 style={{
-                  width: '32px',
-                  height: '32px',
+                  width: isMobile ? '28px' : '32px',
+                  height: isMobile ? '28px' : '32px',
                   background: '#f91b8f',
                   borderRadius: '50%',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   color: 'white',
-                  fontSize: '16px',
+                  fontSize: isMobile ? '14px' : '16px',
                   fontWeight: 'bold',
                   flexShrink: 0,
                   overflow: 'hidden',
@@ -345,8 +354,8 @@ export function Step2ChatbotSection() {
                   width={24}
                   height={24}
                   style={{
-                    width: '24px',
-                    height: '24px',
+                    width: isMobile ? '20px' : '24px',
+                    height: isMobile ? '20px' : '24px',
                     objectFit: 'contain',
                     filter: 'drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3))',
                   }}
@@ -359,8 +368,8 @@ export function Step2ChatbotSection() {
               style={{
                 display: 'flex',
                 alignItems: 'flex-start',
-                gap: '12px',
-                marginBottom: '1rem',
+                gap: isMobile ? '8px' : '12px',
+                marginBottom: isMobile ? '0.6rem' : '1rem',
                 opacity: visibleBubbles.includes('mandy2') ? 1 : 0,
                 transform: visibleBubbles.includes('mandy2')
                   ? 'translateY(0) scale(1)'
@@ -370,15 +379,15 @@ export function Step2ChatbotSection() {
             >
               <div
                 style={{
-                  width: '32px',
-                  height: '32px',
+                  width: isMobile ? '28px' : '32px',
+                  height: isMobile ? '28px' : '32px',
                   background: '#ff69b4',
                   borderRadius: '50%',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   color: 'white',
-                  fontSize: '16px',
+                  fontSize: isMobile ? '14px' : '16px',
                   fontWeight: 'bold',
                   fontFamily: "'VT323', monospace",
                   boxShadow: '0 2px 6px rgba(255, 105, 180, 0.3)',
@@ -391,13 +400,14 @@ export function Step2ChatbotSection() {
                 style={{
                   background: '#ffe0f2',
                   color: '#0a164d',
-                  padding: '12px 16px',
+                  padding: isMobile ? '8px 10px' : '12px 16px',
                   borderRadius: '20px 20px 20px 8px',
                   border: '2px solid #ff69b4',
-                  fontSize: '17px',
+                  fontSize: isMobile ? '15px' : '17px',
                   fontFamily: "'VT323', monospace",
                   maxWidth: '70%',
                   boxShadow: '0 4px 16px rgba(255, 105, 180, 0.15)',
+                  textAlign: 'left',
                 }}
               >
                 Grab your Hot Girl Toolkit: use the hammer to gently tap a nail
@@ -416,7 +426,6 @@ export function Step2ChatbotSection() {
             onClick={() => router.push('/chatbot')}
           >
             Ask Mandy AI
-            <span style={{ fontSize: '14px' }}>→</span>
           </button>
         </div>
       </div>

@@ -37,11 +37,11 @@ export function HomePage() {
       <div style={{ width: '100%', minHeight: '100vh' }}>
         <HeroSection />
       </div>
-      {/* All other sections with consistent spacing */}
-      <div style={{ width: '100%', marginTop: '0.5rem' }}>
+      {/* Inflatable Tools - tighter spacing below hero */}
+      <div className="mt-mobile-tight" style={{ width: '100%', marginTop: '0' }}>
         <InflatableToolsSection />
       </div>
-      <div style={{ width: '100%', marginTop: '0.5rem' }}>
+      <div style={{ width: '100%', marginTop: '-0.5rem' }}>
         <RoomMakeoverHero 
           onGetStarted={() => {
             window.location.href = '/room'
@@ -49,16 +49,16 @@ export function HomePage() {
           showSubheadline={false}
         />
       </div>
-      <div style={{ width: '100%', marginTop: '0.5rem' }}>
+      <div style={{ width: '100%', marginTop: '1rem' }}>
         <Step2ChatbotSection />
       </div>
-      <div style={{ width: '100%', marginTop: '0.5rem' }}>
+      <div style={{ width: '100%', marginTop: '1rem' }}>
         <Step3ToolkitSection />
       </div>
-      <div style={{ width: '100%', marginTop: '0.25rem' }}>
+      <div style={{ width: '100%', marginTop: '1rem' }}>
         <InstagramSection />
       </div>
-      <div style={{ width: '100%', marginTop: '0.5rem' }}>
+      <div style={{ width: '100%', marginTop: '1rem' }}>
         <CTASection />
       </div>
     </div>

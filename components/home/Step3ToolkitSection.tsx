@@ -73,7 +73,7 @@ export function Step3ToolkitSection() {
               '0 2px 8px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.2), 0 0 20px rgba(255, 255, 255, 0.1)',
           }}
         >
-          STEP 3: BUILD IT WITH OUR TOOLKITS.
+          STEP 3: BUILD IT WITH OUR TOOLS.
         </h2>
 
 
@@ -87,7 +87,7 @@ export function Step3ToolkitSection() {
           }}
         >
           <Image
-            src="/shop tools.jpg"
+            src="/web design shop .png"
             alt="Hot Girl Toolkit"
             width={600}
             height={400}
@@ -115,7 +115,6 @@ export function Step3ToolkitSection() {
             onClick={() => window.open('https://shopmandy.com/', '_blank')}
           >
             SHOP TOOLKITS
-            <span style={{ fontSize: '14px' }}>→</span>
           </button>
         </div>
       </div>

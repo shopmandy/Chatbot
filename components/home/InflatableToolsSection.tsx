@@ -45,43 +45,43 @@ export function InflatableToolsSection() {
     {
       src: '/inflatable hammer.png',
       alt: 'Inflatable Hammer',
-      size: isMobile ? 169 : 225,
+      size: isMobile ? 140 : 225, // was 169 on mobile
       position: 'oval-top-left',
     },
     {
       src: '/inflatable wrench.png',
       alt: 'Inflatable Wrench',
-      size: isMobile ? 158 : 214,
+      size: isMobile ? 130 : 214, // was 158
       position: 'oval-top',
     },
     {
       src: '/inflatable screwdriver.png',
       alt: 'Inflatable Screwdriver',
-      size: isMobile ? 146 : 203,
+      size: isMobile ? 120 : 203, // was 146
       position: 'oval-top-right',
     },
     {
       src: '/inflatable bits.png',
       alt: 'Inflatable Bits',
-      size: isMobile ? 135 : 191,
+      size: isMobile ? 115 : 191, // was 135
       position: 'oval-left',
     },
     {
       src: '/inflatable level.png',
       alt: 'Inflatable Level',
-      size: isMobile ? 158 : 214,
+      size: isMobile ? 130 : 214, // was 158
       position: 'oval-bottom-left',
     },
     {
       src: '/inflatable tape measure .png',
       alt: 'Inflatable Tape Measure',
-      size: isMobile ? 146 : 203,
+      size: isMobile ? 120 : 203, // was 146
       position: 'oval-bottom',
     },
     {
       src: '/inflatable pliers.png',
       alt: 'Inflatable Pliers',
-      size: isMobile ? 140 : 197,
+      size: isMobile ? 115 : 197, // was 140
       position: 'oval-right',
     },
   ]
@@ -106,31 +106,31 @@ export function InflatableToolsSection() {
           switch (position) {
             case 'oval-top-left':
               return isMobilePosition
-                ? { top: '15%', left: '0%' }
+                ? { top: '26%', left: '4%' } // hammer: slightly further left
                 : { top: '8%', left: '8%' }
             case 'oval-top':
               return isMobilePosition
-                ? { top: '60%', left: '3%', transform: 'translateY(-50%)' }
+                ? { top: '55%', left: '4%', transform: 'translateY(-50%)' } // wrench: down and further left
                 : { top: '5%', left: '45%', transform: 'translateX(-50%)' }
             case 'oval-top-right':
               return isMobilePosition
-                ? { top: '8%', right: '2%' }
+                ? { top: '22%', right: '2%' } // screwdriver position stays; rotation handled in animation
                 : { top: '8%', right: '8%' }
             case 'oval-left':
               return isMobilePosition
-                ? { bottom: '5%', left: '50%', transform: 'translateX(-50%)' }
+                ? { bottom: '18%', left: '52%', transform: 'translateX(-50%)' } // bits: moved up
                 : { top: '45%', left: '2%', transform: 'translateY(-50%)' }
             case 'oval-right':
               return isMobilePosition
-                ? { bottom: '2%', left: '12%' }
+                ? { bottom: '16%', left: '22%' } // pliers: moved up
                 : { top: '45%', right: '2%', transform: 'translateY(-50%)' }
             case 'oval-bottom-left':
               return isMobilePosition
-                ? { top: '60%', right: '3%', transform: 'translateY(-50%)' }
+                ? { top: '56%', right: '4%', transform: 'translateY(-50%)' } // level: moved slightly down
                 : { bottom: '8%', left: '8%' }
             case 'oval-bottom':
               return isMobilePosition
-                ? { top: '5%', left: '35%', transform: 'translateX(-50%)' }
+                ? { top: '18%', left: '42%', transform: 'translateX(-50%)' } // tape measure: slightly left
                 : { bottom: '5%', left: '50%', transform: 'translateX(-50%)' }
             case 'oval-bottom-right':
               return isMobilePosition
@@ -165,7 +165,11 @@ export function InflatableToolsSection() {
                   ? `popUp ${0.6 + index * 0.1}s ease-out forwards, gentleFloatRotated ${4 + index * 0.3}s ease-in-out infinite ${0.6 + index * 0.1}s`
                   : tool.alt === 'Inflatable Level' && isMobile
                     ? `popUp ${0.6 + index * 0.1}s ease-out forwards, gentleFloatLevel ${4 + index * 0.3}s ease-in-out infinite ${0.6 + index * 0.1}s`
-                    : `popUp ${0.6 + index * 0.1}s ease-out forwards, gentleFloat ${4 + index * 0.3}s ease-in-out infinite ${0.6 + index * 0.1}s`
+                    : tool.alt === 'Inflatable Hammer' && isMobile
+                      ? `popUpFlipped ${0.6 + index * 0.1}s ease-out forwards, gentleFloatHammer ${4 + index * 0.3}s ease-in-out infinite ${0.6 + index * 0.1}s`
+                      : tool.alt === 'Inflatable Screwdriver' && isMobile
+                        ? `popUpScrewdriver ${0.6 + index * 0.1}s ease-out forwards, gentleFloatScrewdriver ${4 + index * 0.3}s ease-in-out infinite ${0.6 + index * 0.1}s`
+                        : `popUp ${0.6 + index * 0.1}s ease-out forwards, gentleFloat ${4 + index * 0.3}s ease-in-out infinite ${0.6 + index * 0.1}s`
                 : 'none',
               opacity: isVisible ? 1 : 0,
               transform: isVisible
@@ -173,12 +177,20 @@ export function InflatableToolsSection() {
                   ? 'translateY(0) scale(1) rotate(45deg)'
                   : tool.alt === 'Inflatable Level' && isMobile
                     ? 'translateY(0) scale(1) rotate(90deg)'
-                    : 'translateY(0) scale(1)'
+                    : tool.alt === 'Inflatable Hammer' && isMobile
+                      ? 'translateY(0) scale(1) scaleX(-1)'
+                      : tool.alt === 'Inflatable Screwdriver' && isMobile
+                        ? 'translateY(0) scale(1) rotate(-45deg)'
+                        : 'translateY(0) scale(1)'
                 : tool.alt === 'Inflatable Pliers' && isMobile
                   ? 'translateY(50px) scale(0.8) rotate(45deg)'
                   : tool.alt === 'Inflatable Level' && isMobile
                     ? 'translateY(50px) scale(0.8) rotate(90deg)'
-                    : 'translateY(50px) scale(0.8)',
+                    : tool.alt === 'Inflatable Hammer' && isMobile
+                      ? 'translateY(50px) scale(0.8) scaleX(-1)'
+                      : tool.alt === 'Inflatable Screwdriver' && isMobile
+                        ? 'translateY(50px) scale(0.8) rotate(-45deg)'
+                        : 'translateY(50px) scale(0.8)',
             }}
           />
         )
@@ -279,6 +291,62 @@ export function InflatableToolsSection() {
           }
           75% {
             transform: translate(-5px, -6px) rotate(91deg);
+          }
+        }
+        @keyframes popUpFlipped {
+          0% {
+            opacity: 0;
+            transform: translateY(50px) scale(0.8) scaleX(-1);
+          }
+          50% {
+            transform: translateY(-10px) scale(1.05) scaleX(-1);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0) scale(1) scaleX(-1);
+          }
+        }
+        @keyframes gentleFloatHammer {
+          0%,
+          100% {
+            transform: translate(0, 0) scaleX(-1);
+          }
+          25% {
+            transform: translate(5px, -8px) scaleX(-1);
+          }
+          50% {
+            transform: translate(-3px, -12px) scaleX(-1);
+          }
+          75% {
+            transform: translate(-5px, -6px) scaleX(-1);
+          }
+        }
+        @keyframes popUpScrewdriver {
+          0% {
+            opacity: 0;
+            transform: translateY(50px) scale(0.8) rotate(-45deg);
+          }
+          50% {
+            transform: translateY(-10px) scale(1.05) rotate(-45deg);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0) scale(1) rotate(-45deg);
+          }
+        }
+        @keyframes gentleFloatScrewdriver {
+          0%,
+          100% {
+            transform: translate(0, 0) rotate(-45deg);
+          }
+          25% {
+            transform: translate(5px, -8px) rotate(-44deg);
+          }
+          50% {
+            transform: translate(-3px, -12px) rotate(-46deg);
+          }
+          75% {
+            transform: translate(-5px, -6px) rotate(-45deg);
           }
         }
       `}</style>

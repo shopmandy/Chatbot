@@ -1705,12 +1705,49 @@ export default function Room() {
                 <button
                   className="inflatable-button"
                   style={{
-                    background: 'linear-gradient(135deg, #ffdcae 0%, #ffd4a0 50%, #ffc890 100%) !important',
-                    border: '3px solid #ffc890 !important',
-                    color: '#f91b8f !important',
+                    background: 'linear-gradient(135deg, #ff9ad1 0%, #f078c5 50%, #d4b7ff 100%) !important',
+                    border: '2px solid rgba(255, 255, 255, 0.9) !important',
+                    color: '#ffffff !important',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
+                    borderRadius: '20px !important',
+                    padding: '16px 32px !important',
+                    fontSize: '16px !important',
+                    fontWeight: '700 !important',
+                    fontFamily: "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important",
+                    textTransform: 'uppercase !important',
+                    letterSpacing: '2px !important',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                    boxShadow: `
+                      0 8px 20px rgba(255, 154, 209, 0.3),
+                      0 4px 8px rgba(240, 120, 197, 0.2),
+                      inset 0 2px 8px rgba(255, 255, 255, 0.65),
+                      inset 0 -1px 2px rgba(255, 154, 209, 0.35)
+                    `,
+                    transform: 'perspective(1000px) rotateX(5deg)',
+                    filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2))',
+                    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
+                    imageRendering: 'pixelated'
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.transform = 'perspective(1000px) rotateX(5deg) translateY(-2px)';
+                    e.currentTarget.style.boxShadow = `
+                      0 10px 25px rgba(255, 154, 209, 0.4),
+                      0 6px 12px rgba(240, 120, 197, 0.3),
+                      inset 0 2px 8px rgba(255, 255, 255, 0.7),
+                      inset 0 -1px 2px rgba(255, 154, 209, 0.4)
+                    `;
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.transform = 'perspective(1000px) rotateX(5deg)';
+                    e.currentTarget.style.boxShadow = `
+                      0 8px 20px rgba(255, 154, 209, 0.3),
+                      0 4px 8px rgba(240, 120, 197, 0.2),
+                      inset 0 2px 8px rgba(255, 255, 255, 0.65),
+                      inset 0 -1px 2px rgba(255, 154, 209, 0.35)
+                    `;
                   }}
                   onClick={async () => {
                     console.log('🔍 Manual product search triggered')

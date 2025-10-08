@@ -108,13 +108,14 @@ export function NavigationMenu({ activeTab }: NavigationMenuProps) {
 
   return (
     <div className="flex flex-col h-full" style={{ flex: 1, width: '100%' }}>
-      <nav className="sidebar-nav flex-1" style={{ width: '100%' }}>
+      {/* Keep nav from stretching so footer is always visible */}
+      <nav className="sidebar-nav" style={{ width: '100%', flexGrow: 0 }}>
         {navItems.map(renderNavItem)}
       </nav>
 
       {/* Animated dots and EST. 2025 section */}
-      <div className="mt-6 text-center" style={{ width: '100%' }}>
-        <div className="flex justify-center gap-2 mb-4">
+      <div className="mt-4 text-center" style={{ width: '100%' }}>
+        <div className="flex justify-center gap-2 mb-2">
           <div
             className="w-3 h-3 rounded-full animate-pulse"
             style={{ background: 'hsl(320, 100%, 50%)' }}

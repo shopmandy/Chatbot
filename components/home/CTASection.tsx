@@ -215,7 +215,7 @@ export function CTASection() {
             }}
           >
             <h1
-              className="text-[30px] md:text-[2rem]"
+              className="text-[24px] md:text-[2rem]"
               style={{
                 color: '#0a164d',
                 marginBottom: '1rem',
