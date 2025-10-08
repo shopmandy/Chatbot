@@ -1716,7 +1716,7 @@ export default function Room() {
                     fontSize: '16px !important',
                     fontWeight: '700 !important',
                     fontFamily: "'Druk Wide Web Bold', 'Druk', 'Arial Black', sans-serif !important",
-                    textTransform: 'uppercase !important',
+                    textTransform: 'uppercase',
                     letterSpacing: '2px !important',
                     cursor: 'pointer',
                     transition: 'all 0.2s ease',
