@@ -45,8 +45,8 @@ const ChatDropdown: React.FC<ChatDropdownProps> = ({
         boxShadow: '0 4px 12px rgba(0,0,0,0.12)',
         padding: '0.5em 1em 0.5em 1em',
         zIndex: 1000,
-        minWidth: '180px',
-        maxWidth: '240px',
+        minWidth: '200px',
+        maxWidth: '280px',
         maxHeight: '220px',
         overflowY: 'auto',
       }}
@@ -56,17 +56,19 @@ const ChatDropdown: React.FC<ChatDropdownProps> = ({
           style={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: '0.5em',
+            justifyContent: 'center',
             position: 'relative',
+            textAlign: 'center',
+            paddingRight: '2em',
           }}
         >
           <span
             style={{
               fontWeight: 'bold',
               color: 'var(--chat-text)',
-              fontSize: '1em',
+              fontSize: '0.6em',
               whiteSpace: 'nowrap',
+              textTransform: 'uppercase',
             }}
           >
             {mode === 'save'
@@ -83,8 +85,12 @@ const ChatDropdown: React.FC<ChatDropdownProps> = ({
               fontSize: '1.1em',
               cursor: 'pointer',
               lineHeight: 1,
-              marginLeft: '0.5em',
+              position: 'absolute',
+              right: '0.5em',
+              top: '50%',
+              transform: 'translateY(-50%)',
               padding: 0,
+              zIndex: 1,
             }}
             aria-label="Close sign in popup"
           >

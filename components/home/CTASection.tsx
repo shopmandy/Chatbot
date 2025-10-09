@@ -160,7 +160,6 @@ export function CTASection() {
                   justifyContent: 'center',
                 }}
                 title="Minimize"
-                onClick={handleMinimize}
               >
                 ─
               </button>

@@ -307,7 +307,7 @@ function DinoGameModal({
         {' '}
         Jump the Blocks!
         <div className="window-controls">
-          <button className="window-buttons" onClick={onClose} title="Close">
+          <button className="window-buttons" title="Close">
             <span className="window-button-icon">×</span>
           </button>
         </div>
@@ -330,7 +330,7 @@ function DinoGameModal({
           position: 'relative',
           width: GAME_WIDTH,
           height: GAME_HEIGHT,
-          background: 'rgba(255,255,255,0.7)',
+          background: 'rgba(255,255,255,1)',
           borderRadius: 24,
           border: '2.5px solid #f91b8f',
           overflow: 'hidden',

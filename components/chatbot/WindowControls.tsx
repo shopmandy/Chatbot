@@ -1,10 +1,9 @@
 interface WindowControlsProps {
-  onMinimize?: () => void
   title?: string
   icon?: React.ComponentType<{ style?: React.CSSProperties }>
 }
 
-export default function WindowControls({ onMinimize, title, icon: Icon }: WindowControlsProps) {
+export default function WindowControls({ title, icon: Icon }: WindowControlsProps) {
   const titleStyle = {
     display: 'flex',
     alignItems: 'center',
@@ -45,7 +44,6 @@ export default function WindowControls({ onMinimize, title, icon: Icon }: Window
         <button 
           style={buttonStyle}
           title="Minimize"
-          onClick={onMinimize}
           onMouseEnter={(e) => {
             e.currentTarget.style.scale = '1.1'
           }}
