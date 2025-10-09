@@ -280,7 +280,7 @@ function DinoGameModal({
         left: 'calc(50% + 140px)', // Reduced offset to center better
         transform: 'translate(-50%, -50%)',
         zIndex: 9999,
-        background: '#fff',
+        background: 'rgba(255,255,255,0.7)',
         borderRadius: '16px',
         boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
         border: '2px solid #f91b8f',
@@ -307,7 +307,7 @@ function DinoGameModal({
         {' '}
         Jump the Blocks!
         <div className="window-controls">
-          <button className="window-buttons" title="Close">
+          <button className="window-buttons" title="Close" onClick={onClose}>
             <span className="window-button-icon">×</span>
           </button>
         </div>
@@ -330,11 +330,15 @@ function DinoGameModal({
           position: 'relative',
           width: GAME_WIDTH,
           height: GAME_HEIGHT,
-          background: 'rgba(255,255,255,1)',
-          borderRadius: 24,
-          border: '2.5px solid #f91b8f',
+          background: '#fff',
+          border: '2px solid #f91b8f',
+          borderRadius: '8px',
           overflow: 'hidden',
           margin: '0 auto',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
         {/* Ground */}
@@ -391,7 +395,34 @@ function DinoGameModal({
               fontWeight: 700,
             }}
           >
-            <ToyBrick style={{ width: 16, height: 16, color: '#fff' }} />
+            {/* Nail head */}
+            <div
+              style={{
+                position: 'absolute',
+                top: '2px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: '8px',
+                height: '4px',
+                background: 'white',
+                borderRadius: '2px',
+                boxShadow: '0 0 2px rgba(0,0,0,0.3)',
+              }}
+            />
+            {/* Nail shaft */}
+            <div
+              style={{
+                position: 'absolute',
+                top: '6px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: '2px',
+                height: '16px',
+                background: 'white',
+                borderRadius: '1px',
+                boxShadow: '0 0 1px rgba(0,0,0,0.3)',
+              }}
+            />
           </div>
         ))}
         {/* Game Over Overlay */}
@@ -605,9 +636,16 @@ export default function Room() {
 
   // Apply default theme colors
   useEffect(() => {
-    const savedTheme = JSON.parse(
-      localStorage.getItem('chatTheme') || '{}'
-    ) as Record<string, string>
+    let savedTheme = {} as Record<string, string>
+    try {
+      const themeData = localStorage.getItem('chatTheme')
+      if (themeData) {
+        savedTheme = JSON.parse(themeData) as Record<string, string>
+      }
+    } catch (error) {
+      console.warn('Failed to parse chatTheme from localStorage:', error)
+      savedTheme = {}
+    }
     const defaultTheme = {
       '--button-bg': 'linear-gradient(90deg, #ffe0f2 0%, #ffd6f7 100%)',
       '--button-text': '#f91b8f',
@@ -2286,7 +2324,7 @@ export default function Room() {
             left: 0,
             right: 0,
             bottom: 0,
-            background: 'rgba(0,0,0,0.75)',
+            background: 'rgba(0,0,0,1)',
             zIndex: 99999,
             display: 'flex',
             alignItems: 'center',
