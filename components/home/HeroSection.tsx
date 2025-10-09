@@ -118,7 +118,6 @@ export function HeroSection() {
               <button
                 className={styles.windowButton}
                 title="Minimize"
-                onClick={handleMinimize}
               >
                 ─
               </button>
