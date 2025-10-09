@@ -1047,7 +1047,7 @@ h6,
   height: 28px;
   border: 2px solid var(--button-border, #ff69b4);
   border-radius: 6px;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 1);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -1074,6 +1074,15 @@ h6,
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.solid-white-modal {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  opacity: 1 !important;
+  backdrop-filter: none !important;
+  mix-blend-mode: normal !important;
+  isolation: isolate !important;
 }
 
 .about-text {

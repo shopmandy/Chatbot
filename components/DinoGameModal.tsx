@@ -194,22 +194,31 @@ export function DinoGameModal({ show, onClose }: DinoGameModalProps) {
         left: 0,
         right: 0,
         bottom: 0,
-        background: 'rgba(0,0,0,0.8)',
+        background: '#ff0000',
+        backgroundColor: '#ff0000',
         zIndex: 99999,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        opacity: 1,
       }}
     >
       <div
         style={{
-          background: '#fff',
+          background: '#ffffff',
+          backgroundColor: '#ffffff',
           borderRadius: '20px',
           padding: '2rem',
           textAlign: 'center',
           maxWidth: '500px',
           width: '90%',
+          opacity: 1,
+          backdropFilter: 'none',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
+          position: 'relative',
+          zIndex: 100000,
         }}
+        className="solid-white-modal"
       >
         <div
           style={{
